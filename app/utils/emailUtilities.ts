@@ -149,12 +149,12 @@ Dátum: ${new Date().toLocaleString()}
 
 // ----- Customer Email -----
 
-export function generateCustomerEmail(
+export async function generateCustomerEmail(
   body: OrderBody,
   summary: string,
   total: number
-): string {
-  const { labels, siteName } = getLocalization();
+): Promise<string> {
+  const { labels, siteName } = await getLocalization();
   return `Dobrý deň ${body.shippingForm.firstName},
 
 ${labels.orderConfirmationMessage || "Vaša objednávka bola úspešne odoslaná. Oznámime vám, keď ju spracujeme."}
@@ -210,9 +210,12 @@ export async function sendCustomerEmail(body: OrderBody) {
   const shipping = body.shippingMethod?.price || 0;
   const total = subtotal + shipping;
 
-  const text = generateCustomerEmail(body, lines, total);
-  const subject =
-    getLocalization().labels.orderConfirmationTitle || "Potvrdenie objednávky";
+  const [text, localization] = await Promise.all([
+    generateCustomerEmail(body, lines, total),
+    getLocalization(),
+  ]);
+  
+  const subject = localization.labels.orderConfirmationTitle || "Potvrdenie objednávky";
 
   await sendEmail({
     to: body.shippingForm.email,

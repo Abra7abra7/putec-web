@@ -6,8 +6,8 @@ import MiniCart from "./MiniCart";
 import { ReduxProvider } from "../providers";
 import { getLocalization } from "../utils/getLocalization";
 
-export default function Header() {
-  const content = getLocalization(); // Fetch localization data
+export default async function Header() {
+  const content = await getLocalization(); // Fetch localization data asynchronously
 
   return (
     <>

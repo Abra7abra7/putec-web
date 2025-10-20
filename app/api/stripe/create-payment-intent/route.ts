@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     console.log("🔍 create-payment-intent - paymentMethodId:", paymentMethodId);
 
     // Get localization data
-    const localization = getLocalization();
+    const localization = await getLocalization();
     const siteName = localization.siteName || "Vino Putec";
 
     // Build metadata for Stripe

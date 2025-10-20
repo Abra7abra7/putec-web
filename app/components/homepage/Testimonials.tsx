@@ -2,8 +2,8 @@ import { getLocalization } from "../../utils/getLocalization";
 import Image from "next/image";
 
 // Server-side function to fetch testimonials
-export default function Testimonials() {
-  const { homepage } = getLocalization();
+export default async function Testimonials() {
+  const { homepage } = await getLocalization();
 
   if (!homepage?.testimonials || homepage.testimonials.length === 0) {
     return null; // Prevent rendering if no testimonials

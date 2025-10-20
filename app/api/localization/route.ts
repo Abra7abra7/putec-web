@@ -9,7 +9,7 @@ export const revalidate = 3600; // Cache for 1 hour
  */
 export async function GET() {
   try {
-    const jsonData = getLocalization();
+    const jsonData = await getLocalization();
     
     return NextResponse.json(jsonData, {
       status: 200,

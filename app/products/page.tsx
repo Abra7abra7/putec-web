@@ -4,16 +4,19 @@ import { getLocalization } from "../utils/getLocalization";
 import type { Metadata } from "next";
 import { ReduxProvider } from "../providers";
 
-// Fetch localization data
-const localeData = getLocalization();
+// Generate metadata dynamically
+export async function generateMetadata(): Promise<Metadata> {
+  const localeData = await getLocalization();
+  
+  return {
+    title: `${localeData.siteName} - ${localeData.labels.products}`,
+    description: localeData.siteTagline,
+  };
+}
 
-// Set page metadata
-export const metadata: Metadata = {
-  title: `${localeData.siteName} - ${localeData.labels.products}`,
-  description: localeData.siteTagline,
-};
-
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const localeData = await getLocalization();
+  
   return (
     <>
       <Hero

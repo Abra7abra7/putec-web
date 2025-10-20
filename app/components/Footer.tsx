@@ -19,8 +19,8 @@ const iconMap: Record<SocialIcon, React.ElementType> = {
   SiYoutube: SiYoutube
 };
 
-export default function Footer() {
-  const content = getLocalization(); // Load localization data
+export default async function Footer() {
+  const content = await getLocalization(); // Load localization data asynchronously
 
   return (
     <footer className="bg-background text-foreground py-16 relative border-t border-gray-200">

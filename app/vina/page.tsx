@@ -7,14 +7,15 @@ import { ReduxProvider } from "../providers";
 import Script from "next/script";
 import RatingBadge from "../components/RatingBadge";
 
-// Fetch localization data
-const localeData = getLocalization();
-
-// Set page metadata
-export const metadata: Metadata = {
-  title: `${localeData.siteName} - Vína`,
-  description: "Prémiové vína z rodinného vinárstva Putec vo Vinosadoch pri Pezinku. Biele, červené a ružové vína najvyššej kvality.",
-};
+// Generate metadata dynamically
+export async function generateMetadata(): Promise<Metadata> {
+  const localeData = await getLocalization();
+  
+  return {
+    title: `${localeData.siteName} - Vína`,
+    description: "Prémiové vína z rodinného vinárstva Putec vo Vinosadoch pri Pezinku. Biele, červené a ružové vína najvyššej kvality.",
+  };
+}
 
 export default function VinaPage() {
   return (

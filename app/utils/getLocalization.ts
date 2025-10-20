@@ -1,5 +1,6 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
+import { cache } from "react";
 
 // Define Localization Structure
 interface LocalizationData {
@@ -143,14 +144,18 @@ const defaultLocalization: LocalizationData = {
   copyright: "© 2025 Tishonator. All rights reserved.",
 };
 
-// Fetch Localization Data
-export const getLocalization = (): LocalizationData => {
+/**
+ * Fetch Localization Data
+ * Cached async function to load localization from JSON
+ * Uses React cache() for automatic request deduplication
+ */
+export const getLocalization = cache(async (): Promise<LocalizationData> => {
   try {
     const localePath = path.join(process.cwd(), "configs/locale.en.json");
-    const data = fs.readFileSync(localePath, "utf-8");
+    const data = await fs.readFile(localePath, "utf-8");
     return JSON.parse(data) as LocalizationData;
   } catch (error) {
     console.error("Error loading localization file:", error);
     return defaultLocalization;
   }
-};
+});

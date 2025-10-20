@@ -10,9 +10,6 @@ import Script from "next/script";
 // Define a type for route params as a Promise
 type AsyncParams = Promise<{ slug?: string }>;
 
-// read localization
-const localeData = getLocalization();
-
 /**
  * Note: `generateMetadata` must also treat `params` as a Promise.
  * Then "await params" to get the real slug value.
@@ -31,8 +28,12 @@ export async function generateMetadata({
     };
   }
 
-  // Local file read is now allowed, as we properly awaited the param
-  const product = getProductBySlug(slug);
+  // Fetch data asynchronously
+  const [product, localeData] = await Promise.all([
+    getProductBySlug(slug),
+    getLocalization(),
+  ]);
+
   if (!product) {
     return {
       title: "Product Not Found",
@@ -61,7 +62,11 @@ export default async function ProductPage({
   }
 
   // Now do local file read
-  const product = getProductBySlug(slug);
+  const [product, localeData] = await Promise.all([
+    getProductBySlug(slug),
+    getLocalization(),
+  ]);
+  
   if (!product) {
     return notFound();
   }
