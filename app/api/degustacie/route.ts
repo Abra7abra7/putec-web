@@ -12,7 +12,10 @@ export async function GET() {
   try {
     const filePath = path.join(process.cwd(), "configs", "degustacie.json");
     const fileContents = await fs.readFile(filePath, "utf8");
-    const degustacie = JSON.parse(fileContents);
+    let degustacie = JSON.parse(fileContents);
+
+    // Filter by CatalogVisible (only show catalog items)
+    degustacie = degustacie.filter((item: { CatalogVisible?: boolean }) => item.CatalogVisible === true);
 
     return NextResponse.json(
       { degustacie },

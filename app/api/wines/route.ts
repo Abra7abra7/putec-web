@@ -31,30 +31,45 @@ interface Wine {
  */
 export async function GET(request: NextRequest) {
   try {
-    // Parse query parameters
+    // Parse query parameters (convert null to undefined for Zod)
     const { searchParams } = new URL(request.url);
     const queryParams = {
-      category: searchParams.get("category"),
-      enabled: searchParams.get("enabled"),
+      category: searchParams.get("category") || undefined,
+      enabled: searchParams.get("enabled") || undefined,
     };
 
     // Validate query parameters
-    const validatedParams = WinesQuerySchema.parse(queryParams);
+    const validatedParams = WinesQuerySchema.safeParse(queryParams);
+    
+    if (!validatedParams.success) {
+      return NextResponse.json(
+        {
+          error: "Invalid query parameters",
+          details: validatedParams.error.issues,
+        },
+        { status: 400 }
+      );
+    }
+    
+    const params = validatedParams.data;
 
     // Read wines data (async)
     const filePath = path.join(process.cwd(), "configs", "wines.json");
     const fileContents = await fs.readFile(filePath, "utf8");
     let wines: Wine[] = JSON.parse(fileContents);
 
-    // Apply filters if provided
-    if (validatedParams?.enabled !== undefined) {
-      const enabledFilter = validatedParams.enabled === "true";
+    // Filter by CatalogVisible by default (only show catalog items)
+    wines = wines.filter((wine) => wine.CatalogVisible === true);
+
+    // Apply additional filters if provided
+    if (params?.enabled !== undefined) {
+      const enabledFilter = params.enabled === "true";
       wines = wines.filter((wine) => wine.Enabled === enabledFilter);
     }
 
-    if (validatedParams?.category) {
+    if (params?.category) {
       wines = wines.filter((wine) =>
-        wine.ProductCategories?.includes(validatedParams.category!)
+        wine.ProductCategories?.includes(params.category!)
       );
     }
 

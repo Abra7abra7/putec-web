@@ -1,6 +1,6 @@
 [
-   {
-      "ID":"wine-001",
+    {
+       "ID":"wine-001",
       "Title":"Cabernet Franc 2022",
       "Slug":"cabernet-franc-2022",
       "Enabled":true,
@@ -468,12 +468,12 @@
       "ID":"wine-012",
       "Title":"Pálava 2024",
       "Slug":"palava-2024",
-      "Enabled":true,
-      "CatalogVisible":true,
+       "Enabled":true,
+       "CatalogVisible":true,
       "ProductCategories":["Biele vína", "Polosuché vína"],
-      "FeatureImageURL":"/vina/palava-2024.jpg",
+       "FeatureImageURL":"/vina/palava-2024.jpg",
       "ProductImageGallery":["/vina/palava-2024-1.jpg","/vina/palava-2024-2.jpg"],
-      "ShortDescription":"Víno s iskrivou zlato-žltou farbou, s expresívnou vôňou pomarančovej kôry a sušených marhúľ, postupne prechádza do medovo-ovocnej chuti, plnej broskýň, byliniek a jemného tymiánu.",
+       "ShortDescription":"Víno s iskrivou zlato-žltou farbou, s expresívnou vôňou pomarančovej kôry a sušených marhúľ, postupne prechádza do medovo-ovocnej chuti, plnej broskýň, byliniek a jemného tymiánu.",
       "LongDescription":"Víno s iskrivou zlato-žltou farbou, s expresívnou vôňou pomarančovej kôry a sušených marhúľ, postupne prechádza do medovo-ovocnej chuti, plnej broskýň, byliniek a jemného tymiánu. Akostné biele víno z Malokarpatskej vinohradníckej oblasti.",
       "RegularPrice":"11.90",
       "SalePrice":"11.90",
@@ -979,8 +979,8 @@
       "ProductImageGallery":[],
       "ShortDescription":"Víno žltej farby so zelenkastým odtieňom, jemnou vôňou bieleho korenia, ovocnosťou zelených jabĺk a marhuľovej drene.",
       "LongDescription":"Víno žltej farby so zelenkastým odtieňom, jemnou vôňou bieleho korenia, ovocnosťou zelených jabĺk a marhuľovej drene. Chuť je pevná a plná dužinatého ovocia. Akostné biele víno z Malokarpatskej vinohradníckej oblasti.",
-      "RegularPrice":"11.90",
-      "SalePrice":"11.90",
+       "RegularPrice":"11.90",
+       "SalePrice":"11.90",
       "Currency":"EUR",
       "SubscriptionEnabled":false,
       "SubscriptionType":"",
@@ -1277,8 +1277,8 @@
       "RegularPrice":"69.00",
       "SalePrice":"69.00",
       "Currency":"EUR",
-      "SubscriptionEnabled":false,
-      "SubscriptionType":"",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
       "ProductType":"wine-set",
       "WineDetails":{
          "vintage":"Mix 2022-2023",
@@ -1303,6 +1303,6 @@
          "countryOfOrigin":"Slovensko",
          "nutritionalInfoUrl":"",
          "gtin":""
-      }
-   }
+       }
+    }
 ]

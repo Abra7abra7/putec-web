@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { NextRequest } from "next/server";
-import { createSuperFakturaInvoice } from "../../../utils/superfaktura";
+import { createSuperFakturaInvoice } from "../../../actions/superfaktura";
 
 /**
  * Webhook configuration
