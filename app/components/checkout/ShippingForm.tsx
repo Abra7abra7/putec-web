@@ -4,10 +4,10 @@ import { useCheckoutSettings } from "../../context/CheckoutContext";
 import { useLocalization } from "../../context/LocalizationContext";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setShippingForm } from "../../store/slices/checkoutSlice";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 export default function ShippingForm() {
-  const { shippingCountries, countryStates } = useCheckoutSettings();
+  const { shippingCountries } = useCheckoutSettings();
   const { labels } = useLocalization();
   const dispatch = useAppDispatch();
   const form = useAppSelector((state) => state.checkout.shippingForm);
@@ -30,11 +30,6 @@ export default function ShippingForm() {
       dispatch(setShippingForm({ [name]: value }));
     }
   };
-
-  // Get the list of states for selected country
-  const availableStates = useMemo(() => {
-    return countryStates[form.country] || null;
-  }, [countryStates, form.country]);
 
   return (
     <div className="space-y-4">

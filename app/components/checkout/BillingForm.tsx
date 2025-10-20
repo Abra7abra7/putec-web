@@ -4,10 +4,10 @@ import { useCheckoutSettings } from "../../context/CheckoutContext";
 import { useLocalization } from "../../context/LocalizationContext";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setBillingForm, setDifferentBilling } from "../../store/slices/checkoutSlice";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 export default function BillingForm() {
-  const { billingCountries, countryStates } = useCheckoutSettings();
+  const { billingCountries } = useCheckoutSettings();
   const { labels } = useLocalization();
 
   const dispatch = useAppDispatch();
@@ -63,10 +63,6 @@ export default function BillingForm() {
       companyICDPH: shippingForm.companyICDPH || ""
     }));
   };
-
-  const availableStates = useMemo(() => {
-    return countryStates[billingForm.country] || null;
-  }, [countryStates, billingForm.country]);
 
   return (
     <div className="space-y-4 mt-8">

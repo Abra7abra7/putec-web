@@ -2,15 +2,6 @@
 import axios from 'axios';
 import Stripe from 'stripe';
 
-// Definícia štruktúry pre SuperFaktúra faktúru
-interface SFInvoice {
-  id: string;
-  invoice_no_formatted: string;
-  total_amount: string;
-  invoice_currency: string;
-  due: string;
-}
-
 // Definícia štruktúry pre položku faktúry v SuperFaktúre
 interface SFInvoiceItem {
   name: string;
