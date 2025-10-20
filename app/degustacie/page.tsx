@@ -51,7 +51,7 @@ export default function DegustaciePage() {
         title="Degustácie vína"
         subtitle="Nezabudnuteľné zážitky s našimi prémiovými vínami v srdci Malých Karpát"
         backgroundImageUrl="/galeria/degustacie/degustacia-skupina.jpg"
-        primaryCta={{ label: "Rezervovať degustáciu", href: "#baliky" }}
+        primaryCta={{ label: "Rezervovať teraz", href: "#rezervacia" }}
         secondaryCta={{ label: "Galéria", href: "/galeria/degustacie" }}
         heightClass="h-[60vh]"
       />
@@ -59,7 +59,50 @@ export default function DegustaciePage() {
         <RatingBadge ratingValue={5} reviewCount={31} />
       </div>
 
-      {/* Main Content */}
+      {/* Quick Reservation Section - Moved to top */}
+      <section id="rezervacia" className="py-12 bg-gradient-to-b from-background to-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-2 border-accent/20">
+            <div className="text-center mb-8">
+              <div className="inline-block bg-accent/10 rounded-full px-6 py-2 mb-4">
+                <span className="text-accent font-semibold">⚡ Rýchla rezervácia</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Rezervujte si degustáciu vína
+              </h2>
+              <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
+                Vyberte si degustačný balík a rezervujte termín. Odpovieme vám do 24 hodín.
+              </p>
+            </div>
+
+            {/* Degustation Packages - Compact View */}
+            <div id="baliky" className="mb-8">
+              <DegustationProducts />
+            </div>
+
+            {/* Why Choose Us - Quick bullets */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-gray-200">
+              <div className="text-center">
+                <div className="text-4xl mb-3">🏆</div>
+                <h4 className="font-semibold text-foreground mb-2">Ocenené vína</h4>
+                <p className="text-sm text-foreground-muted">Prémiová kvalita potvrdená medzinárodnými oceneniami</p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl mb-3">👨‍🏫</div>
+                <h4 className="font-semibold text-foreground mb-2">Profesionálny výklad</h4>
+                <p className="text-sm text-foreground-muted">Odborný sprievodca s letitými skúsenosťami</p>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl mb-3">🍽️</div>
+                <h4 className="font-semibold text-foreground mb-2">Catering na mieru</h4>
+                <p className="text-sm text-foreground-muted">Občerstvenie prispôsobené vašim požiadavkám</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content - Details moved below */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
           
@@ -215,17 +258,17 @@ export default function DegustaciePage() {
           {/* CTA Section */}
           <div className="bg-gradient-to-r from-accent/10 to-accent/5 rounded-3xl p-12 text-center">
             <h3 className="text-3xl font-bold text-foreground mb-6">
-              Rezervujte si degustáciu vína
+              Máte záujem o degustáciu?
             </h3>
             <p className="text-xl text-foreground-muted mb-8 max-w-2xl mx-auto">
               Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty s ochutnávkami vína
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="#baliky"
+                href="#rezervacia"
                 className="bg-accent hover:bg-accent-dark text-foreground px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
               >
-                Rezervovať degustáciu
+                Späť na rezerváciu
               </a>
               <Link
                 href="/galeria/degustacie"
@@ -237,11 +280,6 @@ export default function DegustaciePage() {
           </div>
         </div>
       </section>
-
-      {/* Degustation Packages */}
-      <div id="baliky">
-        <DegustationProducts />
-      </div>
 
       {/* FAQ */}
       <section className="py-12 bg-background">
