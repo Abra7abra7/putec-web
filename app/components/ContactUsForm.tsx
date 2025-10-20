@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useFormStatus } from "react-dom";
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLocalization } from "@/app/context/LocalizationContext";
@@ -22,7 +22,7 @@ function SubmitButton({ buttonText }: { buttonText: string }) {
 
 export default function ContactUsForm() {
   const { contactForm } = useLocalization();
-  const [state, formAction] = useFormState(sendContactMessage, null);
+  const [state, formAction] = useActionState(sendContactMessage, null);
   const formRef = useRef<HTMLFormElement>(null);
 
   // Reset form on success

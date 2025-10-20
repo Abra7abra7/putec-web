@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useFormStatus } from "react-dom";
 import { subscribeToNewsletter } from "../../actions/newsletter";
 import { useLocalization } from "../../context/LocalizationContext";
 
@@ -20,7 +20,7 @@ function SubmitButton({ buttonText }: { buttonText: string }) {
 
 export default function NewsletterSignup() {
   const { newsletter } = useLocalization().homepage;
-  const [state, formAction] = useFormState(subscribeToNewsletter, null);
+  const [state, formAction] = useActionState(subscribeToNewsletter, null);
 
   return (
     <section className="py-16 bg-background">

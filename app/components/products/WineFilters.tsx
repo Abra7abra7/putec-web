@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Product } from "../../../types/Product";
 
 interface WineFiltersProps {
@@ -83,7 +83,7 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
   }, [wines, searchTerm, selectedCategory, selectedColor, priceRange, sortBy]);
 
   // Trigger parent callback when filters change
-  useMemo(() => {
+  useEffect(() => {
     onFilterChange(filteredWines);
   }, [filteredWines, onFilterChange]);
 
