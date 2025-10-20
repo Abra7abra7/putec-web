@@ -1,7 +1,7 @@
 # SuperFaktúra integrácia - Implementačný návod
 
 ## Prehľad
-Tento dokument popisuje implementáciu SuperFaktúry do e-shopu Vino Putec pre automatické generovanie právne platných faktúr po úspešnej platbe cez Stripe.
+Tento dokument popisuje implementáciu SuperFaktúry do e-shopu Vino Putec pre automatické generovanie právne platných faktúr **len pri online platbe** cez Stripe. Dobierka a osobný odber faktúru automaticky netvoria (vystaví ju kurier/prevádzka).
 
 ## Implementované zmeny
 
@@ -12,10 +12,13 @@ npm install axios
 ```
 
 ### 2. Nové súbory
-- `app/utils/superfaktura.ts` - Hlavná logika pre vytváranie faktúr v SuperFaktúre
+- `app/utils/superfaktura.ts` - Hlavná logika pre vytváranie faktúr v SuperFaktúre (s podmienkou na paymentMethod)
 
 ### 3. Upravené súbory
-- `app/api/stripe/webhook/route.tsx` - Pridané volanie SuperFaktúry po Stripe faktúre
+- `app/api/stripe/webhook/route.tsx` - Odstránená Stripe invoice logika, ponechaná len SuperFaktúra
+- `app/utils/superfaktura.ts` - Pridaná kontrola `paymentMethod` z metadata
+- `app/api/stripe/create-payment-intent/route.tsx` - Pridané `paymentMethod` do metadata
+- `app/components/checkout/StripeClientSecretLoader.tsx` - Odosielanie `paymentMethodId` do API
 - `env.example` - Pridané SuperFaktúra environment premenné
 
 ## Environment premenné
@@ -30,16 +33,25 @@ SUPERFAKTURA_API_KEY=vasklucodsuperFaktury
 
 ## Ako to funguje
 
-### Flow po úspešnej platbe:
-1. **Stripe webhook** prijme `payment_intent.succeeded` event
-2. **Vytvorí sa Stripe faktúra** (existujúci kód)
-3. **Vytvorí sa SuperFaktúra faktúra** (nový kód)
-4. **Error handling**: Ak SuperFaktúra zlyhá, Stripe faktúra zostane
+### Flow po úspešnej online platbe (Stripe):
+1. Zákazník zaplatí cez Stripe (Google Pay, Apple Pay, karta)
+2. **Stripe webhook** prijme `payment_intent.succeeded` event
+3. **Kontrola platobnej metódy**: `metadata.paymentMethod === 'stripe'`
+4. **Vytvorí sa SuperFaktúra faktúra** s položkami a dopravou
+5. **SuperFaktúra automaticky odošle email** zákazníkovi
+6. **Resend odošle potvrdenie objednávky**
+
+### Flow pri dobierke / osobnom odbere:
+1. Zákazník vyberie "Dobierka" alebo "Osobný odber"
+2. Klikne "Dokončiť objednávku"
+3. **SuperFaktúra faktúra sa nevytvára** (kurier/prevádzka ju vystavia neskôr)
+4. **Resend odošle potvrdenie objednávky**
 
 ### Dátové mapovanie:
+- **Platobná metóda**: `paymentMethod` (stripe/cod/pickup)
 - **Položky košíka**: `item_{i}_title`, `item_{i}_qty`, `item_{i}_price_cents`
 - **Doprava**: `shippingMethod`, `shippingPriceCents`
-- **Fakturačné údaje**: `billing_*` (vrátane firemných)
+- **Fakturačné údaje**: `billing_*` (vrátane firemných IČO, DIČ, IČ DPH)
 - **Dodacie údaje**: `shipping_*`
 
 ## Konfigurácia SuperFaktúry
@@ -86,7 +98,10 @@ Tento test vytvorí faktúru s ID 219491 a číslom 2025001.
 - **Číslovanie faktúr**: Automatické (2025001)
 
 ### Logy na sledovanie:
+- `✅ Payment method is "stripe", proceeding with SuperFaktura invoice creation` - Kontrola prešla, vytváram faktúru
+- `ℹ️ Payment method is "cod/pickup", skipping SuperFaktura invoice` - Dobierka/osobný odber, preskakujem
 - `✅ SuperFaktura invoice created successfully` - úspešné vytvorenie
+- `📧 Invoice email sent via SuperFaktura` - Email odoslaný
 - `❌ SuperFaktura API Error` - chyba API
 - `❌ Failed to create SuperFaktura invoice` - všeobecná chyba
 
@@ -148,4 +163,17 @@ Pre technickú podporu kontaktujte:
 
 ---
 
-**Poznámka**: Táto integrácia je navrhnutá ako doplnok k existujúcej Stripe fakturácii, nie ako náhrada. Obe systémy fungujú paralelne pre maximálnu spoľahlivosť.
+**Poznámka**: SuperFaktúra je primárny fakturačný systém. Stripe faktúry boli odstránené. SuperFaktúra faktúry sa vytvárajú len pri online platbe cez Stripe - dobierka a osobný odber faktúru netvoria (vystaví ju kurier/prevádzka).
+
+## Changelog
+
+### 2025-10 - Optimalizácia fakturácie
+- Odstránené duplicitné Stripe faktúry
+- SuperFaktúra ako jediný fakturačný systém
+- Podmienečné vytvorenie faktúry (len pri online platbe)
+- Dobierka a osobný odber bez automatickej faktúry
+
+### 2025-01 - Počiatočná implementácia
+- Pridaná SuperFaktúra integrácia
+- Paralelné Stripe + SuperFaktúra faktúry
+- Automatické odosielanie emailov

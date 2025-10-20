@@ -43,11 +43,22 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
   console.log('🔍 SUPERFAKTURA_SEND_EMAILS:', process.env.SUPERFAKTURA_SEND_EMAILS);
   
   if (!process.env.SUPERFAKTURA_EMAIL || !process.env.SUPERFAKTURA_API_KEY) {
-    console.warn("SuperFaktura credentials are not set. Skipping invoice creation.");
+    console.warn("⚠️ SuperFaktura credentials are not set. Skipping invoice creation.");
     return;
   }
 
   const metadata = pi.metadata as Record<string, string>;
+  
+  // Kontrola platobnej metódy - faktúru vytvárame len pri online platbe cez Stripe
+  const paymentMethod = metadata.paymentMethod || 'unknown';
+  console.log('🔍 SuperFaktura - Payment method from metadata:', paymentMethod);
+  
+  if (paymentMethod !== 'stripe') {
+    console.log(`ℹ️ Payment method is "${paymentMethod}", skipping SuperFaktura invoice (faktúru vystaví kurier/prevádzka)`);
+    return;
+  }
+  
+  console.log('✅ Payment method is "stripe", proceeding with SuperFaktura invoice creation');
   
   console.log('🔍 SuperFaktura - PaymentIntent metadata:', metadata);
   console.log('🔍 SuperFaktura - Order ID from metadata:', metadata.orderId);

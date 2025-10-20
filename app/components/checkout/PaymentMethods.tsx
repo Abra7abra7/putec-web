@@ -20,26 +20,27 @@ export default function PaymentMethods() {
   const differentBilling = useAppSelector((state) => state.checkout.differentBilling);
 
   const isFormComplete = () => {
+    // Povinné polia pre dodanie (telefón je voliteľný)
     const baseFields = [
       shippingForm.firstName,
       shippingForm.lastName,
       shippingForm.country,
       shippingForm.address1,
+      shippingForm.city,
       shippingForm.postalCode,
-      shippingForm.phone,
       shippingForm.email,
       shippingMethodId,
     ];
 
-    // If billing is different, require billing fields; otherwise don't block payment
+    // Ak sú fakturačné údaje odlišné, vyžaduj aj tie (telefón je voliteľný)
     const billingFields = differentBilling
       ? [
           billingForm.firstName,
           billingForm.lastName,
           billingForm.country,
           billingForm.address1,
+          billingForm.city,
           billingForm.postalCode,
-          billingForm.phone,
           billingForm.email,
         ]
       : [];

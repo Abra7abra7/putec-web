@@ -36,6 +36,7 @@ interface StripeIntentBody {
   customerName?: string;
   shippingForm?: BillingAddress;
   billingForm?: BillingAddress;
+  paymentMethodId?: string; // Added to track payment method type
 }
 
 export async function POST(req: Request) {
@@ -58,9 +59,11 @@ export async function POST(req: Request) {
       customerName,
       shippingForm,
       billingForm,
+      paymentMethodId,
     }: StripeIntentBody = body;
     
     console.log('🔍 create-payment-intent - orderId:', orderId);
+    console.log('🔍 create-payment-intent - paymentMethodId:', paymentMethodId);
 
     const localization = getLocalization();
     const siteName = localization.siteName || "Vino Putec";
@@ -71,6 +74,7 @@ export async function POST(req: Request) {
       shippingMethod: shippingMethodName,
       shippingPriceCents: Math.round((shippingCost || 0) * 100).toString(),
       shippingCurrency: currency,
+      paymentMethod: paymentMethodId || 'stripe', // Default to stripe if not provided
     };
 
     if (Array.isArray(cartItems)) {

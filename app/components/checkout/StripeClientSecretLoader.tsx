@@ -51,6 +51,7 @@ export default function StripeClientSecretLoader() {
           customerName: `${shippingForm?.firstName || ''} ${shippingForm?.lastName || ''}`.trim(),
           shippingForm,
           billingForm,
+          paymentMethodId, // Send payment method to track in metadata
         }),
       });
 

@@ -14,7 +14,9 @@ export default function ShippingForm() {
 
   useEffect(() => {
     if (!form.country && shippingCountries.length > 0) {
-      dispatch(setShippingForm({ country: shippingCountries[0].code }));
+      // Predvolene nastaviť Slovensko (SK)
+      const defaultCountry = shippingCountries.find(c => c.code === 'SK') || shippingCountries[0];
+      dispatch(setShippingForm({ country: defaultCountry.code }));
     }
   }, [form.country, shippingCountries, dispatch]);
 
@@ -94,30 +96,50 @@ export default function ShippingForm() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input name="firstName" value={form.firstName} onChange={handleChange} placeholder={labels.firstName} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none" required />
-        <input name="lastName" value={form.lastName} onChange={handleChange} placeholder={labels.lastName} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none" required />
+        <div>
+          <input name="firstName" value={form.firstName} onChange={handleChange} placeholder={`${labels.firstName} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
+        </div>
+        <div>
+          <input name="lastName" value={form.lastName} onChange={handleChange} placeholder={`${labels.lastName} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
+        </div>
         
-        <select name="country" value={form.country} onChange={handleChange} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none">
-          {shippingCountries.map((c) => (
-            <option key={c.code} value={c.code}>{c.name}</option>
-          ))}
-        </select>
-
-        {/* Conditionally render state dropdown or nothing */}
-        {availableStates ? (
-          <select name="state" value={form.state} onChange={handleChange} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none">
-            {availableStates.map((s) => (
-              <option key={s.code} value={s.code}>{s.name}</option>
+        <div>
+          <select name="country" value={form.country} onChange={handleChange} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required>
+            {shippingCountries.map((c) => (
+              <option key={c.code} value={c.code}>{c.name}</option>
             ))}
           </select>
-        ) : null}
+        </div>
 
-        <input name="city" value={form.city} onChange={handleChange} placeholder={labels.city || "Mesto"} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none" required />
-        <input name="address1" value={form.address1} onChange={handleChange} placeholder={labels.address1} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none" required />
-        <input name="address2" value={form.address2} onChange={handleChange} placeholder={labels.address2} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none" />
-        <input name="postalCode" value={form.postalCode} onChange={handleChange} placeholder={labels.postalCode} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none" required />
-        <input name="phone" value={form.phone} onChange={handleChange} placeholder={labels.phone} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none" required />
-        <input name="email" value={form.email} onChange={handleChange} placeholder={labels.email} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none" required />
+        <div>
+          <input name="city" value={form.city} onChange={handleChange} placeholder={`${labels.city || "Mesto"} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
+        </div>
+
+        <div className="md:col-span-2">
+          <input name="address1" value={form.address1} onChange={handleChange} placeholder={`${labels.address1} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
+        </div>
+        
+        <div className="md:col-span-2">
+          <input name="address2" value={form.address2} onChange={handleChange} placeholder={labels.address2} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" />
+        </div>
+        
+        <div>
+          <input name="postalCode" value={form.postalCode} onChange={handleChange} placeholder={`${labels.postalCode} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
+        </div>
+        
+        <div>
+          <input 
+            name="phone" 
+            value={form.phone} 
+            onChange={handleChange} 
+            placeholder={`${labels.phone} (voliteľné)`} 
+            className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" 
+          />
+        </div>
+        
+        <div className="md:col-span-2">
+          <input name="email" value={form.email} onChange={handleChange} placeholder={`${labels.email} *`} type="email" className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
+        </div>
       </div>
     </div>
   );
