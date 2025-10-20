@@ -1,10 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import MobileMenu from "./MobileMenu";
+import dynamic from "next/dynamic";
 import DesktopNavigation from "./DesktopNavigation";
-import MiniCart from "./MiniCart";
 import { ReduxProvider } from "../providers";
 import { getLocalization } from "../utils/getLocalization";
+
+// Dynamic imports for interactive components - reduces initial bundle size
+const MobileMenu = dynamic(() => import("./MobileMenu"));
+const MiniCart = dynamic(() => import("./MiniCart"));
 
 export default async function Header() {
   const content = await getLocalization(); // Fetch localization data asynchronously

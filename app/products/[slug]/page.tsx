@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Hero from "../../components/Hero";
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 import { getProductBySlug } from "../../utils/getProducts";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
-import ProductLightbox from "../../components/products/ProductLightbox";
 import { getLocalization } from "../../utils/getLocalization";
 import AddToCartButtonWrapper from "../../components/products/AddToCartButtonWrapper";
+
+// Dynamic import for ProductLightbox - only loads when images are clicked
+const ProductLightbox = dynamic(() => import("../../components/products/ProductLightbox"));
 
 // Define a type for route params as a Promise
 type AsyncParams = Promise<{ slug?: string }>;
