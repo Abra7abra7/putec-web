@@ -21,6 +21,7 @@ const AddressSchema = z.object({
   address1: z.string().min(1),
   address2: z.string().optional(),
   city: z.string().min(1),
+  state: z.string().optional(),
   postalCode: z.string().min(1),
   country: z.string().min(2),
   companyName: z.string().optional(),
@@ -30,6 +31,8 @@ const AddressSchema = z.object({
 });
 
 const OrderSchema = z.object({
+  orderId: z.string(),
+  orderDate: z.string(),
   cartItems: z.array(CartItemSchema).min(1),
   shippingForm: AddressSchema,
   billingForm: AddressSchema,

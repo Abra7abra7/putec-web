@@ -32,6 +32,8 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
   console.log('🔍 SUPERFAKTURA_EMAIL exists:', !!process.env.SUPERFAKTURA_EMAIL);
   console.log('🔍 SUPERFAKTURA_API_KEY exists:', !!process.env.SUPERFAKTURA_API_KEY);
   console.log('🔍 SUPERFAKTURA_SEND_EMAILS:', process.env.SUPERFAKTURA_SEND_EMAILS);
+  console.log('🔍 SUPERFAKTURA_SANDBOX:', process.env.SUPERFAKTURA_SANDBOX);
+  console.log('🔍 SUPERFAKTURA_EMAIL value:', process.env.SUPERFAKTURA_EMAIL);
   
   if (!process.env.SUPERFAKTURA_EMAIL || !process.env.SUPERFAKTURA_API_KEY) {
     console.warn("⚠️ SuperFaktura credentials are not set. Skipping invoice creation.");
@@ -236,5 +238,19 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     }
   } catch (error) {
     console.error(`❌ Failed to create SuperFaktura invoice for order ${metadata.orderId}:`, error);
+    
+    // Log detailed error information for debugging
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number; data?: unknown; statusText?: string } };
+      console.error(`❌ SuperFaktura API Error Details:`, {
+        status: axiosError.response?.status,
+        statusText: axiosError.response?.statusText,
+        data: axiosError.response?.data,
+        url: `${baseUrl}/invoices/create`,
+        email: process.env.SUPERFAKTURA_EMAIL,
+        apiKeyLength: process.env.SUPERFAKTURA_API_KEY?.length || 0,
+        sandboxMode: process.env.SUPERFAKTURA_SANDBOX === '1',
+      });
+    }
   }
 }
