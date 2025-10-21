@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
+import { useActionState } from "react";
 import { subscribeToNewsletter } from "../../actions/newsletter";
 import { useLocalization } from "../../context/LocalizationContext";
 

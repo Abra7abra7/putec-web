@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useCheckoutSettings } from "../../context/CheckoutContext";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setPaymentMethod } from "../../store/slices/checkoutSlice";
 import { useLocalization } from "../../context/LocalizationContext";
 import StripeClientSecretLoader from "./StripeClientSecretLoader";
 import PlaceOrderButton from "./PlaceOrderButton";
+import FormValidationAlert from "./FormValidationAlert";
 import Image from "next/image";
 
 export default function PaymentMethods() {
@@ -18,6 +20,33 @@ export default function PaymentMethods() {
   const billingForm = useAppSelector((state) => state.checkout.billingForm);
   const shippingMethodId = useAppSelector((state) => state.checkout.shippingMethodId);
   const differentBilling = useAppSelector((state) => state.checkout.differentBilling);
+
+  const [showValidation, setShowValidation] = useState(false);
+
+  const getMissingFields = (): string[] => {
+    const missing: string[] = [];
+
+    if (!shippingForm.firstName?.trim()) missing.push("Meno");
+    if (!shippingForm.lastName?.trim()) missing.push("Priezvisko");
+    if (!shippingForm.country?.trim()) missing.push("Krajina");
+    if (!shippingForm.city?.trim()) missing.push("Mesto");
+    if (!shippingForm.address1?.trim()) missing.push("Adresa");
+    if (!shippingForm.postalCode?.trim()) missing.push("PSČ");
+    if (!shippingForm.email?.trim()) missing.push("Email");
+    if (!shippingMethodId) missing.push("Spôsob dopravy");
+
+    if (differentBilling) {
+      if (!billingForm.firstName?.trim()) missing.push("Fakturačné meno");
+      if (!billingForm.lastName?.trim()) missing.push("Fakturačné priezvisko");
+      if (!billingForm.country?.trim()) missing.push("Fakturačná krajina");
+      if (!billingForm.city?.trim()) missing.push("Fakturačné mesto");
+      if (!billingForm.address1?.trim()) missing.push("Fakturačná adresa");
+      if (!billingForm.postalCode?.trim()) missing.push("Fakturačné PSČ");
+      if (!billingForm.email?.trim()) missing.push("Fakturačný email");
+    }
+
+    return missing;
+  };
 
   const isFormComplete = () => {
     // Povinné polia pre dodanie (telefón je voliteľný)
@@ -54,20 +83,36 @@ export default function PaymentMethods() {
   const handleChange = (id: string) => {
     if (formReady) {
       dispatch(setPaymentMethod(id));
+      setShowValidation(false);
+    } else {
+      setShowValidation(true);
     }
   };
 
+  const missingFields = getMissingFields();
+
   return (
     <div className="mt-8">
-      <h2 className="text-lg font-semibold text-foreground mb-4">
-        {labels.paymentMethod || "Payment Method"}
+      <h2 className="text-2xl font-bold text-foreground mb-6">
+        {labels.paymentMethod || "Spôsob platby"}
       </h2>
 
-      {!formReady && (
-        <p className="text-sm text-gray-700 mb-2">
-          {labels.completeBeforePayment ||
-            "Please complete all shipping and billing fields before selecting a payment method."}
-        </p>
+      {!formReady && showValidation && (
+        <FormValidationAlert 
+          missingFields={missingFields}
+          onClose={() => setShowValidation(false)}
+        />
+      )}
+
+      {!formReady && !showValidation && (
+        <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-4 mb-6">
+          <p className="text-sm text-amber-800 font-medium flex items-center">
+            <svg className="h-5 w-5 mr-2 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Prosím vyplňte všetky povinné údaje vyššie pred výberom platby
+          </p>
+        </div>
       )}
 
       <div

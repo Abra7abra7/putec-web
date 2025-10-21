@@ -4,6 +4,7 @@ import path from "path";
 import { z } from "zod";
 
 export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 // Validačná schéma pre query parametre
 const WinesQuerySchema = z.object({
@@ -32,7 +33,7 @@ interface Wine {
 export async function GET(request: NextRequest) {
   try {
     // Parse query parameters (convert null to undefined for Zod)
-    const { searchParams } = new URL(request.url);
+    const searchParams = request.nextUrl.searchParams;
     const queryParams = {
       category: searchParams.get("category") || undefined,
       enabled: searchParams.get("enabled") || undefined,
