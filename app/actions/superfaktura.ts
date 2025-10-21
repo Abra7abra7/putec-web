@@ -168,13 +168,13 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     },
   };
 
+  // Use sandbox URL if SUPERFAKTURA_SANDBOX is set
+  const baseUrl = process.env.SUPERFAKTURA_SANDBOX === '1' 
+    ? 'https://sandbox.superfaktura.sk' 
+    : 'https://moja.superfaktura.sk';
+
   // Odoslanie požiadavky na SuperFaktúra API
   try {
-    // Use sandbox URL if SUPERFAKTURA_SANDBOX is set
-    const baseUrl = process.env.SUPERFAKTURA_SANDBOX === '1' 
-      ? 'https://sandbox.superfaktura.sk' 
-      : 'https://moja.superfaktura.sk';
-    
     const response = await axios.post(`${baseUrl}/invoices/create`, invoicePayload, {
       headers: {
         'Authorization': `SFAPI email=${process.env.SUPERFAKTURA_EMAIL}&apikey=${process.env.SUPERFAKTURA_API_KEY}`,
