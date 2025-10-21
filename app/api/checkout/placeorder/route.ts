@@ -156,6 +156,9 @@ export async function POST(request: NextRequest) {
       await sendAdminEmail(orderData);
       emailResults.admin = true;
       console.log("✅ Admin email sent successfully");
+      
+      // Add small delay to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 1000));
     } catch (error) {
       console.error("❌ Failed to send admin email:", error);
       // Continue even if admin email fails

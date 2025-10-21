@@ -64,7 +64,7 @@ Rezervácia vytvorená: ${new Date().toLocaleString('sk-SK')}
     console.log("📧 From email:", RESEND_FROM_EMAIL);
     
     const adminResult = await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
+      from: "Rezervácie <onboarding@resend.dev>",
       to: ADMIN_EMAIL,
       subject: `🍷 Nová rezervácia degustácie od ${body.name}`,
       text: adminEmailText,
@@ -102,7 +102,7 @@ Tím Vino Pútec
     console.log("📧 Sending customer email to:", body.email);
     
     const customerResult = await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
+      from: "Rezervácie <onboarding@resend.dev>",
       to: body.email,
       subject: '🍷 Potvrdenie rezervácie degustácie - Vino Pútec',
       text: customerEmailText,

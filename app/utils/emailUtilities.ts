@@ -43,7 +43,7 @@ export interface OrderBody {
   paymentMethodId: string;
 }
 
-// ----- Send Email -----
+// ----- Send Email with Rate Limiting -----
 
 export async function sendEmail({
   to,
@@ -56,21 +56,27 @@ export async function sendEmail({
 }) {
   try {
     console.log("📧 Attempting to send email to:", to);
-    console.log("📧 From email:", process.env.RESEND_FROM_EMAIL);
+    console.log("📧 From email: onboarding@resend.dev");
     console.log("📧 Subject:", subject);
     console.log("📧 Resend API Key exists:", !!process.env.RESEND_API_KEY);
     
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const result = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL!,
+      from: "Vino Pútec <onboarding@resend.dev>",
       to,
       subject,
       text,
     });
 
     console.log("✅ Email sent successfully to:", to, "ID:", result.data?.id);
-    console.log("✅ Full result:", JSON.stringify(result, null, 2));
+    
+    // Check for errors in response
+    if (result.error) {
+      console.error("❌ Resend API Error:", result.error);
+      throw new Error(`Resend API Error: ${result.error.message}`);
+    }
+    
     return result;
   } catch (error) {
     console.error("❌ Failed to send email to:", to);
