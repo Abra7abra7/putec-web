@@ -155,7 +155,9 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     Invoice: {
       name: `Objednávka ${metadata.orderId}`,
       invoice_currency: pi.currency.toUpperCase(),
-      payment_type: 'prevodom', // alebo 'card'
+      payment_type: 'card', // Platba kartou cez Stripe
+      already_paid: true, // Faktúra je už uhradená
+      paydate: new Date().toISOString().split('T')[0], // Dátum úhrady (YYYY-MM-DD)
       vs: metadata.orderId.replace(/[^0-9]/g, '').slice(0, 10) || undefined, // Variabilný symbol z orderId
     },
     InvoiceItem: invoiceItems,
