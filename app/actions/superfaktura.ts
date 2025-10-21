@@ -189,7 +189,7 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
       if (customerEmail && process.env.SUPERFAKTURA_SEND_EMAILS === '1') {
         try {
           const sendPayload = {
-            id: response.data.data.Invoice.id,
+            id: parseInt(response.data.data.Invoice.id, 10),
             to_client: 1,
             // explicitné odoslanie na e‑mail zo Stripe PI/Charge
             to_emails: customerEmail,
