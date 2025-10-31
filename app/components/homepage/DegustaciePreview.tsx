@@ -8,7 +8,6 @@ export default function DegustaciePreview() {
   const slides = [
     { src: "/degustacie/degustacia-x.jpg", alt: "Degustácia - atmosféra" },
     { src: "/degustacie/brano-degustacia-x.jpg", alt: "Degustácia s majiteľom" },
-    { src: "/degustacie/IMG_6015-2.jpg", alt: "Ochutnávka vín" },
     { src: "/degustacie/sudy-x.jpg", alt: "Sudy a pivnica" },
   ];
 

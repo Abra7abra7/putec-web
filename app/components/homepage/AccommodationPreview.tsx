@@ -82,7 +82,7 @@ export default function AccommodationPreview() {
                 className="rounded-full shadow-xl border-4 border-accent mb-4"
               />
               <h2 className="text-3xl font-bold text-foreground mb-4">
-                Ubytovanie v srdci vinohradníctva
+                Ubytovanie v srdci Malých Karpát
               </h2>
               <p className="text-lg text-foreground mb-6">
                 Prežite nezabudnuteľné chvíle v našom ubytovaní obklopenom vinohradmi a prírodou. 

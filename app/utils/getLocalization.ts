@@ -94,13 +94,13 @@ const defaultLocalization: LocalizationData = {
   },
   menu: [
     { label: "Homepage", href: "/" },
-    { label: "Products", href: "/products" },
+    { label: "Products", href: "/vina" },
     { label: "News", href: "/news" },
     { label: "Contacts", href: "/contactus" },
   ],
   footerLinks: [
     { label: "Home", href: "/" },
-    { label: "Products", href: "/products" },
+    { label: "Products", href: "/vina" },
     { label: "Pricing", href: "/pricing" },
     { label: "Contact", href: "/contact" },
   ],
@@ -120,7 +120,7 @@ const defaultLocalization: LocalizationData = {
       subtitle: "The easiest way to manage and sell your products online.",
       buttonText: "Get Started Now",
       imagePath: "/o-nas/rodina1.JPG",
-      ctaLink: "/products",
+      ctaLink: "/vina",
     },
     brandStory: {
       title: "Our Story",

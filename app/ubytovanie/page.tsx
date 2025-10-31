@@ -170,7 +170,7 @@ export default function AccommodationPage() {
                   </div>
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">🏔️</span>
-                    <span className="text-foreground-muted">Poloha: Úpäti Malých Karpát</span>
+                    <span className="text-foreground-muted">Poloha: V srdci Malých Karpát</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">🍇</span>

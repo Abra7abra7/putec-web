@@ -2,92 +2,72 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import { Product } from "../../../types/Product";
-import { useAppDispatch } from "../../store/hooks";
-import { addToCart } from "../../store/slices/cartSlice";
-import { useLocalization } from "../../context/LocalizationContext";
-import { showMiniCart } from "../../utils/MiniCartController";
+import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
+import AddToCartButton from "./AddToCartButton";
 
-interface ProductCardProps {
+interface Props {
   product: Product;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const hasDiscount = parseFloat(product.SalePrice) < parseFloat(product.RegularPrice);
-  const currencySymbol = getCurrencySymbol(product.Currency);
-  const dispatch = useAppDispatch();
-  const { labels } = useLocalization();
-
-  const handleAddToCart = () => {
-    dispatch(addToCart(product));
-
-    // Scroll to top smoothly
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    showMiniCart();
-  };
+export default function ProductCard({ product }: Props) {
+  const isOnSale = product.SalePrice !== product.RegularPrice;
+  const displayPrice = product.SalePrice || product.RegularPrice;
+  const currency = getCurrencySymbol(product.Currency);
 
   return (
-    <div className="bg-background shadow-lg rounded-lg overflow-hidden transition hover:scale-105 border border-accent">
-      {/* Product Image with Link to Product Page */}
-      <Link href={`/vina/${product.Slug}`}>
-        <div className="w-full">
-          <Image
-            src={product.FeatureImageURL}
-            alt={product.Title}
-            width={400}
-            height={0}
-            className="w-full h-auto object-contain rounded-t-lg"
-          />
-        </div>
+    <div className="bg-background rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+      {/* Product Image */}
+      <Link href={`/vina/${product.Slug}`} className="relative w-full aspect-[3/4] block overflow-hidden">
+        <Image
+          src={product.FeatureImageURL}
+          alt={product.Title}
+          fill
+          className="object-contain hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          priority={false}
+        />
+        {isOnSale && (
+          <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-lg">
+            ZĽAVA
+          </div>
+        )}
       </Link>
 
       {/* Product Info */}
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-foreground truncate">
-          <Link href={`/vina/${product.Slug}`} className="hover:text-foreground">
+      <div className="p-5 flex flex-col flex-1">
+        <Link href={`/vina/${product.Slug}`}>
+          <h3 className="text-lg font-bold text-foreground mb-2 hover:text-accent transition-colors line-clamp-2 min-h-[3.5rem]">
             {product.Title}
-          </Link>
-        </h3>
+          </h3>
+        </Link>
 
-        <p className="text-foreground mt-2 text-sm line-clamp-2">{product.ShortDescription}</p>
+        <p className="text-sm text-foreground-muted mb-4 line-clamp-2 flex-1">
+          {product.ShortDescription}
+        </p>
 
-        <div className="mt-3">
-          {hasDiscount ? (
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-bold text-red-600">
-                {currencySymbol}
-                {product.SalePrice}
+        {/* Price */}
+        <div className="mb-4">
+          {isOnSale ? (
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-2xl font-bold text-red-600">
+                {currency}{displayPrice}
               </span>
-              <span className="text-foreground line-through">
-                {currencySymbol}
-                {product.RegularPrice}
+              <span className="text-base text-gray-500 line-through">
+                {currency}{product.RegularPrice}
               </span>
             </div>
           ) : (
-            <span className="text-lg font-bold text-foreground">
-              {currencySymbol}
-              {product.RegularPrice}
+            <span className="text-2xl font-bold text-foreground">
+              {currency}{displayPrice}
             </span>
           )}
         </div>
 
-        <div className="mt-4 flex flex-col sm:flex-row gap-2">
-          <Link href={`/vina/${product.Slug}`} className="sm:w-1/2">
-            <span className="w-full inline-block bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold text-center transition-colors">
-              {labels.viewProduct || "View Product"}
-            </span>
-          </Link>
-
-          <button
-            onClick={handleAddToCart}
-            className="w-full sm:w-1/2 bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold text-center transition-colors"
-          >
-            {labels.addToCart || "Add to Cart"}
-          </button>
-        </div>
+        {/* Add to Cart Button */}
+        <AddToCartButton product={product} />
       </div>
     </div>
   );
 }
+

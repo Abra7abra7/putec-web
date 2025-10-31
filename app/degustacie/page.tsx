@@ -54,7 +54,7 @@ export default function DegustaciePage() {
                 Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty.
               </p>
               <p className="text-lg text-foreground-muted leading-relaxed">
-                Naše degustačné miestnosti majú kapacitu až 17 osôb a ponúkajú kompletný zážitok s ochutnávkami vína, 
+                Naša degustačná miestnosť má kapacitu až 17 osôb a ponúka kompletný zážitok s ochutnávkami vína, 
                 catering službami a profesionálnym sprievodcom.
               </p>
             </div>
@@ -119,7 +119,7 @@ export default function DegustaciePage() {
                   </div>
                   <div className="flex items-center">
                     <span className="text-accent mr-3">✓</span>
-                    <span className="text-foreground">Degustačné miestnosti priamo vo vinárstve</span>
+                    <span className="text-foreground">Degustačná miestnosť priamo vo vinárstve</span>
                   </div>
                 </div>
               </div>

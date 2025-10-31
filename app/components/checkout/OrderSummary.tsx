@@ -36,7 +36,7 @@ export default function OrderSummary() {
             <Image src={item.FeatureImageURL} alt={item.Title} width={60} height={60} className="rounded object-cover" />
             <div className="flex-1">
               <Link
-                href={`/products/${item.Slug}`}
+                href={`/vina/${item.Slug}`}
                 className="text-sm font-medium text-foreground hover:text-gray-700"
               >
                 {item.Title}

@@ -43,8 +43,529 @@
           "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR",
           "bottler": "Putec s.r.o.",
           "countryOfOrigin": "Slovensko",
-          "nutritionalInfoUrl": "https://eanonline.gs1sk.org/01/08582000037412?_ga=2.73120275.1033535469.1743430878-428837305.1743430878",
-          "gtin": "08582000037412"
+          "nutritionalInfoUrl": "",
+          "gtin": ""
+       }
+    },
+    {
+       "ID":"wine-002",
+       "Title":"Müller Thurgau 2024",
+       "Slug":"muller-thurgau-2024",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Polosuché vína"
+       ],
+       "FeatureImageURL":"/vina/Muller-24-ESHOP.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Biele polosuché víno s jemnou ovocnou arómou a lahodnou chuťou.",
+       "LongDescription":"Müller Thurgau 2024 je elegantné biele víno s jemnou ovocnou arómou a lahodnou chuťou. Ideálne pre milovníkov ľahkých a svieživých vín.",
+       "RegularPrice":"8.90",
+       "SalePrice":"8.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2024",
+          "wineType": "biele polosuché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-003",
+       "Title":"Chardonnay 2023",
+       "Slug":"chardonnay-2023",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Suché vína",
+          "Prémiové vína"
+       ],
+       "FeatureImageURL":"/vina/Chardonnay-2023.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Plné biele víno s bohatou chuťou a elegantnými tónmi.",
+       "LongDescription":"Chardonnay 2023 je plné biele víno s bohatou chuťou a elegantnými tónmi. Víno s charakterom a osobnosťou.",
+       "RegularPrice":"12.90",
+       "SalePrice":"12.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2023",
+          "wineType": "biele suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-004",
+       "Title":"Cabernet Sauvignon Rosé 2023",
+       "Slug":"cabernet-sauvignon-rose-2023",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Ružové vína",
+          "Suché vína"
+       ],
+       "FeatureImageURL":"/vina/CS-rosé-2023.jpg",
+       "ProductImageGallery":[
+          "/vina/cabernet-sauvignon-rose-2022-2 (1).jpg"
+       ],
+       "ShortDescription":"Svieže ružové víno s ovocnou vôňou a harmonickou chuťou.",
+       "LongDescription":"Cabernet Sauvignon Rosé 2023 je svieže ružové víno s ovocnou vôňou a harmonickou chuťou. Perfektné pre letné dni.",
+       "RegularPrice":"9.90",
+       "SalePrice":"9.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2023",
+          "wineType": "ružové suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-005",
+       "Title":"Rizling Vlašský 2023",
+       "Slug":"rizling-vlasky-2023",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Suché vína"
+       ],
+       "FeatureImageURL":"/vina/Rizling-Vlašský-2023.jpg",
+       "ProductImageGallery":[
+          "/vina/rizling-vlazsky-2020 (1).jpg"
+       ],
+       "ShortDescription":"Klasické biele víno s čerstvou kyselinkou a ovocnou arómou.",
+       "LongDescription":"Rizling Vlašský 2023 je klasické biele víno s čerstvou kyselinkou a ovocnou arómou. Ideálne k rybám a ľahkým jedlám.",
+       "RegularPrice":"8.50",
+       "SalePrice":"8.50",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2023",
+          "wineType": "biele suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-006",
+       "Title":"Tramín Červený 2023",
+       "Slug":"tramin-cerveny-2023",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Polosuché vína"
+       ],
+       "FeatureImageURL":"/vina/Tramín-Červený-2023.jpg",
+       "ProductImageGallery":[
+          "/vina/tramin-cerveny-2018-2.jpg",
+          "/vina/tramin-cerveny-2020.jpg"
+       ],
+       "ShortDescription":"Aromatické víno s intenzívnou vôňou ruží a korenistou chuťou.",
+       "LongDescription":"Tramín Červený 2023 je aromatické víno s intenzívnou vôňou ruží a korenistou chuťou. Víno pre náročných milovníkov.",
+       "RegularPrice":"11.50",
+       "SalePrice":"11.50",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2023",
+          "wineType": "biele polosuché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-007",
+       "Title":"Veltlínske zelené 2023",
+       "Slug":"veltlinske-zelene-2023",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Suché vína"
+       ],
+       "FeatureImageURL":"/vina/Veltlínske-zelené-2023.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Svieže biele víno s charakteristickou pikantnou chuťou.",
+       "LongDescription":"Veltlínske zelené 2023 je svieže biele víno s charakteristickou pikantnou chuťou. Univerzálne stolové víno.",
+       "RegularPrice":"8.50",
+       "SalePrice":"8.50",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2023",
+          "wineType": "biele suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-008",
+       "Title":"Pesecká Leánka 2023",
+       "Slug":"pesecka-leanka-2023",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Suché vína"
+       ],
+       "FeatureImageURL":"/vina/Pesecká-Leánka-2023.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Mladé svieže víno s jemnou ovocnou arómou.",
+       "LongDescription":"Pesecká Leánka 2023 je mladé svieže víno s jemnou ovocnou arómou. Typická odroda pre naše regióny.",
+       "RegularPrice":"8.90",
+       "SalePrice":"8.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2023",
+          "wineType": "biele suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-009",
+       "Title":"Müller Thurgau 2023",
+       "Slug":"muller-thurgau-2023",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Polosuché vína"
+       ],
+       "FeatureImageURL":"/vina/Muller-2023.jpg",
+       "ProductImageGallery":[
+          "/vina/muller-thurgau-2022-2.jpg"
+       ],
+       "ShortDescription":"Jemné biele víno s harmonickou chuťou a príjemnou vôňou.",
+       "LongDescription":"Müller Thurgau 2023 je jemné biele víno s harmonickou chuťou a príjemnou vôňou. Obľúbené stolové víno.",
+       "RegularPrice":"8.50",
+       "SalePrice":"8.50",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2023",
+          "wineType": "biele polosuché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-010",
+       "Title":"Váh 2020",
+       "Slug":"vah-2020",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Červené vína",
+          "Suché vína",
+          "Prémiové vína"
+       ],
+       "FeatureImageURL":"/vina/Váh-2020.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Plné červené cuvée s bohatou chuťou a elegantnými taninmi.",
+       "LongDescription":"Váh 2020 je plné červené cuvée s bohatou chuťou a elegantnými taninmi. Prémiové víno s charakterom.",
+       "RegularPrice":"14.90",
+       "SalePrice":"14.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2020",
+          "wineType": "červené suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-011",
+       "Title":"Parížske zlato",
+       "Slug":"parizske-zlato",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Prémiové vína",
+          "Ocenené vína"
+       ],
+       "FeatureImageURL":"/vina/Parížske-zlato.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Ocenené prémiové víno so zlatou medailou z Paríža.",
+       "LongDescription":"Parížske zlato je ocenené prémiové víno so zlatou medailou z Paríža. Výnimočné víno pre špeciálne príležitosti.",
+       "RegularPrice":"19.90",
+       "SalePrice":"19.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "wineType": "biele",
+          "quality": "Prémiové víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-012",
+       "Title":"Frizzante Müller 2024",
+       "Slug":"frizzante-muller-2024",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Šumivé vína",
+          "Frizzante"
+       ],
+       "FeatureImageURL":"/vina/frizzante-muller-2024.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Svieže perlivé víno s jemnou ovocnou arómou.",
+       "LongDescription":"Frizzante Müller 2024 je svieže perlivé víno s jemnou ovocnou arómou. Ideálne pre oslavy a špeciálne príležitosti.",
+       "RegularPrice":"9.90",
+       "SalePrice":"9.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2024",
+          "wineType": "biele perlivé",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-013",
+       "Title":"Frankovka modrá",
+       "Slug":"frankovka-modra",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Červené vína",
+          "Suché vína"
+       ],
+       "FeatureImageURL":"/vina/frankovka--2.jpg-x.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Klasické červené víno s plnou chuťou a vyváženými taninmi.",
+       "LongDescription":"Frankovka modrá je klasické červené víno s plnou chuťou a vyváženými taninmi. Typická odroda Malokarpatského regiónu.",
+       "RegularPrice":"10.90",
+       "SalePrice":"10.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "wineType": "červené suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-014",
+       "Title":"Jarné osvieženie",
+       "Slug":"jarne-osviezenie",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Polosuché vína"
+       ],
+       "FeatureImageURL":"/vina/jarné-osvieženie.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Svieže mladé víno ideálne na jarné dni.",
+       "LongDescription":"Jarné osvieženie je svieže mladé víno ideálne na jarné dni. Ľahké a príjemné víno.",
+       "RegularPrice":"8.50",
+       "SalePrice":"8.50",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "wineType": "biele polosuché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-015",
+       "Title":"Pinot Blanc 2022",
+       "Slug":"pinot-blanc-2022",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Suché vína"
+       ],
+       "FeatureImageURL":"/vina/pinot-blanc-2022-1.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Elegantné biele víno s jemnou ovocnou chuťou.",
+       "LongDescription":"Pinot Blanc 2022 je elegantné biele víno s jemnou ovocnou chuťou. Harmonické a vyvážené víno.",
+       "RegularPrice":"10.50",
+       "SalePrice":"10.50",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2022",
+          "wineType": "biele suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-016",
+       "Title":"Pinot Gris 2021",
+       "Slug":"pinot-gris-2021",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Polosuché vína"
+       ],
+       "FeatureImageURL":"/vina/pinot-gris-2021 (2).jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Plné biele víno s bohatou arómou a chuťou.",
+       "LongDescription":"Pinot Gris 2021 je plné biele víno s bohatou arómou a chuťou. Víno s charakterom.",
+       "RegularPrice":"11.90",
+       "SalePrice":"11.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2021",
+          "wineType": "biele polosuché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-017",
+       "Title":"Rizling Rýnsky Battonage 2019",
+       "Slug":"rizling-rynsky-battonage-2019",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Biele vína",
+          "Suché vína",
+          "Prémiové vína"
+       ],
+       "FeatureImageURL":"/vina/rizlingrynskybattonage2019.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Prémiové víno s komplexnou chuťou a arómou.",
+       "LongDescription":"Rizling Rýnsky Battonage 2019 je prémiové víno s komplexnou chuťou a arómou. Víno zralo na kvasinkách pre väčšiu komplexnosť.",
+       "RegularPrice":"15.90",
+       "SalePrice":"15.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2019",
+          "wineType": "biele suché",
+          "quality": "Prémiové víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
+       }
+    },
+    {
+       "ID":"wine-018",
+       "Title":"Cabernet Sauvignon Rosé 2024",
+       "Slug":"cabernet-sauvignon-rose-2024",
+       "Enabled":true,
+       "CatalogVisible":true,
+       "ProductCategories":[
+          "Ružové vína",
+          "Suché vína"
+       ],
+       "FeatureImageURL":"/vina/rosé-24-2-x.jpg",
+       "ProductImageGallery":[],
+       "ShortDescription":"Svieže ružové víno z najnovšej úrody.",
+       "LongDescription":"Cabernet Sauvignon Rosé 2024 je svieže ružové víno z najnovšej úrody. Ideálne pre teplé dni.",
+       "RegularPrice":"9.90",
+       "SalePrice":"9.90",
+       "Currency": "EUR",
+       "SubscriptionEnabled":false,
+       "SubscriptionType":"",
+       "ProductType": "wine",
+       "WineDetails": {
+          "vintage": "2024",
+          "wineType": "ružové suché",
+          "quality": "Akostné víno",
+          "region": "Malokarpatská vinohradnícka oblasť",
+          "bottleVolume": "0,75 l",
+          "warnings": "Obsahuje siričitany",
+          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR"
        }
     }
 ]
