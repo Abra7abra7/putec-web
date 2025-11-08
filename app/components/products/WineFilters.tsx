@@ -2,6 +2,9 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Product } from "../../../types/Product";
+import { Card, CardContent } from "../ui/card";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 
 interface WineFiltersProps {
   wines: Product[];
@@ -102,122 +105,122 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
     (priceRange[0] !== 0 || priceRange[1] !== maxPrice ? 1 : 0);
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-          <span>🔍</span> Filtrovanie a vyhľadávanie
-        </h3>
-        {activeFiltersCount > 0 && (
-          <button
-            onClick={handleReset}
-            className="text-sm text-accent hover:text-accent-dark font-medium transition-colors flex items-center gap-1"
-          >
-            <span>✕</span> Zrušiť filtre ({activeFiltersCount})
-          </button>
-        )}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        {/* Search */}
-        <div className="lg:col-span-2">
-          <label className="block text-sm font-medium text-foreground mb-2">
-            Vyhľadať
-          </label>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Názov, odroda, popis..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all"
-          />
+    <Card className="mb-8">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <span>🔍</span> Filtrovanie a vyhľadávanie
+          </h3>
+          {activeFiltersCount > 0 && (
+            <Button variant="ghost" size="sm" onClick={handleReset}>
+              ✕ Zrušiť filtre
+              <Badge variant="secondary" className="ml-2">{activeFiltersCount}</Badge>
+            </Button>
+          )}
         </div>
 
-        {/* Category */}
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
-            Kategória
-          </label>
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all"
-          >
-            <option value="all">Všetky kategórie</option>
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* Color */}
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
-            Farba vína
-          </label>
-          <select
-            value={selectedColor}
-            onChange={(e) => setSelectedColor(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all"
-          >
-            <option value="all">Všetky farby</option>
-            {wineColors.map(color => (
-              <option key={color} value={color}>{color}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Price Range */}
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
-            Cenové rozpätie: {priceRange[0]}€ - {priceRange[1]}€
-          </label>
-          <div className="flex items-center gap-3">
+        <div className="grid grid-cols-1 desktop:grid-cols-2 desktop:grid-cols-4 gap-4 mb-4">
+          {/* Search */}
+          <div className="desktop:col-span-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Vyhľadať
+            </label>
             <input
-              type="range"
-              min="0"
-              max={maxPrice}
-              value={priceRange[0]}
-              onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
-              className="flex-1"
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Názov, odroda, popis..."
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
             />
-            <input
-              type="range"
-              min="0"
-              max={maxPrice}
-              value={priceRange[1]}
-              onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-              className="flex-1"
-            />
+          </div>
+
+          {/* Category */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Kategória
+            </label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
+            >
+              <option value="all">Všetky kategórie</option>
+              {categories.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Color */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Farba vína
+            </label>
+            <select
+              value={selectedColor}
+              onChange={(e) => setSelectedColor(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
+            >
+              <option value="all">Všetky farby</option>
+              {wineColors.map(color => (
+                <option key={color} value={color}>{color}</option>
+              ))}
+            </select>
           </div>
         </div>
 
-        {/* Sort */}
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
-            Zoradiť podľa
-          </label>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all"
-          >
-            <option value="name">Názov (A-Z)</option>
-            <option value="price-asc">Cena (od najnižšej)</option>
-            <option value="price-desc">Cena (od najvyššej)</option>
-            <option value="vintage">Ročník (najnovší)</option>
-          </select>
-        </div>
-      </div>
+        <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+          {/* Price Range */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Cenové rozpätie: {priceRange[0]}€ - {priceRange[1]}€
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                type="range"
+                min="0"
+                max={maxPrice}
+                value={priceRange[0]}
+                onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
+                className="flex-1"
+              />
+              <input
+                type="range"
+                min="0"
+                max={maxPrice}
+                value={priceRange[1]}
+                onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                className="flex-1"
+              />
+            </div>
+          </div>
 
-      {/* Results count */}
-      <div className="mt-4 pt-4 border-t border-gray-200">
-        <p className="text-sm text-foreground-muted">
-          Zobrazených <span className="font-semibold text-accent">{filteredWines.length}</span> z {wines.length} vín
-        </p>
-      </div>
-    </div>
+          {/* Sort */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Zoradiť podľa
+            </label>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
+            >
+              <option value="name">Názov (A-Z)</option>
+              <option value="price-asc">Cena (od najnižšej)</option>
+              <option value="price-desc">Cena (od najvyššej)</option>
+              <option value="vintage">Ročník (najnovší)</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Results count */}
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <p className="text-sm text-foreground-muted">
+            Zobrazených <span className="font-semibold text-accent">{filteredWines.length}</span> z {wines.length} vín
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 

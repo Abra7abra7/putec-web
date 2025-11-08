@@ -5,6 +5,7 @@ import { addToCart } from "../../store/slices/cartSlice";
 import { Product } from "../../../types/Product";
 import { useLocalization } from "../../context/LocalizationContext";
 import { showMiniCart } from "../../utils/MiniCartController";
+import { Button } from "../ui/button";
 
 interface Props {
   product: Product;
@@ -25,11 +26,11 @@ export default function AddToCartButton({ product }: Props) {
   };
 
   return (
-    <button
+    <Button
       onClick={handleAddToCart}
-      className="mt-4 w-full sm:w-auto bg-accent hover:bg-accent-dark text-foreground px-6 py-3 rounded-md text-sm font-semibold transition-colors"
+      className="mt-4 w-full desktop:w-auto"
     >
       {labels.addToCart || "Add to Cart"}
-    </button>
+    </Button>
   );
 }

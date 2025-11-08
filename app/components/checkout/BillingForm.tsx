@@ -5,6 +5,8 @@ import { useLocalization } from "../../context/LocalizationContext";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setBillingForm, setDifferentBilling } from "../../store/slices/checkoutSlice";
 import { useEffect } from "react";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 export default function BillingForm() {
   const { billingCountries } = useCheckoutSettings();
@@ -89,58 +91,95 @@ export default function BillingForm() {
             <h3 className="text-xl font-semibold text-foreground">
               {labels.billingInformation || "Billing Information"}
             </h3>
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="sm"
               onClick={handleSameAsShipping}
-              className="text-sm text-gray-700 underline hover:text-foreground"
             >
               {labels.sameAsShipping || "Same as Shipping"}
-            </button>
+            </Button>
           </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <input name="firstName" value={billingForm.firstName} onChange={handleChange} placeholder={`${labels.firstName} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
-        <div>
-          <input name="lastName" value={billingForm.lastName} onChange={handleChange} placeholder={`${labels.lastName} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
-        
-        <div>
-          <select name="country" value={billingForm.country} onChange={handleChange} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required>
-            {billingCountries.map((c) => (
-              <option key={c.code} value={c.code}>{c.name}</option>
-            ))}
-          </select>
-        </div>
+      <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+        <Input 
+          name="firstName" 
+          value={billingForm.firstName} 
+          onChange={handleChange} 
+          placeholder={`${labels.firstName} *`} 
+          required 
+        />
+        <Input 
+          name="lastName" 
+          value={billingForm.lastName} 
+          onChange={handleChange} 
+          placeholder={`${labels.lastName} *`} 
+          required 
+        />
 
-        <div>
-          <input name="city" value={billingForm.city} onChange={handleChange} placeholder={`${labels.city || "Mesto"} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
+        
+        <select 
+          name="country" 
+          value={billingForm.country} 
+          onChange={handleChange} 
+          className="flex h-11 w-full rounded-lg border-2 border-gray-300 bg-background px-4 py-3 text-base transition-colors focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20" 
+          required
+        >
+          {billingCountries.map((c) => (
+            <option key={c.code} value={c.code}>{c.name}</option>
+          ))}
+        </select>
 
-        <div className="md:col-span-2">
-          <input name="address1" value={billingForm.address1} onChange={handleChange} placeholder={`${labels.address1} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
-        
-        <div className="md:col-span-2">
-          <input name="address2" value={billingForm.address2} onChange={handleChange} placeholder={labels.address2} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" />
-        </div>
-        
-        <div>
-          <input name="postalCode" value={billingForm.postalCode} onChange={handleChange} placeholder={`${labels.postalCode} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
-        
-        <div>
-          <input 
-            name="phone" 
-            value={billingForm.phone} 
+        <Input 
+          name="city" 
+          value={billingForm.city} 
+          onChange={handleChange} 
+          placeholder={`${labels.city || "Mesto"} *`} 
+          required 
+        />
+
+        <div className="desktop:col-span-2">
+          <Input 
+            name="address1" 
+            value={billingForm.address1} 
             onChange={handleChange} 
-            placeholder={`${labels.phone} (voliteľné)`} 
-            className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" 
+            placeholder={`${labels.address1} *`} 
+            required 
           />
         </div>
         
-        <div className="md:col-span-2">
-          <input name="email" value={billingForm.email} onChange={handleChange} placeholder={`${labels.email} *`} type="email" className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
+        <div className="desktop:col-span-2">
+          <Input 
+            name="address2" 
+            value={billingForm.address2} 
+            onChange={handleChange} 
+            placeholder={labels.address2} 
+          />
+        </div>
+        
+        <Input 
+          name="postalCode" 
+          value={billingForm.postalCode} 
+          onChange={handleChange} 
+          placeholder={`${labels.postalCode} *`} 
+          required 
+        />
+        
+        <Input 
+          name="phone" 
+          value={billingForm.phone} 
+          onChange={handleChange} 
+          placeholder={`${labels.phone} (voliteľné)`} 
+        />
+        
+        <div className="desktop:col-span-2">
+          <Input 
+            name="email" 
+            value={billingForm.email} 
+            onChange={handleChange} 
+            placeholder={`${labels.email} *`} 
+            type="email" 
+            required 
+          />
         </div>
       </div>
 
@@ -160,36 +199,32 @@ export default function BillingForm() {
         </div>
 
         {billingForm.isCompany && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
+          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+            <Input
               name="companyName"
               value={billingForm.companyName}
               onChange={handleChange}
               placeholder={labels.companyName}
-              className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none"
               required={billingForm.isCompany}
             />
-            <input
+            <Input
               name="companyICO"
               value={billingForm.companyICO}
               onChange={handleChange}
               placeholder={labels.companyICO}
-              className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none"
               required={billingForm.isCompany}
             />
-            <input
+            <Input
               name="companyDIC"
               value={billingForm.companyDIC}
               onChange={handleChange}
               placeholder={labels.companyDIC}
-              className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none"
             />
-            <input
+            <Input
               name="companyICDPH"
               value={billingForm.companyICDPH}
               onChange={handleChange}
               placeholder={labels.companyICDPH}
-              className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none"
             />
           </div>
         )}

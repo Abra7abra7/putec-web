@@ -5,6 +5,7 @@ import { useLocalization } from "../../context/LocalizationContext";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setShippingForm } from "../../store/slices/checkoutSlice";
 import { useEffect } from "react";
+import { Input } from "../ui/input";
 
 export default function ShippingForm() {
   const { shippingCountries } = useCheckoutSettings();
@@ -55,85 +56,118 @@ export default function ShippingForm() {
       {form.isCompany && (
         <div className="bg-accent/10 p-4 rounded-lg mb-4">
           <h4 className="text-lg font-semibold text-foreground mb-3">Firemné údaje</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
+          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+            <Input
               name="companyName"
               value={form.companyName}
               onChange={handleChange}
               placeholder={labels.companyName}
-              className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none"
               required={form.isCompany}
             />
-            <input
+            <Input
               name="companyICO"
               value={form.companyICO}
               onChange={handleChange}
               placeholder={labels.companyICO}
-              className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none"
               required={form.isCompany}
             />
-            <input
+            <Input
               name="companyDIC"
               value={form.companyDIC}
               onChange={handleChange}
               placeholder={labels.companyDIC}
-              className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none"
             />
-            <input
+            <Input
               name="companyICDPH"
               value={form.companyICDPH}
               onChange={handleChange}
               placeholder={labels.companyICDPH}
-              className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none"
             />
           </div>
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <input name="firstName" value={form.firstName} onChange={handleChange} placeholder={`${labels.firstName} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
-        <div>
-          <input name="lastName" value={form.lastName} onChange={handleChange} placeholder={`${labels.lastName} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
-        
-        <div>
-          <select name="country" value={form.country} onChange={handleChange} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required>
-            {shippingCountries.map((c) => (
-              <option key={c.code} value={c.code}>{c.name}</option>
-            ))}
-          </select>
-        </div>
+      <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+        <Input 
+          name="firstName" 
+          value={form.firstName} 
+          onChange={handleChange} 
+          placeholder={`${labels.firstName} *`} 
+          required 
+        />
+        <Input 
+          name="lastName" 
+          value={form.lastName} 
+          onChange={handleChange} 
+          placeholder={`${labels.lastName} *`} 
+          required 
+        />
 
-        <div>
-          <input name="city" value={form.city} onChange={handleChange} placeholder={`${labels.city || "Mesto"} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
 
-        <div className="md:col-span-2">
-          <input name="address1" value={form.address1} onChange={handleChange} placeholder={`${labels.address1} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
         
-        <div className="md:col-span-2">
-          <input name="address2" value={form.address2} onChange={handleChange} placeholder={labels.address2} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" />
-        </div>
-        
-        <div>
-          <input name="postalCode" value={form.postalCode} onChange={handleChange} placeholder={`${labels.postalCode} *`} className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
-        </div>
-        
-        <div>
-          <input 
-            name="phone" 
-            value={form.phone} 
+        <select 
+          name="country" 
+          value={form.country} 
+          onChange={handleChange} 
+          className="flex h-11 w-full rounded-lg border-2 border-gray-300 bg-background px-4 py-3 text-base transition-colors focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20" 
+          required
+        >
+          {shippingCountries.map((c) => (
+            <option key={c.code} value={c.code}>{c.name}</option>
+          ))}
+        </select>
+
+        <Input 
+          name="city" 
+          value={form.city} 
+          onChange={handleChange} 
+          placeholder={`${labels.city || "Mesto"} *`} 
+          required 
+        />
+
+        <div className="desktop:col-span-2">
+          <Input 
+            name="address1" 
+            value={form.address1} 
             onChange={handleChange} 
-            placeholder={`${labels.phone} (voliteľné)`} 
-            className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" 
+            placeholder={`${labels.address1} *`} 
+            required 
           />
         </div>
         
-        <div className="md:col-span-2">
-          <input name="email" value={form.email} onChange={handleChange} placeholder={`${labels.email} *`} type="email" className="input bg-background border-2 border-accent p-3 pl-4 rounded-lg focus:border-accent-dark focus:outline-none w-full" required />
+        <div className="desktop:col-span-2">
+          <Input 
+            name="address2" 
+            value={form.address2} 
+            onChange={handleChange} 
+            placeholder={labels.address2} 
+          />
+        </div>
+        
+        <Input 
+          name="postalCode" 
+          value={form.postalCode} 
+          onChange={handleChange} 
+          placeholder={`${labels.postalCode} *`} 
+          required 
+        />
+        
+        <Input 
+          name="phone" 
+          value={form.phone} 
+          onChange={handleChange} 
+          placeholder={`${labels.phone} (voliteľné)`} 
+        />
+        
+        <div className="desktop:col-span-2">
+          <Input 
+            name="email" 
+            value={form.email} 
+            onChange={handleChange} 
+            placeholder={`${labels.email} *`} 
+            type="email" 
+            required 
+          />
         </div>
       </div>
     </div>

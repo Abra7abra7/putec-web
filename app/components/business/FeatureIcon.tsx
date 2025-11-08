@@ -1,0 +1,62 @@
+import * as React from "react";
+import { cn } from "@/app/lib/utils";
+
+export interface FeatureIconProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Icon content - can be emoji string or React Icon component
+   */
+  icon: string | React.ReactElement<{ className?: string }>;
+  /**
+   * Size of the icon container
+   * @default "md"
+   */
+  size?: "sm" | "md" | "lg";
+  /**
+   * Background color variant
+   * @default "accent"
+   */
+  variant?: "accent" | "primary" | "muted";
+}
+
+const sizeClasses = {
+  sm: "w-10 h-10 text-base",
+  md: "w-12 h-12 text-lg",
+  lg: "w-16 h-16 text-2xl",
+};
+
+const variantClasses = {
+  accent: "bg-accent text-foreground",
+  primary: "bg-foreground text-background",
+  muted: "bg-gray-100 text-foreground",
+};
+
+const FeatureIcon = React.forwardRef<HTMLDivElement, FeatureIconProps>(
+  ({ className, icon, size = "md", variant = "accent", ...props }, ref) => {
+    const isStringIcon = typeof icon === "string";
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "rounded-full flex items-center justify-center shrink-0 transition-transform hover:scale-105",
+          sizeClasses[size],
+          variantClasses[variant],
+          className
+        )}
+        {...props}
+      >
+        {isStringIcon ? (
+          <span className="select-none">{icon}</span>
+        ) : (
+          React.cloneElement(icon as React.ReactElement<{ className?: string }>, {
+            className: cn("w-5 h-5", (icon as React.ReactElement<{ className?: string }>).props?.className),
+          })
+        )}
+      </div>
+    );
+  }
+);
+FeatureIcon.displayName = "FeatureIcon";
+
+export { FeatureIcon };
+

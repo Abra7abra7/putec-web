@@ -1,92 +1,67 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Section } from "../ui/section";
+import { Container } from "../ui/container";
+import { Button } from "../ui/button";
+import { FeatureIcon } from "../business/FeatureIcon";
 
 export default function BrandStory() {
+  const keyFeatures = [
+    { icon: "❤️", title: "\"Žijeme vínom\"", description: "Víno je pre rodinu spôsobom života" },
+    { icon: "⚙️", title: "Moderné technológie", description: "Kombinujeme tradíciu s inováciami" },
+    { icon: "⭐", title: "Remeselné víno", description: "Kvalitné víno, na ktoré sme hrdí" },
+    { icon: "🍷", title: "Francúzske sudy", description: "Dozrievanie v kvalitných sudoch" },
+  ];
+
   return (
-    <section className="relative w-full py-20 bg-gradient-to-br from-accent/5 to-accent/10">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <Section spacing="lg" background="accent">
+      <Container>
+        <div className="grid grid-cols-1 desktop:grid-cols-2 gap-12 desktop:gap-16 items-center">
           
           {/* Left Side - Content */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+              <h2 className="text-foreground">
                 Víno Pútec
               </h2>
-              <p className="text-2xl text-accent font-semibold">
+              <p className="text-xl desktop:text-2xl text-accent font-semibold">
                 Tradícia a kvalita vína
               </p>
             </div>
             
             <div className="space-y-6 text-foreground-muted">
-              <p className="text-lg leading-relaxed">
+              <p className="text-base desktop:text-lg leading-relaxed">
                 Víno Pútec je malé rodinné vinárstvo vo Vinosadoch na úpätí Malých Karpát. 
                 Výrobe vín sa s láskou venujeme už niekoľko generácií a sme hrdí na svetové úspechy našich vín.
               </p>
               
-              <p className="text-lg leading-relaxed">
+              <p className="text-base desktop:text-lg leading-relaxed">
                 Sme malé rodinné vinárstvo vo Vinosadoch – naša rodina sa výrobe vína venuje už niekoľko generácií. 
                 Žijeme vínom a chceme vám priniesť skvelý pôžitok z tohto unikátneho umenia, ktorým víno je.
               </p>
             </div>
 
             {/* Key Features */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-white text-sm">❤️</span>
+            <div className="grid grid-cols-1 desktop:grid-cols-2 gap-6">
+              {keyFeatures.map((feature) => (
+                <div key={feature.title} className="flex items-start gap-3">
+                  <FeatureIcon icon={feature.icon} size="sm" className="mt-1" />
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">{feature.title}</h4>
+                    <p className="text-sm text-foreground-muted">{feature.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">&quot;Žijeme vínom&quot;</h4>
-                  <p className="text-sm text-foreground-muted">Víno je pre rodinu spôsobom života</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-white text-sm">⚙️</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">Moderné technológie</h4>
-                  <p className="text-sm text-foreground-muted">Kombinujeme tradíciu s inováciami</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-white text-sm">⭐</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">Remeselné víno</h4>
-                  <p className="text-sm text-foreground-muted">Kvalitné víno, na ktoré sme hrdí</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-white text-sm">🍷</span>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">Francúzske sudy</h4>
-                  <p className="text-sm text-foreground-muted">Dozrievanie v kvalitných sudoch</p>
-                </div>
-              </div>
+              ))}
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link
-                href="/o-nas"
-                className="bg-accent hover:bg-accent-dark text-foreground px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg text-center"
-              >
-                Dozvedieť sa viac
-              </Link>
-              <Link
-                href="/vina"
-                className="border-2 border-accent text-accent hover:bg-accent hover:text-foreground px-8 py-4 rounded-lg font-semibold transition-all text-center"
-              >
-                Naše vína
-              </Link>
+            <div className="flex flex-col desktop:flex-row gap-4 pt-4">
+              <Button asChild size="lg">
+                <Link href="/o-nas">Dozvedieť sa viac</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="/vina">Naše vína</Link>
+              </Button>
             </div>
           </div>
 
@@ -123,7 +98,7 @@ export default function BrandStory() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

@@ -9,6 +9,7 @@ const MotionP = dynamic(() => import("framer-motion").then(m => m.motion.p), { s
 import { useEffect, useState } from "react";
 import { useLocalization } from "../../context/LocalizationContext";
 import RatingBadge from "../RatingBadge";
+import { Button } from "../ui/button";
 
 export default function HomepageBanner() {
   const { homepage } = useLocalization(); // Get homepage data
@@ -80,28 +81,25 @@ export default function HomepageBanner() {
           initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={reduceMotion ? { duration: 0 } : { duration: 0.6, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 items-center"
+          className="flex flex-col desktop:flex-row gap-4 items-center w-full desktop:w-auto"
         >
-          <Link
-            href={ctaLink}
-            className="bg-background text-foreground hover:bg-accent hover:text-foreground-dark px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all transform hover:scale-110"
-          >
-            {buttonText}
-          </Link>
+          <Button asChild variant="secondary" size="lg" className="w-full desktop:w-auto">
+            <Link href={ctaLink}>
+              {buttonText}
+            </Link>
+          </Button>
           
-          <Link
-            href="/ubytovanie"
-            className="bg-accent text-foreground hover:bg-accent-dark hover:text-foreground px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all transform hover:scale-110"
-          >
-            Ubytovanie
-          </Link>
+          <Button asChild variant="primary" size="lg" className="w-full desktop:w-auto">
+            <Link href="/ubytovanie">
+              Ubytovanie
+            </Link>
+          </Button>
           
-          <Link
-            href="/degustacie"
-            className="bg-accent text-foreground hover:bg-accent-dark hover:text-foreground-dark px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all transform hover:scale-110"
-          >
-            Degustácie
-          </Link>
+          <Button asChild variant="primary" size="lg" className="w-full desktop:w-auto">
+            <Link href="/degustacie">
+              Degustácie
+            </Link>
+          </Button>
         </MotionDiv>
       </MotionDiv>
     </section>

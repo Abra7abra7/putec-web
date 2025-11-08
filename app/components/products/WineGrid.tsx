@@ -5,6 +5,7 @@ import ProductCardWithProvider from "./ProductCardWithProvider";
 import WineFilters from "./WineFilters";
 import { Product } from "../../../types/Product";
 import { useLocalization } from "../../context/LocalizationContext";
+import { Container } from "../ui/container";
 
 export default function WineGrid() {
   const [allWines, setAllWines] = useState<Product[]>([]);
@@ -52,7 +53,7 @@ export default function WineGrid() {
   }
 
   return (
-    <>
+    <Container>
       <WineFilters wines={allWines} onFilterChange={handleFilterChange} />
       
       {filteredWines.length === 0 ? (
@@ -61,12 +62,12 @@ export default function WineGrid() {
           <p className="text-sm text-foreground-muted mt-2">Skúste zmeniť kritériá vyhľadávania</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6 desktop:gap-8">
           {filteredWines.map((wine) => (
             <ProductCardWithProvider key={wine.ID} product={wine} />
           ))}
         </div>
       )}
-    </>
+    </Container>
   );
 }

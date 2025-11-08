@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Product } from "../../../types/Product";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import AddToCartButton from "./AddToCartButton";
+import { Card, CardContent } from "../ui/card";
+import { Badge } from "../ui/badge";
 
 interface Props {
   product: Product;
@@ -16,7 +18,7 @@ export default function ProductCard({ product }: Props) {
   const currency = getCurrencySymbol(product.Currency);
 
   return (
-    <div className="bg-background rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full">
       {/* Product Image */}
       <Link href={`/vina/${product.Slug}`} className="relative w-full aspect-[3/4] block overflow-hidden">
         <Image
@@ -28,14 +30,14 @@ export default function ProductCard({ product }: Props) {
           priority={false}
         />
         {isOnSale && (
-          <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-lg">
-            ZĽAVA
+          <div className="absolute top-3 right-3">
+            <Badge variant="error">ZĽAVA</Badge>
           </div>
         )}
       </Link>
 
       {/* Product Info */}
-      <div className="p-5 flex flex-col flex-1">
+      <CardContent className="p-5 flex flex-col flex-1">
         <Link href={`/vina/${product.Slug}`}>
           <h3 className="text-lg font-bold text-foreground mb-2 hover:text-accent transition-colors line-clamp-2 min-h-[3.5rem]">
             {product.Title}
@@ -66,8 +68,8 @@ export default function ProductCard({ product }: Props) {
 
         {/* Add to Cart Button */}
         <AddToCartButton product={product} />
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
 

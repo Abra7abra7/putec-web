@@ -6,18 +6,18 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLocalization } from "@/app/context/LocalizationContext";
 import { sendContactMessage } from "@/app/actions/contact";
+import { Section } from "./ui/section";
+import { Container } from "./ui/container";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 function SubmitButton({ buttonText }: { buttonText: string }) {
   const { pending } = useFormStatus();
 
   return (
-    <button
-      type="submit"
-      className="w-full px-6 py-3 bg-accent text-foreground font-semibold rounded-md hover:bg-accent-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      disabled={pending}
-    >
-      {pending ? "Odosiela sa..." : buttonText}
-    </button>
+    <Button type="submit" disabled={pending} loading={pending} className="w-full">
+      {buttonText}
+    </Button>
   );
 }
 
@@ -34,8 +34,8 @@ export default function ContactUsForm() {
   }, [state?.success]);
 
   return (
-    <section className="w-full h-full bg-background py-16">
-      <div className="max-w-3xl mx-auto px-6">
+    <Section>
+      <Container maxWidth="2xl">
         {/* Logo */}
         <div className="text-center mb-8">
           <Image
@@ -52,44 +52,30 @@ export default function ContactUsForm() {
         {/* Contact Form */}
         <form ref={formRef} action={formAction} className="space-y-6">
           {/* Name */}
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-foreground">
-              {contactForm.nameLabel}
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-wine-red"
-              placeholder={contactForm.namePlaceholder}
-            />
-            {state?.errors?.name && (
-              <p className="mt-1 text-sm text-red-600">{state.errors.name[0]}</p>
-            )}
-          </div>
+          <Input
+            type="text"
+            id="name"
+            name="name"
+            label={contactForm.nameLabel}
+            placeholder={contactForm.namePlaceholder}
+            error={state?.errors?.name?.[0]}
+            required
+          />
 
           {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-foreground">
-              {contactForm.emailLabel}
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-wine-red"
-              placeholder={contactForm.emailPlaceholder}
-            />
-            {state?.errors?.email && (
-              <p className="mt-1 text-sm text-red-600">{state.errors.email[0]}</p>
-            )}
-          </div>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            label={contactForm.emailLabel}
+            placeholder={contactForm.emailPlaceholder}
+            error={state?.errors?.email?.[0]}
+            required
+          />
 
           {/* Message */}
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-foreground">
+            <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1.5">
               {contactForm.messageLabel}
             </label>
             <textarea
@@ -97,11 +83,11 @@ export default function ContactUsForm() {
               name="message"
               rows={5}
               required
-              className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-wine-red resize-none"
+              className="flex w-full rounded-lg border-2 border-gray-300 bg-background px-4 py-3 text-base transition-colors focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
               placeholder={contactForm.messagePlaceholder}
             />
             {state?.errors?.message && (
-              <p className="mt-1 text-sm text-red-600">{state.errors.message[0]}</p>
+              <p className="mt-1.5 text-sm text-red-600">{state.errors.message[0]}</p>
             )}
           </div>
 
@@ -133,7 +119,7 @@ export default function ContactUsForm() {
             </p>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

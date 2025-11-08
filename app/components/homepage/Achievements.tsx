@@ -3,6 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { Section } from "../ui/section";
+import { Container } from "../ui/container";
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 
 export default function Achievements() {
   const [selectedCategory, setSelectedCategory] = useState<'diplomy' | 'ocenenia'>('diplomy');
@@ -100,24 +104,24 @@ export default function Achievements() {
 
   if (!isLoaded) {
     return (
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
+      <Section>
+        <Container>
           <div className="text-center">
             <p className="text-foreground">Načítavam...</p>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     );
   }
 
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4">
+    <Section>
+      <Container>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-foreground mb-4">
             Naše úspechy a ocenenia
           </h2>
-          <p className="text-lg text-foreground-muted max-w-3xl mx-auto">
+          <p className="text-base desktop:text-lg text-foreground-muted max-w-3xl mx-auto">
             Pridajte sa k tisíckam spokojných zákazníkov, ktorí si vybrali naše prémiové vína
           </p>
         </div>
@@ -125,26 +129,20 @@ export default function Achievements() {
         {/* Category Tabs */}
         <div className="flex justify-center mb-8">
           <div className="bg-gray-100 rounded-lg p-1">
-            <button
+            <Button
+              variant={selectedCategory === 'diplomy' ? 'primary' : 'ghost'}
               onClick={() => setSelectedCategory('diplomy')}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                selectedCategory === 'diplomy'
-                  ? 'bg-accent text-foreground'
-                  : 'text-foreground-muted hover:text-foreground'
-              }`}
+              className="rounded-md"
             >
               Diplomy
-            </button>
-            <button
+            </Button>
+            <Button
+              variant={selectedCategory === 'ocenenia' ? 'primary' : 'ghost'}
               onClick={() => setSelectedCategory('ocenenia')}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                selectedCategory === 'ocenenia'
-                  ? 'bg-accent text-foreground'
-                  : 'text-foreground-muted hover:text-foreground'
-              }`}
+              className="rounded-md"
             >
               Ocenenia
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -156,12 +154,12 @@ export default function Achievements() {
               : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6'
           }`}>
             {displayItems.map((item) => (
-              <div
+              <Card
                 key={item.id}
-                className="bg-background rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow"
+                className="overflow-hidden hover:shadow-xl transition-all hover:scale-[1.02]"
               >
                 <div className={`relative w-full ${
-                  selectedCategory === 'ocenenia' ? 'h-64 md:h-80' : 'h-32 md:h-40'
+                  selectedCategory === 'ocenenia' ? 'h-64 desktop:h-80' : 'h-32 desktop:h-40'
                 }`}>
                   <Image
                     src={item.image}
@@ -174,19 +172,19 @@ export default function Achievements() {
                     }
                   />
                 </div>
-                <div className={selectedCategory === 'ocenenia' ? 'p-4 md:p-5' : 'p-2 md:p-3'}>
+                <div className={selectedCategory === 'ocenenia' ? 'p-4 desktop:p-5' : 'p-2 desktop:p-3'}>
                   <h3 className={`font-semibold text-foreground mb-1 line-clamp-2 ${
-                    selectedCategory === 'ocenenia' ? 'text-lg md:text-xl' : 'text-sm md:text-base'
+                    selectedCategory === 'ocenenia' ? 'text-lg desktop:text-xl' : 'text-sm desktop:text-base'
                   }`}>
                     {item.title}
                   </h3>
                   <p className={`text-foreground-muted line-clamp-1 ${
-                    selectedCategory === 'ocenenia' ? 'text-base md:text-lg' : 'text-xs md:text-sm'
+                    selectedCategory === 'ocenenia' ? 'text-base desktop:text-lg' : 'text-xs desktop:text-sm'
                   }`}>
                     {item.subtitle}
                   </p>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
@@ -194,12 +192,9 @@ export default function Achievements() {
         {/* Show more/less button */}
         {currentItems.length > maxItems && (
           <div className="text-center mt-6">
-            <button 
-              onClick={() => setShowAll(!showAll)}
-              className="bg-accent hover:bg-accent-dark text-foreground px-6 py-2 rounded-lg font-medium text-sm transition-colors"
-            >
+            <Button onClick={() => setShowAll(!showAll)}>
               {showAll ? 'Zobraziť menej' : `Zobraziť všetky (${currentItems.length})`}
-            </button>
+            </Button>
           </div>
         )}
 
@@ -208,22 +203,16 @@ export default function Achievements() {
           <p className="text-foreground-muted mb-6">
             Chcete sa dozvedieť viac o našich vínoch?
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/vina"
-              className="bg-accent hover:bg-accent-dark text-foreground px-8 py-3 rounded-lg font-semibold transition-colors"
-            >
-              Pozrieť naše vína
-            </Link>
-            <Link
-              href="/degustacie"
-              className="border-2 border-accent text-accent hover:bg-accent hover:text-foreground px-8 py-3 rounded-lg font-semibold transition-colors"
-            >
-              Rezervovať degustáciu
-            </Link>
+          <div className="flex flex-col desktop:flex-row gap-4 justify-center">
+            <Button asChild size="lg">
+              <Link href="/vina">Pozrieť naše vína</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/degustacie">Rezervovať degustáciu</Link>
+            </Button>
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
