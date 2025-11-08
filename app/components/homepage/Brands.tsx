@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { getLocalization } from "../../utils/getLocalization";
 
-export default function Brands() {
-  const { homepage } = getLocalization();
+export default async function Brands() {
+  const { homepage } = await getLocalization();
 
   if (!homepage?.brands || homepage.brands.length === 0) {
     return null; // Do not render if no brands exist

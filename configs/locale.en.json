@@ -72,6 +72,7 @@
     { "label": "Domov", "href": "/" },
     { "label": "Vína", "href": "/vina" },
     { "label": "Degustácie", "href": "/degustacie" },
+    { "label": "Galéria", "href": "/galeria" },
     { "label": "Ubytovanie", "href": "/ubytovanie" },
     { "label": "O nás", "href": "/o-nas" },
     { "label": "Kontakt", "href": "/kontakt" }
@@ -80,7 +81,7 @@
     { "label": "Domov", "href": "/" },
     { "label": "Vína", "href": "/vina" },
     { "label": "Degustácie vína", "href": "/degustacie" },
-    { "label": "Ubytovanie Vinosady", "href": "/ubytovanie" },
+    { "label": "Ubytovanie", "href": "/ubytovanie" },
     { "label": "O nás", "href": "/o-nas" },
     { "label": "Kontakt", "href": "/kontakt" }
   ],

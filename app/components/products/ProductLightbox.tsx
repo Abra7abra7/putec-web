@@ -2,8 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Lightbox from "yet-another-react-lightbox";
+import dynamic from "next/dynamic";
 import "yet-another-react-lightbox/styles.css";
+
+// Defer heavy lightbox bundle until needed (client-only)
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), {
+  ssr: false,
+});
 
 interface ProductLightboxProps {
   images: string[];
@@ -27,11 +32,11 @@ export default function ProductLightbox({ images }: ProductLightboxProps) {
       >
         <Image
           src={images[0]}
-          alt="Main Product Image"
+          alt={`Hlavný obrázok produktu`}
           width={800}
-          height={0} // auto height
+          height={600}
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-auto object-contain rounded-lg border"
-          priority
         />
       </div>
 
@@ -48,7 +53,7 @@ export default function ProductLightbox({ images }: ProductLightboxProps) {
           >
             <Image
               src={image}
-              alt={`Gallery image ${index + 1}`}
+              alt={`Galéria – obrázok ${index + 1}`}
               width={96}
               height={96}
               className="object-contain w-full h-full"

@@ -1,25 +1,35 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
+import { cache } from "react";
 import { Product } from "../../types/Product";
 
-// Define function to get all products (wines + degustacie)
-export default async function getProducts(): Promise<Product[]> {
+/**
+ * Get all products (wines + degustacie)
+ * Cached async function with automatic request deduplication
+ */
+const getProducts = cache(async (): Promise<Product[]> => {
   try {
     const winesPath = path.join(process.cwd(), "configs", "wines.json");
     const degustaciePath = path.join(process.cwd(), "configs", "degustacie.json");
-    
+
     let allProducts: Product[] = [];
 
     // Load wines
-    if (fs.existsSync(winesPath)) {
-      const wines: Product[] = JSON.parse(fs.readFileSync(winesPath, "utf-8"));
+    try {
+      const winesData = await fs.readFile(winesPath, "utf-8");
+      const wines: Product[] = JSON.parse(winesData);
       allProducts = [...allProducts, ...wines];
+    } catch {
+      console.warn("Wines file not found or invalid:", winesPath);
     }
 
     // Load degustacie
-    if (fs.existsSync(degustaciePath)) {
-      const degustacie: Product[] = JSON.parse(fs.readFileSync(degustaciePath, "utf-8"));
+    try {
+      const degustacieData = await fs.readFile(degustaciePath, "utf-8");
+      const degustacie: Product[] = JSON.parse(degustacieData);
       allProducts = [...allProducts, ...degustacie];
+    } catch {
+      console.warn("Degustacie file not found or invalid:", degustaciePath);
     }
 
     return allProducts.filter((product) => product.CatalogVisible);
@@ -27,65 +37,52 @@ export default async function getProducts(): Promise<Product[]> {
     console.error("Error loading products files:", error);
     return [];
   }
-}
+});
 
-// Function to get wines only
-export async function getWines(): Promise<Product[]> {
+export default getProducts;
+
+/**
+ * Get wines only
+ * Cached async function for wine products
+ */
+export const getWines = cache(async (): Promise<Product[]> => {
   try {
     const winesPath = path.join(process.cwd(), "configs", "wines.json");
-
-    if (!fs.existsSync(winesPath)) {
-      return [];
-    }
-
-    const wines: Product[] = JSON.parse(fs.readFileSync(winesPath, "utf-8"));
+    const winesData = await fs.readFile(winesPath, "utf-8");
+    const wines: Product[] = JSON.parse(winesData);
     return wines.filter((product) => product.CatalogVisible);
   } catch (error) {
     console.error("Error loading wines file:", error);
     return [];
   }
-}
+});
 
-// Function to get degustacie only
-export async function getDegustacie(): Promise<Product[]> {
+/**
+ * Get degustacie only
+ * Cached async function for degustation products
+ */
+export const getDegustacie = cache(async (): Promise<Product[]> => {
   try {
     const degustaciePath = path.join(process.cwd(), "configs", "degustacie.json");
-
-    if (!fs.existsSync(degustaciePath)) {
-      return [];
-    }
-
-    const degustacie: Product[] = JSON.parse(fs.readFileSync(degustaciePath, "utf-8"));
+    const degustacieData = await fs.readFile(degustaciePath, "utf-8");
+    const degustacie: Product[] = JSON.parse(degustacieData);
     return degustacie.filter((product) => product.CatalogVisible);
   } catch (error) {
     console.error("Error loading degustacie file:", error);
     return [];
   }
-}
+});
 
-// Function to get a product by slug
-export function getProductBySlug(slug: string): Product | undefined {
+/**
+ * Get a product by slug
+ * Cached async function to find a specific product
+ */
+export const getProductBySlug = cache(async (slug: string): Promise<Product | undefined> => {
   try {
-    const winesPath = path.join(process.cwd(), "configs", "wines.json");
-    const degustaciePath = path.join(process.cwd(), "configs", "degustacie.json");
-    
-    let allProducts: Product[] = [];
-
-    // Load wines
-    if (fs.existsSync(winesPath)) {
-      const wines: Product[] = JSON.parse(fs.readFileSync(winesPath, "utf-8"));
-      allProducts = [...allProducts, ...wines];
-    }
-
-    // Load degustacie
-    if (fs.existsSync(degustaciePath)) {
-      const degustacie: Product[] = JSON.parse(fs.readFileSync(degustaciePath, "utf-8"));
-      allProducts = [...allProducts, ...degustacie];
-    }
-
+    const allProducts = await getProducts();
     return allProducts.find((product) => product.Slug === slug);
   } catch (error) {
     console.error(`Error fetching product with slug "${slug}":`, error);
     return undefined;
   }
-}
+});

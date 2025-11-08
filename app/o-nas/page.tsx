@@ -34,7 +34,7 @@ export default function AboutPage() {
         title="O vinárstve"
         subtitle="Rodinné vinárstvo s tradíciou už niekoľko generácií vo Vinosadoch na úpätí Malých Karpát"
         backgroundImageUrl="/o-nas/rodina2.jpg"
-        secondaryCta={{ label: "Galéria rodiny", href: "/galeria/rodina" }}
+        secondaryCta={{ label: "Degustácie Pezinok", href: "/degustacie/pezinok" }}
         heightClass="h-[60vh]"
       />
 
@@ -148,6 +148,9 @@ export default function AboutPage() {
               <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
                 Moderné zariadenia a postupy zaručujú najvyššiu kvalitu našich vín
               </p>
+              <div className="mt-6">
+                <a href="/ubytovanie/vinosady" className="border-2 border-accent text-accent hover:bg-accent hover:text-foreground px-6 py-3 rounded-lg font-semibold inline-block">Ubytovanie Vinosady</a>
+              </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

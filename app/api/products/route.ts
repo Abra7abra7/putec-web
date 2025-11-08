@@ -1,3 +1,4 @@
+export const revalidate = 3600;
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";

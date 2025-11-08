@@ -31,6 +31,10 @@ export default function StripeClientSecretLoader() {
 
   useEffect(() => {
     const loadSecret = async () => {
+      console.log('🔍 StripeClientSecretLoader - orderId:', orderId);
+      console.log('🔍 StripeClientSecretLoader - cartItems.length:', cartItems.length);
+      console.log('🔍 StripeClientSecretLoader - shippingMethod:', shippingMethod);
+      
       if (!orderId || cartItems.length === 0 || !shippingMethod) return;
 
       const res = await fetch("/api/stripe/create-payment-intent", {
@@ -47,6 +51,7 @@ export default function StripeClientSecretLoader() {
           customerName: `${shippingForm?.firstName || ''} ${shippingForm?.lastName || ''}`.trim(),
           shippingForm,
           billingForm,
+          paymentMethodId, // Send payment method to track in metadata
         }),
       });
 
@@ -89,6 +94,7 @@ export default function StripeClientSecretLoader() {
     shippingForm,
     billingForm,
     shippingMethod,
+    shippingCost,
     paymentMethodId,
     currency,
     dispatch,

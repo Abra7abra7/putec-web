@@ -1,4 +1,4 @@
-# Operácie – Stripe a fakturácia
+# Operácie – Stripe a fakturácia (aktualizované 2025-09)
 
 ## Webhook (produkcia)
 - URL: `https://vino-putec.vercel.app/api/stripe/webhook`
@@ -24,11 +24,22 @@ V logu hľadaj: „➕ Created N invoice_items“, „📧 Stripe will send invo
 7) `invoices.pay(..., paid_out_of_band=true)`
 8) `PI.metadata.invoiced='1'`
 
+### Doplňujúce poznámky
+- Pred faktúrou sa aktualizuje `Customer` z `PI.metadata` (billing/shipping + `customer.metadata`: ico, dic, ic_dph, company_name)
+- Email s faktúrou posiela Stripe po `invoices.send` (v test móde podľa nastavení e‑mailov)
+
 ## Checklist (produkcia)
 - [ ] STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET vo Vercel
 - [ ] Webhook events: iba `payment_intent.succeeded`
 - [ ] Stripe Email settings → Invoice emails zapnuté
 - [ ] Test kartovej platby: faktúra „paid“, e‑mail od Stripe
+
+## Výkon & SEO – prevádzkové
+- Obrázky: pred nasadením spustiť `npm run images:optimize`
+- Hero: `next/image` s `priority` a `fetchPriority="high"`
+- Lazy‑load pod‑fold sekcií na homepage (dynamic imports)
+- JSON‑LD: `Organization`, `Winery`, `WebSite`, `BreadcrumbList`, `ItemList`, `Product`
+- Landingy: `degustacie/pezinok`, `ubytovanie/vinosady` (po deploy požiadať o indexáciu v GSC)
 
 ## Email behavior (test vs. prod)
 - Test mode: zapni „Send emails in test mode“, inak e‑maily nemusia odchádzať

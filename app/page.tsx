@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import HomepageBanner from "./components/homepage/HomepageBanner";
-import Achievements from "./components/homepage/Achievements";
-import DegustaciePreview from "./components/homepage/DegustaciePreview";
-import AccommodationPreview from "./components/homepage/AccommodationPreview";
-import BrandStory from "./components/homepage/BrandStory";
-import Testimonials from "./components/homepage/Testimonials";
-import NewsletterSignup from "./components/homepage/NewsletterSignup";
+import dynamic from "next/dynamic";
+
+// Lazy-load below-the-fold sections to improve LCP/TBT
+const DegustaciePreview = dynamic(() => import("./components/homepage/DegustaciePreview"), { ssr: true });
+const AccommodationPreview = dynamic(() => import("./components/homepage/AccommodationPreview"), { ssr: true });
+const BrandStory = dynamic(() => import("./components/homepage/BrandStory"), { ssr: true });
+const Testimonials = dynamic(() => import("./components/homepage/Testimonials"), { ssr: true, loading: () => null });
+const NewsletterSignup = dynamic(() => import("./components/homepage/NewsletterSignup"), { ssr: true, loading: () => null });
+const Achievements = dynamic(() => import("./components/homepage/Achievements"), { ssr: true, loading: () => null });
 
 
 // Set page metadata

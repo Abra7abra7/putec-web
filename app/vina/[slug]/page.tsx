@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 import { getProductBySlug } from "../../utils/getProducts";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
-import ProductLightbox from "../../components/products/ProductLightbox";
 import { getLocalization } from "../../utils/getLocalization";
 import AddToCartButtonWrapper from "../../components/products/AddToCartButtonWrapper";
+import Script from "next/script";
+
+// Dynamic import for ProductLightbox - only loads when images are clicked
+const ProductLightbox = dynamic(() => import("../../components/products/ProductLightbox"));
 
 // Define a type for route params as a Promise
 type AsyncParams = Promise<{ slug?: string }>;
-
-// read localization
-const localeData = getLocalization();
 
 /**
  * Note: `generateMetadata` must also treat `params` as a Promise.
@@ -30,8 +31,12 @@ export async function generateMetadata({
     };
   }
 
-  // Local file read is now allowed, as we properly awaited the param
-  const product = getProductBySlug(slug);
+  // Fetch data asynchronously
+  const [product, localeData] = await Promise.all([
+    getProductBySlug(slug),
+    getLocalization(),
+  ]);
+
   if (!product) {
     return {
       title: "Product Not Found",
@@ -60,7 +65,11 @@ export default async function ProductPage({
   }
 
   // Now do local file read
-  const product = getProductBySlug(slug);
+  const [product, localeData] = await Promise.all([
+    getProductBySlug(slug),
+    getLocalization(),
+  ]);
+  
   if (!product) {
     return notFound();
   }
@@ -89,9 +98,40 @@ export default async function ProductPage({
 
   return (
     <>
+      <Script id="ld-json-breadcrumbs-vino-detail" type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+            {"@type":"ListItem","position":1,"name":"Domov","item":"https://vinoputec.sk/"},
+            {"@type":"ListItem","position":2,"name":"Vína","item":"https://vinoputec.sk/vina"},
+            {"@type":"ListItem","position":3,"name": product.Title, "item": `https://vinoputec.sk/vina/${product.Slug}`}
+          ] }) }} />
+      <Script id="ld-json-product" type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context":"https://schema.org","@type":"Product",
+          "name": product.Title,
+          "image": [product.FeatureImageURL, ...(product.ProductImageGallery||[])],
+          "description": product.ShortDescription,
+          "sku": product.ID,
+          "gtin13": product.WineDetails?.gtin || undefined,
+          "brand": {"@type":"Brand","name":"Vino Putec"},
+          "offers": {
+            "@type":"Offer",
+            "priceCurrency": product.Currency,
+            "price": product.SalePrice || product.RegularPrice,
+            "availability":"https://schema.org/InStock",
+            "url": `https://vinoputec.sk/vina/${product.Slug}`
+          }
+        }) }} />
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl font-bold text-center text-foreground mb-8">{product.Title}</h1>
+          <div className="flex justify-center mb-6">
+            <span className="inline-flex items-center gap-2 text-sm text-foreground">
+              <span aria-hidden>★</span>
+              <span className="font-semibold">5.0</span>
+              <span className="opacity-70">(31 recenzií)</span>
+            </span>
+          </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* LEFT COLUMN: IMAGES */}
           <ProductLightbox images={[product.FeatureImageURL, ...product.ProductImageGallery]} />

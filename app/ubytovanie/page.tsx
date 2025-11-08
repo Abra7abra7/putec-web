@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Hero from "../components/Hero";
 import Link from "next/link";
+import PrevioBookingClient from "../components/PrevioBookingClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -299,26 +300,29 @@ export default function AccommodationPage() {
             </div>
             
             <div className="bg-background rounded-lg shadow-lg p-8">
-              {/* Reservation PLUS iframe */}
-              <div className="reservation-container">
-                <script 
-                  type="text/javascript" 
-                  src="https://booking.previo.app/iframe/"
-                  async
-                ></script>
-                <iframe 
-                  src="https://booking.previo.app/?hotId=782975" 
-                  scrolling="no" 
-                  frameBorder="0" 
-                  width="100%" 
-                  height="800" 
-                  name="previo-booking-iframe" 
-                  id="previo-booking-iframe" 
-                  allowTransparency={true}
-                  className="w-full border-0 rounded-lg"
-                ></iframe>
-              </div>
+              <PrevioBookingClient />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-12 bg-background">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-foreground mb-6">Často kladené otázky (FAQ)</h2>
+          <div className="space-y-4">
+            <details className="bg-background border border-gray-200 rounded-lg p-4">
+              <summary className="font-semibold text-foreground">Koľko osôb môžeme ubytovať?</summary>
+              <p className="text-foreground-muted mt-2">Závisí od obsadenosti – napíšte nám a preveríme dostupnosť.</p>
+            </details>
+            <details className="bg-background border border-gray-200 rounded-lg p-4">
+              <summary className="font-semibold text-foreground">Sú k dispozícii raňajky?</summary>
+              <p className="text-foreground-muted mt-2">Áno, po dohode vieme zabezpečiť raňajky aj občerstvenie.</p>
+            </details>
+            <details className="bg-background border border-gray-200 rounded-lg p-4">
+              <summary className="font-semibold text-foreground">Je možné spojiť pobyt s degustáciou?</summary>
+              <p className="text-foreground-muted mt-2">Samozrejme – odporúčame rezervovať degustáciu vopred.</p>
+            </details>
           </div>
         </div>
       </section>

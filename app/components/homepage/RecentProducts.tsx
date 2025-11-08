@@ -4,10 +4,11 @@ import { getWines } from "../../utils/getProducts";
 import { Product } from "../../../types/Product";
 
 export default async function RecentProducts() {
-  const localeData = getLocalization();
+  const [localeData, wines] = await Promise.all([
+    getLocalization(),
+    getWines(),
+  ]);
   const labels = localeData.labels;
-
-  const wines = await getWines();
   const recentProducts = wines.slice(0, 3);
 
   if (recentProducts.length === 0) {

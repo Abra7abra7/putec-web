@@ -1,43 +1,37 @@
-'use client';
+"use client";
 
-import { useState, FormEvent } from 'react';
-import Image from 'next/image';
-import { useLocalization } from '@/app/context/LocalizationContext';
+import { useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useRef, useEffect } from "react";
+import Image from "next/image";
+import { useLocalization } from "@/app/context/LocalizationContext";
+import { sendContactMessage } from "@/app/actions/contact";
+
+function SubmitButton({ buttonText }: { buttonText: string }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      className="w-full px-6 py-3 bg-accent text-foreground font-semibold rounded-md hover:bg-accent-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      disabled={pending}
+    >
+      {pending ? "Odosiela sa..." : buttonText}
+    </button>
+  );
+}
 
 export default function ContactUsForm() {
   const { contactForm } = useLocalization();
+  const [state, formAction] = useActionState(sendContactMessage, null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [status, setStatus] = useState<string | null>(null);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok || !data.success) {
-        throw new Error(data.message || 'Something went wrong');
-      }
-
-      setName('');
-      setEmail('');
-      setMessage('');
-      setStatus(contactForm.successMessage);
-      setTimeout(() => setStatus(null), 5000);
-    } catch (error) {
-      console.error('Contact form error:', error);
-      setStatus(contactForm.errorMessage);
+  // Reset form on success
+  useEffect(() => {
+    if (state?.success) {
+      formRef.current?.reset();
     }
-  };
+  }, [state?.success]);
 
   return (
     <section className="w-full h-full bg-background py-16">
@@ -49,70 +43,96 @@ export default function ContactUsForm() {
             alt="Pútec Logo"
             width={100}
             height={100}
-            className="mx-auto rounded-full shadow-2xl border-4 border-accent mb-6"
+            className="mx-auto rounded-full border-4 border-accent"
           />
-          <h2 className="text-4xl font-bold text-foreground">{contactForm.title}</h2>
+          <h2 className="text-4xl font-bold text-foreground mt-4">{contactForm.title}</h2>
+          <p className="text-gray-700 mt-2">Máte otázky? Napíšte nám!</p>
         </div>
 
-        {status && <div className="mb-4 text-gray-700 font-semibold">{status}</div>}
-
-        <form
-          onSubmit={handleSubmit}
-          className="bg-background shadow-lg rounded-lg p-8 space-y-6 mt-3 border border-accent"
-        >
-          {/* Name Field */}
+        {/* Contact Form */}
+        <form ref={formRef} action={formAction} className="space-y-6">
+          {/* Name */}
           <div>
-            <label className="block text-foreground font-medium mb-2">
+            <label htmlFor="name" className="block text-sm font-medium text-foreground">
               {contactForm.nameLabel}
             </label>
             <input
               type="text"
-              className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
-              placeholder={contactForm.namePlaceholder}
+              id="name"
+              name="name"
               required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-wine-red"
+              placeholder={contactForm.namePlaceholder}
             />
+            {state?.errors?.name && (
+              <p className="mt-1 text-sm text-red-600">{state.errors.name[0]}</p>
+            )}
           </div>
 
-          {/* Email Field */}
+          {/* Email */}
           <div>
-            <label className="block text-foreground font-medium mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-foreground">
               {contactForm.emailLabel}
             </label>
             <input
               type="email"
-              className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
-              placeholder={contactForm.emailPlaceholder}
+              id="email"
+              name="email"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-wine-red"
+              placeholder={contactForm.emailPlaceholder}
             />
+            {state?.errors?.email && (
+              <p className="mt-1 text-sm text-red-600">{state.errors.email[0]}</p>
+            )}
           </div>
 
-          {/* Message Field */}
+          {/* Message */}
           <div>
-            <label className="block text-foreground font-medium mb-2">
+            <label htmlFor="message" className="block text-sm font-medium text-foreground">
               {contactForm.messageLabel}
             </label>
             <textarea
-              rows={6}
-              className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
-              placeholder={contactForm.messagePlaceholder}
+              id="message"
+              name="message"
+              rows={5}
               required
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-wine-red resize-none"
+              placeholder={contactForm.messagePlaceholder}
             />
+            {state?.errors?.message && (
+              <p className="mt-1 text-sm text-red-600">{state.errors.message[0]}</p>
+            )}
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="bg-accent hover:bg-accent-dark text-foreground px-6 py-3 rounded-md font-semibold transition-colors"
-          >
-            {contactForm.buttonText}
-          </button>
+          <SubmitButton buttonText={contactForm.buttonText} />
+
+          {/* Status Messages */}
+          {state?.success && (
+            <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+              <p className="text-green-800 font-medium">{state.message}</p>
+            </div>
+          )}
+          {state && !state.success && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-red-800 font-medium">{state.message}</p>
+            </div>
+          )}
         </form>
+
+        {/* Contact Info */}
+        <div className="mt-12 text-center">
+          <p className="text-gray-700">Alebo nás kontaktujte priamo:</p>
+          <div className="mt-4 space-y-2">
+            <p className="text-foreground font-medium">
+              📧 Email: <a href="mailto:info@vinoputec.sk" className="text-accent hover:underline">info@vinoputec.sk</a>
+            </p>
+            <p className="text-foreground font-medium">
+              📞 Telefón: <a href="tel:+421905123456" className="text-accent hover:underline">+421 905 123 456</a>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

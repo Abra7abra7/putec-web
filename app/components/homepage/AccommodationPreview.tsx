@@ -1,78 +1,30 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import fs from "fs";
+import path from "path";
+import AccommodationSliderClient from "./AccommodationSliderClient";
 
-export default function AccommodationPreview() {
-  const [slides, setSlides] = useState<string[]>([]);
-  const [current, setCurrent] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
+function listImagesFrom(dirPath: string): string[] {
+  try {
+    if (!fs.existsSync(dirPath)) return [];
+    const files = fs.readdirSync(dirPath);
+    const images = files.filter((name) => /\.(png|jpe?g|webp|avif)$/i.test(name));
+    return images.map((file) => `/galeria/ubytovanie/${file}`);
+  } catch {
+    return [];
+  }
+}
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const res = await fetch('/api/gallery/ubytovanie');
-        const data = await res.json();
-        setSlides(data.photos?.slice(0, 8) || []);
-        setIsLoaded(true);
-      } catch (e) {
-        console.error('Nepodarilo sa načítať galériu ubytovania', e);
-        setIsLoaded(true);
-      }
-    };
-    load();
-  }, []);
-
-  useEffect(() => {
-    if (!isLoaded || slides.length === 0) return;
-    const t = setInterval(() => setCurrent((p) => (p + 1) % slides.length), 4000);
-    return () => clearInterval(t);
-  }, [slides, isLoaded]);
-
-  const goPrev = () => slides.length && setCurrent((p) => (p - 1 + slides.length) % slides.length);
-  const goNext = () => slides.length && setCurrent((p) => (p + 1) % slides.length);
+export default async function AccommodationPreview() {
+  const base = path.join(process.cwd(), "public", "galeria", "ubytovanie");
+  const slides = listImagesFrom(base).slice(0, 8);
 
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-          {/* Slider */}
-          <div className="relative flex items-center">
-                        <div className="relative w-full h-96 rounded-lg overflow-hidden shadow-lg">
-                          {!isLoaded || slides.length === 0 ? (
-                            <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                              <span className="text-foreground">Načítavam fotografie...</span>
-                            </div>
-                          ) : (
-                slides.map((src, index) => (
-                  <div key={src} className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0'}`}>
-                    <Image src={src} alt="Ubytovanie" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority={index === current} />
-                  </div>
-                ))
-              )}
-
-              {/* Controls */}
-              {slides.length > 1 && (
-                <>
-                  <button type="button" onClick={goPrev} aria-label="Predchádzajúci" className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-10 h-10 flex items-center justify-center">‹</button>
-                  <button type="button" onClick={goNext} aria-label="Ďalší" className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full w-10 h-10 flex items-center justify-center">›</button>
-                </>
-              )}
-
-              {/* Dots */}
-              {slides.length > 1 && (
-                <div className="absolute bottom-3 left-0 right-0 flex items-center justify-center gap-2">
-                  {slides.map((_, i) => (
-                    <button key={i} onClick={() => setCurrent(i)} aria-label={`Snímka ${i + 1}`} className={`w-2.5 h-2.5 rounded-full ${i === current ? 'bg-white' : 'bg-white/50'}`} />
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="flex flex-col justify-center">
+          {/* Content first on mobile */}
+          <div className="flex flex-col justify-center order-1 lg:order-none">
             <div className="mb-6">
               <Image
                 src="/putec-logo.jpg"
@@ -133,6 +85,11 @@ export default function AccommodationPreview() {
                 Zobraziť detaily
               </Link>
             </div>
+          </div>
+
+          {/* Slider second on mobile */}
+          <div className="order-2 lg:order-none">
+            <AccommodationSliderClient slides={slides} />
           </div>
         </div>
       </div>

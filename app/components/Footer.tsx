@@ -19,8 +19,8 @@ const iconMap: Record<SocialIcon, React.ElementType> = {
   SiYoutube: SiYoutube
 };
 
-export default function Footer() {
-  const content = getLocalization(); // Load localization data
+export default async function Footer() {
+  const content = await getLocalization(); // Load localization data asynchronously
 
   return (
     <footer className="bg-background text-foreground py-16 relative border-t border-gray-200">
@@ -29,13 +29,15 @@ export default function Footer() {
         {/* Logo & Brand */}
         <div className="flex flex-col items-center md:items-start">
           <Link href="/" className="flex flex-col items-center md:items-start space-y-3 hover:opacity-80 transition-opacity">
-            <Image
-              src="/putec-logo.jpg"
-              alt="Pútec Logo"
-              width={80}
-              height={80}
-              className="rounded-lg"
-            />
+            <div className="p-1 border-4 border-accent rounded-full">
+              <Image
+                src="/putec-logo.jpg"
+                alt="Pútec Logo"
+                width={80}
+                height={80}
+                className="rounded-full"
+              />
+            </div>
             <div className="text-center md:text-left">
               <h3 className="text-xl font-bold text-foreground">{content.siteName}</h3>
               <p className="text-foreground text-sm">{content.siteTagline}</p>

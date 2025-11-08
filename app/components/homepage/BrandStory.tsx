@@ -100,6 +100,7 @@ export default function BrandStory() {
                 height={400}
                 className="rounded-2xl shadow-2xl"
                 priority
+                sizes="(max-width: 1024px) 100vw, 600px"
               />
               <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-accent rounded-full flex items-center justify-center shadow-xl">
                 <span className="text-3xl">🍷</span>

@@ -60,7 +60,6 @@ export default function OrderSummaryClient() {
 
   useEffect(() => {
     const orderIdFromQuery = searchParams.get("orderId");
-    const paymentIntentFromQuery = searchParams.get("payment_intent");
     const recent = localStorage.getItem("recentOrder");
   
     if (recent) {
@@ -73,9 +72,7 @@ export default function OrderSummaryClient() {
         dispatch(clearCart());
         // After successful Stripe redirect, ensure confirmation emails are sent once
         const sentKey = `emailsSent:${parsed.orderId}`;
-        const invoiceKey = `invoiceSent:${parsed.orderId}`;
         const alreadySent = localStorage.getItem(sentKey);
-        const alreadyInvoiced = localStorage.getItem(invoiceKey);
         if (!alreadySent) {
           (async () => {
             try {

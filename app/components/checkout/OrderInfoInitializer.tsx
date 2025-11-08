@@ -12,6 +12,7 @@ export default function OrderInfoInitializer() {
     const newId = uuidv4().split("-")[0]; // Short unique ID
     const date = new Date().toISOString().split("T")[0];
 
+    console.log('🔍 OrderInfoInitializer - setting orderId:', newId);
     dispatch(setOrderInfo({id:newId, date:date}));
   }, [dispatch]);
 
