@@ -162,7 +162,7 @@ export async function sendAdminEmail(body: OrderBody) {
   const shippingCost = body.shippingMethod.price;
   const total = subtotal + shippingCost;
 
-  const localization = getLocalization();
+  const localization = await getLocalization();
   const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
   // Render React Email component to HTML
@@ -198,7 +198,7 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
   const shippingCost = body.shippingMethod.price;
   const total = subtotal + shippingCost;
 
-  const localization = getLocalization();
+  const localization = await getLocalization();
   const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
   // Render React Email component to HTML
@@ -237,7 +237,7 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
 
   await sendEmail({
     to: body.shippingForm.email,
-    subject: getLocalization().labels.orderConfirmationTitle || "Potvrdenie objednávky",
+    subject: (await getLocalization()).labels.orderConfirmationTitle || "Potvrdenie objednávky",
     html,
     attachments,
   });
