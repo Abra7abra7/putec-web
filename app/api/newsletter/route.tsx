@@ -1,5 +1,18 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { render } from '@react-email/render';
+import NewsletterWelcome from "../../emails/NewsletterWelcome";
+import fs from 'fs';
+import path from 'path';
+
+// Load logo as inline attachment
+const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
+const logoBuffer = fs.readFileSync(logoPath);
+const logoAttachment = {
+  filename: 'putec-logo.jpg',
+  content: logoBuffer,
+  cid: 'logo',
+};
 
 export async function POST(req: Request) {
   try {
@@ -31,15 +44,13 @@ export async function POST(req: Request) {
     });
 
     // Send welcome email to subscriber
+    const welcomeHTML = await render(NewsletterWelcome({ email }));
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL!,
       to: email,
       subject: "Vitajte v našom newsletteri!",
-      html: `
-        <h2>Ďakujeme za prihlásenie!</h2>
-        <p>Vitajte v našom newsletteri. Budeme vás informovať o novinkách a špeciálnych ponukách.</p>
-        <p>S pozdravom,<br/>Tím Vino Pútec</p>
-      `,
+      html: welcomeHTML,
+      attachments: [logoAttachment],
     });
 
     return NextResponse.json({ success: true, message: "Úspešne prihlásený do newsletteru" });

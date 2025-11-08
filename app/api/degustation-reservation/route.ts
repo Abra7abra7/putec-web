@@ -1,7 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { render } from '@react-email/render';
+import DegustationReservationAdmin from '../../emails/DegustationReservationAdmin';
+import DegustationReservationCustomer from '../../emails/DegustationReservationCustomer';
+import fs from 'fs';
+import path from 'path';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Load logo as inline attachment
+const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
+const logoBuffer = fs.readFileSync(logoPath);
+const logoAttachment = {
+  filename: 'putec-logo.jpg',
+  content: logoBuffer,
+  cid: 'logo',
+};
 
 interface ReservationData {
   name: string;
@@ -26,26 +40,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Send admin email
-    const adminEmailText = `
-Nová rezervácia degustácie:
-
-Produkt: ${body.productTitle}
-Cena: ${body.productPrice}${body.productDeposit ? ` (Záloha: ${body.productDeposit})` : ''}
-
-Zákazník:
-- Meno: ${body.name}
-- Email: ${body.email}
-- Telefón: ${body.phone}
-
-Rezervácia:
-- Dátum: ${new Date(body.date).toLocaleDateString('sk-SK')}
-- Čas: ${body.time}
-- Počet osôb: ${body.guests}
-
-${body.message ? `Poznámky: ${body.message}` : ''}
-
-Rezervácia vytvorená: ${new Date().toLocaleString('sk-SK')}
-    `;
+    const adminEmailHTML = await render(DegustationReservationAdmin(body));
 
     console.log("📧 Sending admin email to:", process.env.ADMIN_EMAIL);
     console.log("📧 From email:", process.env.RESEND_FROM_EMAIL);
@@ -54,37 +49,14 @@ Rezervácia vytvorená: ${new Date().toLocaleString('sk-SK')}
       from: process.env.RESEND_FROM_EMAIL!,
       to: process.env.ADMIN_EMAIL!,
       subject: `🍷 Nová rezervácia degustácie od ${body.name}`,
-      text: adminEmailText,
+      html: adminEmailHTML,
+      attachments: [logoAttachment],
     });
     
     console.log("✅ Admin email sent:", adminResult);
 
     // Send customer email
-    const customerEmailText = `
-Vážený/á ${body.name},
-
-Ďakujeme za rezerváciu degustácie!
-
-Detaily rezervácie:
-- Produkt: ${body.productTitle}
-- Dátum: ${new Date(body.date).toLocaleDateString('sk-SK')}
-- Čas: ${body.time}
-- Počet osôb: ${body.guests}
-- Cena: ${body.productPrice}${body.productDeposit ? ` (Záloha: ${body.productDeposit})` : ''}
-
-${body.message ? `Vaše poznámky: ${body.message}` : ''}
-
-Kontaktné údaje:
-- Telefón: ${body.phone}
-- Email: ${body.email}
-
-V prípade otázok nás kontaktujte na ${process.env.ADMIN_EMAIL}.
-
-Tešíme sa na vás!
-
-S pozdravom,
-Tím Vino Pútec
-    `;
+    const customerEmailHTML = await render(DegustationReservationCustomer(body));
 
     console.log("📧 Sending customer email to:", body.email);
     
@@ -92,7 +64,8 @@ Tím Vino Pútec
       from: process.env.RESEND_FROM_EMAIL!,
       to: body.email,
       subject: '🍷 Potvrdenie rezervácie degustácie - Vino Pútec',
-      text: customerEmailText,
+      html: customerEmailHTML,
+      attachments: [logoAttachment],
     });
     
     console.log("✅ Customer email sent:", customerResult);
@@ -111,4 +84,3 @@ Tím Vino Pútec
     }, { status: 500 });
   }
 }
-

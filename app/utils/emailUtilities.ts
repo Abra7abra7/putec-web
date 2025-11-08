@@ -1,6 +1,12 @@
 import { Resend } from 'resend';
+import { render } from '@react-email/render';
 import { getLocalization } from "./getLocalization";
 import { Product } from "../../types/Product";
+import { downloadInvoicePDF } from "./superFakturaApi";
+import fs from 'fs';
+import path from 'path';
+import OrderConfirmationAdmin from '../emails/OrderConfirmationAdmin';
+import OrderConfirmationCustomer from '../emails/OrderConfirmationCustomer';
 
 // ----- Interfaces -----
 
@@ -48,26 +54,71 @@ export interface OrderBody {
 export async function sendEmail({
   to,
   subject,
+  html,
   text,
+  attachments,
 }: {
   to: string;
   subject: string;
-  text: string;
+  html?: string;
+  text?: string;
+  attachments?: Array<{
+    filename: string;
+    content: Buffer;
+    cid?: string;
+  }>;
 }) {
   try {
     console.log("📧 Attempting to send email to:", to);
     console.log("📧 From email:", process.env.RESEND_FROM_EMAIL);
     console.log("📧 Subject:", subject);
+    console.log("📧 Has HTML:", !!html);
+    console.log("📧 Has attachments:", !!attachments?.length);
     console.log("📧 Resend API Key exists:", !!process.env.RESEND_API_KEY);
     
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    const result = await resend.emails.send({
+    // Load logo as inline attachment
+    const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
+    const logoBuffer = fs.readFileSync(logoPath);
+    
+    const allAttachments = [
+      {
+        filename: 'putec-logo.jpg',
+        content: logoBuffer,
+        cid: 'logo', // Content-ID for inline reference
+      },
+      ...(attachments || []),
+    ];
+
+    console.log("📧 Including inline logo attachment with CID: logo");
+    console.log("📧 Total attachments:", allAttachments.length);
+
+    // Build email data with only defined properties
+    const emailData: {
+      from: string;
+      to: string;
+      subject: string;
+      html?: string;
+      text?: string;
+      attachments: Array<{ filename: string; content: Buffer; cid?: string }>;
+    } = {
       from: process.env.RESEND_FROM_EMAIL!,
       to,
       subject,
-      text,
-    });
+      attachments: allAttachments,
+    };
+
+    // Add html or text if provided
+    if (html) {
+      emailData.html = html;
+    }
+    if (text) {
+      emailData.text = text;
+    }
+
+    // Type assertion needed because Resend's types are overly strict
+    const result = await resend.emails.send(emailData as Parameters<typeof resend.emails.send>[0]);
 
     console.log("✅ Email sent successfully to:", to, "ID:", result.data?.id);
     console.log("✅ Full result:", JSON.stringify(result, null, 2));
@@ -106,117 +157,88 @@ export function formatOrderSummary(cartItems: OrderCartItem[]): {
 
 // ----- Admin Email -----
 
-export function generateAdminEmail(
-  body: OrderBody,
-  summary: string,
-  subtotal: number,
-  shipping: number,
-  total: number
-): string {
-  return `Nová objednávka
+export async function sendAdminEmail(body: OrderBody) {
+  const { subtotal } = formatOrderSummary(body.cartItems);
+  const shippingCost = body.shippingMethod.price;
+  const total = subtotal + shippingCost;
 
-Číslo objednávky: ${body.orderId}
-Dátum objednávky: ${body.orderDate}
-Zákazník: ${body.shippingForm.firstName} ${body.shippingForm.lastName}
-Email: ${body.shippingForm.email}
-Telefón: ${body.shippingForm.phone}
+  const localization = getLocalization();
+  const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
-Dodacia adresa:
-${body.shippingForm.address1}
-${body.shippingForm.address2}
-${body.shippingForm.city}, ${body.shippingForm.state}, ${body.shippingForm.country} ${body.shippingForm.postalCode}
+  // Render React Email component to HTML
+  const html = await render(
+    OrderConfirmationAdmin({
+      orderId: body.orderId,
+      orderDate: body.orderDate,
+      customerName: `${body.shippingForm.firstName} ${body.shippingForm.lastName}`,
+      customerEmail: body.shippingForm.email,
+      customerPhone: body.shippingForm.phone,
+      shippingAddress: body.shippingForm,
+      billingAddress: body.billingForm,
+      cartItems: body.cartItems,
+      subtotal,
+      shippingCost,
+      total,
+      shippingMethod: body.shippingMethod.name,
+      paymentMethod: paymentMethodName,
+    })
+  );
 
-Fakturačné údaje:
-${body.billingForm.firstName} ${body.billingForm.lastName}
-${body.billingForm.address1}
-${body.billingForm.address2}
-${body.billingForm.city}, ${body.billingForm.state}, ${body.billingForm.country} ${body.billingForm.postalCode}
-${body.billingForm.isCompany ? `\nFirma: ${body.billingForm.companyName}\nICO: ${body.billingForm.companyICO || ''}\nDIC: ${body.billingForm.companyDIC || ''}\nIC DPH: ${body.billingForm.companyICDPH || ''}` : ''}
-
-Spôsob doručenia: ${body.shippingMethod.name}
-Spôsob platby: ${body.paymentMethodId.toUpperCase()}
-
-Súhrn objednávky:
-${summary}
-
-Medzisúčet: €${subtotal.toFixed(2)}
-Doprava: €${shipping.toFixed(2)}
-Celkom: €${total.toFixed(2)}
-
-Dátum: ${new Date().toLocaleString()}
-`;
+  await sendEmail({
+    to: process.env.ADMIN_EMAIL!,
+    subject: `Nová objednávka ${body.orderId}`,
+    html,
+  });
 }
 
 // ----- Customer Email -----
 
-export function generateCustomerEmail(
-  body: OrderBody,
-  summary: string,
-  total: number
-): string {
-  const { labels, siteName } = getLocalization();
-  return `Dobrý deň ${body.shippingForm.firstName},
+export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
+  const { subtotal } = formatOrderSummary(body.cartItems);
+  const shippingCost = body.shippingMethod.price;
+  const total = subtotal + shippingCost;
 
-${labels.orderConfirmationMessage || "Vaša objednávka bola úspešne odoslaná. Oznámime vám, keď ju spracujeme."}
+  const localization = getLocalization();
+  const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
-Číslo objednávky: ${body.orderId}
-Dátum objednávky: ${body.orderDate}
-Spôsob doručenia: ${body.shippingMethod.name}
-Spôsob platby: ${body.paymentMethodId.toUpperCase()}
+  // Render React Email component to HTML
+  const html = await render(
+    OrderConfirmationCustomer({
+      orderId: body.orderId,
+      orderDate: body.orderDate,
+      customerName: `${body.shippingForm.firstName} ${body.shippingForm.lastName}`,
+      cartItems: body.cartItems,
+      subtotal,
+      shippingCost,
+      total,
+      shippingMethod: body.shippingMethod.name,
+      paymentMethod: paymentMethodName,
+    })
+  );
 
-Dodacia adresa:
-${body.shippingForm.address1}
-${body.shippingForm.address2}
-${body.shippingForm.city}, ${body.shippingForm.state}, ${body.shippingForm.country} ${body.shippingForm.postalCode}
-
-Súhrn objednávky:
-${summary}
-
-Fakturačné údaje:
-${body.billingForm.firstName} ${body.billingForm.lastName}
-${body.billingForm.address1}
-${body.billingForm.address2}
-${body.billingForm.city}, ${body.billingForm.state}, ${body.billingForm.country} ${body.billingForm.postalCode}
-${body.billingForm.isCompany ? `\nFirma: ${body.billingForm.companyName}\nICO: ${body.billingForm.companyICO || ''}\nDIC: ${body.billingForm.companyDIC || ''}\nIC DPH: ${body.billingForm.companyICDPH || ''}` : ''}
-
-Celkom: €${total.toFixed(2)}
-
-Ďakujeme za nákup!
-${siteName || "Vino Putec"}
-`;
-}
-
-// ----- Send Admin Email -----
-
-export async function sendAdminEmail(body: OrderBody) {
-  const { lines, subtotal } = formatOrderSummary(body.cartItems);
-  const shipping = body.shippingMethod?.price || 0;
-  const total = subtotal + shipping;
-
-  const text = generateAdminEmail(body, lines, subtotal, shipping, total);
-  const subject = `🛒 Nová objednávka od ${body.shippingForm.firstName} ${body.shippingForm.lastName}`;
-
-  await sendEmail({
-    to: process.env.ADMIN_EMAIL!,
-    subject,
-    text,
-  });
-}
-
-// ----- Send Customer Email -----
-
-export async function sendCustomerEmail(body: OrderBody) {
-  const { lines, subtotal } = formatOrderSummary(body.cartItems);
-  const shipping = body.shippingMethod?.price || 0;
-  const total = subtotal + shipping;
-
-  const text = generateCustomerEmail(body, lines, total);
-  const subject =
-    getLocalization().labels.orderConfirmationTitle || "Potvrdenie objednávky";
+  // Try to attach PDF invoice if SuperFaktura is configured and invoiceId is provided
+  let attachments: Array<{ filename: string; content: Buffer }> | undefined;
+  
+  if (invoiceId && process.env.SUPERFAKTURA_API_KEY) {
+    try {
+      const pdfBuffer = await downloadInvoicePDF(invoiceId);
+      attachments = [
+        {
+          filename: `Faktura-${body.orderId}.pdf`,
+          content: pdfBuffer,
+        },
+      ];
+      console.log("✅ PDF faktúra pripojená k zákazníckemu emailu");
+    } catch (error) {
+      console.error("⚠️ Nepodarilo sa pripojiť PDF faktúru k emailu:", error);
+      // Continue without attachment - don't fail the email
+    }
+  }
 
   await sendEmail({
     to: body.shippingForm.email,
-    subject,
-    text,
+    subject: getLocalization().labels.orderConfirmationTitle || "Potvrdenie objednávky",
+    html,
+    attachments,
   });
 }

@@ -1,5 +1,18 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { render } from '@react-email/render';
+import ContactForm from '../../emails/ContactForm';
+import fs from 'fs';
+import path from 'path';
+
+// Load logo as inline attachment
+const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
+const logoBuffer = fs.readFileSync(logoPath);
+const logoAttachment = {
+  filename: 'putec-logo.jpg',
+  content: logoBuffer,
+  cid: 'logo',
+};
 
 export async function POST(req: Request) {
   const { name, email, message } = await req.json();
@@ -16,15 +29,13 @@ export async function POST(req: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
+    const contactHTML = await render(ContactForm({ name, email, message }));
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL!,
       to: process.env.ADMIN_EMAIL!,
       subject: `Kontaktný formulár od ${name}`,
-      html: `
-        <p><strong>Meno:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Správa:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
-      `,
+      html: contactHTML,
+      attachments: [logoAttachment],
     });
 
     return NextResponse.json({ success: true });
