@@ -8,8 +8,8 @@
 - Stav: Redux Toolkit (košík, checkout stav)
 - Úložisko produktov: JSON súbory v `configs/` (bez databázy)
 - Platby: Stripe Payment Element + Webhook (fakturácia)
-- Emaily: Resend (potvrdenia objednávok)
-- Fakturácia: SuperFaktúra (právne platné faktúry)
+- Emaily: Resend + React Email (moderné email šablóny)
+- Fakturácia: SuperFaktúra (právne platné faktúry s PDF prílohou)
 - Hosting: Vercel (Node runtime pre webhook)
 
 ### Novinky (SEO, výkon, obsah)
@@ -53,8 +53,8 @@ Putec s.r.o. je rodinná vinárňa s dlhoročnou tradíciou vo Vinosadoch, ktor�
 ## Kontakt
 
 - **Adresa**: Pezinská 154, 902 01 Vinosady, Slovensko
-- **Telefón**: +421 903465666
-- **Email**: brano.putec@gmail.com
+- **Telefón**: +421 911 250 400
+- **Email**: info@vinoputec.sk
 - **IČO**: 36658774
 - **DIČ**: 2022219430
 - **IČ DPH**: SK2022219430
@@ -67,21 +67,27 @@ Putec s.r.o. je rodinná vinárňa s dlhoročnou tradíciou vo Vinosadoch, ktor�
 - **Košík a objednávka** – LocalStorage košík s Stripe a dobierkou
 - **Newsletter integrácia** – Prihlásenie na newsletter
 - **Kontaktný formulár s Google reCAPTCHA v3** – Ochrana pred spamom
+- **Moderné email šablóny** – React Email komponenty s inline logo attachmentom
 - **Spracovanie objednávok cez email** – Používa Resend na odosielanie notifikácií
-- **Automatická fakturácia** – SuperFaktúra pre právne platné faktúry
+- **Automatická fakturácia** – SuperFaktúra pre právne platné faktúry s PDF prílohou
 - **SEO optimalizovaný** – Rýchle, indexovateľné stránky produktov
 - **Nasadenie kdekoľvek** – Funguje na Vercel alebo akomkoľvek statickom hostingu
 
 ## Technológie
 
-- **Frontend**: Next.js 15, TypeScript, Tailwind CSS, Redux
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS, Redux Toolkit
 - **Úložisko**: JSON-based súborový systém (bez databázy)
 - **Platby**:
   - **Stripe Payment Element** – Online platby (Google Pay, Apple Pay, kreditné/debetné karty)
   - **Dobierka** – Platba kurierovi pri dodaní
   - **Osobný odber** – Platba na prevádzke vo Vinosadoch
+- **Emaily**:
+  - **Resend** – Odosielanie emailov
+  - **React Email** – Moderné React komponenty pre email šablóny
+  - **Inline attachments** – Logo priložené priamo v emailoch (cid:logo)
 - **Fakturácia**:
   - **SuperFaktúra** – Automatické generovanie právne platných faktúr (len pri online platbe)
+  - **PDF prílohy** – Faktúra automaticky priložená v zákazníckom emaile
 - **Hosting**: Vercel
 
 ## Optimalizácia obrázkov (výkon a SEO)
@@ -126,6 +132,38 @@ Poznámka: odporúča sa spúšťať pred produkčným buildom, aby sa do buildu
 - Menu a Footer doplnené o priame odkazy; homepage CTA smerujú na landingy
 - `sitemap.ts` obsahuje nové cesty; po deploy požiadať o indexáciu v GSC
 
+## React Email integrácia
+
+### Email komponenty
+
+Všetky emaily sú postavené na moderných React komponentoch v priečinku `app/emails/`:
+
+- **OrderConfirmationAdmin.tsx** – Admin email pri novej objednávke
+- **OrderConfirmationCustomer.tsx** – Zákaznícky email s potvrdením objednávky
+- **DegustationReservationAdmin.tsx** – Admin email pri rezervácii degustácie
+- **DegustationReservationCustomer.tsx** – Zákaznícky email s potvrdením rezervácie
+- **NewsletterWelcome.tsx** – Uvítací email pre nových odberateľov newsletteru
+- **ContactForm.tsx** – Email z kontaktného formulára
+
+### Výhody React Email
+
+- **Moderný vývoj** – Používame React komponenty namiesto HTML stringov
+- **Type safety** – Plná TypeScript podpora pre všetky props
+- **Konzistentný dizajn** – Všetky emaily majú jednotný vzhľad a feel
+- **Lepšia údržba** – Komponentový prístup je čitateľnejší a ľahšie sa upravuje
+- **Inline logo** – Logo je priložené priamo v emaile (cid:logo) pre spoľahlivé zobrazenie
+
+### Email dizajn
+
+- **Header**: Zlatý gradient s okrúhlym logom (80x80px)
+- **Body**: Čisté rozloženie s info boxmi a tabuľkami
+- **Footer**: Kontaktné informácie a social linky
+- **Responzívny**: Optimalizovaný pre všetky email klienty
+
+### Testované email klienty
+
+✅ Gmail, Apple Mail, Outlook, Yahoo Mail, HEY, Superhuman
+
 ## Platobný proces a fakturácia
 
 ### Platobné metódy
@@ -147,8 +185,14 @@ Poznámka: odporúča sa spúšťať pred produkčným buildom, aby sa do buildu
 
 ### Emailová logika
 
-- **Potvrdenie objednávky (Resend)** – Posielané **VŽDY** všetkým zákazníkom po úspešnej objednávke
+- **Potvrdenie objednávky (Resend + React Email)** – Posielané **VŽDY** všetkým zákazníkom po úspešnej objednávke
+  - Pekne formátovaný email s logom
+  - Zoznam objednaných produktov
+  - Dodacie a fakturačné údaje
+  - Informácie o doprave a platbe
 - **Faktúra (SuperFaktúra)** – Posielané **len pri online platbe** cez Stripe
+  - PDF faktúra priložená priamo v zákazníckom emaile
+  - Automatické označenie ako uhradené
 - **Dobierka/osobný odber** – Faktúru vystavuje kurier alebo prevádzka neskôr
 
 ### Nákupný proces – sekvenčný diagram
@@ -235,31 +279,40 @@ V logu uvidíš SuperFaktúra správy o vytvorení a odoslaní faktúry.
 ## SuperFaktúra integrácia - Primárny fakturačný systém
 
 - **Automatická fakturácia**: Po úspešnej Stripe platbe sa vytvorí právne platná faktúra v SuperFaktúre
+- **PDF príloha**: Faktúra sa automaticky stiahne ako PDF a priloží k zákazníckemu emailu
 - **Podmienečné emailovanie**: Faktúra sa vytvorí a odošle **len pri online platbe** cez Stripe
 - **Dobierka/osobný odber**: Faktúru netvoria automaticky (vystaví ju kurier/prevádzka)
+- **Automatické označenie**: Faktúra je automaticky označená ako uhradená pri Stripe platbách
 - **Environment premenné**: 
   - `SUPERFAKTURA_EMAIL` - Email pre API autentifikáciu
   - `SUPERFAKTURA_API_KEY` - API kľúč
-  - `SUPERFAKTURA_SEND_EMAILS=1` - Povoliť automatické odosielanie emailov
+  - `SUPERFAKTURA_COMPANY_ID` - ID firmy v SuperFaktúre
+  - `SUPERFAKTURA_SANDBOX` - true/false pre sandbox/produkčný režim
 - **Podporované meny**: EUR, CZK
-- **DPH sadzba**: 20% (nastaviteľné v `app/utils/superfaktura.ts`)
+- **DPH sadzba**: 20% (nastaviteľné v `app/utils/superFakturaApi.ts`)
 
 ### ✅ Overené funkcie:
-- **Produkčná URL**: `https://moja.superfaktura.sk`
-- **API autentifikácia**: Funguje s produkčným kľúčom
+- **Produkčná URL**: `https://moja.superfaktura.sk` (+ sandbox podpora)
+- **API autentifikácia**: Funguje s produkčným aj sandbox kľúčom
 - **Vytvorenie faktúry**: Úspešné vytvorenie s položkami + doprava
 - **DPH kalkulácia**: 20% DPH správne vypočítané
 - **Číslovanie faktúr**: Automatické
-- **Email odosielanie**: Automatický email zákazníkovi pri online platbe
+- **Email odosielanie**: SuperFaktúra + Resend (s PDF prílohou)
+- **PDF príloha**: Faktúra automaticky stiahnutá a priložená k emailu
+- **Označenie ako uhradené**: Automatické pri Stripe platbách
 - **Firemné údaje**: IČO, DIČ, IČ DPH správne prenesené
+- **Aktualizácia klientov**: Existujúci klienti sa aktualizujú s novými údajmi
+- **Server-side idempotency**: Ochrana proti duplikátnym faktúram
 
 ### SuperFaktúra flow (len pri online platbe):
 1. Zákazník zaplatí cez Stripe (Google Pay/Apple Pay/Karta)
 2. Stripe webhook prijme `payment_intent.succeeded`
 3. Kontrola `metadata.paymentMethod === 'stripe'`
 4. SuperFaktúra vytvorí faktúru s položkami a dopravou
-5. SuperFaktúra automaticky odošle email zákazníkovi
-6. Resend odošle potvrdenie objednávky
+5. SuperFaktúra označí faktúru ako uhradenú
+6. PDF faktúra sa stiahne z SuperFaktúry
+7. Resend odošle potvrdenie objednávky s PDF faktúrou ako prílohou
+8. Zákazník dostane jeden email s potvrdením a faktúrou
 
 ### Dokumentácia:
 - Podrobný návod: `docs/SUPERFAKTURA_INTEGRATION.md`
@@ -347,11 +400,19 @@ Niektoré vína majú dočasné placeholder obrázky. Nahraďte ich skutočnými
 
 - `.env.local` (lokálne), Vercel Env (produkcia)
 - Kľúče (výber):
-  - `STRIPE_SECRET_KEY` – test/live podľa režimu
-  - `STRIPE_WEBHOOK_SECRET` – podľa Stripe endpointu (test/live)
-  - `RESEND_API_KEY` – pre odosielanie potvrdení
-  - `SUPERFAKTURA_EMAIL` – e-mail pre SuperFaktúra API
-  - `SUPERFAKTURA_API_KEY` – API kľúč pre SuperFaktúra
+  - **Stripe**: 
+    - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` – verejný kľúč (test/live)
+    - `STRIPE_SECRET_KEY` – tajný kľúč (test/live)
+    - `STRIPE_WEBHOOK_SECRET` – webhook secret (test/live)
+  - **Resend + React Email**:
+    - `RESEND_API_KEY` – pre odosielanie emailov
+    - `RESEND_FROM_EMAIL` – odosielateľská adresa
+    - `ADMIN_EMAIL` – admin email pre notifikácie
+  - **SuperFaktúra**:
+    - `SUPERFAKTURA_EMAIL` – email pre API autentifikáciu
+    - `SUPERFAKTURA_API_KEY` – API kľúč
+    - `SUPERFAKTURA_COMPANY_ID` – ID firmy
+    - `SUPERFAKTURA_SANDBOX` – true/false (sandbox/produkcia)
 
 ## Nasadenie (Vercel)
 
@@ -367,10 +428,14 @@ Niektoré vína majú dočasné placeholder obrázky. Nahraďte ich skutočnými
 
 ## Poznámky k implementácii
 
+- **React Email komponenty**: Všetky emaily sú postavené na React komponentoch v `app/emails/`
+- **Inline logo**: Logo je priložené ako inline attachment (cid:logo) pre spoľahlivé zobrazenie
 - **Faktúry**: SuperFaktúra faktúry sa vytvoria len pri online platbe (Stripe), dobierka a osobný odber faktúru nevytvárajú
-- **Emaily**: Resend odosiela potvrdenie objednávky vždy, SuperFaktúra odosiela faktúru len pri online platbe
+- **PDF prílohy**: PDF faktúra sa automaticky stiahne a priloží k zákazníckemu emailu
+- **Emaily**: Resend odosiela potvrdenie objednávky vždy (s React Email šablónami)
 - **Zber dát**: billing/shipping + firma/IČO/DIČ/IČ DPH → PI.metadata → SuperFaktúra faktúra
-- **Idempotencia**: SuperFaktúra kontroluje `metadata.paymentMethod` pred vytvorením faktúry
+- **Idempotencia**: Server-side cache predchádza duplikátnym objednávkam a faktúram
+- **Aktualizácia klientov**: SuperFaktúra aktualizuje existujúcich klientov s novými údajmi
 
 ## Spustenie
 
