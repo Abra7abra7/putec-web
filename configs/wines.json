@@ -145,16 +145,16 @@
        }
     },
     {
-       "ID":"wine-004",
-       "Title":"Cabernet Sauvignon Rosé 2023",
-       "Slug":"cabernet-sauvignon-rose-2023",
-       "Enabled":true,
-       "CatalogVisible":true,
-       "ProductCategories":[
-          "Ružové vína",
-          "Suché vína"
-       ],
-       "FeatureImageURL":"/vina/CS-rosé-2023.jpg",
+      "ID":"wine-004",
+      "Title":"Cabernet Sauvignon Rosé 2023",
+      "Slug":"cabernet-sauvignon-rose-2023",
+      "Enabled":true,
+      "CatalogVisible":true,
+      "ProductCategories":[
+         "Ružové vína",
+         "Suché vína"
+      ],
+      "FeatureImageURL":"/vina/cabernet-sauvignon-rose-2023.jpg",
        "ProductImageGallery":[
           "/vina/cabernet-sauvignon-rose-2022-2 (1).jpg"
        ],
@@ -703,17 +703,17 @@
        }
     },
     {
-       "ID":"wine-018",
-       "Title":"Cabernet Sauvignon Rosé 2024",
-       "Slug":"cabernet-sauvignon-rose-2024",
-       "Enabled":true,
-       "CatalogVisible":true,
-       "ProductCategories":[
-          "Ružové vína",
-          "Polosuché vína",
-          "Ocenené vína"
-       ],
-       "FeatureImageURL":"/vina/rosé-24-2-x.jpg",
+      "ID":"wine-018",
+      "Title":"Cabernet Sauvignon Rosé 2024",
+      "Slug":"cabernet-sauvignon-rose-2024",
+      "Enabled":true,
+      "CatalogVisible":true,
+      "ProductCategories":[
+         "Ružové vína",
+         "Polosuché vína",
+         "Ocenené vína"
+      ],
+      "FeatureImageURL":"/vina/cabernet-sauvignon-rose-2024.jpg",
        "ProductImageGallery":[],
        "ShortDescription":"🏆 Zlatá medaila Paris Vinalies 2025 - Víno nádhernej ružovej farby s prenikavou vôňou lesných malín, jahôd a ríbezlí. Chuť je podmanivá, šťavnato ríbezľová, s pikantným žihľavovo citrusovým doznievaním.",
        "LongDescription":"Cabernet Sauvignon Rosé 2024 je víno s chráneným označením pôvodu z Južnoslovenskej vinohradníckej oblasti, ktoré získalo Zlatú medailu na prestížnej medzinárodnej súťaži Paris Vinalies 2025. Vyznačuje sa nádhernou ružovou farbou a prenikavou vôňou lesných malín, jahôd a ríbezlí. Chuť je podmanivá, šťavnato ríbezľová, s pikantným žihľavovo citrusovým doznievaním. Ideálne pre náročných milovníkov ružových vín.",
