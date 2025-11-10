@@ -2,6 +2,7 @@ import Image from "next/image";
 import Hero from "../components/Hero";
 import Link from "next/link";
 import PrevioBookingClient from "../components/PrevioBookingClient";
+import { Slider } from "../components/business/Slider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -28,6 +29,18 @@ export const metadata: Metadata = {
 };
 
 export default function AccommodationPage() {
+  // Slider slides - fotky z ubytovania
+  const accommodationSlides = [
+    { src: "/galeria/ubytovanie/izba-interier-x.jpg", alt: "Interiér ubytovania vo vinárstve Vinosady" },
+    { src: "/galeria/ubytovanie/altanok-krb-x.jpg", alt: "Altánok s krbom" },
+    { src: "/galeria/ubytovanie/altanok-x.jpg", alt: "Altánok" },
+    { src: "/galeria/ubytovanie/kuchyna-x.jpg", alt: "Kuchyňa" },
+    { src: "/galeria/ubytovanie/kupelna-x.jpg", alt: "Kúpeľňa" },
+    { src: "/galeria/ubytovanie/veranda-na-poschodi-x.jpg", alt: "Veranda na poschodí" },
+    { src: "/galeria/ubytovanie/dvor-so-sudom-x.jpg", alt: "Dvor so sudom" },
+    { src: "/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg", alt: "Výhľad na vinohrad" },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Hero
@@ -61,17 +74,7 @@ export default function AccommodationPage() {
           {/* Capacity and Rooms */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
             <div className="relative">
-              <Image
-                src="/galeria/ubytovanie/izba-interier-x.jpg"
-                alt="Interiér ubytovania vo vinárstve Vinosady"
-                width={600}
-                height={400}
-                className="rounded-2xl shadow-2xl"
-                priority
-              />
-              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-accent rounded-full flex items-center justify-center">
-                <span className="text-3xl">🏠</span>
-              </div>
+              <Slider slides={accommodationSlides} height="h-[400px] md:h-[500px]" />
             </div>
 
             <div>

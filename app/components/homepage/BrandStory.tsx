@@ -19,8 +19,8 @@ export default function BrandStory() {
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
           
-          {/* Left Side - Content */}
-          <div className="space-y-8">
+          {/* Left Side - Content (hore na mobile, vľavo na desktop) */}
+          <div className="space-y-8 order-1 md:order-1">
             <div className="space-y-4">
               <h2 className="text-foreground">
                 Víno Pútec
@@ -66,15 +66,15 @@ export default function BrandStory() {
             </div>
           </div>
 
-          {/* Right Side - Image */}
-          <div className="relative">
+          {/* Right Side - Image (dole na mobile, vpravo na desktop) */}
+          <div className="relative order-2 md:order-2">
             <div className="relative">
               <Image
                 src="/o-nas/rodina2.jpg"
                 alt="Rodinné vinárstvo Putec Vinosady - tradícia a kvalita"
                 width={500}
                 height={333}
-                className="rounded-2xl shadow-2xl"
+                className="rounded-2xl shadow-2xl w-full h-auto"
                 priority
                 sizes="(max-width: 1024px) 100vw, 500px"
               />

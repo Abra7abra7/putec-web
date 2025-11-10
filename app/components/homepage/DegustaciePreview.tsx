@@ -34,8 +34,8 @@ export default function DegustaciePreview() {
     <Section>
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
-          {/* Content - Text vľavo na desktop, dole na mobile */}
-          <div className="flex flex-col justify-center order-2 md:order-1">
+          {/* Content - Text vľavo na desktop, hore na mobile */}
+          <div className="flex flex-col justify-center order-1 md:order-1">
             <SectionHeader
               title="Degustácie vína"
               description="Objavte svet našich prémiových vín prostredníctvom nezabudnuteľných degustačných zážitkov. Vyberte si z našich špeciálne pripravených balíkov pre rôzne veľkosti skupín."
@@ -79,8 +79,8 @@ export default function DegustaciePreview() {
             </div>
           </div>
 
-          {/* Slider - vpravo na desktop, hore na mobile */}
-          <div className="order-1 md:order-2">
+          {/* Slider - vpravo na desktop, dole na mobile */}
+          <div className="order-2 md:order-2">
             <DegustationSliderClient slides={slides} />
           </div>
         </div>

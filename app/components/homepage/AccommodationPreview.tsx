@@ -32,8 +32,8 @@ export default function AccommodationPreview() {
     <Section>
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
-          {/* Content - Text vpravo na desktop */}
-          <div className="flex flex-col justify-center order-2 md:order-2">
+          {/* Content - Text vpravo na desktop, hore na mobile */}
+          <div className="flex flex-col justify-center order-1 md:order-2">
             <SectionHeader
               title="Ubytovanie v srdci Malých Karpát"
               description="Prežite nezabudnuteľné chvíle v našom ubytovaní obklopenom vinohradmi a prírodou. Ideálne miesto pre relaxáciu a degustácie našich prémiových vín."
@@ -61,8 +61,8 @@ export default function AccommodationPreview() {
             </div>
           </div>
 
-          {/* Slider second on mobile */}
-          <div className="order-1 md:order-1">
+          {/* Slider - vľavo na desktop, dole na mobile */}
+          <div className="order-2 md:order-1">
             <AccommodationSliderClient slides={slides} />
           </div>
         </div>
