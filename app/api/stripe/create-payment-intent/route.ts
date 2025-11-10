@@ -111,10 +111,10 @@ export async function POST(request: NextRequest) {
       shippingMethodName,
       shippingCost,
       customerEmail,
-      customerName,
       shippingForm,
       billingForm,
       paymentMethodId,
+      // customerName is available but not used in PaymentIntent creation
     } = validationResult.data;
 
     console.log("🔍 create-payment-intent - orderId:", orderId);

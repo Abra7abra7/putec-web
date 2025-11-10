@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addToCart, updateQuantity, removeFromCart } from "../../store/slices/cartSlice";
+import { addToCart, updateQuantity } from "../../store/slices/cartSlice";
 import { Product } from "../../../types/Product";
 import { useLocalization } from "../../context/LocalizationContext";
 import { showMiniCart } from "../../utils/MiniCartController";

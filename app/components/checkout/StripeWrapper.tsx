@@ -12,8 +12,8 @@ export default function StripeWrapper({ clientSecret }: { clientSecret: string }
       theme: "stripe",
     },
     loader: 'auto',
-    // Explicitne vypnúť Link
-    paymentMethodOrder: ['card'],
+    // Link is disabled by not using customer and setup_future_usage in PaymentIntent
+    // Payment methods are restricted to 'card' in PaymentIntent creation
   };
 
   return (

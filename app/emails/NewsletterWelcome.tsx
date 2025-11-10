@@ -2,7 +2,6 @@ import {
   Body,
   Container,
   Head,
-  Heading,
   Html,
   Img,
   Preview,
@@ -18,7 +17,7 @@ interface NewsletterWelcomeProps {
 }
 
 export const NewsletterWelcome = ({
-  email = 'priklad@email.sk',
+  // email parameter available but not used in template
 }: NewsletterWelcomeProps) => {
   const previewText = 'Vitajte v našom newsletteri!';
 
@@ -148,12 +147,7 @@ const logo = {
   border: '4px solid #ffffff',
 };
 
-const h1 = {
-  color: '#000000',
-  fontSize: '28px',
-  fontWeight: '700',
-  margin: '0',
-};
+// h1 style removed - not used in template
 
 const content = {
   padding: '30px 20px',

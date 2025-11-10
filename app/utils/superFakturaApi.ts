@@ -63,9 +63,6 @@ function getAuthHeaders(): HeadersInit {
     throw new Error("SuperFaktúra credentials not configured");
   }
 
-  // SuperFaktúra používa formát: email:apiKey
-  const auth = Buffer.from(`${email}:${apiKey}`).toString("base64");
-
   const headers: HeadersInit = {
     "Authorization": `SFAPI email=${email}&apikey=${apiKey}&company_id=${companyId || ''}`,
     "Content-Type": "application/json",

@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { NextRequest } from "next/server";
 import { createSuperFakturaInvoice } from "../../../actions/superfaktura";
-import { sendAdminEmail, sendCustomerEmail, OrderBody } from "../../../utils/emailUtilities";
+import { sendAdminEmail, sendCustomerEmail, OrderBody, OrderCartItem } from "../../../utils/emailUtilities";
 
 /**
  * Webhook configuration
@@ -253,7 +253,7 @@ async function handlePaymentIntentSucceeded(pi: Stripe.PaymentIntent): Promise<v
   console.log("💳 Payment method:", pi.metadata?.paymentMethod);
 
   // Retrieve full PaymentIntent for complete metadata (retry for eventual consistency)
-  let paymentIntent = await retrievePaymentIntentWithRetry(pi.id, 4, 500) || pi;
+  const paymentIntent = await retrievePaymentIntentWithRetry(pi.id, 4, 500) || pi;
   console.log("ℹ️ PaymentIntent status:", paymentIntent.status, "amount_received:", paymentIntent.amount_received);
   console.log("ℹ️ Latest charge:", paymentIntent.latest_charge);
 
@@ -295,6 +295,11 @@ async function handleChargeSucceeded(charge: Stripe.Charge): Promise<void> {
  * Shared path to create invoice and send emails for a paid order
  */
 async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<void> {
+  if (!stripe) {
+    console.error("❌ Stripe not configured, cannot process order");
+    return;
+  }
+
   const metadata = paymentIntent.metadata as Record<string, string>;
   const orderId = metadata.orderId || paymentIntent.id;
 
@@ -342,7 +347,7 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
 
   try {
     // Build OrderBody from PaymentIntent metadata
-    const cartItems = [];
+    const cartItems: OrderCartItem[] = [];
     const indices = new Set<number>();
     Object.keys(metadata).forEach(k => {
       const m = k.match(/^item_(\d+)_/);
@@ -354,13 +359,19 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
         ID: metadata[`item_${i}_id`] || '',
         Title: metadata[`item_${i}_title`] || '',
         Slug: metadata[`item_${i}_id`] || '',
+        Enabled: true,
+        CatalogVisible: true,
+        ProductCategories: [],
+        ProductImageGallery: [],
         RegularPrice: metadata[`item_${i}_price`] || '0',
-        SalePrice: metadata[`item_${i}_price`] || undefined,
+        SalePrice: metadata[`item_${i}_price`] || '',
         quantity: parseInt(metadata[`item_${i}_qty`] || '1', 10),
         FeatureImageURL: '',
         ShortDescription: '',
         LongDescription: '',
         Currency: 'EUR',
+        SubscriptionEnabled: false,
+        SubscriptionType: '',
         ProductType: 'wine',
       });
     });
