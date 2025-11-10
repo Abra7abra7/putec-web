@@ -4,11 +4,11 @@ import dynamic from "next/dynamic";
 import DesktopNavigation from "./DesktopNavigation";
 import { ReduxProvider } from "../providers";
 import { getLocalization } from "../utils/getLocalization";
-import HeaderBackButton from "./HeaderBackButton";
 
 // Dynamic imports for interactive components - reduces initial bundle size
 const MobileMenu = dynamic(() => import("./MobileMenu"));
 const MiniCart = dynamic(() => import("./MiniCart"));
+const HeaderBackButton = dynamic(() => import("./HeaderBackButton"));
 
 export default async function Header() {
   const content = await getLocalization(); // Fetch localization data asynchronously
@@ -27,8 +27,19 @@ export default async function Header() {
 
         {/* Desktop layout */}
         <div className="hidden md:flex w-full items-center">
-          {/* Left: Back Button + Logo (handled by HeaderBackButton) */}
-          <HeaderBackButton showLabel={true} />
+          {/* Left: Logo only */}
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <div className="p-2 border-4 border-accent rounded-full">
+              <Image
+                src="/putec-logo.jpg"
+                alt="Pútec Logo"
+                width={60}
+                height={60}
+                className="rounded-full"
+                priority
+              />
+            </div>
+          </Link>
 
           {/* Center: Navigation */}
           <div className="flex-1">

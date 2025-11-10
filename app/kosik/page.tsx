@@ -35,6 +35,11 @@ function CartContent() {
   return (
     <section className="py-12 bg-background">
       <div className="container mx-auto px-4">
+        {/* Back Button */}
+        <div className="mb-6">
+          <BackButton fallbackHref="/" />
+        </div>
+        
         {/* Logo Section */}
         <div className="text-center mb-8">
           <Image
@@ -45,11 +50,6 @@ function CartContent() {
             className="mx-auto rounded-full shadow-2xl border-4 border-accent mb-6"
           />
           <h1 className="text-3xl font-bold text-foreground">Váš košík</h1>
-          
-          {/* Back Button - Mobile only */}
-          <div className="flex justify-center mt-4 md:hidden">
-            <BackButton fallbackHref="/" />
-          </div>
         </div>
 
         {items.length === 0 ? (

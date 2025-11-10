@@ -1,6 +1,7 @@
 import Image from "next/image";
 import fs from "fs";
 import path from "path";
+import BackButton from "../../components/BackButton";
 
 function listImagesFrom(dirPath: string): string[] {
   try {
@@ -22,6 +23,11 @@ export default async function GalleryCategoryPage({ params }: { params: Promise<
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-6">
+        {/* Back Button */}
+        <div className="mb-6">
+          <BackButton fallbackHref="/galeria" />
+        </div>
+        
         <h1 className="text-3xl font-bold text-foreground mb-8">Galéria – {safeCategory}</h1>
         {photos.length === 0 ? (
           <p className="text-foreground-muted">Žiadne fotografie.</p>

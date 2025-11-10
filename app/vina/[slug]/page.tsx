@@ -6,6 +6,7 @@ import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import { getLocalization } from "../../utils/getLocalization";
 import AddToCartButtonWrapper from "../../components/products/AddToCartButtonWrapper";
 import Script from "next/script";
+import BackButton from "../../components/BackButton";
 
 // Dynamic import for ProductLightbox - only loads when images are clicked
 const ProductLightbox = dynamic(() => import("../../components/products/ProductLightbox"));
@@ -124,6 +125,11 @@ export default async function ProductPage({
         }) }} />
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
+          {/* Back Button */}
+          <div className="mb-6">
+            <BackButton fallbackHref="/vina" />
+          </div>
+          
           <h1 className="text-3xl font-bold text-center text-foreground mb-8">{product.Title}</h1>
           <div className="flex justify-center mb-6">
             <span className="inline-flex items-center gap-2 text-sm text-foreground">

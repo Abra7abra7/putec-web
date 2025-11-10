@@ -31,27 +31,10 @@ export default function HeaderBackButton({ showLabel = false }: HeaderBackButton
     );
   }
 
-  // On other pages:
-  // - Mobile: show only back button
-  // - Desktop: show logo + back button with label
+  // On other pages - mobile only: show back button
+  // Desktop: handled by Header component (logo only)
   return (
-    <div className="flex items-center gap-3">
-      {/* Logo - only on desktop */}
-      <Link href="/" className="hidden md:block hover:opacity-80 transition-opacity">
-        <div className="p-2 border-4 border-accent rounded-full">
-          <Image
-            src="/putec-logo.jpg"
-            alt="Pútec Logo"
-            width={60}
-            height={60}
-            className="rounded-full"
-            priority
-          />
-        </div>
-      </Link>
-      {/* Back button - on mobile and desktop */}
-      <BackButton showLabel={showLabel} />
-    </div>
+    <BackButton showLabel={showLabel} />
   );
 }
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import ReservationForm from "../../components/degustacie/ReservationForm";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import Script from "next/script";
+import BackButton from "../../components/BackButton";
 
 // Generate metadata for each degustation
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -93,6 +94,11 @@ export default async function DegustationPage({ params }: { params: Promise<{ sl
           }
         }) }} />
       <div className="container mx-auto px-4">
+        {/* Back Button */}
+        <div className="mb-6">
+          <BackButton fallbackHref="/degustacie" />
+        </div>
+        
         <h1 className="text-3xl font-bold text-center text-foreground mb-8">{product.Title}</h1>
         <div className="flex justify-center mb-6">
           <span className="inline-flex items-center gap-2 text-sm text-foreground">

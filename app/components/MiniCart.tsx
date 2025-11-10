@@ -52,6 +52,20 @@ export default function MiniCart() {
     }, 300);
   };
 
+  const closeCart = () => {
+    setIsVisible(false);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  };
+
+  const handleCartIconClick = (e: React.MouseEvent) => {
+    // On mobile, prevent navigation and show overlay instead
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      e.preventDefault();
+      setIsVisible(true);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    }
+  };
+
   return (
     <div
       className="relative"
@@ -62,6 +76,7 @@ export default function MiniCart() {
       {/* Cart Icon */}
       <Link
         href="/kosik"
+        onClick={handleCartIconClick}
         className="relative flex items-center justify-center ml-2 mr-4"
         aria-label={labels.viewCart || "View cart"}
       >
@@ -71,11 +86,130 @@ export default function MiniCart() {
         </span>
       </Link>
 
-      {/* Mini Cart Dropdown */}
+      {/* Desktop: Mini Cart Dropdown */}
       {isVisible && (
-        <div
-          className="absolute right-0 mt-2 w-96 bg-background border border-accent shadow-lg rounded-md z-50 p-4"
-        >
+        <>
+          {/* Mobile: Full-screen overlay */}
+          <div
+            className={`md:hidden fixed inset-0 z-50 ${isVisible ? "block" : "hidden"}`}
+            onClick={closeCart}
+          >
+            {/* Backdrop */}
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+            
+            {/* Cart Card - Bottom Sheet */}
+            <div
+              className="absolute bottom-0 left-0 right-0 bg-background rounded-t-2xl shadow-2xl max-h-[90vh] flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header with Close Button */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-foreground">Váš košík</h3>
+                <button
+                  onClick={closeCart}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  aria-label="Zavrieť košík"
+                >
+                  <X size={20} className="text-foreground" />
+                </button>
+              </div>
+
+              {/* Cart Content - Scrollable */}
+              <div className="flex-1 overflow-y-auto p-4">
+                {cartItems.length === 0 ? (
+                  <p className="text-foreground text-sm text-center py-8">{labels.cartEmpty || "Your cart is empty."}</p>
+                ) : (
+                  <div className="space-y-4">
+                    {cartItems.map((item) => {
+                      const price = parseFloat(item.SalePrice || item.RegularPrice);
+                      const itemTotal = (price * item.quantity).toFixed(2);
+
+                      return (
+                        <div key={item.ID} className="flex items-start gap-4 pb-4 border-b border-gray-200">
+                          <Image
+                            src={item.FeatureImageURL}
+                            alt={item.Title}
+                            width={80}
+                            height={100}
+                            className="rounded object-cover flex-shrink-0"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <Link
+                              href={`/vina/${item.Slug}`}
+                              className="text-sm font-semibold text-foreground hover:text-accent block mb-1"
+                              onClick={closeCart}
+                            >
+                              {item.Title}
+                            </Link>
+                            <p className="text-xs text-foreground-muted mb-2">
+                              {labels.price || "Cena"}: €{price.toFixed(2)}
+                            </p>
+                            <div className="flex items-center gap-3 mb-2">
+                              <button
+                                onClick={() => handleQtyChange(item.ID, -1)}
+                                className="text-foreground border border-accent px-2 py-1 rounded hover:bg-accent/10 transition"
+                                aria-label="Znížiť množstvo"
+                              >
+                                <Minus size={16} />
+                              </button>
+                              <span className="text-sm font-medium min-w-[30px] text-center">{item.quantity}</span>
+                              <button
+                                onClick={() => handleQtyChange(item.ID, 1)}
+                                className="text-foreground border border-accent px-2 py-1 rounded hover:bg-accent/10 transition"
+                                aria-label="Zvýšiť množstvo"
+                              >
+                                <Plus size={16} />
+                              </button>
+                            </div>
+                            <p className="text-sm text-foreground font-medium">
+                              {labels.total || "Celkom"}: €{itemTotal}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => dispatch(removeFromCart(item.ID))}
+                            className="text-foreground-muted hover:text-red-600 transition-colors flex-shrink-0 p-1"
+                            title={labels.remove || "Remove"}
+                            aria-label="Odstrániť z košíka"
+                          >
+                            <X size={18} />
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Footer with Total and Actions */}
+              {cartItems.length > 0 && (
+                <div className="border-t border-gray-200 p-4 space-y-3">
+                  <div className="flex justify-between items-center text-base font-semibold text-foreground">
+                    <span>{labels.total || "Celkom"}:</span>
+                    <span>€{totalAmount.toFixed(2)}</span>
+                  </div>
+                  <Link
+                    href="/kosik"
+                    onClick={closeCart}
+                    className="block w-full text-center bg-gray-100 hover:bg-gray-200 text-foreground px-4 py-3 rounded-lg text-sm font-semibold transition"
+                  >
+                    {labels.viewCart || "Zobraziť košík"}
+                  </Link>
+                  <Link
+                    href="/pokladna"
+                    onClick={closeCart}
+                    className="block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-3 rounded-lg text-sm font-semibold transition"
+                  >
+                    {labels.proceedToCheckout || "Pokračovať k objednávke"}
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Desktop: Mini Cart Dropdown */}
+          <div
+            className="hidden md:block absolute right-0 mt-2 w-96 bg-background border border-accent shadow-lg rounded-md z-50 p-4"
+          >
           {cartItems.length === 0 ? (
             <p className="text-foreground text-sm text-center">{labels.cartEmpty || "Your cart is empty."}</p>
           ) : (
@@ -158,7 +292,8 @@ export default function MiniCart() {
               </Link>
             </>
           )}
-        </div>
+          </div>
+        </>
       )}
     </div>
   );
