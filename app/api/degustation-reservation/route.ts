@@ -8,13 +8,12 @@ import path from 'path';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Load logo as inline attachment
+// Load logo as inline attachment (no filename to prevent it from appearing as attachment)
 const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
 const logoBuffer = fs.readFileSync(logoPath);
 const logoAttachment = {
-  filename: 'putec-logo.jpg',
   content: logoBuffer,
-  cid: 'logo',
+  cid: 'logo', // Content-ID for inline reference in HTML
 };
 
 interface ReservationData {

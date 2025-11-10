@@ -78,21 +78,23 @@ export async function sendEmail({
     
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // Load logo as inline attachment
+    // Load logo as inline attachment (no filename to prevent it from appearing as attachment)
     const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
     const logoBuffer = fs.readFileSync(logoPath);
     
+    // Logo as inline-only (no filename, only CID for inline display)
+    const logoInline = {
+      content: logoBuffer,
+      cid: 'logo', // Content-ID for inline reference in HTML
+    };
+    
     const allAttachments = [
-      {
-        filename: 'putec-logo.jpg',
-        content: logoBuffer,
-        cid: 'logo', // Content-ID for inline reference
-      },
+      logoInline,
       ...(attachments || []),
     ];
 
-    console.log("📧 Including inline logo attachment with CID: logo");
-    console.log("📧 Total attachments:", allAttachments.length);
+    console.log("📧 Including inline logo (CID: logo) - not sent as attachment");
+    console.log("📧 Total attachments (excluding inline logo):", attachments?.length || 0);
 
     // Build email data with only defined properties
     const emailData: {
@@ -101,7 +103,7 @@ export async function sendEmail({
       subject: string;
       html?: string;
       text?: string;
-      attachments: Array<{ filename: string; content: Buffer; cid?: string }>;
+      attachments: Array<{ filename?: string; content: Buffer; cid?: string }>;
     } = {
       from: process.env.RESEND_FROM_EMAIL!,
       to,

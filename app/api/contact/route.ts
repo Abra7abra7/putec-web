@@ -5,13 +5,12 @@ import ContactForm from '../../emails/ContactForm';
 import fs from 'fs';
 import path from 'path';
 
-// Load logo as inline attachment
+// Load logo as inline attachment (no filename to prevent it from appearing as attachment)
 const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
 const logoBuffer = fs.readFileSync(logoPath);
 const logoAttachment = {
-  filename: 'putec-logo.jpg',
   content: logoBuffer,
-  cid: 'logo',
+  cid: 'logo', // Content-ID for inline reference in HTML
 };
 
 export async function POST(req: Request) {
