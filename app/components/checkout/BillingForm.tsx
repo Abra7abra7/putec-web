@@ -4,7 +4,7 @@ import { useCheckoutSettings } from "../../context/CheckoutContext";
 import { useLocalization } from "../../context/LocalizationContext";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setBillingForm, setDifferentBilling } from "../../store/slices/checkoutSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
@@ -16,6 +16,9 @@ export default function BillingForm() {
   const billingForm = useAppSelector((state) => state.checkout.billingForm);
   const shippingForm = useAppSelector((state) => state.checkout.shippingForm);
   const differentBilling = useAppSelector((state) => state.checkout.differentBilling);
+
+  // State pre chybové hlásenia
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     if (!billingForm.country && billingCountries.length > 0) {
@@ -36,8 +39,39 @@ export default function BillingForm() {
         companyDIC: shippingForm.companyDIC || "",
         companyICDPH: shippingForm.companyICDPH || ""
       }));
+      // Vymazať chyby pri synchronizácii s dodacími údajmi
+      setErrors({});
     }
   }, [differentBilling, shippingForm, dispatch]);
+
+  // Validačná funkcia
+  const validateField = (name: string, value: string): string => {
+    if (name === 'email') {
+      if (!value.trim()) return 'Email je povinný';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) return 'Neplatný formát emailu';
+    }
+    
+    if (['firstName', 'lastName', 'country', 'city', 'address1', 'postalCode'].includes(name)) {
+      if (!value.trim()) return 'Toto pole je povinné';
+    }
+
+    if (name === 'postalCode' && value.trim()) {
+      // Základná validácia PSČ (5 číslic alebo formát XXX XX)
+      const pscRegex = /^\d{5}$|^\d{3}\s?\d{2}$/;
+      if (!pscRegex.test(value.trim())) return 'Neplatné PSČ (napr. 90301 alebo 903 01)';
+    }
+
+    if (billingForm.isCompany && name === 'companyName' && !value.trim()) {
+      return 'Názov firmy je povinný';
+    }
+
+    if (billingForm.isCompany && name === 'companyICO' && !value.trim()) {
+      return 'IČO je povinné';
+    }
+
+    return '';
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -52,7 +86,17 @@ export default function BillingForm() {
       dispatch(setBillingForm({ [name]: checked }));
     } else {
       dispatch(setBillingForm({ [name]: value }));
+      // Vymazať chybu pri začatí písania
+      if (errors[name]) {
+        setErrors(prev => ({ ...prev, [name]: '' }));
+      }
     }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    setErrors(prev => ({ ...prev, [name]: error }));
   };
 
   const handleSameAsShipping = () => {
@@ -104,14 +148,18 @@ export default function BillingForm() {
         <Input 
           name="firstName" 
           value={billingForm.firstName} 
-          onChange={handleChange} 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.firstName}
           placeholder={`${labels.firstName} *`} 
           required 
         />
         <Input 
           name="lastName" 
           value={billingForm.lastName} 
-          onChange={handleChange} 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.lastName}
           placeholder={`${labels.lastName} *`} 
           required 
         />
@@ -132,7 +180,9 @@ export default function BillingForm() {
         <Input 
           name="city" 
           value={billingForm.city} 
-          onChange={handleChange} 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.city}
           placeholder={`${labels.city || "Mesto"} *`} 
           required 
         />
@@ -141,7 +191,9 @@ export default function BillingForm() {
           <Input 
             name="address1" 
             value={billingForm.address1} 
-            onChange={handleChange} 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.address1}
             placeholder={`${labels.address1} *`} 
             required 
           />
@@ -159,7 +211,9 @@ export default function BillingForm() {
         <Input 
           name="postalCode" 
           value={billingForm.postalCode} 
-          onChange={handleChange} 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.postalCode}
           placeholder={`${labels.postalCode} *`} 
           required 
         />
@@ -175,7 +229,9 @@ export default function BillingForm() {
           <Input 
             name="email" 
             value={billingForm.email} 
-            onChange={handleChange} 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.email}
             placeholder={`${labels.email} *`} 
             type="email" 
             required 
@@ -204,6 +260,8 @@ export default function BillingForm() {
               name="companyName"
               value={billingForm.companyName}
               onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.companyName}
               placeholder={labels.companyName}
               required={billingForm.isCompany}
             />
@@ -211,6 +269,8 @@ export default function BillingForm() {
               name="companyICO"
               value={billingForm.companyICO}
               onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.companyICO}
               placeholder={labels.companyICO}
               required={billingForm.isCompany}
             />

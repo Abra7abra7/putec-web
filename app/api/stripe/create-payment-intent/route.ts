@@ -3,10 +3,25 @@ import Stripe from "stripe";
 import { z } from "zod";
 import { getLocalization } from "../../../utils/getLocalization";
 
+// Helper function to detect Stripe mode (test vs live)
+const getStripeMode = (): 'test' | 'live' | 'unknown' => {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return 'unknown';
+  if (key.startsWith('sk_test_')) return 'test';
+  if (key.startsWith('sk_live_')) return 'live';
+  return 'unknown';
+};
+
 // Initialize Stripe
 const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY, {})
   : null;
+
+// Log Stripe mode on initialization
+if (stripe) {
+  const mode = getStripeMode();
+  console.log(`🔍 Stripe - Mode: ${mode.toUpperCase()} (detected from key prefix)`);
+}
 
 // Zod validation schemas
 const BillingAddressSchema = z.object({
@@ -169,47 +184,26 @@ export async function POST(request: NextRequest) {
       metadata["shipping_country"] = shippingForm.country;
       metadata["shipping_phone"] = shippingForm.phone || "";
       metadata["shipping_email"] = shippingForm.email;
-    }
-
-    // Find or create Stripe customer
-    let customerId: string | undefined;
-    if (customerEmail) {
-      try {
-        const existing = await stripe.customers.search({
-          query: `email:'${customerEmail}'`,
-          limit: 1,
-        });
-
-        if (existing.data.length > 0) {
-          customerId = existing.data[0].id;
-          console.log("✅ Found existing Stripe customer:", customerId);
-        } else {
-          const created = await stripe.customers.create({
-            email: customerEmail,
-            name: customerName,
-            metadata: {
-              orderId,
-              source: "vino-putec-web",
-            },
-          });
-          customerId = created.id;
-          console.log("✅ Created new Stripe customer:", customerId);
-        }
-      } catch (error) {
-        console.error("⚠️ Failed to create/find customer, continuing without:", error);
-        // Continue without customer - not critical
+      metadata["shipping_is_company"] = shippingForm.isCompany ? "1" : "0";
+      
+      if (shippingForm.isCompany) {
+        if (shippingForm.companyName) metadata["shipping_company_name"] = shippingForm.companyName;
+        if (shippingForm.companyICO) metadata["shipping_company_ico"] = shippingForm.companyICO;
+        if (shippingForm.companyDIC) metadata["shipping_company_dic"] = shippingForm.companyDIC;
+        if (shippingForm.companyICDPH) metadata["shipping_company_icdph"] = shippingForm.companyICDPH;
       }
     }
 
-    // Create PaymentIntent
+    // Create PaymentIntent without customer to avoid Link
+    // Customer not needed for one-time payments
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: currency.toLowerCase(),
       description: `${siteName} Order ${orderId}`,
       metadata,
-      automatic_payment_methods: { enabled: true },
-      customer: customerId,
-      setup_future_usage: "off_session",
+      payment_method_types: ['card'], // Len karty (+ Google/Apple Pay automaticky)
+      // Bez customer a setup_future_usage - nebude Link ani možnosť ukladať karty
+      receipt_email: customerEmail, // Email na potvrdenie
     });
 
     console.log("✅ PaymentIntent created successfully:", paymentIntent.id);

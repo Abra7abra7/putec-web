@@ -11,6 +11,9 @@ export default function StripeWrapper({ clientSecret }: { clientSecret: string }
     appearance: {
       theme: "stripe",
     },
+    loader: 'auto',
+    // Explicitne vypnúť Link
+    paymentMethodOrder: ['card'],
   };
 
   return (

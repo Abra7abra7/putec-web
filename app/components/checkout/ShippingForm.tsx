@@ -4,7 +4,7 @@ import { useCheckoutSettings } from "../../context/CheckoutContext";
 import { useLocalization } from "../../context/LocalizationContext";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setShippingForm } from "../../store/slices/checkoutSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 
 export default function ShippingForm() {
@@ -12,6 +12,9 @@ export default function ShippingForm() {
   const { labels } = useLocalization();
   const dispatch = useAppDispatch();
   const form = useAppSelector((state) => state.checkout.shippingForm);
+
+  // State pre chybové hlásenia
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     if (!form.country && shippingCountries.length > 0) {
@@ -21,6 +24,35 @@ export default function ShippingForm() {
     }
   }, [form.country, shippingCountries, dispatch]);
 
+  // Validačná funkcia
+  const validateField = (name: string, value: string): string => {
+    if (name === 'email') {
+      if (!value.trim()) return 'Email je povinný';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) return 'Neplatný formát emailu';
+    }
+    
+    if (['firstName', 'lastName', 'country', 'city', 'address1', 'postalCode'].includes(name)) {
+      if (!value.trim()) return 'Toto pole je povinné';
+    }
+
+    if (name === 'postalCode' && value.trim()) {
+      // Základná validácia PSČ (5 číslic alebo formát XXX XX)
+      const pscRegex = /^\d{5}$|^\d{3}\s?\d{2}$/;
+      if (!pscRegex.test(value.trim())) return 'Neplatné PSČ (napr. 90301 alebo 903 01)';
+    }
+
+    if (form.isCompany && name === 'companyName' && !value.trim()) {
+      return 'Názov firmy je povinný';
+    }
+
+    if (form.isCompany && name === 'companyICO' && !value.trim()) {
+      return 'IČO je povinné';
+    }
+
+    return '';
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
@@ -29,7 +61,17 @@ export default function ShippingForm() {
       dispatch(setShippingForm({ [name]: checked }));
     } else {
       dispatch(setShippingForm({ [name]: value }));
+      // Vymazať chybu pri začatí písania
+      if (errors[name]) {
+        setErrors(prev => ({ ...prev, [name]: '' }));
+      }
     }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    setErrors(prev => ({ ...prev, [name]: error }));
   };
 
   return (
@@ -61,6 +103,8 @@ export default function ShippingForm() {
               name="companyName"
               value={form.companyName}
               onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.companyName}
               placeholder={labels.companyName}
               required={form.isCompany}
             />
@@ -68,6 +112,8 @@ export default function ShippingForm() {
               name="companyICO"
               value={form.companyICO}
               onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.companyICO}
               placeholder={labels.companyICO}
               required={form.isCompany}
             />
@@ -91,14 +137,18 @@ export default function ShippingForm() {
         <Input 
           name="firstName" 
           value={form.firstName} 
-          onChange={handleChange} 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.firstName}
           placeholder={`${labels.firstName} *`} 
           required 
         />
         <Input 
           name="lastName" 
           value={form.lastName} 
-          onChange={handleChange} 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.lastName}
           placeholder={`${labels.lastName} *`} 
           required 
         />
@@ -120,7 +170,9 @@ export default function ShippingForm() {
         <Input 
           name="city" 
           value={form.city} 
-          onChange={handleChange} 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.city}
           placeholder={`${labels.city || "Mesto"} *`} 
           required 
         />
@@ -129,7 +181,9 @@ export default function ShippingForm() {
           <Input 
             name="address1" 
             value={form.address1} 
-            onChange={handleChange} 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.address1}
             placeholder={`${labels.address1} *`} 
             required 
           />
@@ -147,7 +201,9 @@ export default function ShippingForm() {
         <Input 
           name="postalCode" 
           value={form.postalCode} 
-          onChange={handleChange} 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.postalCode}
           placeholder={`${labels.postalCode} *`} 
           required 
         />
@@ -163,7 +219,9 @@ export default function ShippingForm() {
           <Input 
             name="email" 
             value={form.email} 
-            onChange={handleChange} 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.email}
             placeholder={`${labels.email} *`} 
             type="email" 
             required 

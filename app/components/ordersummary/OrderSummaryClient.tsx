@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLocalization } from "../../context/LocalizationContext";
 import { useProductContext } from "../../context/ProductContext";
@@ -57,6 +57,7 @@ export default function OrderSummaryClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
+  const emailsSentRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     const orderIdFromQuery = searchParams.get("orderId");
@@ -67,29 +68,53 @@ export default function OrderSummaryClient() {
   
       setOrder(parsed);
   
-      // Clear cart ONCE if we're redirected from Stripe with orderId in query,
+      // Clear cart ONCE if we're redirected from Stripe with orderId in query
       if (orderIdFromQuery && parsed.orderId === orderIdFromQuery) {
         dispatch(clearCart());
-        // After successful Stripe redirect, ensure confirmation emails are sent once
-        const sentKey = `emailsSent:${parsed.orderId}`;
-        const alreadySent = localStorage.getItem(sentKey);
-        if (!alreadySent) {
-          (async () => {
-            try {
-              await fetch('/api/checkout/placeorder', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(parsed),
-              });
-              localStorage.setItem(sentKey, 'true');
-              console.log('📧 Confirmation emails requested after Stripe redirect');
-
-              // Idempotentný ping – ak webhook zlyhá, backend vystaví chýbajúcu faktúru
-              // Fallback ping vypnutý – webhook je jediný zdroj vystavenia faktúr
-            } catch (e) {
-              console.error('❌ Failed to send confirmation emails after redirect', e);
-            }
-          })();
+        
+        console.log('🔍 OrderSummaryClient - Payment method:', parsed.paymentMethodId);
+        console.log('🔍 OrderSummaryClient - Order ID:', parsed.orderId);
+        
+        // For Stripe payments: emails are sent by webhook, don't call placeorder
+        if (parsed.paymentMethodId === 'stripe') {
+          console.log('ℹ️ Stripe payment detected - skipping placeorder, emails will be sent by webhook');
+          return;
+        }
+        
+        // For COD (cash on delivery): send emails via placeorder
+        // Use ref guard to prevent duplicate calls (React Strict Mode)
+        if (!emailsSentRef.current.has(parsed.orderId)) {
+          emailsSentRef.current.add(parsed.orderId);
+          
+          // Also check localStorage as backup
+          const sentKey = `emailsSent:${parsed.orderId}`;
+          const alreadySent = localStorage.getItem(sentKey);
+          
+          if (!alreadySent) {
+            (async () => {
+              try {
+                console.log('📧 Sending confirmation emails for COD order:', parsed.orderId);
+                const response = await fetch('/api/checkout/placeorder', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(parsed),
+                });
+                
+                if (response.ok) {
+                  localStorage.setItem(sentKey, 'true');
+                  console.log('✅ Confirmation emails sent successfully (COD)');
+                } else {
+                  console.error('❌ Failed to send confirmation emails:', response.statusText);
+                }
+              } catch (e) {
+                console.error('❌ Failed to send confirmation emails after redirect', e);
+                // Remove from ref so it can be retried
+                emailsSentRef.current.delete(parsed.orderId);
+              }
+            })();
+          } else {
+            console.log('ℹ️ Emails already sent for order:', parsed.orderId);
+          }
         }
       }
     } else {

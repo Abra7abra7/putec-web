@@ -1,26 +1,59 @@
 import Stripe from "stripe";
 import { NextRequest } from "next/server";
 import { createSuperFakturaInvoice } from "../../../actions/superfaktura";
+import { sendAdminEmail, sendCustomerEmail, OrderBody } from "../../../utils/emailUtilities";
 
 /**
  * Webhook configuration
- * - bodyParser disabled: Required for Stripe signature verification
  * - runtime: nodejs - Required for crypto operations
  * - dynamic: force-dynamic - Always server-rendered
+ * Note: In App Router, we read raw body using request.arrayBuffer()
  */
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+// Helper function to detect Stripe mode (test vs live)
+const getStripeMode = (): 'test' | 'live' | 'unknown' => {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return 'unknown';
+  if (key.startsWith('sk_test_')) return 'test';
+  if (key.startsWith('sk_live_')) return 'live';
+  return 'unknown';
+};
 
 // Initialize Stripe
 const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY, {})
   : null;
+
+// Log Stripe mode on initialization
+if (stripe) {
+  const mode = getStripeMode();
+  console.log(`🔍 Stripe - Mode: ${mode.toUpperCase()} (detected from key prefix)`);
+}
+
+// In-memory guard to prevent duplicate processing during single server lifetime
+const processedOrderIds = new Set<string>();
+
+async function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function retrievePaymentIntentWithRetry(id: string, attempts = 3, delayMs = 400): Promise<Stripe.PaymentIntent | null> {
+  if (!stripe) return null;
+  let lastError: unknown = null;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const pi = await stripe.paymentIntents.retrieve(id);
+      return pi;
+    } catch (e) {
+      lastError = e;
+      await sleep(delayMs);
+    }
+  }
+  console.warn("⚠️ Failed to retrieve PaymentIntent after retries:", id, lastError);
+  return null;
+}
 
 /**
  * POST /api/stripe/webhook
@@ -73,10 +106,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 3. Read raw body
-  let rawBody: string;
+  // 3. Read raw body as Buffer (required for Stripe signature verification)
+  let rawBody: Buffer;
   try {
-    rawBody = await request.text();
+    const arrayBuffer = await request.arrayBuffer();
+    rawBody = Buffer.from(arrayBuffer);
+    console.log("🔍 Webhook - Raw body read successfully, length:", rawBody.length);
   } catch (error) {
     console.error("[Webhook Error] Failed to read request body:", error);
     return new Response(
@@ -92,10 +127,11 @@ export async function POST(request: NextRequest) {
   let event: Stripe.Event;
   try {
     console.log("🔍 Webhook - Attempting to construct event...");
+    console.log("🔍 Webhook - Using secret:", process.env.STRIPE_WEBHOOK_SECRET?.substring(0, 10) + "...");
     event = stripe.webhooks.constructEvent(
       rawBody,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET
+      process.env.STRIPE_WEBHOOK_SECRET!
     );
     console.log("✅ Webhook - Event constructed successfully, type:", event.type);
   } catch (error) {
@@ -104,15 +140,37 @@ export async function POST(request: NextRequest) {
     console.error("🧪 Raw headers: content-type=", request.headers.get("content-type"));
     console.error("🧪 Raw headers: stripe-signature=", sig);
     console.error("🧪 Raw body length:", rawBody.length);
-    console.error("🧪 Raw body preview:", rawBody.substring(0, 200));
+    console.error("🧪 Raw body preview:", rawBody.toString('utf8').substring(0, 200));
+    console.error("🧪 Webhook secret exists:", !!process.env.STRIPE_WEBHOOK_SECRET);
+    console.error("🧪 Webhook secret length:", process.env.STRIPE_WEBHOOK_SECRET?.length);
 
-    return new Response(
-      JSON.stringify({ error: `Webhook Error: ${message}` }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
+    // Dev-only bypass to unblock local testing if signature keeps failing
+    const allowBypass = process.env.ALLOW_UNVERIFIED_WEBHOOKS === 'true' && process.env.NODE_ENV !== 'production';
+    if (allowBypass) {
+      try {
+        console.warn("⚠️ Bypassing Stripe signature verification (DEV ONLY). Do NOT use in production.");
+        const json = JSON.parse(rawBody.toString('utf8'));
+        event = json as Stripe.Event;
+        console.log("✅ Webhook - Event parsed without verification (DEV BYPASS), type:", event.type);
+      } catch (parseErr) {
+        console.error("❌ Failed to parse event during dev bypass:", parseErr);
+        return new Response(
+          JSON.stringify({ error: `Webhook Error: ${message}` }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
       }
-    );
+    } else {
+      return new Response(
+        JSON.stringify({ error: `Webhook Error: ${message}` }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
   }
 
   // 5. Process webhook event
@@ -122,6 +180,11 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case "payment_intent.succeeded":
         await handlePaymentIntentSucceeded(event.data.object as Stripe.PaymentIntent);
+        break;
+
+      // Fallback: some accounts may see timing anomalies; use charge.succeeded
+      case "charge.succeeded":
+        await handleChargeSucceeded(event.data.object as Stripe.Charge);
         break;
 
       case "payment_intent.payment_failed":
@@ -189,15 +252,58 @@ async function handlePaymentIntentSucceeded(pi: Stripe.PaymentIntent): Promise<v
   console.log("📋 Order ID from event:", pi.metadata?.orderId);
   console.log("💳 Payment method:", pi.metadata?.paymentMethod);
 
-  // Retrieve full PaymentIntent for complete metadata
-  let paymentIntent = pi;
-  try {
-    paymentIntent = await stripe.paymentIntents.retrieve(pi.id);
-    console.log("📋 Order ID after retrieve:", paymentIntent.metadata?.orderId);
-  } catch (error) {
-    console.warn("⚠️ Failed to retrieve full PaymentIntent:", error);
-    // Continue with event data
+  // Retrieve full PaymentIntent for complete metadata (retry for eventual consistency)
+  let paymentIntent = await retrievePaymentIntentWithRetry(pi.id, 4, 500) || pi;
+  console.log("ℹ️ PaymentIntent status:", paymentIntent.status, "amount_received:", paymentIntent.amount_received);
+  console.log("ℹ️ Latest charge:", paymentIntent.latest_charge);
+
+  // Validate that funds were received
+  if (paymentIntent.status !== "succeeded" || (paymentIntent.amount_received ?? 0) <= 0) {
+    console.warn("⚠️ PaymentIntent not finalized yet, skipping invoice for now:", {
+      status: paymentIntent.status,
+      amount_received: paymentIntent.amount_received
+    });
+    return;
   }
+
+  await processPaidOrder(paymentIntent);
+}
+
+/**
+ * Handle charge.succeeded as a fallback path to process paid orders
+ */
+async function handleChargeSucceeded(charge: Stripe.Charge): Promise<void> {
+  if (!stripe) return;
+  console.log("💳 Charge succeeded:", charge.id, "paid:", charge.paid, "status:", charge.status);
+  const piId = typeof charge.payment_intent === "string" ? charge.payment_intent : charge.payment_intent?.id;
+  if (!piId) {
+    console.warn("⚠️ charge.succeeded without payment_intent id. Skipping.");
+    return;
+  }
+  const paymentIntent = await retrievePaymentIntentWithRetry(piId, 4, 500);
+  if (!paymentIntent) return;
+  console.log("ℹ️ PI from charge:", paymentIntent.id, "status:", paymentIntent.status, "amount_received:", paymentIntent.amount_received);
+
+  if (paymentIntent.amount_received && paymentIntent.amount_received > 0) {
+    await processPaidOrder(paymentIntent);
+  } else {
+    console.warn("⚠️ charge.succeeded but PaymentIntent has no amount_received. Skipping.");
+  }
+}
+
+/**
+ * Shared path to create invoice and send emails for a paid order
+ */
+async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<void> {
+  const metadata = paymentIntent.metadata as Record<string, string>;
+  const orderId = metadata.orderId || paymentIntent.id;
+
+  // Idempotency guard (process only once per server lifetime)
+  if (processedOrderIds.has(orderId)) {
+    console.log("ℹ️ Order already processed, skipping:", orderId);
+    return;
+  }
+  processedOrderIds.add(orderId);
 
   // Get charge email if available
   let chargeEmail: string | null | undefined;
@@ -212,11 +318,131 @@ async function handlePaymentIntentSucceeded(pi: Stripe.PaymentIntent): Promise<v
   }
 
   // Create SuperFaktúra invoice (only for online payments via Stripe)
+  let invoiceId: string | undefined;
   try {
-    await createSuperFakturaInvoice(paymentIntent, chargeEmail);
-    console.log("✅ SuperFaktúra invoice created successfully");
+    console.log("🧾 Creating SuperFaktúra invoice for order:", orderId);
+    invoiceId = await createSuperFakturaInvoice(paymentIntent, chargeEmail);
+    console.log("✅ SuperFaktúra invoice created successfully, Invoice ID:", invoiceId);
   } catch (error) {
     console.error("❌ SuperFaktura invoice creation failed:", error);
+    // Don't throw - we still want to send emails even if invoice creation fails
+  }
+
+  // Send emails with invoice PDF (only if invoice was created)
+  const customerEmail = chargeEmail || paymentIntent.receipt_email || metadata.billing_email || metadata.shipping_email;
+
+  if (!customerEmail) {
+    console.warn("⚠️ No customer email available for sending confirmation emails");
+    return;
+  }
+
+  try {
+    // Build OrderBody from PaymentIntent metadata
+    const cartItems = [];
+    const indices = new Set<number>();
+    Object.keys(metadata).forEach(k => {
+      const m = k.match(/^item_(\d+)_/);
+      if (m) indices.add(parseInt(m[1], 10));
+    });
+
+    indices.forEach(i => {
+      cartItems.push({
+        ID: metadata[`item_${i}_id`] || '',
+        Title: metadata[`item_${i}_title`] || '',
+        Slug: metadata[`item_${i}_id`] || '',
+        RegularPrice: metadata[`item_${i}_price`] || '0',
+        SalePrice: metadata[`item_${i}_price`] || undefined,
+        quantity: parseInt(metadata[`item_${i}_qty`] || '1', 10),
+        FeatureImageURL: '',
+        ShortDescription: '',
+        LongDescription: '',
+        Currency: 'EUR',
+        ProductType: 'wine',
+      });
+    });
+
+    const orderBody: OrderBody = {
+      orderId: metadata.orderId || paymentIntent.id,
+      orderDate: new Date().toISOString(),
+      cartItems,
+      shippingForm: {
+        firstName: metadata.shipping_firstName || '',
+        lastName: metadata.shipping_lastName || '',
+        country: metadata.shipping_country || '',
+        state: metadata.shipping_state || '',
+        city: metadata.shipping_city || '',
+        address1: metadata.shipping_address1 || '',
+        address2: metadata.shipping_address2 || '',
+        postalCode: metadata.shipping_postalCode || '',
+        phone: metadata.shipping_phone || '',
+        email: metadata.shipping_email || customerEmail,
+        isCompany: metadata.shipping_is_company === '1',
+        companyName: metadata.shipping_company_name,
+        companyICO: metadata.shipping_company_ico,
+        companyDIC: metadata.shipping_company_dic,
+        companyICDPH: metadata.shipping_company_icdph,
+      },
+      billingForm: {
+        firstName: metadata.billing_firstName || metadata.shipping_firstName || '',
+        lastName: metadata.billing_lastName || metadata.shipping_lastName || '',
+        country: metadata.billing_country || metadata.shipping_country || '',
+        state: metadata.billing_state || metadata.shipping_state || '',
+        city: metadata.billing_city || metadata.shipping_city || '',
+        address1: metadata.billing_address1 || metadata.shipping_address1 || '',
+        address2: metadata.billing_address2 || metadata.shipping_address2 || '',
+        postalCode: metadata.billing_postalCode || metadata.shipping_postalCode || '',
+        phone: metadata.billing_phone || metadata.shipping_phone || '',
+        email: metadata.billing_email || metadata.shipping_email || customerEmail,
+        isCompany: metadata.billing_is_company === '1',
+        companyName: metadata.billing_company_name,
+        companyICO: metadata.billing_company_ico,
+        companyDIC: metadata.billing_company_dic,
+        companyICDPH: metadata.billing_company_icdph,
+      },
+      shippingMethod: {
+        id: 'stripe',
+        name: metadata.shippingMethod || 'Doprava',
+        price: parseFloat(metadata.shippingPriceCents || '0') / 100,
+        currency: metadata.shippingCurrency || 'EUR',
+      },
+      paymentMethodId: 'stripe',
+    };
+
+    // Send customer email WITH invoice PDF
+    if (invoiceId) {
+      try {
+        await sendCustomerEmail(orderBody, invoiceId);
+        console.log("✅ Customer email sent with invoice PDF");
+      } catch (error) {
+        console.error("❌ Failed to send customer email with invoice:", error);
+        // Try to send without PDF
+        try {
+          await sendCustomerEmail(orderBody);
+          console.log("✅ Customer email sent without invoice PDF (fallback)");
+        } catch (fallbackError) {
+          console.error("❌ Failed to send customer email even without PDF:", fallbackError);
+        }
+      }
+    } else {
+      // Send customer email without invoice if invoice creation failed
+      try {
+        await sendCustomerEmail(orderBody);
+        console.log("✅ Customer email sent without invoice PDF");
+      } catch (error) {
+        console.error("❌ Failed to send customer email:", error);
+      }
+    }
+
+    // Send admin email
+    try {
+      await sendAdminEmail(orderBody);
+      console.log("✅ Admin email sent successfully");
+    } catch (error) {
+      console.error("❌ Failed to send admin email:", error);
+      // Don't throw - admin email failure shouldn't block webhook
+    }
+  } catch (error) {
+    console.error("❌ Failed to send confirmation emails:", error);
     // Don't throw - we still want to acknowledge the webhook
   }
 }

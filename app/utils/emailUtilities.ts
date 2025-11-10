@@ -184,11 +184,24 @@ export async function sendAdminEmail(body: OrderBody) {
     })
   );
 
-  await sendEmail({
-    to: process.env.ADMIN_EMAIL!,
-    subject: `Nová objednávka ${body.orderId}`,
-    html,
-  });
+  const adminEmail = process.env.ADMIN_EMAIL;
+  
+  if (!adminEmail) {
+    console.warn("⚠️ ADMIN_EMAIL not set. Skipping admin email.");
+    return;
+  }
+
+  try {
+    await sendEmail({
+      to: adminEmail,
+      subject: `Nová objednávka ${body.orderId}`,
+      html,
+    });
+    console.log(`✅ Admin email sent to: ${adminEmail}`);
+  } catch (error) {
+    console.error(`❌ Failed to send admin email to ${adminEmail}:`, error);
+    // Don't throw - admin email failure shouldn't block order
+  }
 }
 
 // ----- Customer Email -----

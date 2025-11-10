@@ -148,14 +148,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 5. Send confirmation emails
+    // 5. Send confirmation emails (ONLY for COD - Stripe payments handled by webhook)
     const emailResults = {
       admin: false,
       customer: false,
     };
 
-    // Send admin notification email
+    // Skip emails for Stripe payments - webhook handles those
+    if (orderData.paymentMethodId === 'stripe') {
+      console.log("ℹ️ Stripe payment detected - emails will be sent by webhook");
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Order placed successfully (emails sent via webhook)",
+          emailsSent: { admin: false, customer: false },
+        },
+        { status: 200 }
+      );
+    }
+
+    // Send emails for COD (cash on delivery) - NO invoice
     try {
+      // Send admin notification email
       await sendAdminEmail(orderData);
       emailResults.admin = true;
       console.log("✅ Admin email sent successfully");
@@ -167,11 +181,11 @@ export async function POST(request: NextRequest) {
       // Continue even if admin email fails
     }
 
-    // Send customer confirmation email
+    // Send customer confirmation email (NO invoice for COD)
     try {
-      await sendCustomerEmail(orderData);
+      await sendCustomerEmail(orderData); // No invoiceId - COD doesn't get invoice
       emailResults.customer = true;
-      console.log("✅ Customer email sent successfully");
+      console.log("✅ Customer email sent successfully (COD - no invoice)");
     } catch (error) {
       console.error("❌ Failed to send customer email:", error);
       // This is more critical - we should still return success but log warning

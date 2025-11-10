@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { useLocalization } from "../context/LocalizationContext";
-import { ShoppingCart, X } from "lucide-react";
+import { ShoppingCart, X, Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { removeFromCart } from "../store/slices/cartSlice";
+import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
 import { registerMiniCartTrigger } from "../utils/MiniCartController";
 
 export default function MiniCart() {
@@ -30,6 +30,16 @@ export default function MiniCart() {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     });
   }, []);
+
+  const handleQtyChange = (id: string, delta: number) => {
+    const item = cartItems.find((i) => i.ID === id);
+    if (!item) return;
+
+    const newQty = item.quantity + delta;
+    if (newQty >= 1) {
+      dispatch(updateQuantity({ id, quantity: newQty }));
+    }
+  };
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -90,10 +100,25 @@ export default function MiniCart() {
                       >
                         {item.Title}
                       </Link>
-                      <p className="text-sm text-foreground">
-                        {labels.quantity || "Množstvo"}: {item.quantity} × €{price.toFixed(2)}
+                      <p className="text-xs text-foreground mt-1">
+                        {labels.price || "Cena"}: €{price.toFixed(2)}
                       </p>
-                      <p className="text-sm text-foreground font-medium">
+                      <div className="flex items-center mt-2 gap-2">
+                        <button
+                          onClick={() => handleQtyChange(item.ID, -1)}
+                          className="text-foreground border border-accent px-1.5 py-0.5 rounded hover:bg-accent/10 transition"
+                        >
+                          <Minus size={14} />
+                        </button>
+                        <span className="text-xs font-medium min-w-[20px] text-center">{item.quantity}</span>
+                        <button
+                          onClick={() => handleQtyChange(item.ID, 1)}
+                          className="text-foreground border border-accent px-1.5 py-0.5 rounded hover:bg-accent/10 transition"
+                        >
+                          <Plus size={14} />
+                        </button>
+                      </div>
+                      <p className="text-sm text-foreground font-medium mt-1">
                         {labels.total || "Celkom"}: €{itemTotal}
                       </p>
                     </div>

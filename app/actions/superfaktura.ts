@@ -170,10 +170,23 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     },
   };
 
-  // Use sandbox URL if SUPERFAKTURA_SANDBOX is set
-  const baseUrl = process.env.SUPERFAKTURA_SANDBOX === '1' 
-    ? 'https://sandbox.superfaktura.sk' 
+  // Helper function to normalize boolean env values (accepts '1', 'true', 'True', 'TRUE', etc)
+  const isSandboxMode = (): boolean => {
+    const sandboxValue = process.env.SUPERFAKTURA_SANDBOX;
+    if (!sandboxValue) return false;
+    const normalized = sandboxValue.toLowerCase().trim();
+    return normalized === '1' || normalized === 'true';
+  };
+
+  // Use sandbox URL if SUPERFAKTURA_SANDBOX is set to '1' or 'true' (case-insensitive)
+  const isSandbox = isSandboxMode();
+  const baseUrl = isSandbox
+    ? 'https://sandbox.superfaktura.sk'
     : 'https://moja.superfaktura.sk';
+
+  console.log(`🔍 SuperFaktura - Mode: ${isSandbox ? 'SANDBOX' : 'PRODUCTION'}`);
+  console.log(`🔍 SuperFaktura - API URL: ${baseUrl}`);
+  console.log(`🔍 SuperFaktura - SUPERFAKTURA_SANDBOX value: "${process.env.SUPERFAKTURA_SANDBOX}"`);
 
   // Odoslanie požiadavky na SuperFaktúra API
   try {
@@ -185,61 +198,18 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     });
 
     if (response.data.error === 0) {
-      console.log(`✅ SuperFaktura invoice created successfully for order ${metadata.orderId}. Invoice ID: ${response.data.data.Invoice.id}`);
+      const invoiceId = response.data.data.Invoice.id;
+      console.log(`✅ SuperFaktura invoice created successfully for order ${metadata.orderId}. Invoice ID: ${invoiceId} (${isSandbox ? 'SANDBOX' : 'PRODUCTION'} mode)`);
       
-      // Odoslanie emailu s faktúrou zákazníkovi cez SuperFaktúru
-      if (customerEmail && process.env.SUPERFAKTURA_SEND_EMAILS === '1') {
-        try {
-          const sendPayload = {
-            id: parseInt(response.data.data.Invoice.id, 10),
-            to_client: 1,
-            // explicitné odoslanie na e‑mail zo Stripe PI/Charge
-            to_emails: customerEmail,
-          } as Record<string, unknown>;
-
-          console.log('📨 SuperFaktura /invoices/send payload:', sendPayload);
-
-          const sendResp = await axios.post(
-            `${baseUrl}/invoices/send`,
-            sendPayload,
-            {
-              headers: {
-                'Authorization': `SFAPI email=${process.env.SUPERFAKTURA_EMAIL}&apikey=${process.env.SUPERFAKTURA_API_KEY}`,
-                'Content-Type': 'application/json',
-              },
-              validateStatus: () => true,
-            }
-          );
-
-          console.log('📨 SuperFaktura /invoices/send response:', {
-            status: sendResp.status,
-            data: sendResp.data,
-          });
-
-          if (sendResp.status >= 200 && sendResp.status < 300 && (sendResp.data?.error === 0 || sendResp.data?.success)) {
-            console.log(`📧 Invoice email sent via SuperFaktura to ${customerEmail}`);
-          } else {
-            console.warn('⚠️ SuperFaktura did not confirm email sending OK:', {
-              status: sendResp.status,
-              data: sendResp.data,
-            });
-          }
-        } catch (emailError: unknown) {
-          const err = emailError as { message?: string; response?: { status?: number; data?: unknown } } | undefined;
-          console.warn(`⚠️ Failed to send invoice email via SuperFaktura:`, {
-            message: err?.message,
-            responseStatus: err?.response?.status,
-            responseData: err?.response?.data,
-          });
-        }
-      } else {
-        console.warn(`⚠️ No customer email available or SUPERFAKTURA_SEND_EMAILS not enabled for invoice ${response.data.data.Invoice.id}`);
-      }
+      // Vrátiť invoiceId pre webhook handler (webhook pošle emaily s PDF)
+      return invoiceId;
     } else {
-      console.error(`❌ SuperFaktura API Error for order ${metadata.orderId}:`, response.data.error_message);
+      console.error(`❌ SuperFaktura API Error for order ${metadata.orderId} (${isSandbox ? 'SANDBOX' : 'PRODUCTION'} mode):`, response.data.error_message);
+      // Return undefined instead of throwing - let webhook continue with emails
+      return undefined;
     }
   } catch (error) {
-    console.error(`❌ Failed to create SuperFaktura invoice for order ${metadata.orderId}:`, error);
+    console.error(`❌ Failed to create SuperFaktura invoice for order ${metadata.orderId} (${isSandbox ? 'SANDBOX' : 'PRODUCTION'} mode):`, error);
     
     // Log detailed error information for debugging
     if (error && typeof error === 'object' && 'response' in error) {
@@ -251,8 +221,11 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
         url: `${baseUrl}/invoices/create`,
         email: process.env.SUPERFAKTURA_EMAIL,
         apiKeyLength: process.env.SUPERFAKTURA_API_KEY?.length || 0,
-        sandboxMode: process.env.SUPERFAKTURA_SANDBOX === '1',
+        sandboxMode: isSandbox,
+        mode: isSandbox ? 'SANDBOX' : 'PRODUCTION',
       });
     }
+    // Return undefined instead of throwing - let webhook continue with emails
+    return undefined;
   }
 }

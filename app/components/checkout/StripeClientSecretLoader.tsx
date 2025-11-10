@@ -67,8 +67,10 @@ export default function StripeClientSecretLoader() {
           shippingForm,
           billingForm,
           shippingMethod,
-          paymentMethodId,
+          paymentMethodId: 'stripe', // Explicitne nastaviť 'stripe' pre Stripe platby
         };
+
+        console.log('💾 StripeClientSecretLoader - Saving order data with paymentMethodId:', orderData.paymentMethodId);
 
         // Store order data for webhook processing
         localStorage.setItem("recentOrder", JSON.stringify(orderData));
@@ -102,13 +104,13 @@ export default function StripeClientSecretLoader() {
 
   if (!clientSecret) {
     return (
-      <div className="p-4 bg-background border border-gray-200 rounded-md">
-        <p className="text-gray-700">
-          ⚠️ Stripe nie je nakonfigurovaný. Pre testovanie platieb nastavte Stripe API kľúče v environment premenných.
-        </p>
-        <p className="text-sm text-gray-700 mt-2">
-          Môžete použiť dobierku (Cash on Delivery) ako alternatívnu platobnú metódu.
-        </p>
+      <div className="p-6">
+        <div className="flex flex-col items-center justify-center space-y-3">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-accent"></div>
+          <p className="text-center text-sm text-foreground-muted">
+            Načítavam platobné možnosti...
+          </p>
+        </div>
       </div>
     );
   }
