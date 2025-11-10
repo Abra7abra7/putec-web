@@ -2,15 +2,17 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+// Load API key at module level for client components
+const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
 export default function GoogleMaps() {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [apiKeyMissing, setApiKeyMissing] = useState(false);
 
   useEffect(() => {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-    
-    if (!apiKey || apiKey === 'your_google_maps_api_key_here') {
+    if (!GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY === 'your_google_maps_api_key_here') {
+      console.error('Google Maps API key is missing or invalid');
       setApiKeyMissing(true);
       return;
     }
@@ -19,95 +21,9 @@ export default function GoogleMaps() {
       if (window.google && mapRef.current) {
         const map = new window.google.maps.Map(mapRef.current, {
           center: { lat: 48.30897158531647, lng: 17.28917563487912 }, // Pezinská 154, Vinosady coordinates
-          zoom: 16,
-          mapTypeId: 'roadmap',
-          styles: [
-            {
-              featureType: 'all',
-              elementType: 'geometry.fill',
-              stylers: [{ weight: '2.00' }]
-            },
-            {
-              featureType: 'all',
-              elementType: 'geometry.stroke',
-              stylers: [{ color: '#9c9c9c' }]
-            },
-            {
-              featureType: 'all',
-              elementType: 'labels.text',
-              stylers: [{ visibility: 'on' }]
-            },
-            {
-              featureType: 'landscape',
-              elementType: 'all',
-              stylers: [{ color: '#f2f2f2' }]
-            },
-            {
-              featureType: 'landscape.man_made',
-              elementType: 'geometry.fill',
-              stylers: [{ color: '#ffffff' }]
-            },
-            {
-              featureType: 'poi',
-              elementType: 'all',
-              stylers: [{ visibility: 'off' }]
-            },
-            {
-              featureType: 'road',
-              elementType: 'all',
-              stylers: [{ saturation: -100 }, { lightness: 45 }]
-            },
-            {
-              featureType: 'road',
-              elementType: 'geometry.fill',
-              stylers: [{ color: '#eeeeee' }]
-            },
-            {
-              featureType: 'road',
-              elementType: 'labels.text.fill',
-              stylers: [{ color: '#7b7b7b' }]
-            },
-            {
-              featureType: 'road',
-              elementType: 'labels.text.stroke',
-              stylers: [{ color: '#ffffff' }]
-            },
-            {
-              featureType: 'road.highway',
-              elementType: 'all',
-              stylers: [{ visibility: 'simplified' }]
-            },
-            {
-              featureType: 'road.arterial',
-              elementType: 'labels.icon',
-              stylers: [{ visibility: 'off' }]
-            },
-            {
-              featureType: 'transit',
-              elementType: 'all',
-              stylers: [{ visibility: 'off' }]
-            },
-            {
-              featureType: 'water',
-              elementType: 'all',
-              stylers: [{ color: '#46bcec' }, { visibility: 'on' }]
-            },
-            {
-              featureType: 'water',
-              elementType: 'geometry.fill',
-              stylers: [{ color: '#c8d7d4' }]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.fill',
-              stylers: [{ color: '#070707' }]
-            },
-            {
-              featureType: 'water',
-              elementType: 'labels.text.stroke',
-              stylers: [{ color: '#ffffff' }]
-            }
-          ]
+          zoom: 18,
+          mapTypeId: 'hybrid', // Hybrid mode shows satellite imagery with labels
+          tilt: 0, // 0 for top-down view, 45 for angled view
         });
 
         // Add marker
@@ -140,7 +56,7 @@ export default function GoogleMaps() {
     // Load Google Maps script if not already loaded
     if (!window.google) {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
       script.async = true;
       script.defer = true;
       script.onload = loadGoogleMaps;
@@ -194,36 +110,37 @@ export default function GoogleMaps() {
   }
 
   return (
-    <div className="w-full h-full min-h-[500px] bg-background">
-      <div className="p-6">
-        <h2 className="text-3xl font-bold text-foreground mb-4 text-center">
+    <div className="w-full">
+      <div className="mb-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-center">
           Nájdete nás tu
         </h2>
-        <div className="mb-4 text-center">
-          <p className="text-foreground text-lg font-semibold mb-2">
+        <div className="text-center space-y-2">
+          <p className="text-foreground text-lg font-semibold">
             Pezinská 154 - Vinárstvo
           </p>
-          <p className="text-foreground-muted">
+          <p className="text-foreground-muted text-base">
             902 01 Vinosady
           </p>
-          <p className="text-foreground-muted">
+          <p className="text-foreground-muted text-base">
             Slovensko
           </p>
         </div>
       </div>
-      <div 
-        ref={mapRef} 
-        className="w-full h-96 rounded-lg shadow-lg border border-gray-200"
-        style={{ minHeight: '400px' }}
-      />
-      {!mapLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-2"></div>
-            <p className="text-gray-600">Načítavam mapu...</p>
+      <div className="relative">
+        <div 
+          ref={mapRef} 
+          className="w-full h-[450px] md:h-[500px] rounded-xl shadow-xl border border-gray-200"
+        />
+        {!mapLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-xl">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900 mx-auto mb-3"></div>
+              <p className="text-gray-600 font-medium">Načítavam mapu...</p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

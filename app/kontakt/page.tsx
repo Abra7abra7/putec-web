@@ -29,15 +29,17 @@ export const metadata: Metadata = {
 export default function ContactPage() {
     return (
       <main>
-        <div className="flex flex-col gap-8">
-          {/* Contact Form */}
-          <div>
-            <ContactUsForm />
-          </div>
-          
-          {/* Google Maps */}
-          <div>
-            <GoogleMaps />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
+          <div className="flex flex-col gap-12">
+            {/* Contact Form */}
+            <div>
+              <ContactUsForm />
+            </div>
+            
+            {/* Google Maps */}
+            <div>
+              <GoogleMaps />
+            </div>
           </div>
         </div>
       </main>

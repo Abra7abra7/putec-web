@@ -12,7 +12,14 @@ function SubmitButton({ buttonText }: { buttonText: string }) {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending} loading={pending} className="rounded-l-none">
+    <Button 
+      type="submit" 
+      disabled={pending} 
+      loading={pending} 
+      variant="primary"
+      size="lg"
+      className="w-full sm:w-auto sm:min-w-[180px] whitespace-nowrap"
+    >
       {buttonText}
     </Button>
   );
@@ -27,15 +34,15 @@ export default function NewsletterSignup() {
       <Container maxWidth="2xl">
         <div className="text-center">
           <h2 className="text-foreground mb-4">{newsletter.title}</h2>
-          <p className="text-foreground-muted mb-6">{newsletter.description}</p>
+          <p className="text-foreground-muted mb-8">{newsletter.description}</p>
 
-          <form action={formAction} className="flex flex-col md:flex-row justify-center gap-0 max-w-md mx-auto">
+          <form action={formAction} className="flex flex-col sm:flex-row justify-center gap-4 max-w-xl mx-auto items-stretch sm:items-center">
             <input
               type="email"
               name="email"
               placeholder={newsletter.placeholder}
               required
-              className="px-4 py-3 w-full md:w-72 border-2 border-accent bg-background rounded-lg md:rounded-r-none focus:outline-none focus:ring-2 focus:ring-accent/20"
+              className="px-5 py-3 flex-1 border-2 border-gray-300 bg-background rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200 text-base shadow-sm hover:shadow-md"
               aria-label="Email pre newsletter"
             />
             <SubmitButton buttonText={newsletter.buttonText} />
