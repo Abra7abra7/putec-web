@@ -37,30 +37,30 @@ export default function ProductCard({ product }: Props) {
       </Link>
 
       {/* Product Info */}
-      <CardContent className="p-5 flex flex-col flex-1">
+      <CardContent className="p-4 flex flex-col flex-1">
         <Link href={`/vina/${product.Slug}`}>
-          <h3 className="text-lg font-bold text-foreground mb-2 hover:text-accent transition-colors line-clamp-2 min-h-[3.5rem]">
+          <h3 className="text-base font-bold text-foreground mb-2 hover:text-accent transition-colors line-clamp-2 min-h-[2.5rem]">
             {product.Title}
           </h3>
         </Link>
 
-        <p className="text-sm text-foreground-muted mb-4 line-clamp-2 flex-1">
+        <p className="text-xs text-foreground-muted mb-3 line-clamp-2 flex-1">
           {product.ShortDescription}
         </p>
 
         {/* Price */}
-        <div className="mb-4">
+        <div className="mb-3">
           {isOnSale ? (
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-2xl font-bold text-red-600">
+              <span className="text-xl font-bold text-red-600">
                 {currency}{displayPrice}
               </span>
-              <span className="text-base text-gray-500 line-through">
+              <span className="text-sm text-gray-500 line-through">
                 {currency}{product.RegularPrice}
               </span>
             </div>
           ) : (
-            <span className="text-2xl font-bold text-foreground">
+            <span className="text-xl font-bold text-foreground">
               {currency}{displayPrice}
             </span>
           )}

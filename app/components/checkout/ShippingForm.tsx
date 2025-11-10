@@ -56,7 +56,7 @@ export default function ShippingForm() {
       {form.isCompany && (
         <div className="bg-accent/10 p-4 rounded-lg mb-4">
           <h4 className="text-lg font-semibold text-foreground mb-3">Firemné údaje</h4>
-          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               name="companyName"
               value={form.companyName}
@@ -87,7 +87,7 @@ export default function ShippingForm() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input 
           name="firstName" 
           value={form.firstName} 
@@ -125,7 +125,7 @@ export default function ShippingForm() {
           required 
         />
 
-        <div className="desktop:col-span-2">
+        <div className="md:col-span-2">
           <Input 
             name="address1" 
             value={form.address1} 
@@ -135,7 +135,7 @@ export default function ShippingForm() {
           />
         </div>
         
-        <div className="desktop:col-span-2">
+        <div className="md:col-span-2">
           <Input 
             name="address2" 
             value={form.address2} 
@@ -159,7 +159,7 @@ export default function ShippingForm() {
           placeholder={`${labels.phone} (voliteľné)`} 
         />
         
-        <div className="desktop:col-span-2">
+        <div className="md:col-span-2">
           <Input 
             name="email" 
             value={form.email} 

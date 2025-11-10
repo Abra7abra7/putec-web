@@ -100,7 +100,7 @@ export default function BillingForm() {
               {labels.sameAsShipping || "Same as Shipping"}
             </Button>
           </div>
-      <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input 
           name="firstName" 
           value={billingForm.firstName} 
@@ -137,7 +137,7 @@ export default function BillingForm() {
           required 
         />
 
-        <div className="desktop:col-span-2">
+        <div className="md:col-span-2">
           <Input 
             name="address1" 
             value={billingForm.address1} 
@@ -147,7 +147,7 @@ export default function BillingForm() {
           />
         </div>
         
-        <div className="desktop:col-span-2">
+        <div className="md:col-span-2">
           <Input 
             name="address2" 
             value={billingForm.address2} 
@@ -171,7 +171,7 @@ export default function BillingForm() {
           placeholder={`${labels.phone} (voliteľné)`} 
         />
         
-        <div className="desktop:col-span-2">
+        <div className="md:col-span-2">
           <Input 
             name="email" 
             value={billingForm.email} 
@@ -199,7 +199,7 @@ export default function BillingForm() {
         </div>
 
         {billingForm.isCompany && (
-          <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               name="companyName"
               value={billingForm.companyName}

@@ -3,9 +3,9 @@ import { cn } from "@/app/lib/utils";
 
 export interface FeatureIconProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * Icon content - can be emoji string or React Icon component
+   * Icon content - can be emoji string, React Icon component, or any React node
    */
-  icon: string | React.ReactElement<{ className?: string }>;
+  icon: React.ReactNode;
   /**
    * Size of the icon container
    * @default "md"
@@ -19,9 +19,9 @@ export interface FeatureIconProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const sizeClasses = {
-  sm: "w-10 h-10 text-base",
-  md: "w-12 h-12 text-lg",
-  lg: "w-16 h-16 text-2xl",
+  sm: "w-8 h-8 text-sm",
+  md: "w-10 h-10 text-base",
+  lg: "w-12 h-12 text-lg",
 };
 
 const variantClasses = {
@@ -33,6 +33,7 @@ const variantClasses = {
 const FeatureIcon = React.forwardRef<HTMLDivElement, FeatureIconProps>(
   ({ className, icon, size = "md", variant = "accent", ...props }, ref) => {
     const isStringIcon = typeof icon === "string";
+    const isReactElement = React.isValidElement(icon);
 
     return (
       <div
@@ -47,10 +48,12 @@ const FeatureIcon = React.forwardRef<HTMLDivElement, FeatureIconProps>(
       >
         {isStringIcon ? (
           <span className="select-none">{icon}</span>
-        ) : (
+        ) : isReactElement ? (
           React.cloneElement(icon as React.ReactElement<{ className?: string }>, {
             className: cn("w-5 h-5", (icon as React.ReactElement<{ className?: string }>).props?.className),
           })
+        ) : (
+          icon
         )}
       </div>
     );

@@ -34,7 +34,7 @@ export default function HomepageBanner() {
   return (
     <section
       className="w-full relative overflow-hidden text-white flex justify-center items-center text-center"
-      style={{ minHeight: "60vh" }}
+      style={{ minHeight: "500px" }}
     >
       {/* LCP image as Next/Image with priority to improve LCP */}
       <Image
@@ -53,14 +53,14 @@ export default function HomepageBanner() {
         initial={reduceMotion ? undefined : { opacity: 0, scale: 0.8 }}
         animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
         transition={reduceMotion ? { duration: 0 } : { duration: 0.8, ease: "easeOut" }}
-        className="relative max-w-4xl mx-auto px-6 py-40 md:py-60 lg:py-80 flex flex-col items-center"
+        className="relative max-w-4xl mx-auto px-6 py-32 md:py-48 flex flex-col items-center"
       >
         <RatingBadge ratingValue={5} reviewCount={31} className="mb-4" />
         <MotionH1
           initial={reduceMotion ? undefined : { opacity: 0, y: -20 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={reduceMotion ? { duration: 0 } : { duration: 0.6, delay: 0.2 }}
-          className="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg !text-white"
+          className="text-3xl md:text-4xl font-extrabold mb-6 drop-shadow-lg !text-white"
           style={{ color: 'white' }}
         >
           Rodinné vinárstvo Putec
@@ -70,7 +70,7 @@ export default function HomepageBanner() {
           initial={reduceMotion ? undefined : { opacity: 0, y: -20 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={reduceMotion ? { duration: 0 } : { duration: 0.6, delay: 0.4 }}
-          className="text-xl mb-12 max-w-2xl drop-shadow-lg !text-white"
+          className="text-lg md:text-xl mb-8 max-w-2xl drop-shadow-lg !text-white"
           style={{ color: 'white' }}
         >
           Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku
@@ -81,21 +81,21 @@ export default function HomepageBanner() {
           initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={reduceMotion ? { duration: 0 } : { duration: 0.6, delay: 0.6 }}
-          className="flex flex-col desktop:flex-row gap-4 items-center w-full desktop:w-auto"
+          className="flex flex-col md:flex-row gap-4 items-center w-full md:w-auto"
         >
-          <Button asChild variant="secondary" size="lg" className="w-full desktop:w-auto">
+          <Button asChild variant="secondary" size="lg" className="w-full md:w-auto">
             <Link href={ctaLink}>
               {buttonText}
             </Link>
           </Button>
           
-          <Button asChild variant="primary" size="lg" className="w-full desktop:w-auto">
+          <Button asChild variant="primary" size="lg" className="w-full md:w-auto">
             <Link href="/ubytovanie">
               Ubytovanie
             </Link>
           </Button>
           
-          <Button asChild variant="primary" size="lg" className="w-full desktop:w-auto">
+          <Button asChild variant="primary" size="lg" className="w-full md:w-auto">
             <Link href="/degustacie">
               Degustácie
             </Link>

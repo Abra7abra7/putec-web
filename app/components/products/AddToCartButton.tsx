@@ -28,7 +28,7 @@ export default function AddToCartButton({ product }: Props) {
   return (
     <Button
       onClick={handleAddToCart}
-      className="mt-4 w-full desktop:w-auto"
+      className="mt-4 w-full md:w-auto"
     >
       {labels.addToCart || "Add to Cart"}
     </Button>

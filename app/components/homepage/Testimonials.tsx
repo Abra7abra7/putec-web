@@ -39,22 +39,22 @@ export default async function Testimonials() {
           </h2>
 
           {/* Testimonials Grid */}
-          <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 justify-items-center">
             {homepage.testimonials.map((testimonial) => (
               <Card
                 key={testimonial.id}
                 className="hover:shadow-lg transition-all hover:scale-[1.02]"
               >
-                <CardContent className="flex flex-col items-center text-center p-8">
+                <CardContent className="flex flex-col items-center text-center p-6">
                   {/* User Avatar */}
                   <Image
                     src={testimonial.avatar}
                     alt={testimonial.name}
-                    width={80}
-                    height={80}
-                    className="rounded-full mb-4 border-4 border-accent"
+                    width={64}
+                    height={64}
+                    className="rounded-full mb-4 border-2 border-accent"
                     priority={false}
-                    sizes="(max-width: 768px) 80px, 80px"
+                    sizes="(max-width: 768px) 64px, 64px"
                   />
 
                   {/* Name */}

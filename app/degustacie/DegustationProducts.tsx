@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Users, Clock, Check } from "lucide-react";
 import { Product } from "../../types/Product";
 
 export default function DegustationProducts() {
@@ -53,69 +54,78 @@ export default function DegustationProducts() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {products.map((product) => (
-              <div key={product.ID} className="rounded-lg shadow-lg overflow-hidden border border-gray-200 flex flex-col h-full">
-                {/* Image background header */}
-                <div className="relative h-48 w-full">
-                  <Image
-                    src={product.FeatureImageURL || '/placeholder.png'}
-                    alt={product.Title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-black/30" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-2xl font-bold drop-shadow" style={{ color: '#ffffff' }}>{product.Title}</h3>
-                    <div className="flex gap-4 text-sm text-gray-100">
-                      <span>👥 {product.Capacity}</span>
-                      <span>⏱️ {product.Duration}</span>
+              <div key={product.ID} className="relative rounded-lg shadow-lg overflow-hidden border border-gray-200 h-[500px] md:h-[600px]">
+                {/* Full background image */}
+                <Image
+                  src={product.FeatureImageURL || '/placeholder.png'}
+                  alt={product.Title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                
+                {/* Gradient overlay - silnejsi zdola */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
+                
+                {/* Content overlay */}
+                <div className="relative h-full flex flex-col justify-between p-6 text-white">
+                  {/* Top section - Title & Info */}
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold drop-shadow-lg mb-3">{product.Title}</h3>
+                    <div className="flex gap-4 text-sm md:text-base">
+                      <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2">
+                        <Users className="w-4 h-4" />
+                        {product.Capacity}
+                      </span>
+                      <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        {product.Duration}
+                      </span>
                     </div>
                   </div>
-                </div>
 
-                <div className="bg-background p-8 flex flex-col flex-1">
-
-                {/* Description */}
-                <p className="text-foreground-muted mb-6 leading-relaxed flex-grow">
-                  {product.ShortDescription}
-                </p>
-
-                {/* Features */}
-                {product.Features && (
-                  <div className="mb-6">
-                    <h5 className="font-semibold text-foreground mb-3">Zahrnuté v balíku:</h5>
-                    <ul className="space-y-2">
-                      {product.Features.map((feature, index) => (
-                        <li key={index} className="flex items-center space-x-2">
-                          <span className="text-accent font-bold">✓</span>
-                          <span className="text-foreground-muted">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Price */}
-                <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-foreground mb-2">
-                    {product.SalePrice}€
-                  </div>
-                  {product.Deposit && (
-                    <p className="text-sm text-foreground-muted">
-                      Vratná záloha: {product.Deposit}€
+                  {/* Bottom section - Description, Features, Price, Button */}
+                  <div className="space-y-4">
+                    {/* Description */}
+                    <p className="text-white/90 text-sm md:text-base leading-relaxed drop-shadow">
+                      {product.ShortDescription}
                     </p>
-                  )}
-                </div>
 
-                {/* Action Button */}
-                <div className="mt-auto">
-                  <Link
-                    href={`/degustacie/${product.Slug}`}
-                    className="w-full bg-accent hover:bg-accent-dark text-foreground px-6 py-3 rounded-lg font-semibold transition-colors text-center block"
-                  >
-                    Rezervovať degustáciu
-                  </Link>
-                </div>
+                    {/* Features */}
+                    {product.Features && (
+                      <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4">
+                        <h5 className="font-semibold text-white mb-2 text-sm">Zahrnuté v balíku:</h5>
+                        <ul className="space-y-1">
+                          {product.Features.map((feature, index) => (
+                            <li key={index} className="flex items-center space-x-2 text-sm">
+                              <Check className="w-4 h-4 text-accent flex-shrink-0" />
+                              <span className="text-white/90">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Price & Button */}
+                    <div className="flex items-center justify-between gap-4 bg-black/40 backdrop-blur-sm rounded-lg p-4">
+                      <div>
+                        <div className="text-2xl md:text-3xl font-bold text-white">
+                          {product.SalePrice}€
+                        </div>
+                        {product.Deposit && (
+                          <p className="text-xs text-white/80">
+                            Vratná záloha: {product.Deposit}€
+                          </p>
+                        )}
+                      </div>
+                      <Link
+                        href={`/degustacie/${product.Slug}`}
+                        className="bg-accent hover:bg-accent-dark text-foreground px-6 py-3 rounded-lg font-semibold transition-colors text-center whitespace-nowrap"
+                      >
+                        Rezervovať
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

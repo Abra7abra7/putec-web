@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Trophy, Users, ChefHat, Wine as WineIcon, Check } from "lucide-react";
 import DegustationProducts from "./DegustationProducts";
 import Hero from "../components/Hero";
 import Image from "next/image";
@@ -83,17 +84,29 @@ export default function DegustaciePage() {
             {/* Why Choose Us - Quick bullets */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-gray-200">
               <div className="text-center">
-                <div className="text-4xl mb-3">🏆</div>
+                <div className="flex justify-center mb-3">
+                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Trophy className="w-6 h-6 text-accent" />
+                  </div>
+                </div>
                 <h4 className="font-semibold text-foreground mb-2">Ocenené vína</h4>
                 <p className="text-sm text-foreground-muted">Prémiová kvalita potvrdená medzinárodnými oceneniami</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl mb-3">👨‍🏫</div>
+                <div className="flex justify-center mb-3">
+                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Users className="w-6 h-6 text-accent" />
+                  </div>
+                </div>
                 <h4 className="font-semibold text-foreground mb-2">Profesionálny výklad</h4>
                 <p className="text-sm text-foreground-muted">Odborný sprievodca s letitými skúsenosťami</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl mb-3">🍽️</div>
+                <div className="flex justify-center mb-3">
+                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                    <ChefHat className="w-6 h-6 text-accent" />
+                  </div>
+                </div>
                 <h4 className="font-semibold text-foreground mb-2">Catering na mieru</h4>
                 <p className="text-sm text-foreground-muted">Občerstvenie prispôsobené vašim požiadavkám</p>
               </div>
@@ -134,8 +147,8 @@ export default function DegustaciePage() {
                 className="rounded-2xl shadow-2xl"
                 priority
               />
-              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-accent rounded-full flex items-center justify-center">
-                <span className="text-3xl">🍷</span>
+              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-accent rounded-full flex items-center justify-center shadow-xl">
+                <WineIcon className="w-12 h-12 text-foreground" />
               </div>
             </div>
 
@@ -146,7 +159,7 @@ export default function DegustaciePage() {
                 <div className="bg-accent/10 p-6 rounded-xl">
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mr-4">
-                      <span className="text-white font-bold text-lg">17</span>
+                      <Users className="w-6 h-6 text-foreground" />
                     </div>
                     <h4 className="text-xl font-semibold text-foreground">Kapacita až 17 osôb</h4>
                   </div>
@@ -156,7 +169,9 @@ export default function DegustaciePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-background border border-gray-200 rounded-xl p-6">
                     <div className="flex items-center mb-3">
-                      <span className="text-2xl mr-3">🏢</span>
+                      <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-3">
+                        <Users className="w-5 h-5 text-accent" />
+                      </div>
                       <h5 className="font-semibold text-foreground">Firemné akcie</h5>
                     </div>
                     <p className="text-foreground-muted text-sm">Profesionálne zorganizované pre firmy</p>
@@ -164,7 +179,9 @@ export default function DegustaciePage() {
                   
                   <div className="bg-background border border-gray-200 rounded-xl p-6">
                     <div className="flex items-center mb-3">
-                      <span className="text-2xl mr-3">🤝</span>
+                      <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-3">
+                        <Users className="w-5 h-5 text-accent" />
+                      </div>
                       <h5 className="font-semibold text-foreground">Teambuildingy</h5>
                     </div>
                     <p className="text-foreground-muted text-sm">Kombinácia vínovej kultúry s tímovou prácou</p>
@@ -172,16 +189,16 @@ export default function DegustaciePage() {
                 </div>
 
                 <div className="space-y-3">
-                  <div className="flex items-center">
-                    <span className="text-accent mr-3">✓</span>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
                     <span className="text-foreground">Profesionálny sprievodca degustáciou</span>
                   </div>
-                  <div className="flex items-center">
-                    <span className="text-accent mr-3">✓</span>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
                     <span className="text-foreground">Catering služby a občerstvenie</span>
                   </div>
-                  <div className="flex items-center">
-                    <span className="text-accent mr-3">✓</span>
+                  <div className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0" />
                     <span className="text-foreground">Degustačná miestnosť priamo vo vinárstve</span>
                   </div>
                 </div>

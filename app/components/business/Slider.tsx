@@ -32,7 +32,7 @@ export interface SliderProps {
   className?: string;
   /**
    * Height of the slider
-   * @default "h-96"
+   * @default "h-80 md:h-[500px]"
    */
   height?: string;
 }
@@ -44,7 +44,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       autoPlayInterval = 4000,
       autoPlay = true,
       className,
-      height = "h-96",
+      height = "h-80 md:h-[500px]",
     },
     ref
   ) => {

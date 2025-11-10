@@ -121,7 +121,7 @@ export default function Achievements() {
           <h2 className="text-foreground mb-4">
             Naše úspechy a ocenenia
           </h2>
-          <p className="text-base desktop:text-lg text-foreground-muted max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-foreground-muted max-w-3xl mx-auto">
             Pridajte sa k tisíckam spokojných zákazníkov, ktorí si vybrali naše prémiové vína
           </p>
         </div>
@@ -148,7 +148,7 @@ export default function Achievements() {
 
         {/* Achievements Grid - Responsive layout */}
         <div className="flex justify-center">
-          <div className={`grid gap-6 max-w-full ${
+          <div className={`grid gap-4 max-w-full ${
             selectedCategory === 'ocenenia' 
               ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-5xl' 
               : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6'
@@ -159,7 +159,7 @@ export default function Achievements() {
                 className="overflow-hidden hover:shadow-xl transition-all hover:scale-[1.02]"
               >
                 <div className={`relative w-full ${
-                  selectedCategory === 'ocenenia' ? 'h-64 desktop:h-80' : 'h-32 desktop:h-40'
+                  selectedCategory === 'ocenenia' ? 'h-56 md:h-72' : 'h-28 md:h-36'
                 }`}>
                   <Image
                     src={item.image}
@@ -172,14 +172,14 @@ export default function Achievements() {
                     }
                   />
                 </div>
-                <div className={selectedCategory === 'ocenenia' ? 'p-4 desktop:p-5' : 'p-2 desktop:p-3'}>
+                <div className={selectedCategory === 'ocenenia' ? 'p-4 md:p-5' : 'p-2 md:p-3'}>
                   <h3 className={`font-semibold text-foreground mb-1 line-clamp-2 ${
-                    selectedCategory === 'ocenenia' ? 'text-lg desktop:text-xl' : 'text-sm desktop:text-base'
+                    selectedCategory === 'ocenenia' ? 'text-lg md:text-xl' : 'text-sm md:text-base'
                   }`}>
                     {item.title}
                   </h3>
                   <p className={`text-foreground-muted line-clamp-1 ${
-                    selectedCategory === 'ocenenia' ? 'text-base desktop:text-lg' : 'text-xs desktop:text-sm'
+                    selectedCategory === 'ocenenia' ? 'text-base md:text-lg' : 'text-xs md:text-sm'
                   }`}>
                     {item.subtitle}
                   </p>
@@ -203,7 +203,7 @@ export default function Achievements() {
           <p className="text-foreground-muted mb-6">
             Chcete sa dozvedieť viac o našich vínoch?
           </p>
-          <div className="flex flex-col desktop:flex-row gap-4 justify-center">
+          <div className="flex flex-col md:flex-row gap-4 justify-center">
             <Button asChild size="lg">
               <Link href="/vina">Pozrieť naše vína</Link>
             </Button>

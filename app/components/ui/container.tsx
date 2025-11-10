@@ -22,12 +22,12 @@ const maxWidthClasses = {
 };
 
 const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, maxWidth = "7xl", ...props }, ref) => {
+  ({ className, maxWidth = "6xl", ...props }, ref) => {
     return (
       <div
         ref={ref}
         className={cn(
-          "mx-auto w-full px-4 desktop:px-8",
+          "mx-auto w-full px-4 md:px-6",
           maxWidthClasses[maxWidth],
           className
         )}

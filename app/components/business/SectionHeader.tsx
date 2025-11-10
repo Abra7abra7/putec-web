@@ -38,22 +38,22 @@ const SectionHeader = React.forwardRef<HTMLDivElement, SectionHeaderProps>(
     return (
       <div
         ref={ref}
-        className={cn("flex flex-col mb-8 desktop:mb-12", alignClasses[align], className)}
+        className={cn("flex flex-col mb-6 md:mb-8", alignClasses[align], className)}
       >
         {showLogo && (
           <Image
             src="/putec-logo.jpg"
             alt="Pútec Logo"
-            width={80}
-            height={80}
-            className="rounded-full shadow-xl border-4 border-accent mb-4"
+            width={60}
+            height={60}
+            className="rounded-full shadow-xl border-2 border-accent mb-4"
           />
         )}
         <h2 className="text-foreground mb-4">
           {title}
         </h2>
         {description && (
-          <p className="text-lg text-foreground-muted max-w-3xl">
+          <p className="text-base text-foreground-muted max-w-3xl">
             {description}
           </p>
         )}

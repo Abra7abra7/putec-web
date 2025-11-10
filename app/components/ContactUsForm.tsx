@@ -4,6 +4,7 @@ import { useFormStatus } from "react-dom";
 import { useActionState } from "react";
 import { useRef, useEffect } from "react";
 import Image from "next/image";
+import { Mail, Phone } from "lucide-react";
 import { useLocalization } from "@/app/context/LocalizationContext";
 import { sendContactMessage } from "@/app/actions/contact";
 import { Section } from "./ui/section";
@@ -15,7 +16,7 @@ function SubmitButton({ buttonText }: { buttonText: string }) {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending} loading={pending} className="w-full">
+    <Button type="submit" disabled={pending} loading={pending} className="w-full md:w-auto md:min-w-[200px] md:mx-auto md:block">
       {buttonText}
     </Button>
   );
@@ -41,15 +42,16 @@ export default function ContactUsForm() {
           <Image
             src="/putec-logo.jpg"
             alt="Pútec Logo"
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             className="mx-auto rounded-full border-4 border-accent"
           />
-          <h2 className="text-4xl font-bold text-foreground mt-4">{contactForm.title}</h2>
+          <h2 className="text-3xl font-bold text-foreground mt-4">{contactForm.title}</h2>
           <p className="text-gray-700 mt-2">Máte otázky? Napíšte nám!</p>
         </div>
 
         {/* Contact Form */}
+        <div className="max-w-2xl mx-auto">
         <form ref={formRef} action={formAction} className="space-y-6">
           {/* Name */}
           <Input
@@ -108,16 +110,29 @@ export default function ContactUsForm() {
         </form>
 
         {/* Contact Info */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-700">Alebo nás kontaktujte priamo:</p>
-          <div className="mt-4 space-y-2">
-            <p className="text-foreground font-medium">
-              📧 Email: <a href="mailto:info@vinoputec.sk" className="text-accent hover:underline">info@vinoputec.sk</a>
-            </p>
-            <p className="text-foreground font-medium">
-              📞 Telefón: <a href="tel:+421905123456" className="text-accent hover:underline">+421 905 123 456</a>
-            </p>
+        <div className="mt-12 max-w-2xl mx-auto">
+          <p className="text-gray-700 text-center mb-6">Alebo nás kontaktujte priamo:</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center justify-center md:justify-start gap-3 p-4 bg-gray-50 rounded-lg">
+              <Mail className="w-5 h-5 text-accent flex-shrink-0" />
+              <div className="text-left">
+                <p className="text-sm text-gray-600">Email</p>
+                <a href="mailto:info@vinoputec.sk" className="text-foreground font-medium hover:text-accent transition-colors">
+                  info@vinoputec.sk
+                </a>
+              </div>
+            </div>
+            <div className="flex items-center justify-center md:justify-start gap-3 p-4 bg-gray-50 rounded-lg">
+              <Phone className="w-5 h-5 text-accent flex-shrink-0" />
+              <div className="text-left">
+                <p className="text-sm text-gray-600">Telefón</p>
+                <a href="tel:+421905123456" className="text-foreground font-medium hover:text-accent transition-colors">
+                  +421 905 123 456
+                </a>
+              </div>
+            </div>
           </div>
+        </div>
         </div>
       </Container>
     </Section>

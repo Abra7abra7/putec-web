@@ -62,7 +62,7 @@ export default function WineGrid() {
           <p className="text-sm text-foreground-muted mt-2">Skúste zmeniť kritériá vyhľadávania</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6 desktop:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {filteredWines.map((wine) => (
             <ProductCardWithProvider key={wine.ID} product={wine} />
           ))}

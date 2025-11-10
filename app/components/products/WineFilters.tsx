@@ -106,7 +106,7 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
 
   return (
     <Card className="mb-8">
-      <CardContent className="p-6">
+      <CardContent className="p-4 md:p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
             <span>🔍</span> Filtrovanie a vyhľadávanie
@@ -119,9 +119,9 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
           )}
         </div>
 
-        <div className="grid grid-cols-1 desktop:grid-cols-2 desktop:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-3 mb-4">
           {/* Search */}
-          <div className="desktop:col-span-2">
+          <div className="md:col-span-2">
             <label className="block text-sm font-medium text-foreground mb-2">
               Vyhľadať
             </label>
@@ -169,7 +169,7 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
           </div>
         </div>
 
-        <div className="grid grid-cols-1 desktop:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Price Range */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">

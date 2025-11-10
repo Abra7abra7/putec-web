@@ -29,13 +29,13 @@ export default function NewsletterSignup() {
           <h2 className="text-foreground mb-4">{newsletter.title}</h2>
           <p className="text-foreground-muted mb-6">{newsletter.description}</p>
 
-          <form action={formAction} className="flex flex-col desktop:flex-row justify-center gap-0 max-w-md mx-auto">
+          <form action={formAction} className="flex flex-col md:flex-row justify-center gap-0 max-w-md mx-auto">
             <input
               type="email"
               name="email"
               placeholder={newsletter.placeholder}
               required
-              className="px-4 py-3 w-full desktop:w-72 border-2 border-accent bg-background rounded-lg desktop:rounded-r-none focus:outline-none focus:ring-2 focus:ring-accent/20"
+              className="px-4 py-3 w-full md:w-72 border-2 border-accent bg-background rounded-lg md:rounded-r-none focus:outline-none focus:ring-2 focus:ring-accent/20"
               aria-label="Email pre newsletter"
             />
             <SubmitButton buttonText={newsletter.buttonText} />
