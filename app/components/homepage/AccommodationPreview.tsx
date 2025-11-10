@@ -1,6 +1,6 @@
+"use client";
+
 import Link from "next/link";
-import fs from "fs";
-import path from "path";
 import { Bed, Wine, Sunrise, Coffee } from "lucide-react";
 import { Section } from "../ui/section";
 import { Container } from "../ui/container";
@@ -9,20 +9,17 @@ import { SectionHeader } from "../business/SectionHeader";
 import { FeatureIcon } from "../business/FeatureIcon";
 import AccommodationSliderClient from "./AccommodationSliderClient";
 
-function listImagesFrom(dirPath: string): string[] {
-  try {
-    if (!fs.existsSync(dirPath)) return [];
-    const files = fs.readdirSync(dirPath);
-    const images = files.filter((name) => /\.(png|jpe?g|webp|avif)$/i.test(name));
-    return images.map((file) => `/galeria/ubytovanie/${file}`);
-  } catch {
-    return [];
-  }
-}
-
-export default async function AccommodationPreview() {
-  const base = path.join(process.cwd(), "public", "galeria", "ubytovanie");
-  const slides = listImagesFrom(base).slice(0, 8);
+export default function AccommodationPreview() {
+  // Manuálny zoznam fotiek (bez foto-pas-x.jpg)
+  const slides = [
+    { src: "/galeria/ubytovanie/altanok-krb-x.jpg", alt: "Altánok s krbom" },
+    { src: "/galeria/ubytovanie/altanok-x.jpg", alt: "Altánok" },
+    { src: "/galeria/ubytovanie/dvor-s-kostolom-x.jpg", alt: "Dvor s kostolom" },
+    { src: "/galeria/ubytovanie/dvor-so-sudom-x.jpg", alt: "Dvor so sudom" },
+    { src: "/galeria/ubytovanie/izba-interier-x.jpg", alt: "Interiér izby" },
+    { src: "/galeria/ubytovanie/kuchyna-x.jpg", alt: "Kuchyňa" },
+    { src: "/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg", alt: "Výhľad na vinohrad" },
+  ];
 
   const features = [
     { icon: <Bed className="w-5 h-5" />, label: "Komfortné izby" },

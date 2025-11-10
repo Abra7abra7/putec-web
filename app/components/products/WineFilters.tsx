@@ -28,10 +28,18 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
   }, [wines]);
 
   const wineColors = useMemo(() => {
+    // Mapovanie kategórií na jednoduché názvy farieb
+    const colorMap: {[key: string]: string} = {
+      "Biele vína": "Biele",
+      "Červené vína": "Červené",
+      "Ružové vína": "Ružové"
+    };
+    
     const colors = new Set<string>();
     wines.forEach(wine => {
-      const details = wine.WineDetails;
-      if (details?.color) colors.add(details.color);
+      wine.ProductCategories?.forEach(cat => {
+        if (colorMap[cat]) colors.add(colorMap[cat]);
+      });
     });
     return Array.from(colors).sort();
   }, [wines]);
@@ -53,9 +61,16 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
       const matchesCategory = selectedCategory === "all" || 
                               wine.ProductCategories?.includes(selectedCategory);
       
-      // Color filter
-      const matchesColor = selectedColor === "all" || 
-                          wine.WineDetails?.color === selectedColor;
+      // Color filter - hľadáme podľa kategórie vína
+      const matchesColor = selectedColor === "all" || (() => {
+        const colorMap: {[key: string]: string} = {
+          "Biele": "Biele vína",
+          "Červené": "Červené vína",
+          "Ružové": "Ružové vína"
+        };
+        const categoryToMatch = colorMap[selectedColor];
+        return categoryToMatch && wine.ProductCategories?.includes(categoryToMatch);
+      })();
       
       // Price filter
       const price = parseFloat(wine.SalePrice || "0");

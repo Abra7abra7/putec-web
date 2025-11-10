@@ -7,7 +7,7 @@ import { Container } from "../ui/container";
 import { Button } from "../ui/button";
 import { SectionHeader } from "../business/SectionHeader";
 import { FeatureIcon } from "../business/FeatureIcon";
-import { Slider } from "../business/Slider";
+import DegustationSliderClient from "./DegustationSliderClient";
 
 export default function DegustaciePreview() {
   const slides = [
@@ -34,7 +34,7 @@ export default function DegustaciePreview() {
     <Section>
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
-          {/* Content - Text vlavo */}
+          {/* Content - Text vľavo na desktop, dole na mobile */}
           <div className="flex flex-col justify-center order-2 md:order-1">
             <SectionHeader
               title="Degustácie vína"
@@ -79,9 +79,9 @@ export default function DegustaciePreview() {
             </div>
           </div>
 
-          {/* Slider */}
-          <div className="flex items-center">
-            <Slider slides={slides} />
+          {/* Slider - vpravo na desktop, hore na mobile */}
+          <div className="order-1 md:order-2">
+            <DegustationSliderClient slides={slides} />
           </div>
         </div>
       </Container>

@@ -15,8 +15,8 @@ export interface Product {
     SubscriptionEnabled: boolean;
     SubscriptionType: string;
     SaleSubscriptionType?: string;
-    // Nové vlastnosti pre degustácie
-    ProductType?: 'wine' | 'degustation';
+    // Nové vlastnosti pre degustácie a sety
+    ProductType?: 'wine' | 'degustation' | 'wine-set';
     Capacity?: string;
     Duration?: string;
     Features?: string[];

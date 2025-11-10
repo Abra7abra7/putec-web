@@ -366,7 +366,13 @@ export default async function ProductPage({
           <h2 className="text-2xl font-semibold text-foreground">
             {isDegustation ? "O degustácii" : (localeData.labels.productDetails || "Product Details")}
           </h2>
-          <p className="text-foreground-muted mt-4">{product.LongDescription}</p>
+          {product.ProductType === 'wine-set' ? (
+            <div className="text-foreground-muted mt-4 whitespace-pre-line space-y-2">
+              {product.LongDescription}
+            </div>
+          ) : (
+            <p className="text-foreground-muted mt-4">{product.LongDescription}</p>
+          )}
         </div>
         </div>
       </section>

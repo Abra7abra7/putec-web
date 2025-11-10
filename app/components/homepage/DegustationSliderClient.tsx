@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function AccommodationSliderClient({ slides }: { slides: { src: string; alt: string }[] }) {
+export default function DegustationSliderClient({ slides }: { slides: { src: string; alt: string }[] }) {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function AccommodationSliderClient({ slides }: { slides: { src: s
   if (!slides || slides.length === 0) return null;
 
   return (
-    <div className="relative flex items-center" role="region" aria-label="Ubytovanie – obrazový slider">
+    <div className="relative flex items-center" role="region" aria-label="Degustácie – obrazový slider">
       <div className="relative w-full h-96 rounded-lg overflow-hidden shadow-lg">
         {slides.map((slide, index) => (
           <div key={slide.src} className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0'}`}>
@@ -46,5 +46,4 @@ export default function AccommodationSliderClient({ slides }: { slides: { src: s
     </div>
   );
 }
-
 
