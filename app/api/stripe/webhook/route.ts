@@ -322,7 +322,11 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
   try {
     console.log("🧾 Creating SuperFaktúra invoice for order:", orderId);
     invoiceId = await createSuperFakturaInvoice(paymentIntent, chargeEmail);
-    console.log("✅ SuperFaktúra invoice created successfully, Invoice ID:", invoiceId);
+    if (invoiceId) {
+      console.log("✅ SuperFaktúra invoice created successfully, Invoice ID:", invoiceId);
+    } else {
+      console.warn("⚠️ SuperFaktúra invoice creation returned undefined (invoice may not have been created)");
+    }
   } catch (error) {
     console.error("❌ SuperFaktura invoice creation failed:", error);
     // Don't throw - we still want to send emails even if invoice creation fails

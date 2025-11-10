@@ -3,9 +3,17 @@
 
 import { OrderBody, OrderCartItem } from "./emailUtilities";
 
+// Helper function to normalize boolean env values (accepts '1', 'true', 'True', 'TRUE', etc)
+const isSandboxMode = (): boolean => {
+  const sandboxValue = process.env.SUPERFAKTURA_SANDBOX;
+  if (!sandboxValue) return false;
+  const normalized = sandboxValue.toLowerCase().trim();
+  return normalized === '1' || normalized === 'true';
+};
+
 // Použiť sandbox alebo produkciu podľa nastavenia
-const SUPERFAKTURA_API_URL = process.env.SUPERFAKTURA_SANDBOX === "true" 
-  ? "https://sandbox.superfaktura.sk" 
+const SUPERFAKTURA_API_URL = isSandboxMode()
+  ? "https://sandbox.superfaktura.sk"
   : "https://moja.superfaktura.sk";
 
 interface SuperFakturaClient {
@@ -290,7 +298,7 @@ async function markInvoiceAsPaid(invoiceId: string, totalAmount: number): Promis
 // Odoslať faktúru emailom
 async function sendInvoiceEmail(invoiceId: string): Promise<void> {
   // V sandboxe preskočíme odosielanie emailov, pretože API endpoint nefunguje
-  if (process.env.SUPERFAKTURA_SANDBOX === "true") {
+  if (isSandboxMode()) {
     console.log("⚠️ SuperFaktúra Sandbox: Preskakujem odosielanie emailu. Faktúru si môžete pozrieť v SuperFaktúra účte.");
     return;
   }
@@ -316,13 +324,14 @@ async function sendInvoiceEmail(invoiceId: string): Promise<void> {
 export async function downloadInvoicePDF(invoiceId: string): Promise<Buffer> {
   try {
     // V sandbox móde môže PDF download zlyhať - logujeme a pokračujeme
-    const isSandbox = process.env.SUPERFAKTURA_SANDBOX === "true";
+    const isSandbox = isSandboxMode();
     const pdfUrl = `${SUPERFAKTURA_API_URL}/invoices/pdf/${invoiceId}/lang/slo`;
     
     console.log("📄 SuperFaktúra: Sťahujem PDF faktúru");
     console.log("   - Invoice ID:", invoiceId);
     console.log("   - URL:", pdfUrl);
-    console.log("   - Sandbox mode:", isSandbox);
+    console.log("   - Mode:", isSandbox ? "SANDBOX" : "PRODUCTION");
+    console.log("   - SUPERFAKTURA_SANDBOX value:", process.env.SUPERFAKTURA_SANDBOX);
     
     const response = await fetch(pdfUrl, {
       method: "GET",

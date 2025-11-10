@@ -233,6 +233,9 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
   let attachments: Array<{ filename: string; content: Buffer }> | undefined;
   
   if (invoiceId && process.env.SUPERFAKTURA_API_KEY) {
+    console.log("📎 Attempting to attach PDF invoice to customer email");
+    console.log("   - Invoice ID:", invoiceId);
+    console.log("   - Order ID:", body.orderId);
     try {
       const pdfBuffer = await downloadInvoicePDF(invoiceId);
       attachments = [
@@ -242,9 +245,19 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
         },
       ];
       console.log("✅ PDF faktúra pripojená k zákazníckemu emailu");
+      console.log("   - PDF size:", pdfBuffer.length, "bytes");
+      console.log("   - Filename:", `Faktura-${body.orderId}.pdf`);
     } catch (error) {
       console.error("⚠️ Nepodarilo sa pripojiť PDF faktúru k emailu:", error);
+      console.error("   - Error details:", error instanceof Error ? error.message : String(error));
       // Continue without attachment - don't fail the email
+    }
+  } else {
+    if (!invoiceId) {
+      console.log("ℹ️ No invoiceId provided, skipping PDF attachment");
+    }
+    if (!process.env.SUPERFAKTURA_API_KEY) {
+      console.log("ℹ️ SUPERFAKTURA_API_KEY not set, skipping PDF attachment");
     }
   }
 
