@@ -8,6 +8,7 @@ import ShippingMethod from "../components/checkout/ShippingMethod";
 import BillingForm from "../components/checkout/BillingForm";
 import OrderSummary from "../components/checkout/OrderSummary";
 import PaymentMethods from "../components/checkout/PaymentMethods";
+import BackButton from "../components/BackButton";
 import { CheckoutProvider } from "../context/CheckoutContext";
 import { ReduxProvider } from "../providers";
 
@@ -47,6 +48,11 @@ export default function CheckoutPage() {
                 <h1 className="ml-4 text-2xl font-bold text-foreground">
                   Pokladňa
                 </h1>
+              </div>
+              
+              {/* Back Button - Mobile only */}
+              <div className="flex justify-center mt-4 md:hidden">
+                <BackButton fallbackHref="/kosik" />
               </div>
             </div>
           </div>

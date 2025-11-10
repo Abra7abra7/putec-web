@@ -25,7 +25,7 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
   return (
     <ReduxProvider>
       {/* Mobile Header Buttons (Burger + Cart) */}
-      <div className="flex items-center gap-4 md:hidden">
+      <div className="flex items-center gap-2 md:hidden">
         <button
           className="text-foreground hover:text-foreground"
           onClick={() => setIsMenuOpen(!isMenuOpen)}

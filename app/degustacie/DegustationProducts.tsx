@@ -41,7 +41,7 @@ export default function DegustationProducts() {
     <div className="min-h-screen bg-background">
       {/* Products Section */}
       <section className="py-16 bg-background">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-3 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
               Naše degustačné balíky
@@ -52,9 +52,9 @@ export default function DegustationProducts() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-8">
             {products.map((product) => (
-              <div key={product.ID} className="relative rounded-lg shadow-lg overflow-hidden border border-gray-200 h-[500px] md:h-[600px]">
+              <div key={product.ID} className="relative rounded-lg shadow-lg overflow-hidden border border-gray-200 min-h-[500px] md:min-h-[600px]">
                 {/* Full background image */}
                 <Image
                   src={product.FeatureImageURL || '/placeholder.png'}
@@ -68,10 +68,10 @@ export default function DegustationProducts() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
                 
                 {/* Content overlay */}
-                <div className="relative h-full flex flex-col justify-between p-6 text-white">
+                <div className="relative h-full flex flex-col justify-between p-4 md:p-6 text-white">
                   {/* Top section - Title & Info */}
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold drop-shadow-lg mb-3">{product.Title}</h3>
+                    <h3 className="text-xl md:text-3xl font-bold drop-shadow-lg mb-3">{product.Title}</h3>
                     <div className="flex gap-4 text-sm md:text-base">
                       <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2">
                         <Users className="w-4 h-4" />
@@ -107,7 +107,7 @@ export default function DegustationProducts() {
                     )}
 
                     {/* Price & Button */}
-                    <div className="flex items-center justify-between gap-4 bg-black/40 backdrop-blur-sm rounded-lg p-4">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-black/40 backdrop-blur-sm rounded-lg p-4">
                       <div>
                         <div className="text-2xl md:text-3xl font-bold text-white">
                           {product.SalePrice}€
@@ -120,7 +120,7 @@ export default function DegustationProducts() {
                       </div>
                       <Link
                         href={`/degustacie/${product.Slug}`}
-                        className="bg-accent hover:bg-accent-dark text-foreground px-6 py-3 rounded-lg font-semibold transition-colors text-center whitespace-nowrap"
+                        className="bg-accent hover:bg-accent-dark text-foreground px-6 py-3 rounded-lg font-semibold transition-colors text-center whitespace-nowrap w-full sm:w-auto"
                       >
                         Rezervovať
                       </Link>

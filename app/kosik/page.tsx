@@ -9,6 +9,7 @@ import Link from "next/link";
 import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
 import { showMiniCart } from "../utils/MiniCartController";
 import { X, Plus, Minus } from "lucide-react";
+import BackButton from "../components/BackButton";
 
 function CartContent() {
   const { labels } = useLocalization();
@@ -44,6 +45,11 @@ function CartContent() {
             className="mx-auto rounded-full shadow-2xl border-4 border-accent mb-6"
           />
           <h1 className="text-3xl font-bold text-foreground">Váš košík</h1>
+          
+          {/* Back Button - Mobile only */}
+          <div className="flex justify-center mt-4 md:hidden">
+            <BackButton fallbackHref="/" />
+          </div>
         </div>
 
         {items.length === 0 ? (
