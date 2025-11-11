@@ -52,6 +52,31 @@ export default function MiniCart() {
     }, 300);
   };
 
+  const toggleCart = () => {
+    setIsVisible(!isVisible);
+  };
+
+  const closeCart = () => {
+    setIsVisible(false);
+  };
+
+  // Close on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        closeCart();
+      }
+    };
+
+    if (isVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isVisible]);
+
   return (
     <div
       className="relative"
@@ -59,23 +84,44 @@ export default function MiniCart() {
       onMouseLeave={handleMouseLeave}
       ref={containerRef}
     >
-      {/* Cart Icon */}
-      <Link
-        href="/kosik"
+      {/* Cart Icon - kliknuteľný na mobile, hover na desktop */}
+      <button
+        onClick={toggleCart}
         className="relative flex items-center justify-center ml-2 mr-4"
         aria-label={labels.viewCart || "View cart"}
+        aria-expanded={isVisible}
       >
         <ShoppingCart size={24} />
         <span className="absolute top-[-8px] right-[-10px] bg-accent text-foreground text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full leading-none">
           {totalQuantity}
         </span>
-      </Link>
+      </button>
 
-      {/* Mini Cart Dropdown */}
+      {/* Mini Cart Dropdown/Overlay */}
       {isVisible && (
-        <div
-          className="absolute right-0 mt-2 w-96 bg-background border border-accent shadow-lg rounded-md z-50 p-4"
-        >
+        <>
+          {/* Backdrop na mobile */}
+          <div 
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={closeCart}
+          />
+          
+          {/* Cart content */}
+          <div
+            className="fixed md:absolute right-0 top-0 md:top-auto md:mt-2 w-full md:w-96 max-w-md h-full md:h-auto bg-background border-l md:border border-accent shadow-2xl md:rounded-md z-50 p-4 overflow-y-auto"
+          >
+            {/* Close button - iba na mobile */}
+            <button
+              onClick={closeCart}
+              className="absolute top-4 right-4 md:hidden text-foreground hover:text-foreground-dark"
+              aria-label="Zavrieť košík"
+            >
+              <X size={24} />
+            </button>
+
+            <h2 className="text-lg font-bold text-foreground mb-4 md:hidden">
+              {labels.cart || "Košík"}
+            </h2>
           {cartItems.length === 0 ? (
             <p className="text-foreground text-sm text-center">{labels.cartEmpty || "Your cart is empty."}</p>
           ) : (
@@ -158,7 +204,8 @@ export default function MiniCart() {
               </Link>
             </>
           )}
-        </div>
+          </div>
+        </>
       )}
     </div>
   );
