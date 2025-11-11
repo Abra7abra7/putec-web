@@ -49,15 +49,15 @@ export default function GalleryIndexPage() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                {/* Gradient overlay - silnejší pre lepší kontrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 
                 {/* Text overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                  <h2 className="text-xl md:text-2xl font-bold text-white mb-1">
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 z-10">
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-1 drop-shadow-lg">
                     {c.title}
                   </h2>
-                  <p className="text-white/90 text-sm">
+                  <p className="text-white text-sm drop-shadow-md">
                     {c.description}
                   </p>
                 </div>
