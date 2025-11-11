@@ -9,7 +9,6 @@ import Link from "next/link";
 import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
 import { showMiniCart } from "../utils/MiniCartController";
 import { X, Plus, Minus } from "lucide-react";
-import BackButton from "../components/BackButton";
 
 function CartContent() {
   const { labels } = useLocalization();
@@ -36,7 +35,7 @@ function CartContent() {
     <section className="py-12 bg-background">
       <div className="container mx-auto px-4">
         {/* Back button - vľavo hore */}
-        <a 
+        <Link 
           href="/vina"
           className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-6 group"
         >
@@ -44,7 +43,7 @@ function CartContent() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           <span className="font-medium">Späť na nákup</span>
-        </a>
+        </Link>
 
         {/* Logo Section */}
         <div className="text-center mb-8">

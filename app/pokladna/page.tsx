@@ -8,7 +8,6 @@ import ShippingMethod from "../components/checkout/ShippingMethod";
 import BillingForm from "../components/checkout/BillingForm";
 import OrderSummary from "../components/checkout/OrderSummary";
 import PaymentMethods from "../components/checkout/PaymentMethods";
-import BackButton from "../components/BackButton";
 import { CheckoutProvider } from "../context/CheckoutContext";
 import { ReduxProvider } from "../providers";
 

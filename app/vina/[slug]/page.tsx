@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { getProductBySlug } from "../../utils/getProducts";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import { getLocalization } from "../../utils/getLocalization";
@@ -125,7 +126,7 @@ export default async function ProductPage({
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
           {/* Back button */}
-          <a 
+          <Link 
             href="/vina"
             className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-6 group"
           >
@@ -133,7 +134,7 @@ export default async function ProductPage({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             <span className="font-medium">Späť na vína</span>
-          </a>
+          </Link>
           
           <h1 className="text-3xl font-bold text-center text-foreground mb-8">{product.Title}</h1>
           <div className="flex justify-center mb-6">

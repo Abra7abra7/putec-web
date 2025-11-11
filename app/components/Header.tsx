@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import DesktopNavigation from "./DesktopNavigation";
 import { ReduxProvider } from "../providers";
@@ -27,8 +25,8 @@ export default async function Header() {
 
         {/* Desktop layout */}
         <div className="hidden md:flex w-full items-center">
-          {/* Left: Back Button + Logo (handled by HeaderBackButton) */}
-          <HeaderBackButton showLabel={true} />
+          {/* Left: Logo */}
+          <HeaderBackButton />
 
           {/* Center: Navigation */}
           <div className="flex-1">

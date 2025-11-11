@@ -1,16 +1,9 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-interface HeaderBackButtonProps {
-  showLabel?: boolean;
-}
-
-export default function HeaderBackButton({ showLabel = false }: HeaderBackButtonProps) {
-  const pathname = usePathname();
-
+export default function HeaderBackButton() {
   // Vždy zobrazíme len logo v navigácii (žiadny back button)
   return (
     <Link href="/" className="hover:opacity-80 transition-opacity">

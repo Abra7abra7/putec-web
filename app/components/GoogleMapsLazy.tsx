@@ -1,7 +1,5 @@
 'use client';
 
-const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
 type LatLng = { lat: number; lng: number };
 
 const MAP_CENTER: LatLng = {
