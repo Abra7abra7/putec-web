@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import fs from "fs";
 import path from "path";
 
@@ -13,16 +15,34 @@ function listImagesFrom(dirPath: string): string[] {
   }
 }
 
+const categoryTitles: Record<string, string> = {
+  degustacie: "Degustácie",
+  ubytovanie: "Ubytovanie",
+  rodina: "Rodina",
+};
+
 export default async function GalleryCategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
   const safeCategory = category.replace(/[^a-z0-9-_]/gi, "");
   const base = path.join(process.cwd(), "public", "galeria", safeCategory);
   const photos = listImagesFrom(base);
+  const categoryTitle = categoryTitles[safeCategory] || safeCategory;
 
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-6">
-        <h1 className="text-3xl font-bold text-foreground mb-8">Galéria – {safeCategory}</h1>
+    <section className="py-12 md:py-16 bg-background">
+      <div className="container mx-auto px-4 md:px-6">
+        {/* Back button - vľavo hore */}
+        <Link 
+          href="/galeria"
+          className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-6 group"
+        >
+          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="font-medium">Späť na galériu</span>
+        </Link>
+
+        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
+          Galéria – {categoryTitle}
+        </h1>
         {photos.length === 0 ? (
           <p className="text-foreground-muted">Žiadne fotografie.</p>
         ) : (

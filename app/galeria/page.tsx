@@ -26,24 +26,6 @@ const categories = [
     thumbnail: "/o-nas/rodina2.jpg",
     description: "Rodinná tradícia"
   },
-  { 
-    slug: "sklepy", 
-    title: "Sklepy",
-    thumbnail: "/degustacie/sudy-x.jpg",
-    description: "Naše pivnice a sklepy"
-  },
-  { 
-    slug: "vinohrady", 
-    title: "Vinohrady",
-    thumbnail: "/vineyard-banner.webp",
-    description: "Naše vinice"
-  },
-  { 
-    slug: "vyroba", 
-    title: "Výroba",
-    thumbnail: "/degustacie/degustacia-x.jpg",
-    description: "Proces výroby vína"
-  },
 ];
 
 export default function GalleryIndexPage() {
