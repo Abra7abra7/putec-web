@@ -42,6 +42,7 @@ function CartContent() {
             alt="Pútec Logo"
             width={100}
             height={100}
+            sizes="(max-width: 768px) 80px, 100px"
             className="mx-auto rounded-full shadow-2xl border-4 border-accent mb-6"
           />
           <h1 className="text-3xl font-bold text-foreground">Váš košík</h1>
@@ -68,6 +69,9 @@ function CartContent() {
                       alt={item.Title}
                       width={80}
                       height={100}
+                      sizes="(max-width: 768px) 80px, 100px"
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD04MCBoZWlnaHQ9MTAwIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2VlZWVlZSIvPjwvc3ZnPg=="
                       className="object-cover rounded"
                     />
                     <div className="flex-1">
@@ -118,7 +122,6 @@ function CartContent() {
                 {labels.total || "Celkom"}: €{total.toFixed(2)}
               </p>
 
-
               {/* Checkout Button Below */}
               <Link
                 href="/pokladna"
@@ -126,6 +129,21 @@ function CartContent() {
               >
                 {labels.proceedToCheckout || "Pokračovať k objednávke"}
               </Link>
+            </div>
+
+            {/* Sticky CTA for mobile */}
+            <div className="md:hidden fixed left-0 right-0 bottom-0 bg-background/95 backdrop-blur border-t border-gray-200 px-4 py-3">
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-base font-semibold">
+                  {labels.total || "Celkom"}: €{total.toFixed(2)}
+                </p>
+                <Link
+                  href="/pokladna"
+                  className="bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
+                >
+                  {labels.proceedToCheckout || "Pokračovať"}
+                </Link>
+              </div>
             </div>
 
           </>
