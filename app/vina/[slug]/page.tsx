@@ -124,6 +124,17 @@ export default async function ProductPage({
         }) }} />
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
+          {/* Back button */}
+          <a 
+            href="/vina"
+            className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-6 group"
+          >
+            <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="font-medium">Späť na vína</span>
+          </a>
+          
           <h1 className="text-3xl font-bold text-center text-foreground mb-8">{product.Title}</h1>
           <div className="flex justify-center mb-6">
             <span className="inline-flex items-center gap-2 text-sm text-foreground">
