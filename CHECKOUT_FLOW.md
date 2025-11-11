@@ -257,15 +257,22 @@ STRIPE_WEBHOOK_SECRET=whsec_...                 # Z Stripe Dashboard > Webhooks
 
 ```env
 RESEND_API_KEY=re_...                    # Z Resend Dashboard > API Keys
-RESEND_FROM_EMAIL=vas-email@domena.sk    # Overená emailová adresa v Resend
+RESEND_FROM_EMAIL=orders@abraconsulting.xyz  # MUSÍ byť z overenej domény v Resend
 ADMIN_EMAIL=vas-email@domena.sk          # Email pre admin notifikácie
 ```
 
+**Dôležité:**
+- `RESEND_FROM_EMAIL` **MUSÍ** byť z overenej domény v Resend Dashboard
+- Ak používate `onboarding@resend.dev` (testovací mód), môžete posielať len na overenú emailovú adresu (napr. `stancikmarian8@gmail.com`)
+- Pre posielanie na ľubovoľné emailové adresy je **povinné** overiť doménu v Resend a použiť email z tejto domény
+
 **Ako získať:**
 1. Vytvorte účet na [resend.com](https://resend.com)
-2. Overte svoju doménu (alebo použite `onboarding@resend.dev` pre testovanie)
-3. Vytvorte API kľúč v Resend Dashboard
-4. Nastavte `RESEND_FROM_EMAIL` na overenú emailovú adresu
+2. **Overte svoju doménu** v Resend Dashboard > Domains (napr. `abraconsulting.xyz` alebo `vinoputec.sk`)
+3. Vytvorte API kľúč v Resend Dashboard > API Keys
+4. Nastavte `RESEND_FROM_EMAIL` na email z overenej domény (napr. `orders@abraconsulting.xyz` alebo `info@vinoputec.sk`)
+
+**Poznámka:** Aktuálne používame `orders@abraconsulting.xyz` ako dočasné riešenie. Neskôr sa zmení na správnu doménu (napr. `info@vinoputec.sk` alebo `orders@vinoputec.sk`).
 
 ---
 

@@ -1,5 +1,18 @@
 # Vino Putec - E-shop pre prémiové vína
 
+## Optimalizácia obrázkov a odporúčaný spôsob ukladania
+
+- Originálne (veľké) súbory ukladajte do priečinka `assets-src/` (mimo produkčného buildu). Zvážte Git LFS pri veľkých datasetoch.
+- Do priečinka `public/` commitujte už len optimalizované verzie (zmenšené, recompressované).
+- Spustite optimalizáciu lokálne pred PR/buildom:
+
+```bash
+npm run images:opt
+```
+
+- Konfigurácia Next Image je nastavená v `next.config.ts` (`deviceSizes`, `imageSizes`) a podporuje AVIF/WebP.
+- Pri `<Image>` používajte `sizes` podľa layoutu (mobil-first), pre above-the-fold zvažujte `priority` a vhodný `fetchPriority`.
+
 **Vino Putec** je moderný e-shop pre prémiové vína z rodinnej vinárne vo Vinosadoch. Postavený na Next.js 15, TypeScript, Tailwind CSS a Redux, optimalizovaný pre malé obchody s až 200 produktmi.
 
 ## Architektúra a štruktúra projektu (aktualizované 2025-09)

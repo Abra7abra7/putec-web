@@ -10,15 +10,13 @@ import { FeatureIcon } from "../business/FeatureIcon";
 import AccommodationSliderClient from "./AccommodationSliderClient";
 
 export default function AccommodationPreview() {
-  // Manuálny zoznam fotiek (bez foto-pas-x.jpg)
   const slides = [
-    { src: "/galeria/ubytovanie/altanok-krb-x.jpg", alt: "Altánok s krbom" },
-    { src: "/galeria/ubytovanie/altanok-x.jpg", alt: "Altánok" },
+    { src: "/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg", alt: "Výhľad na vinohrad" },
     { src: "/galeria/ubytovanie/dvor-s-kostolom-x.jpg", alt: "Dvor s kostolom" },
     { src: "/galeria/ubytovanie/dvor-so-sudom-x.jpg", alt: "Dvor so sudom" },
     { src: "/galeria/ubytovanie/izba-interier-x.jpg", alt: "Interiér izby" },
     { src: "/galeria/ubytovanie/kuchyna-x.jpg", alt: "Kuchyňa" },
-    { src: "/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg", alt: "Výhľad na vinohrad" },
+    { src: "/galeria/ubytovanie/kupelna-2-x.jpg", alt: "Kúpeľňa" },
   ];
 
   const features = [
@@ -32,7 +30,7 @@ export default function AccommodationPreview() {
     <Section>
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
-          {/* Content - Text vpravo na desktop, hore na mobile */}
+          {/* Content - Text HORE na mobile, vpravo na desktop */}
           <div className="flex flex-col justify-center order-1 md:order-2">
             <SectionHeader
               title="Ubytovanie v srdci Malých Karpát"
@@ -61,7 +59,7 @@ export default function AccommodationPreview() {
             </div>
           </div>
 
-          {/* Slider - vľavo na desktop, dole na mobile */}
+          {/* Slider - DOLE na mobile, vľavo na desktop */}
           <div className="order-2 md:order-1">
             <AccommodationSliderClient slides={slides} />
           </div>

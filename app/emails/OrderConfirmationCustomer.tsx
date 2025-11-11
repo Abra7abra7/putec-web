@@ -229,7 +229,7 @@ const header = {
 const logo = {
   margin: '0 auto',
   borderRadius: '50%',
-  border: '4px solid #ffffff',
+  border: '4px solid #f5d08a',
 };
 
 // h1 style removed - not used in template
