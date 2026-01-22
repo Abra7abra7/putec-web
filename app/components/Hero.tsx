@@ -23,7 +23,7 @@ export default function Hero({
   secondaryCta,
 }: HeroProps) {
   return (
-    <section className={`relative ${heightClass} bg-background text-foreground`}>
+    <section className={`relative ${heightClass} bg-background`}>
       <div className="absolute inset-0">
         {/* Desktop Image (Hidden on mobile if mobile image exists) */}
         <div className={`relative w-full h-full ${mobileBackgroundImageUrl ? 'hidden md:block' : ''}`}>
@@ -53,16 +53,16 @@ export default function Hero({
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80" />
       </div>
 
       <div className="relative z-10 h-full">
         <div className="container mx-auto px-6 h-full flex flex-col items-center justify-center text-center">
-          <h1 className="text-4xl md:text-5xl font-bold drop-shadow mb-4 text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-xl mb-6 !text-white tracking-tight">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-white/90">
+            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 !text-white drop-shadow-md font-medium">
               {subtitle}
             </p>
           )}

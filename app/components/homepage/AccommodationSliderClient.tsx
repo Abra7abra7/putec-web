@@ -20,8 +20,8 @@ export default function AccommodationSliderClient({ slides }: { slides: { src: s
   if (!slides || slides.length === 0) return null;
 
   return (
-    <div className="relative flex items-center" role="region" aria-label="Ubytovanie – obrazový slider">
-      <div className="relative w-full h-96 rounded-lg overflow-hidden shadow-lg">
+    <div className="relative flex items-center h-full" role="region" aria-label="Ubytovanie – obrazový slider">
+      <div className="relative w-full aspect-[4/5] md:aspect-auto md:h-full md:min-h-[600px] rounded-xl overflow-hidden shadow-2xl">
         {slides.map((slide, index) => (
           <div key={slide.src} className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0'}`}>
             <Image src={slide.src} alt={slide.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority={index === 0} />

@@ -3,25 +3,43 @@
 /* shadcn/ui base layer */
 @layer base {
   :root {
+    /* Base Colors (Zinc) */
     --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --foreground: 240 10% 4%;
+    /* Zinc 950 #18181b */
+
+    /* UI Element Colors */
+    --card: 0 0% 98%;
+    /* Zinc 50 #fafafa */
+    --card-foreground: 240 10% 4%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 43 74% 75%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 43 74% 75%;
-    --accent-foreground: 0 0% 0%;
+    --popover-foreground: 240 10% 4%;
+
+    /* Primary / Accent (Metallic Gold) */
+    --primary: 46 65% 52%;
+    /* #D4AF37 */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary (Zinc) */
+    --secondary: 240 5% 96%;
+    /* Zinc 100 #f4f4f5 */
+    --secondary-foreground: 240 6% 10%;
+
+    /* Muted (Zinc) */
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    /* Zinc 500 #71717a */
+
+    /* Feedback */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 93%;
-    --input: 0 0% 93%;
-    --ring: 43 74% 75%;
+
+    /* Borders & Inputs */
+    --border: 240 6% 90%;
+    /* Zinc 200 #e4e4e7 */
+    --input: 240 6% 90%;
+    --ring: 46 65% 52%;
+
     --radius: 0.75rem;
   }
 }
@@ -29,92 +47,89 @@
 /* Prevent flash of unstyled content */
 html {
   font-family: var(--font-inter), system-ui, sans-serif;
+  scroll-behavior: smooth;
 }
 
+/* Base Body Styles */
 body {
   margin: 0;
-  background-color: #ffffff;
-  color: #000000;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: var(--background-hex);
+  color: var(--foreground-hex);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Loading states */
-.loading {
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-/* Shake animation for validation errors */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
-
-.animate-shake {
-  animation: shake 0.5s ease-in-out;
-}
-
-/* Clean modern color palette */
+/* Clean Modern Color Palette (CSS Variables for Tailwind) */
 :root {
-  /* Primary colors - White background, Black text with shades */
-  --background: #ffffff;
-  --foreground: #000000;
-  --foreground-light: #333333;
-  --foreground-muted: #666666;
-  --foreground-subtle: #999999;
-  
-  /* Accent color - Gold for buttons and accents only */
-  --accent: #f5d08a;
-  --accent-dark: #e6c078;
-  --accent-light: #f7d9a0;
-  --accent-subtle: #fdf5e6;
-  
-  /* Neutral grays for subtle elements */
+  /* Hex equivalents for utility usage outside of HSL */
+  --background-hex: #ffffff;
+  --foreground-hex: #18181b;
+
+  /* Accent Colors (Modern Luxury Gold) */
+  --accent: #D6AD60;
+  /* Modern Gold */
+  --accent-dark: #B58E3E;
+  /* Darker Gold for hover */
+  --accent-light: #EACD8C;
+  /* Lighter Gold */
+  --accent-subtle: #F9F3E5;
+  /* Very light beige/gold bg */
+
+  /* Zinc Scale (Modern Grays) */
   --gray-50: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #eeeeee;
-  --gray-300: #e0e0e0;
-  --gray-400: #bdbdbd;
-  --gray-500: #9e9e9e;
-  --gray-600: #757575;
-  --gray-700: #616161;
-  --gray-800: #424242;
-  --gray-900: #212121;
-  
-  /* Legacy color mappings for compatibility */
-  --wine-red: var(--foreground);
-  --wine-dark: var(--foreground-light);
-  --wine-light: var(--foreground-muted);
-  --primary: var(--accent);
+  --gray-100: #f4f4f5;
+  --gray-200: #e4e4e7;
+  --gray-300: #d4d4d8;
+  --gray-400: #a1a1aa;
+  --gray-500: #71717a;
+  --gray-600: #52525b;
+  --gray-700: #3f3f46;
+  --gray-800: #27272a;
+  --gray-900: #18181b;
+
+  /* Text Colors */
+  --color-foreground: var(--foreground-hex);
+  --color-foreground-light: var(--gray-700);
+  --color-foreground-muted: var(--gray-500);
+  --color-foreground-subtle: var(--gray-400);
+
+  /* Legacy Backward Compatibility */
+  --wine-red: var(--accent);
+  /* Replace wine with gold */
+  --wine-dark: var(--accent-dark);
+  --wine-light: var(--accent-light);
+  --primary-color: var(--accent);
   --primary-dark: var(--accent-dark);
   --primary-light: var(--accent-light);
-  --accent-brown: var(--foreground);
+  --accent-brown: var(--foreground-hex);
   --accent-gold: var(--accent);
 }
 
 /* Tailwind CSS v4 theme configuration */
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-foreground-light: var(--foreground-light);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-foreground-subtle: var(--foreground-subtle);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-foreground-light: var(--color-foreground-light);
+  --color-foreground-muted: var(--color-foreground-muted);
+  --color-foreground-subtle: var(--color-foreground-subtle);
+
   --color-accent: var(--accent);
   --color-accent-dark: var(--accent-dark);
   --color-accent-light: var(--accent-light);
   --color-accent-subtle: var(--accent-subtle);
+
   --color-gray-50: var(--gray-50);
   --color-gray-100: var(--gray-100);
   --color-gray-200: var(--gray-200);
-  --color-gray-300: var(--color-gray-300);
+  --color-gray-300: var(--gray-300);
   --color-gray-400: var(--gray-400);
   --color-gray-500: var(--gray-500);
   --color-gray-600: var(--gray-600);
   --color-gray-700: var(--gray-700);
   --color-gray-800: var(--gray-800);
   --color-gray-900: var(--gray-900);
-  
+
   /* Legacy mappings */
   --color-wine-red: var(--wine-red);
   --color-wine-dark: var(--wine-dark);
@@ -126,29 +141,30 @@ body {
   --color-accent-gold: var(--accent-gold);
 }
 
-/* Map the font variables to something usable */
+/* Font Variables Map */
 :root {
   --font-heading: var(--font-poppins);
   --font-body: var(--font-inter);
 }
 
-/* Body uses body font */
-body {
-  margin: 0;
-  padding: 0;
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-body, sans-serif);
-  line-height: 1.6;
+/* Typography Defaults */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), sans-serif;
+  color: var(--foreground-hex);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  /* Tighter tracking for headings */
 }
 
-/* Headings use heading font */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading, sans-serif);
-  margin: 0;
-  padding: 0;
-  color: inherit;
-  font-weight: 600;
+p {
+  line-height: 1.6;
+  color: var(--color-foreground-light);
 }
 
 /* Responsive typography scale */
@@ -193,31 +209,31 @@ body {
 }
 
 /* Screen reader only - hide visually but keep for SEO and accessibility */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
-  .line-clamp-1 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-  }
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
 
-  .line-clamp-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
 
 /* Clean typography */
 .text-muted {

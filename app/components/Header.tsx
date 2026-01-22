@@ -1,39 +1,31 @@
 import dynamic from "next/dynamic";
 import DesktopNavigation from "./DesktopNavigation";
 import { ReduxProvider } from "../providers";
-import { getLocalization } from "../utils/getLocalization";
 import HeaderBackButton from "./HeaderBackButton";
+import { getLocalization } from "../utils/getLocalization";
 
-// Dynamic imports for interactive components - reduces initial bundle size
+// Dynamic imports
 const MobileMenu = dynamic(() => import("./MobileMenu"));
 const MiniCart = dynamic(() => import("./MiniCart"));
 
 export default async function Header() {
-  const content = await getLocalization(); // Fetch localization data asynchronously
+  const content = await getLocalization();
 
   return (
     <>
-      {/* MAIN HEADER */}
-      <header className="sticky top-0 bg-background text-foreground py-4 px-4 flex items-center relative z-50 shadow-sm border-b border-gray-200">
-        {/* Mobile layout */}
-        <div className="flex w-full items-center justify-between md:hidden">
-          {/* Left: Back Button or Logo */}
+      <header className="sticky top-0 w-full z-50 transition-all duration-300 bg-white shadow-sm border-b border-gray-100">
+        <div className="flex w-full items-center justify-between md:hidden px-4 py-3">
           <HeaderBackButton />
-          {/* Right: Burger + Cart (inside MobileMenu) */}
           <MobileMenu menuItems={content.menu} />
         </div>
 
-        {/* Desktop layout */}
-        <div className="hidden md:flex w-full items-center">
-          {/* Left: Logo */}
+        <div className="hidden md:flex w-full items-center px-6 py-4">
           <HeaderBackButton />
 
-          {/* Center: Navigation */}
           <div className="flex-1">
             <DesktopNavigation menuItems={content.menu} />
           </div>
 
-          {/* Right: Cart */}
           <div className="ml-4">
             <ReduxProvider>
               <MiniCart />

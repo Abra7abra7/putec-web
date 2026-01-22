@@ -94,19 +94,19 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
           aria-modal="true"
           onClick={() => setIsMenuOpen(false)}
         >
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <nav
             id="mobile-menu-panel"
             ref={panelRef}
-            className="absolute inset-x-0 top-0 mt-16 bg-background rounded-t-2xl border-t border-gray-200 shadow-2xl focus:outline-none"
+            className="absolute inset-x-0 top-0 mt-16 bg-white border-t border-gray-200 shadow-2xl focus:outline-none min-h-[50vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6 flex flex-col gap-1">
+            <div className="p-6 flex flex-col gap-4">
               {menuItems.map(({ label, href }) => (
                 <Link
                   key={label}
                   href={href}
-                  className="px-4 py-3 text-base text-foreground hover:bg-gray-100 rounded-md"
+                  className="px-4 py-4 text-xl font-medium text-foreground hover:bg-gray-50 rounded-lg border-b border-gray-100 last:border-0"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {label}

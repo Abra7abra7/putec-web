@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -7,12 +7,20 @@ import { LocalizationProvider } from "./context/LocalizationContext";
 import { ReduxProvider } from "./providers";
 import type { Metadata } from "next";
 
-// Load single font family for whole site (lighter payload)
+// Primary font (Body)
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-  weight: ["400", "600"],
+  weight: ["400", "500", "600"],
+});
+
+// Secondary font (Headings)
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -48,7 +56,7 @@ export default function RootLayout({
               "name": "Vino Putec",
               "url": "https://vinoputec.sk",
               "image": "https://vinoputec.sk/putec-logo.jpg",
-              "aggregateRating": {"@type":"AggregateRating","ratingValue": 5, "reviewCount": 31},
+              "aggregateRating": { "@type": "AggregateRating", "ratingValue": 5, "reviewCount": 31 },
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Pezinská 154",
@@ -76,7 +84,7 @@ export default function RootLayout({
               "name": "Vino Putec",
               "url": "https://vinoputec.sk",
               "logo": "https://vinoputec.sk/putec-logo.jpg",
-              "aggregateRating": {"@type":"AggregateRating","ratingValue": 5, "reviewCount": 31},
+              "aggregateRating": { "@type": "AggregateRating", "ratingValue": 5, "reviewCount": 31 },
               "sameAs": [
                 "https://www.facebook.com/vinoputec",
                 "https://www.instagram.com/vinoputec/",
@@ -114,22 +122,12 @@ export default function RootLayout({
             })
           }}
         />
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            body { 
-              margin: 0; 
-              font-family: ${inter.style.fontFamily}, system-ui, sans-serif;
-              background-color: #ffffff;
-              color: #000000;
-            }
-            * { box-sizing: border-box; }
-          `
-        }} />
       </head>
       <body
         className={`
           antialiased
           ${inter.variable}
+          ${poppins.variable}
         `}
       >
         <ReduxProvider>

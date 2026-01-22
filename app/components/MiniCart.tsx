@@ -101,14 +101,14 @@ export default function MiniCart() {
       {isVisible && (
         <>
           {/* Backdrop na mobile */}
-          <div 
-            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          <div
+            className="fixed inset-0 bg-black/50 z-[65] md:hidden"
             onClick={closeCart}
           />
-          
+
           {/* Cart content */}
           <div
-            className="fixed md:absolute right-0 top-0 md:top-auto md:mt-2 w-full md:w-96 max-w-md h-full md:h-auto bg-background border-l md:border border-accent shadow-2xl md:rounded-md z-50 p-4 overflow-y-auto"
+            className="fixed md:absolute right-0 top-0 md:top-auto md:mt-2 w-full md:w-96 max-w-md h-full md:h-auto bg-white border-l md:border border-accent shadow-2xl md:rounded-md z-[70] p-4 overflow-y-auto"
           >
             {/* Close button - iba na mobile */}
             <button
@@ -122,88 +122,88 @@ export default function MiniCart() {
             <h2 className="text-lg font-bold text-foreground mb-4 md:hidden">
               {labels.cart || "Košík"}
             </h2>
-          {cartItems.length === 0 ? (
-            <p className="text-foreground text-sm text-center">{labels.cartEmpty || "Your cart is empty."}</p>
-          ) : (
-            <div className="space-y-4 max-h-64 overflow-y-auto">
-              {cartItems.map((item) => {
-                const price = parseFloat(item.SalePrice || item.RegularPrice);
-                const itemTotal = (price * item.quantity).toFixed(2);
+            {cartItems.length === 0 ? (
+              <p className="text-foreground text-sm text-center">{labels.cartEmpty || "Your cart is empty."}</p>
+            ) : (
+              <div className="space-y-4 max-h-64 overflow-y-auto">
+                {cartItems.map((item) => {
+                  const price = parseFloat(item.SalePrice || item.RegularPrice);
+                  const itemTotal = (price * item.quantity).toFixed(2);
 
-                return (
-                  <div key={item.ID} className="flex items-start gap-4">
-                    <Image
-                      src={item.FeatureImageURL}
-                      alt={item.Title}
-                      width={60}
-                      height={80}
-                      className="rounded object-cover"
-                    />
-                    <div className="flex-1">
-                      <Link
-                        href={`/vina/${item.Slug}`}
-                        className="text-sm font-semibold text-foreground hover:text-foreground"
-                      >
-                        {item.Title}
-                      </Link>
-                      <p className="text-xs text-foreground mt-1">
-                        {labels.price || "Cena"}: €{price.toFixed(2)}
-                      </p>
-                      <div className="flex items-center mt-2 gap-2">
-                        <button
-                          onClick={() => handleQtyChange(item.ID, -1)}
-                          className="text-foreground border border-accent px-1.5 py-0.5 rounded hover:bg-accent/10 transition"
+                  return (
+                    <div key={item.ID} className="flex items-start gap-4">
+                      <Image
+                        src={item.FeatureImageURL}
+                        alt={item.Title}
+                        width={60}
+                        height={80}
+                        className="rounded object-cover"
+                      />
+                      <div className="flex-1">
+                        <Link
+                          href={`/vina/${item.Slug}`}
+                          className="text-sm font-semibold text-foreground hover:text-foreground"
                         >
-                          <Minus size={14} />
-                        </button>
-                        <span className="text-xs font-medium min-w-[20px] text-center">{item.quantity}</span>
-                        <button
-                          onClick={() => handleQtyChange(item.ID, 1)}
-                          className="text-foreground border border-accent px-1.5 py-0.5 rounded hover:bg-accent/10 transition"
-                        >
-                          <Plus size={14} />
-                        </button>
+                          {item.Title}
+                        </Link>
+                        <p className="text-xs text-foreground mt-1">
+                          {labels.price || "Cena"}: €{price.toFixed(2)}
+                        </p>
+                        <div className="flex items-center mt-2 gap-2">
+                          <button
+                            onClick={() => handleQtyChange(item.ID, -1)}
+                            className="text-foreground border border-accent px-1.5 py-0.5 rounded hover:bg-accent/10 transition"
+                          >
+                            <Minus size={14} />
+                          </button>
+                          <span className="text-xs font-medium min-w-[20px] text-center">{item.quantity}</span>
+                          <button
+                            onClick={() => handleQtyChange(item.ID, 1)}
+                            className="text-foreground border border-accent px-1.5 py-0.5 rounded hover:bg-accent/10 transition"
+                          >
+                            <Plus size={14} />
+                          </button>
+                        </div>
+                        <p className="text-sm text-foreground font-medium mt-1">
+                          {labels.total || "Celkom"}: €{itemTotal}
+                        </p>
                       </div>
-                      <p className="text-sm text-foreground font-medium mt-1">
-                        {labels.total || "Celkom"}: €{itemTotal}
-                      </p>
+                      <button
+                        onClick={() => dispatch(removeFromCart(item.ID))}
+                        className="text-foreground hover:text-foreground-dark"
+                        title={labels.remove || "Remove"}
+                      >
+                        <X size={16} />
+                      </button>
                     </div>
-                    <button
-                      onClick={() => dispatch(removeFromCart(item.ID))}
-                      className="text-foreground hover:text-foreground-dark"
-                      title={labels.remove || "Remove"}
-                    >
-                      <X size={16} />
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Total & View Cart Button */}
-          {cartItems.length > 0 && (
-            <>
-              <hr className="my-4" />
-              <div className="flex justify-between items-center text-sm font-semibold text-foreground">
-                <span>{labels.total || "Celkom"}:</span>
-                <span>€{totalAmount.toFixed(2)}</span>
+                  );
+                })}
               </div>
-              <Link
-                href="/kosik"
-                className="mt-4 inline-block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
-              >
-                {labels.viewCart || "Zobraziť košík"}
-              </Link>
+            )}
 
-              <Link
-                href="/pokladna"
-                className="mt-4 inline-block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
-              >
-                {labels.proceedToCheckout || "Pokračovať k objednávke"}
-              </Link>
-            </>
-          )}
+            {/* Total & View Cart Button */}
+            {cartItems.length > 0 && (
+              <>
+                <hr className="my-4" />
+                <div className="flex justify-between items-center text-sm font-semibold text-foreground">
+                  <span>{labels.total || "Celkom"}:</span>
+                  <span>€{totalAmount.toFixed(2)}</span>
+                </div>
+                <Link
+                  href="/kosik"
+                  className="mt-4 inline-block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
+                >
+                  {labels.viewCart || "Zobraziť košík"}
+                </Link>
+
+                <Link
+                  href="/pokladna"
+                  className="mt-4 inline-block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
+                >
+                  {labels.proceedToCheckout || "Pokračovať k objednávke"}
+                </Link>
+              </>
+            )}
           </div>
         </>
       )}

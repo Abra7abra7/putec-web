@@ -31,17 +31,17 @@ export default function HomepageBanner() {
         placeholder="empty"
         style={{ objectFit: "cover", objectPosition: "center" }}
       />
-      {/* soft overlay for readability */}
-      <div className="absolute inset-0 bg-black/30" aria-hidden />
-      
+      {/* soft overlay for readability - REPLACED WITH STRONGER GRADIENT */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80" aria-hidden />
+
       <div className="relative max-w-4xl mx-auto px-6 py-32 md:py-48 flex flex-col items-center">
         <RatingBadge ratingValue={5} reviewCount={31} className="mb-4" />
-        
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 drop-shadow-lg text-white">
+
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 drop-shadow-xl !text-white tracking-tight">
           Rodinné vinárstvo Putec
         </h1>
-        
-        <p className="text-lg md:text-xl lg:text-2xl mb-10 max-w-2xl drop-shadow-lg text-white/95">
+
+        <p className="text-lg md:text-xl lg:text-2xl mb-10 max-w-2xl drop-shadow-md !text-white font-medium">
           Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku
         </p>
 
@@ -52,13 +52,13 @@ export default function HomepageBanner() {
               {buttonText}
             </Link>
           </Button>
-          
+
           <Button asChild variant="outline" size="lg" className="w-full sm:w-auto min-w-[200px] bg-white/10 backdrop-blur-sm border-white hover:bg-white hover:text-foreground shadow-lg hover:shadow-xl">
             <Link href="/ubytovanie">
               Ubytovanie
             </Link>
           </Button>
-          
+
           <Button asChild variant="outline" size="lg" className="w-full sm:w-auto min-w-[200px] bg-white/10 backdrop-blur-sm border-white hover:bg-white hover:text-foreground shadow-lg hover:shadow-xl">
             <Link href="/degustacie">
               Degustácie

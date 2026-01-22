@@ -47,7 +47,7 @@ export default function DegustationProducts() {
               Naše degustačné balíky
             </h2>
             <p className="text-foreground-muted text-lg max-w-2xl mx-auto">
-              Vyberte si z našich špeciálne pripravených degustačných balíkov, 
+              Vyberte si z našich špeciálne pripravených degustačných balíkov,
               ktoré sú navrhnuté pre rôzne veľkosti skupín a príležitosti.
             </p>
           </div>
@@ -64,21 +64,21 @@ export default function DegustationProducts() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority
                 />
-                
+
                 {/* Gradient overlay - jemnejší, obrázok viditeľný navrch */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/40" />
+
                 {/* Content overlay */}
                 <div className="relative h-full flex flex-col justify-between p-3 md:p-6 text-white">
                   {/* Top section - Title & Info */}
                   <div>
-                    <h3 className="text-lg md:text-3xl font-bold drop-shadow-lg mb-3 leading-tight">{product.Title}</h3>
+                    <h3 className="text-lg md:text-3xl font-bold drop-shadow-xl mb-3 leading-tight !text-white">{product.Title}</h3>
                     <div className="flex flex-wrap gap-2 text-xs md:text-base">
-                      <span className="bg-white/25 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full flex items-center gap-1.5 md:gap-2">
+                      <span className="bg-black/40 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full flex items-center gap-1.5 md:gap-2 text-white border border-white/10">
                         <Users className="w-3 h-3 md:w-4 md:h-4" />
                         {product.Capacity}
                       </span>
-                      <span className="bg-white/25 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full flex items-center gap-1.5 md:gap-2">
+                      <span className="bg-black/40 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full flex items-center gap-1.5 md:gap-2 text-white border border-white/10">
                         <Clock className="w-3 h-3 md:w-4 md:h-4" />
                         {product.Duration}
                       </span>
@@ -88,19 +88,19 @@ export default function DegustationProducts() {
                   {/* Bottom section - Description, Features, Price, Button */}
                   <div className="space-y-3 md:space-y-4 mt-auto">
                     {/* Description */}
-                    <p className="text-white/95 text-xs md:text-base leading-relaxed drop-shadow-md">
+                    <p className="!text-white text-xs md:text-base leading-relaxed drop-shadow-md font-medium">
                       {product.ShortDescription}
                     </p>
 
                     {/* Features */}
                     {product.Features && (
-                      <div className="bg-black/40 backdrop-blur-sm rounded-lg p-3 md:p-4">
-                        <h5 className="font-semibold text-white mb-2 text-xs md:text-sm">Zahrnuté v balíku:</h5>
+                      <div className="bg-black/60 backdrop-blur-md rounded-lg p-3 md:p-4 border border-white/10 shadow-lg">
+                        <h5 className="font-semibold !text-white mb-2 text-xs md:text-sm">Zahrnuté v balíku:</h5>
                         <ul className="space-y-1">
                           {product.Features.map((feature, index) => (
                             <li key={index} className="flex items-center space-x-2 text-xs md:text-sm">
                               <Check className="w-3 h-3 md:w-4 md:h-4 text-accent flex-shrink-0" />
-                              <span className="text-white/95">{feature}</span>
+                              <span className="!text-white/95">{feature}</span>
                             </li>
                           ))}
                         </ul>
@@ -108,7 +108,7 @@ export default function DegustationProducts() {
                     )}
 
                     {/* Price & Button */}
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 md:gap-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 md:p-4">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 md:gap-4 bg-black/70 backdrop-blur-md rounded-lg p-3 md:p-4 border border-white/10 shadow-lg">
                       <div>
                         <div className="text-xl md:text-3xl font-bold text-white">
                           {product.SalePrice}€
