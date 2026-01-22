@@ -11,11 +11,11 @@ import DegustationSliderClient from "./DegustationSliderClient";
 
 export default function DegustaciePreview() {
   const slides = [
-    { src: "/degustacie/brano-degustacia-x.jpg", alt: "Degustácia s majiteľom" },
-    { src: "/degustacie/degustacia-skupina.jpg", alt: "Degustácia so skupinou" },
-    { src: "/degustacie/degustacia-x.jpg", alt: "Degustácia - atmosféra" },
-    { src: "/degustacie/IMG_6063-2.jpg", alt: "Ochutnávka vína" },
-    { src: "/degustacie/degustacia-brano-x.jpg", alt: "Degustácia vo vinárstva" },
+    { src: "/degustacie/brano-degustacia-x.jpg", alt: "Degustácia s majiteľom", position: "top" }, // Image 1 (Starts at top to see heads)
+    { src: "/degustacie/degustacia-skupina.jpg", alt: "Degustácia so skupinou", position: "center" },
+    { src: "/degustacie/degustacia-x.jpg", alt: "Degustácia - atmosféra", position: "center" },
+    { src: "/degustacie/IMG_6063-2.jpg", alt: "Ochutnávka vína", position: "top" }, // Image 4 (Focus on top)
+    { src: "/degustacie/degustacia-brano-x.jpg", alt: "Degustácia vo vinárstva", position: "top" }, // Image 5 (Focus on top)
   ];
 
   const packages = [

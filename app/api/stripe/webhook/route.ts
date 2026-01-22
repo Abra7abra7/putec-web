@@ -303,12 +303,9 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
   const metadata = paymentIntent.metadata as Record<string, string>;
   const orderId = metadata.orderId || paymentIntent.id;
 
-  // Idempotency guard (process only once per server lifetime)
-  if (processedOrderIds.has(orderId)) {
-    console.log("ℹ️ Order already processed, skipping:", orderId);
-    return;
-  }
-  processedOrderIds.add(orderId);
+  // Idempotency: In serverless (Vercel), we cannot rely on in-memory Sets (processedOrderIds).
+  // We rely on Stripe's strict ordering and our downstream systems (SuperFaktura check) to handle duplicates.
+  // Ideally, use a database (Redis/Postgres) to track orderId status.
 
   // Get charge email if available
   let chargeEmail: string | null | undefined;
@@ -322,22 +319,29 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
     console.warn("⚠️ Unable to retrieve charge for email:", error);
   }
 
-  // Create SuperFaktúra invoice (only for online payments via Stripe)
+  // Create SuperFaktúra invoice (CRITICAL STEP)
+  // If this fails, we want Stripe to RETRY. So we must throw an error or return 500.
   let invoiceId: string | undefined;
   try {
     console.log("🧾 Creating SuperFaktúra invoice for order:", orderId);
     invoiceId = await createSuperFakturaInvoice(paymentIntent, chargeEmail);
-    if (invoiceId) {
-      console.log("✅ SuperFaktúra invoice created successfully, Invoice ID:", invoiceId);
+
+    if (!invoiceId) {
+      // If logic returns undefined but didn't throw, it's ambiguous. 
+      // Assuming if it returns undefined, it might have failed silently or already exists.
+      console.warn("⚠️ SuperFaktúra invoice creation returned undefined.");
     } else {
-      console.warn("⚠️ SuperFaktúra invoice creation returned undefined (invoice may not have been created)");
+      console.log("✅ SuperFaktúra invoice created successfully, Invoice ID:", invoiceId);
     }
   } catch (error) {
-    console.error("❌ SuperFaktura invoice creation failed:", error);
-    // Don't throw - we still want to send emails even if invoice creation fails
+    console.error("❌ SuperFaktura invoice creation FAILED:", error);
+    // CRITICAL: Throwing error here ensures Stripe receives 500 and schedules a retry.
+    throw new Error("Failed to create SuperFaktura invoice - Requesting Stripe Retry");
   }
 
-  // Send emails with invoice PDF (only if invoice was created)
+  // Send emails (Secondary Step)
+  // If invoice was created, we try to send emails. 
+  // If email sending fails, we currently DO NOT fail the whole webhook (to avoid creating duplicate invoices on retry).
   const customerEmail = chargeEmail || paymentIntent.receipt_email || metadata.billing_email || metadata.shipping_email;
 
   if (!customerEmail) {
@@ -346,7 +350,7 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
   }
 
   try {
-    // Build OrderBody from PaymentIntent metadata
+    // Build OrderBody
     const cartItems: OrderCartItem[] = [];
     const indices = new Set<number>();
     Object.keys(metadata).forEach(k => {
@@ -423,42 +427,26 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
       paymentMethodId: 'stripe',
     };
 
-    // Send customer email WITH invoice PDF
-    if (invoiceId) {
-      try {
-        await sendCustomerEmail(orderBody, invoiceId);
-        console.log("✅ Customer email sent with invoice PDF");
-      } catch (error) {
-        console.error("❌ Failed to send customer email with invoice:", error);
-        // Try to send without PDF
-        try {
-          await sendCustomerEmail(orderBody);
-          console.log("✅ Customer email sent without invoice PDF (fallback)");
-        } catch (fallbackError) {
-          console.error("❌ Failed to send customer email even without PDF:", fallbackError);
-        }
-      }
-    } else {
-      // Send customer email without invoice if invoice creation failed
-      try {
-        await sendCustomerEmail(orderBody);
-        console.log("✅ Customer email sent without invoice PDF");
-      } catch (error) {
-        console.error("❌ Failed to send customer email:", error);
-      }
+    // Send customer email
+    try {
+      await sendCustomerEmail(orderBody, invoiceId);
+      console.log("✅ Customer email sent");
+    } catch (error) {
+      console.error("❌ Failed to send customer email:", error);
     }
 
     // Send admin email
     try {
       await sendAdminEmail(orderBody);
-      console.log("✅ Admin email sent successfully");
+      console.log("✅ Admin email sent");
     } catch (error) {
       console.error("❌ Failed to send admin email:", error);
-      // Don't throw - admin email failure shouldn't block webhook
     }
+
   } catch (error) {
-    console.error("❌ Failed to send confirmation emails:", error);
-    // Don't throw - we still want to acknowledge the webhook
+    console.error("❌ Failed to prepare/send order emails:", error);
+    // We do NOT throw here, because invoice is already created. 
+    // Retrying would duplicate invoices.
   }
 }
 
@@ -470,7 +458,7 @@ function handlePaymentIntentFailed(pi: Stripe.PaymentIntent): void {
   console.log("💸 Amount:", pi.amount, pi.currency);
   console.log("📋 Order ID:", pi.metadata?.orderId);
   console.log("🔴 Last payment error:", pi.last_payment_error?.message);
-  
+
   // TODO: Send failure notification email to customer?
   // TODO: Update order status in database?
 }
@@ -482,7 +470,7 @@ function handlePaymentIntentCanceled(pi: Stripe.PaymentIntent): void {
   console.log("🚫 Payment canceled:", pi.id);
   console.log("📋 Order ID:", pi.metadata?.orderId);
   console.log("💸 Amount:", pi.amount, pi.currency);
-  
+
   // TODO: Update order status in database?
 }
 
@@ -493,7 +481,7 @@ function handlePaymentIntentRequiresAction(pi: Stripe.PaymentIntent): void {
   console.log("⚠️ Payment requires action:", pi.id);
   console.log("📋 Order ID:", pi.metadata?.orderId);
   console.log("🔐 Next action:", pi.next_action?.type);
-  
+
   // This is usually for 3D Secure authentication
   // No action needed - customer will complete authentication
 }
@@ -506,7 +494,7 @@ function handleChargeFailed(charge: Stripe.Charge): void {
   console.log("💸 Amount:", charge.amount, charge.currency);
   console.log("🔴 Failure code:", charge.failure_code);
   console.log("🔴 Failure message:", charge.failure_message);
-  
+
   // TODO: Send failure notification?
 }
 
@@ -517,7 +505,7 @@ function handleCustomerCreated(customer: Stripe.Customer): void {
   console.log("👤 New customer created:", customer.id);
   console.log("📧 Email:", customer.email);
   console.log("👤 Name:", customer.name);
-  
+
   // TODO: Store customer ID in database?
 }
 
@@ -527,7 +515,7 @@ function handleCustomerCreated(customer: Stripe.Customer): void {
 function handleCustomerUpdated(customer: Stripe.Customer): void {
   console.log("👤 Customer updated:", customer.id);
   console.log("📧 Email:", customer.email);
-  
+
   // TODO: Update customer data in database?
 }
 

@@ -5,7 +5,9 @@ interface HeroProps {
   title: string;
   subtitle?: string;
   backgroundImageUrl: string;
-  heightClass?: string; // e.g. h-[60vh] h-[70vh]
+  mobileBackgroundImageUrl?: string; // New prop for Art Direction
+  focalPoint?: string; // e.g. "center 25%" or "50% 30%"
+  heightClass?: string;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
 }
@@ -14,30 +16,53 @@ export default function Hero({
   title,
   subtitle,
   backgroundImageUrl,
+  mobileBackgroundImageUrl,
+  focalPoint = "center 25%", // Default focal point
   heightClass = "h-[60vh]",
   primaryCta,
   secondaryCta,
 }: HeroProps) {
   return (
-    <section className={`relative ${heightClass} bg-background text-foreground`}> 
+    <section className={`relative ${heightClass} bg-background text-foreground`}>
       <div className="absolute inset-0">
-        <Image
-          src={backgroundImageUrl}
-          alt={title}
-          fill
-          sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, 90vw"
-          className="object-cover"
-          style={{ objectPosition: 'center 25%' }}
-          priority
-        />
+        {/* Desktop Image (Hidden on mobile if mobile image exists) */}
+        <div className={`relative w-full h-full ${mobileBackgroundImageUrl ? 'hidden md:block' : ''}`}>
+          <Image
+            src={backgroundImageUrl}
+            alt={title}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: focalPoint }}
+          />
+        </div>
+
+        {/* Mobile Image (Only if provided) */}
+        {mobileBackgroundImageUrl && (
+          <div className="relative w-full h-full md:hidden">
+            <Image
+              src={mobileBackgroundImageUrl}
+              alt={title}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+              style={{ objectPosition: 'center center' }} // Mobile usually needs center
+            />
+          </div>
+        )}
+
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
       </div>
 
       <div className="relative z-10 h-full">
         <div className="container mx-auto px-6 h-full flex flex-col items-center justify-center text-center">
-          <h1 className="text-4xl md:text-5xl font-bold drop-shadow mb-4" style={{ color: '#ffffff' }}>{title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold drop-shadow mb-4 text-white">
+            {title}
+          </h1>
           {subtitle && (
-            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8" style={{ color: 'rgba(255,255,255,0.9)' }}>
+            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-white/90">
               {subtitle}
             </p>
           )}

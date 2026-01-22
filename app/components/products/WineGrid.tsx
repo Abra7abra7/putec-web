@@ -7,13 +7,23 @@ import { Product } from "../../../types/Product";
 import { useLocalization } from "../../context/LocalizationContext";
 import { Container } from "../ui/container";
 
-export default function WineGrid() {
-  const [allWines, setAllWines] = useState<Product[]>([]);
-  const [filteredWines, setFilteredWines] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+interface WineGridProps {
+  initialWines?: Product[];
+}
+
+export default function WineGrid({ initialWines = [] }: WineGridProps) {
+  const [allWines, setAllWines] = useState<Product[]>(initialWines);
+  const [filteredWines, setFilteredWines] = useState<Product[]>(initialWines);
+  const [loading, setLoading] = useState(initialWines.length === 0);
   const { labels } = useLocalization();
 
   useEffect(() => {
+    // If we have initial wines, we don't need to fetch
+    if (initialWines.length > 0) {
+      setLoading(false);
+      return;
+    }
+
     const fetchWines = async () => {
       try {
         const response = await fetch('/api/wines');
@@ -29,7 +39,7 @@ export default function WineGrid() {
     };
 
     fetchWines();
-  }, []);
+  }, [initialWines]);
 
   const handleFilterChange = useCallback((filtered: Product[]) => {
     setFilteredWines(filtered);
@@ -55,7 +65,7 @@ export default function WineGrid() {
   return (
     <Container>
       <WineFilters wines={allWines} onFilterChange={handleFilterChange} />
-      
+
       {filteredWines.length === 0 ? (
         <div className="text-center py-12 bg-gray-50 rounded-lg">
           <p className="text-foreground-muted text-lg">🔍 Žiadne vína nezodpovedajú vašim filtrom</p>

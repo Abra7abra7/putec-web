@@ -1,8 +1,17 @@
 import { MetadataRoute } from 'next'
+import { getActiveWines } from './lib/wines'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://vinoputec.sk'
-  
+  const wines = await getActiveWines();
+
+  const wineUrls = wines.map((wine) => ({
+    url: `${baseUrl}/vina/${wine.Slug || wine.ID}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -40,5 +49,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    ...wineUrls,
   ]
 }

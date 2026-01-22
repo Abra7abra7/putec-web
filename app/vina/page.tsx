@@ -6,35 +6,60 @@ import type { Metadata } from "next";
 import { ReduxProvider } from "../providers";
 import Script from "next/script";
 import RatingBadge from "../components/RatingBadge";
+import { getActiveWines } from "../lib/wines"; // IMPORTED
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   const localeData = await getLocalization();
-  
+
   return {
     title: `${localeData.siteName} - Vína`,
     description: "Prémiové vína z rodinného vinárstva Putec vo Vinosadoch pri Pezinku. Biele, červené a ružové vína najvyššej kvality.",
   };
 }
 
-export default function VinaPage() {
+export default async function VinaPage() {
+  const wines = await getActiveWines(); // SERVER SIDE FETCH
+
+  const schemaProducts = wines.map((wine, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Product",
+      "name": wine.Title,
+      "description": wine.ShortDescription || wine.Title,
+      "image": wine.FeatureImageURL,
+      "url": `https://vinoputec.sk/vina/${wine.Slug || wine.ID}`,
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": wine.Currency || "EUR",
+        "price": wine.RegularPrice,
+        "availability": "https://schema.org/InStock"
+      }
+    }
+  }));
+
   return (
     <>
       <Script id="ld-json-breadcrumbs-vina" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {"@type":"ListItem","position":1,"name":"Domov","item":"https://vinoputec.sk/"},
-            {"@type":"ListItem","position":2,"name":"Vína","item":"https://vinoputec.sk/vina"}
-          ]
-        }) }} />
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://vinoputec.sk/" },
+              { "@type": "ListItem", "position": 2, "name": "Vína", "item": "https://vinoputec.sk/vina" }
+            ]
+          })
+        }} />
       <Script id="ld-json-itemlist-vina" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context":"https://schema.org",
-          "@type":"ItemList",
-          "itemListElement": []
-        }) }} />
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": schemaProducts
+          })
+        }} />
       <AgeVerification />
       <Hero
         title="Naše vína"
@@ -50,7 +75,7 @@ export default function VinaPage() {
         <div className="container mx-auto px-4">
           <div className="mt-2">
             <ReduxProvider>
-              <WineGrid />
+              <WineGrid initialWines={wines} />
             </ReduxProvider>
           </div>
         </div>
