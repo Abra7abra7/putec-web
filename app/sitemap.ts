@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next'
-import { getActiveWines } from './lib/wines'
+import { getWines } from './utils/getProducts'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://vinoputec.sk'
-  const wines = await getActiveWines();
+  const wines = await getWines();
 
   const wineUrls = wines.map((wine) => ({
     url: `${baseUrl}/vina/${wine.Slug || wine.ID}`,

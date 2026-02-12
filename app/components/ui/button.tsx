@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/app/lib/utils";
+import { cn } from "@/app/utils/utils";
 import { Loader2 } from "lucide-react";
 import { motion, HTMLMotionProps } from "framer-motion";
 

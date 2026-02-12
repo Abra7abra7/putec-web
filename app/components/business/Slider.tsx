@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { cn } from "@/app/lib/utils";
+import { cn } from "@/app/utils/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface SliderSlide {

@@ -127,7 +127,7 @@ export async function POST(request: NextRequest) {
   let event: Stripe.Event;
   try {
     console.log("🔍 Webhook - Attempting to construct event...");
-    console.log("🔍 Webhook - Using secret:", process.env.STRIPE_WEBHOOK_SECRET?.substring(0, 10) + "...");
+    console.log("🔍 Webhook - Using secret (exists):", !!process.env.STRIPE_WEBHOOK_SECRET);
     event = stripe.webhooks.constructEvent(
       rawBody,
       sig,

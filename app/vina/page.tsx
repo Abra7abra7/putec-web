@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { ReduxProvider } from "../providers";
 import Script from "next/script";
 import RatingBadge from "../components/RatingBadge";
-import { getActiveWines } from "../lib/wines"; // IMPORTED
+import { getWines } from "../utils/getProducts"; // Updated import
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function VinaPage() {
-  const wines = await getActiveWines(); // SERVER SIDE FETCH
+  const wines = await getWines(); // SERVER SIDE FETCH
 
   const schemaProducts = wines.map((wine, index) => ({
     "@type": "ListItem",

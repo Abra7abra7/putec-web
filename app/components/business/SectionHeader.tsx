@@ -1,6 +1,6 @@
 import * as React from "react";
 import Image from "next/image";
-import { cn } from "@/app/lib/utils";
+import { cn } from "@/app/utils/utils";
 
 export interface SectionHeaderProps {
   /**
