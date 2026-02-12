@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useLocalization } from "../context/LocalizationContext";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
 import { showMiniCart } from "../utils/MiniCartController";
 import { X, Plus, Minus } from "lucide-react";
@@ -13,6 +14,7 @@ import { X, Plus, Minus } from "lucide-react";
 function CartContent() {
   const { labels } = useLocalization();
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const items = useAppSelector((state) => state.cart.items);
 
   const total = items.reduce(
@@ -35,7 +37,7 @@ function CartContent() {
     <section className="py-12 bg-background">
       <div className="container mx-auto px-4">
         {/* Back button - vľavo hore */}
-        <Link 
+        <Link
           href="/vina"
           className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-6 group"
         >
@@ -128,12 +130,15 @@ function CartContent() {
               </p>
 
               {/* Checkout Button Below */}
-              <Link
-                href="/pokladna"
+              <button
+                onClick={() => {
+                  console.log("Desktop checkout button clicked");
+                  router.push("/pokladna");
+                }}
                 className="inline-block bg-accent hover:bg-accent-dark text-foreground px-6 py-3 rounded-md text-sm font-semibold transition"
               >
                 {labels.proceedToCheckout || "Pokračovať k objednávke"}
-              </Link>
+              </button>
             </div>
 
             {/* Sticky CTA for mobile */}
@@ -142,12 +147,15 @@ function CartContent() {
                 <p className="text-base font-semibold">
                   {labels.total || "Celkom"}: €{total.toFixed(2)}
                 </p>
-                <Link
-                  href="/pokladna"
+                <button
+                  onClick={() => {
+                    console.log("Mobile checkout button clicked");
+                    router.push("/pokladna");
+                  }}
                   className="bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
                 >
                   {labels.proceedToCheckout || "Pokračovať"}
-                </Link>
+                </button>
               </div>
             </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { useLocalization } from "../context/LocalizationContext";
@@ -25,12 +26,16 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
 
   const { labels } = useLocalization();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const cartContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
     registerMiniCartTrigger(() => {
       setIsVisible(true);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -58,6 +63,12 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
     }, 300);
   };
 
+  const handleNavigation = (path: string) => {
+    console.log(`Navigating to: ${path}`);
+    setIsVisible(false); // Close immediately
+    router.push(path);
+  };
+
   const toggleCart = () => {
     setIsVisible(!isVisible);
   };
@@ -69,7 +80,12 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
   // Close on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      // Check if click is inside the trigger button (containerRef) OR the cart content (cartContentRef)
+      const isClickInsideTrigger = containerRef.current && containerRef.current.contains(target);
+      const isClickInsideCart = cartContentRef.current && cartContentRef.current.contains(target);
+
+      if (!isClickInsideTrigger && !isClickInsideCart) {
         closeCart();
       }
     };
@@ -101,7 +117,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
           <ShoppingCart size={22} strokeWidth={1.5} />
         </IconWrapper>
         <span className="absolute top-[-4px] right-[-4px] bg-accent text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full leading-none shadow-md border-2 border-white">
-          {totalQuantity}
+          {mounted ? totalQuantity : 0}
         </span>
       </button>
 
@@ -116,6 +132,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
 
           {/* Cart content */}
           <div
+            ref={cartContentRef}
             className="fixed md:absolute right-0 top-0 md:top-20 md:right-10 w-full md:w-96 max-w-md h-full md:h-auto bg-white border-l md:border border-accent/20 shadow-2xl md:rounded-2xl z-[9999] p-6 overflow-y-auto"
             style={typeof window !== 'undefined' && window.innerWidth >= 768 ? { position: 'fixed', top: '80px', right: '20px' } : {}}
           >
@@ -226,21 +243,19 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                   <span>{labels.total || "Celkom"}:</span>
                   <span>€{totalAmount.toFixed(2)}</span>
                 </div>
-                <Link
-                  href="/kosik"
-                  onClick={closeCart}
+                <button
+                  onClick={() => handleNavigation("/kosik")}
                   className="mt-4 inline-block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
                 >
                   {labels.viewCart || "Zobraziť košík"}
-                </Link>
+                </button>
 
-                <Link
-                  href="/pokladna"
-                  onClick={closeCart}
+                <button
+                  onClick={() => handleNavigation("/pokladna")}
                   className="mt-4 inline-block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
                 >
                   {labels.proceedToCheckout || "Pokračovať k objednávke"}
-                </Link>
+                </button>
               </>
             )}
           </div>
