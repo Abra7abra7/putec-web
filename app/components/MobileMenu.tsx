@@ -7,6 +7,7 @@ import MiniCart from "./MiniCart";
 import { ReduxProvider } from "../providers";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import IconWrapper from "./ui/IconWrapper";
 
 interface MenuItem {
   label: string;
@@ -72,13 +73,14 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
       {/* Mobile Header Buttons (Burger + Cart) */}
       <div className="flex items-center gap-2 md:hidden">
         <button
-          className="text-foreground hover:text-foreground"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-haspopup="dialog"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu-panel"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          <IconWrapper>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </IconWrapper>
         </button>
 
         {!isCartOrCheckoutPage &&
@@ -94,19 +96,19 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
           aria-modal="true"
           onClick={() => setIsMenuOpen(false)}
         >
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
           <nav
             id="mobile-menu-panel"
             ref={panelRef}
-            className="absolute inset-x-0 top-0 mt-16 bg-white border-t border-gray-200 shadow-2xl focus:outline-none min-h-[50vh]"
+            className="absolute inset-x-0 top-0 mt-20 bg-white border-t border-accent/20 shadow-2xl focus:outline-none min-h-[50vh] rounded-b-3xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6 flex flex-col gap-4">
+            <div className="p-8 flex flex-col gap-2">
               {menuItems.map(({ label, href }) => (
                 <Link
                   key={label}
                   href={href}
-                  className="px-4 py-4 text-xl font-medium text-foreground hover:bg-gray-50 rounded-lg border-b border-gray-100 last:border-0"
+                  className="px-6 py-5 text-2xl font-bold text-foreground hover:text-accent hover:bg-accent/5 rounded-2xl transition-all"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {label}

@@ -164,37 +164,37 @@ h6 {
 
 p {
   line-height: 1.6;
-  color: var(--color-foreground-light);
+  color: var(--gray-800); /* Better contrast than gray-700 */
 }
 
 /* Responsive typography scale */
 h1 {
-  @apply text-2xl font-bold;
+  @apply text-2xl font-bold tracking-tighter;
 }
 
 @media (min-width: 768px) {
   h1 {
-    @apply text-4xl;
+    @apply text-4xl tracking-tighter;
   }
 }
 
 h2 {
-  @apply text-xl font-semibold;
+  @apply text-xl font-semibold tracking-tighter;
 }
 
 @media (min-width: 768px) {
   h2 {
-    @apply text-3xl;
+    @apply text-3xl tracking-tighter;
   }
 }
 
 h3 {
-  @apply text-lg font-semibold;
+  @apply text-lg font-semibold tracking-tight;
 }
 
 @media (min-width: 768px) {
   h3 {
-    @apply text-2xl;
+    @apply text-2xl tracking-tight;
   }
 }
 

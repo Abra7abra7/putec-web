@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
 import { registerMiniCartTrigger } from "../utils/MiniCartController";
+import IconWrapper from "./ui/IconWrapper";
 
 export default function MiniCart() {
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -87,12 +88,14 @@ export default function MiniCart() {
       {/* Cart Icon - kliknuteľný na mobile, hover na desktop */}
       <button
         onClick={toggleCart}
-        className="relative flex items-center justify-center ml-2 mr-4"
+        className="relative flex items-center justify-center ml-2 mr-4 group"
         aria-label={labels.viewCart || "View cart"}
         aria-expanded={isVisible}
       >
-        <ShoppingCart size={24} />
-        <span className="absolute top-[-8px] right-[-10px] bg-accent text-foreground text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full leading-none">
+        <IconWrapper>
+          <ShoppingCart size={22} strokeWidth={1.5} />
+        </IconWrapper>
+        <span className="absolute top-[-4px] right-[-4px] bg-accent text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full leading-none shadow-md border-2 border-white">
           {totalQuantity}
         </span>
       </button>
@@ -108,77 +111,104 @@ export default function MiniCart() {
 
           {/* Cart content */}
           <div
-            className="fixed md:absolute right-0 top-0 md:top-auto md:mt-2 w-full md:w-96 max-w-md h-full md:h-auto bg-white border-l md:border border-accent shadow-2xl md:rounded-md z-[70] p-4 overflow-y-auto"
+            className="fixed md:absolute right-0 top-0 md:top-auto md:mt-2 w-full md:w-96 max-w-md h-full md:h-auto bg-white border-l md:border border-accent/20 shadow-2xl md:rounded-2xl z-[70] p-6 overflow-y-auto"
           >
-            {/* Close button - iba na mobile */}
-            <button
-              onClick={closeCart}
-              className="absolute top-4 right-4 md:hidden text-foreground hover:text-foreground-dark"
-              aria-label="Zavrieť košík"
-            >
-              <X size={24} />
-            </button>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-foreground">
+                {labels.cart || "Váš košík"}
+              </h2>
+              <button
+                onClick={closeCart}
+                className="text-foreground/50 hover:text-accent transition-colors"
+                aria-label="Zavrieť košík"
+              >
+                <IconWrapper size="sm">
+                  <X size={18} strokeWidth={1.5} />
+                </IconWrapper>
+              </button>
+            </div>
 
-            <h2 className="text-lg font-bold text-foreground mb-4 md:hidden">
-              {labels.cart || "Košík"}
-            </h2>
             {cartItems.length === 0 ? (
-              <p className="text-foreground text-sm text-center">{labels.cartEmpty || "Your cart is empty."}</p>
-            ) : (
-              <div className="space-y-4 max-h-64 overflow-y-auto">
-                {cartItems.map((item) => {
-                  const price = parseFloat(item.SalePrice || item.RegularPrice);
-                  const itemTotal = (price * item.quantity).toFixed(2);
-
-                  return (
-                    <div key={item.ID} className="flex items-start gap-4">
-                      <Image
-                        src={item.FeatureImageURL}
-                        alt={item.Title}
-                        width={60}
-                        height={80}
-                        className="rounded object-cover"
-                      />
-                      <div className="flex-1">
-                        <Link
-                          href={`/vina/${item.Slug}`}
-                          className="text-sm font-semibold text-foreground hover:text-foreground"
-                        >
-                          {item.Title}
-                        </Link>
-                        <p className="text-xs text-foreground mt-1">
-                          {labels.price || "Cena"}: €{price.toFixed(2)}
-                        </p>
-                        <div className="flex items-center mt-2 gap-2">
-                          <button
-                            onClick={() => handleQtyChange(item.ID, -1)}
-                            className="text-foreground border border-accent px-1.5 py-0.5 rounded hover:bg-accent/10 transition"
-                          >
-                            <Minus size={14} />
-                          </button>
-                          <span className="text-xs font-medium min-w-[20px] text-center">{item.quantity}</span>
-                          <button
-                            onClick={() => handleQtyChange(item.ID, 1)}
-                            className="text-foreground border border-accent px-1.5 py-0.5 rounded hover:bg-accent/10 transition"
-                          >
-                            <Plus size={14} />
-                          </button>
-                        </div>
-                        <p className="text-sm text-foreground font-medium mt-1">
-                          {labels.total || "Celkom"}: €{itemTotal}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => dispatch(removeFromCart(item.ID))}
-                        className="text-foreground hover:text-foreground-dark"
-                        title={labels.remove || "Remove"}
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  );
-                })}
+              <div className="py-12 text-center">
+                <ShoppingCart className="w-12 h-12 text-accent/20 mx-auto mb-4" />
+                <p className="text-gray-400 text-sm">{labels.cartEmpty || "Váš košík je prázdny."}</p>
               </div>
+            ) : (
+              <>
+                <div className="space-y-4 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+                  {cartItems.map((item) => {
+                    const price = parseFloat(item.SalePrice || item.RegularPrice);
+
+                    return (
+                      <div key={item.ID} className="flex items-start gap-4 p-3 rounded-2xl bg-gray-50/50 hover:bg-gray-50 transition-colors border border-transparent hover:border-accent/10">
+                        <div className="relative w-16 h-20 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white">
+                          <Image
+                            src={item.FeatureImageURL}
+                            alt={item.Title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <Link
+                            href={`/vina/${item.Slug}`}
+                            className="text-sm font-bold text-foreground hover:text-accent transition-colors block truncate"
+                          >
+                            {item.Title}
+                          </Link>
+                          <p className="text-xs text-accent font-bold mt-1">
+                            €{price.toFixed(2)}
+                          </p>
+                          <div className="flex items-center mt-3 gap-3">
+                            <button
+                              onClick={() => handleQtyChange(item.ID, -1)}
+                              className="w-7 h-7 flex items-center justify-center rounded-full bg-white border border-gray-200 text-foreground hover:border-accent hover:text-accent transition-all active:scale-90"
+                            >
+                              <Minus size={12} />
+                            </button>
+                            <span className="text-sm font-bold w-4 text-center">{item.quantity}</span>
+                            <button
+                              onClick={() => handleQtyChange(item.ID, 1)}
+                              className="w-7 h-7 flex items-center justify-center rounded-full bg-white border border-gray-200 text-foreground hover:border-accent hover:text-accent transition-all active:scale-90"
+                            >
+                              <Plus size={12} />
+                            </button>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => dispatch(removeFromCart(item.ID))}
+                          className="group/remove p-1"
+                        >
+                          <IconWrapper size="sm" className="bg-transparent border-transparent group-hover/remove:bg-red-50 group-hover/remove:border-red-100">
+                            <X size={14} className="text-gray-300 group-hover/remove:text-red-500" />
+                          </IconWrapper>
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Upselling Section */}
+                <div className="mt-6 pt-4 border-t border-gray-100">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Mohlo by sa vám hodiť</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer">
+                      <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
+                        <Image src="/vina/degustacny-set.webp" alt="Degustačný set" fill className="object-cover group-hover:scale-105 transition-transform" />
+                      </div>
+                      <p className="text-[10px] font-bold text-foreground truncate">Degustačný set 3ks</p>
+                      <p className="text-[10px] text-accent font-bold">€24.90</p>
+                    </div>
+                    <div className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer">
+                      <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
+                        <Image src="/vina/darcekove-balenie.webp" alt="Darčekové balenie" fill className="object-cover group-hover:scale-105 transition-transform" />
+                      </div>
+                      <p className="text-[10px] font-bold text-foreground truncate">Darčekové balenie</p>
+                      <p className="text-[10px] text-accent font-bold">€3.50</p>
+                    </div>
+                  </div>
+                </div>
+              </>
             )}
 
             {/* Total & View Cart Button */}

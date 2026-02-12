@@ -7,6 +7,9 @@ import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import Image from "next/image";
 import Link from "next/link";
 
+import { ShieldCheck, Zap, Wine } from "lucide-react";
+import IconWrapper from "../ui/IconWrapper";
+
 export default function OrderSummary() {
   const cartItems = useAppSelector((state) => state.cart.items);
   const { shippingMethodId, shippingForm, billingForm, differentBilling } = useAppSelector((state) => state.checkout);
@@ -22,7 +25,7 @@ export default function OrderSummary() {
 
   const shippingCost = shipping?.price || 0;
   const totalAmount = cartTotal + shippingCost;
-  
+
   // Get currency symbol from first cart item or default to EUR
   const currencySymbol = cartItems.length > 0 ? getCurrencySymbol(cartItems[0].Currency) : "€";
 
@@ -81,7 +84,7 @@ export default function OrderSummary() {
             <hr className="my-4" />
             <div className="space-y-2">
               <h3 className="font-semibold text-sm text-foreground">Dodacie údaje</h3>
-              <div className="text-sm text-gray-700 space-y-1">
+              <div className="text-sm text-gray-800 space-y-1">
                 <p className="font-medium">{shippingForm.firstName} {shippingForm.lastName}</p>
                 {shippingForm.companyName && <p className="text-xs">{shippingForm.companyName}</p>}
                 <p>{shippingForm.address1}</p>
@@ -101,7 +104,7 @@ export default function OrderSummary() {
             <hr className="my-4" />
             <div className="space-y-2">
               <h3 className="font-semibold text-sm text-foreground">Fakturačné údaje</h3>
-              <div className="text-sm text-gray-700 space-y-1">
+              <div className="text-sm text-gray-800 space-y-1">
                 <p className="font-medium">{billingForm.firstName} {billingForm.lastName}</p>
                 {billingForm.companyName && <p className="text-xs">{billingForm.companyName}</p>}
                 <p>{billingForm.address1}</p>
@@ -115,6 +118,28 @@ export default function OrderSummary() {
             </div>
           </>
         )}
+
+        {/* Trust Badges */}
+        <div className="mt-8 pt-6 border-t border-gray-100 space-y-4">
+          <div className="flex items-center gap-3 text-sm text-gray-800 font-bold group">
+            <IconWrapper size="sm">
+              <ShieldCheck className="w-4 h-4" strokeWidth={1.5} />
+            </IconWrapper>
+            <span>Bezpečná platba cez Stripe</span>
+          </div>
+          <div className="flex items-center gap-3 text-sm text-gray-800 font-bold group">
+            <IconWrapper size="sm">
+              <Zap className="w-4 h-4" strokeWidth={1.5} />
+            </IconWrapper>
+            <span>Rýchle doručenie (SR a ČR)</span>
+          </div>
+          <div className="flex items-center gap-3 text-sm text-gray-800 font-bold group">
+            <IconWrapper size="sm">
+              <Wine className="w-4 h-4" strokeWidth={1.5} />
+            </IconWrapper>
+            <span>Prémiove slovenské vína</span>
+          </div>
+        </div>
       </div>
     </div>
   );

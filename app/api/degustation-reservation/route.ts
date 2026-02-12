@@ -6,7 +6,17 @@ import DegustationReservationCustomer from '../../emails/DegustationReservationC
 import fs from 'fs';
 import path from 'path';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend lazily to prevent build errors when API key is missing
+const getResend = () => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    // During build or if missing, return a dummy or throw only when called
+    return new Resend('re_dummy_key_for_build');
+  }
+  return new Resend(apiKey);
+};
+
+const resend = getResend();
 
 // Load logo as inline attachment (no filename to prevent it from appearing as attachment)
 const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
@@ -43,7 +53,7 @@ export async function POST(req: NextRequest) {
 
     console.log("📧 Sending admin email to:", process.env.ADMIN_EMAIL);
     console.log("📧 From email:", process.env.RESEND_FROM_EMAIL);
-    
+
     const adminResult = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL!,
       to: process.env.ADMIN_EMAIL!,
@@ -51,14 +61,14 @@ export async function POST(req: NextRequest) {
       html: adminEmailHTML,
       attachments: [logoAttachment],
     });
-    
+
     console.log("✅ Admin email sent:", adminResult);
 
     // Send customer email
     const customerEmailHTML = await render(DegustationReservationCustomer(body));
 
     console.log("📧 Sending customer email to:", body.email);
-    
+
     const customerResult = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL!,
       to: body.email,
@@ -66,19 +76,19 @@ export async function POST(req: NextRequest) {
       html: customerEmailHTML,
       attachments: [logoAttachment],
     });
-    
+
     console.log("✅ Customer email sent:", customerResult);
 
-    return NextResponse.json({ 
-      success: true, 
-      message: "Rezervácia bola úspešne odoslaná" 
+    return NextResponse.json({
+      success: true,
+      message: "Rezervácia bola úspešne odoslaná"
     });
 
   } catch (error) {
     console.error('❌ Reservation error:', error);
     console.error('❌ Error details:', JSON.stringify(error, null, 2));
-    return NextResponse.json({ 
-      error: "Chyba pri odosielaní rezervácie", 
+    return NextResponse.json({
+      error: "Chyba pri odosielaní rezervácie",
       details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }

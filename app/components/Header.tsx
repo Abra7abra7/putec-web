@@ -13,7 +13,7 @@ export default async function Header() {
 
   return (
     <>
-      <header className="sticky top-0 w-full z-50 transition-all duration-300 bg-white shadow-sm border-b border-gray-100">
+      <header className="sticky top-0 w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
         <div className="flex w-full items-center justify-between md:hidden px-4 py-3">
           <HeaderBackButton />
           <MobileMenu menuItems={content.menu} />

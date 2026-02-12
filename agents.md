@@ -1,0 +1,68 @@
+# AGENTS.md - Prehľad projektu Vino Pútec
+
+Tento dokument slúži ako hlavný zdroj informácií pre AI agentov pracujúcich na projekte.
+
+## 🚀 Technologický Stack
+- **Framework**: Next.js 16.1.4 (App Router, Turbopack)
+- **Frontend**: React 19.2.3, Tailwind CSS 4
+- **State Management**: Redux Toolkit (@reduxjs/toolkit)
+- **Animácie**: Framer Motion
+- **Ikony**: Lucide React, React Icons
+- **Emaily**: Resend API, @react-email (komponenty a render)
+- **Platby**: Stripe (React Stripe JS)
+- **Validácia**: Zod
+- **Spracovanie obrázkov**: Sharp
+
+## 🎨 Design a Vizuálny Štýl
+Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vinárstva.
+
+- **Farebná Paleta**:
+  - **Hlavná akcentná**: Modern Luxury Gold (`#D6AD60` / `--accent`)
+  - **Hover akcent**: Darker Gold (`#B58E3E` / `--accent-dark`)
+  - **Pozadie**: Čistá biela (`#ffffff`) a jemná béžová (`--accent-subtle`)
+  - **Text**: Zinc 900 (`#18181b`) pre nadpisy, Zinc 700 pre telo textu.
+- **Typografia**:
+  - **Nadpisy**: `Poppins` (moderný, elegantný sans-serif)
+  - **Telo textu**: `Inter` (vysoko čitateľný geometrický sans-serif)
+- **Ikonografia**:
+  - **Knižnice**: `lucide-react` (UI), `react-icons/si` (Brand/Social)
+  - **Štýl**: Zameranie na "Medallion" styling (ikony v kruhoch), `strokeWidth: 1.5` pre eleganciu.
+  - **Farby**: Primárne `--accent` (Zlatá) s voliteľnou výplňou.
+- **Vizuálne prvky**:
+  - **Zaoblenie**: Väčšie zaoblenia rohov (`borderRadius: 0.75rem` / `lg`).
+  - **Tlačidlá**: Výrazné zlaté CTA tlačidlá s hover efektmi a plynulými prechodmi (Framer Motion).
+  - **Obrázky**: Používanie vysokokvalitných `webp` obrázkov viníc a produktov. Banners majú `vineyard-banner.webp`.
+
+## 🛠️ Funkcie a Integrácie
+### 1. Nákupný proces a Košík
+- **Košík**: Redux store zabezpečuje perzistenciu produktov. Existuje `MiniCart.tsx` (slide-over) pre rýchly prístup.
+- **Pokladňa**: `/pokladna` s formulármi pre dodacie a fakturačné údaje.
+
+### 2. Externé Služby a API
+- **Stripe (Platobná brána)**: 
+  - Generuje `PaymentIntent` cez `/api/stripe/create-payment-intent`.
+  - Spracováva platby cez `PaymentElement`.
+  - Webhook (`/api/stripe/webhook`) automatizuje následné kroky.
+- **SuperFaktúra (Generovanie faktúr)**: 
+  - Automatické vytvorenie faktúry po úspešnej Stripe platbe.
+  - Sťahovanie PDF faktúry a jej pripojenie k emailu.
+  - Podpora Sandbox aj Production módu.
+- **Resend (Emailing)**:
+  - Odosielanie potvrdení o objednávkach, rezerváciách a kontaktných formulárov.
+  - Používa React-based šablóny v `app/emails`.
+- **Previo (Ubytovanie)**:
+  - Integrácia cez `iframe` rezervačného modulu Previon (Hot ID 782975).
+- **Google Maps**:
+  - Zobrazenie polohy vinárstva (lenivá inicializácia).
+
+### 3. Rezervácie
+- **Degustácie**: Vlastný formulár a API endpoint `/api/degustation-reservation`. Pošle email adminovi a zákazníkovi.
+- **Ubytovanie**: Cez externý systém Previo.
+
+## 📍 Hlavné body implementácie
+- **Checkout Flow**: Detailne popísaný v `CHECKOUT_FLOW.md`.
+- **Emaily**: Inline logá (CID) pre lepší vizuál v emailových klientoch.
+- **SEO**: Automaticky generovaná `sitemap.ts` a `robots.ts`.
+
+---
+*Posledná aktualizácia: 12. 2. 2026*
