@@ -70,4 +70,32 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
 - **SEO**: Automaticky generovaná `sitemap.ts` a `robots.ts`.
 
 ---
-*Posledná aktualizácia: 12. 2. 2026*
+## 5. SEO & GEO Stratégia (New 2026)
+### 🧠 Generative Engine Optimization (GEO)
+Projekt implementuje "Princeton GEO metódy" na zvýšenie viditeľnosti v AI modeloch (ChatGPT, Perplexity, Gemini).
+- **AI Context Page**: `/ai-context` (Knowledge Base pre botov). Obsahuje čisté fakty, štatistiky a citácie.
+- **FAQ Schéma**: Každá otázka v `/ai-context` má `JSON-LD FAQPage` markup.
+- **Robots.txt**: Explicitne povolené: `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Anthropic-AI`.
+
+### 🌍 Lokálne SEO (Western Slovakia)
+Cielime na zákazníkov z miest: **Bratislava, Pezinok, Trnava, Senec**.
+- **Metadata**: Keywords a Description v `layout.tsx` obsahujú tieto lokality.
+- **Schema.org**: `Winery` element obsahuje property `areaServed` s definovanými mestami.
+
+**Príklad implementácie (Layout):**
+```typescript
+"areaServed": [
+  { "@type": "City", "name": "Bratislava" },
+  { "@type": "City", "name": "Pezinok" }
+]
+```
+
+### 🛡️ Migračné Safeguards (Websupport -> Vercel)
+Pri migrácii dodržiavame striktné pravidlá:
+1. **Redirects (308)**: Staré URL (`/sluzby`, `/obchod`) musia smerovať na nové (`/degustacie`, `/vina`). Nastavené v `next.config.ts`.
+2. **Emaily**: 
+   - **MX záznamy** (Websupport) sa **NEMENIA** (prijímanie pošty).
+   - **TXT/SPF** (Resend) sa pridávajú len pre odosielanie notifikácií.
+
+---
+*Posledná aktualizácia: 12. 2. 2026 (SEO Update)*
