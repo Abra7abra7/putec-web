@@ -80,16 +80,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "Vino Putec",
+              "@type": "Winery",
+              "name": "Vino Pútec",
               "url": "https://vinoputec.sk",
+              "image": "https://vinoputec.sk/putec-logo.jpg",
               "logo": "https://vinoputec.sk/putec-logo.jpg",
+              "description": "Rodinné vinárstvo vo Vinosadoch s tradíciou. Ponúkame prémiové vína, degustácie a ubytovanie.",
               "aggregateRating": { "@type": "AggregateRating", "ratingValue": 5, "reviewCount": 31 },
-              "sameAs": [
-                "https://www.facebook.com/vinoputec",
-                "https://www.instagram.com/vinoputec/",
-                "https://www.youtube.com/channel/UC4jSLd6VZSsxC34-lS7fFMw"
-              ],
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Pezinská 154",
@@ -97,11 +94,36 @@ export default function RootLayout({
                 "postalCode": "902 01",
                 "addressCountry": "SK"
               },
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+421 903465666",
-                "contactType": "customer service",
-                "areaServed": "SK"
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 48.3092284,
+                "longitude": 17.2952674
+              },
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                  "opens": "08:00",
+                  "closes": "16:00"
+                }
+              ],
+              "telephone": "+421 903465666",
+              "email": "info@vinoputec.sk",
+              "priceRange": "€€",
+              "servesCuisine": "Slovak",
+              "sameAs": [
+                "https://www.facebook.com/vinoputec",
+                "https://www.instagram.com/vinoputec/",
+                "https://www.youtube.com/channel/UC4jSLd6VZSsxC34-lS7fFMw"
+              ],
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Venná karta",
+                "itemListElement": [
+                  { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Degustácia vín" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Ubytovanie Kúria Vinosady" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Predaj vína" } }
+                ]
               }
             })
           }}

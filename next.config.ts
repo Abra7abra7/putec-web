@@ -13,6 +13,45 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'maps.googleapis.com' },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/sluzby',
+        destination: '/degustacie',
+        permanent: true,
+      },
+      {
+        source: '/moznost-spoluprace',
+        destination: '/kontakt',
+        permanent: true,
+      },
+      {
+        source: '/obchod',
+        destination: '/vina',
+        permanent: true,
+      },
+      {
+        source: '/vinarstvo',
+        destination: '/o-nas',
+        permanent: true,
+      },
+      {
+        source: '/shop',
+        destination: '/vina',
+        permanent: true,
+      },
+      {
+        source: '/cart',
+        destination: '/kosik',
+        permanent: true,
+      },
+      {
+        source: '/checkout',
+        destination: '/pokladna',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
