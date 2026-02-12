@@ -3,11 +3,11 @@
 Tento dokument slúži ako hlavný zdroj informácií pre AI agentov pracujúcich na projekte.
 
 ## 🚀 Technologický Stack
-- **Framework**: Next.js 16.1.4 (App Router, Turbopack)
+- **Framework**: Next.js 16.1.6 (App Router, Turbopack)
 - **Frontend**: React 19.2.3, Tailwind CSS 4
 - **State Management**: Redux Toolkit (@reduxjs/toolkit)
 - **Animácie**: Framer Motion
-- **Ikony**: Lucide React, React Icons
+- **Ikony**: Lucide React, React Icons, Custom `IconWrapper`
 - **Emaily**: Resend API, @react-email (komponenty a render)
 - **Platby**: Stripe (React Stripe JS)
 - **Validácia**: Zod
@@ -26,8 +26,9 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
   - **Telo textu**: `Inter` (vysoko čitateľný geometrický sans-serif)
 - **Ikonografia**:
   - **Knižnice**: `lucide-react` (UI), `react-icons/si` (Brand/Social)
-  - **Štýl**: Zameranie na "Medallion" styling (ikony v kruhoch), `strokeWidth: 1.5` pre eleganciu.
-  - **Farby**: Primárne `--accent` (Zlatá) s voliteľnou výplňou.
+  - **Systém**: Centralizovaný cez `IconWrapper.tsx`.
+  - **Štýl**: Duo-tone zlaté ikony s jemným pozadím (`bg-accent/5`) a mikro-animáciami (zväčšenie, rotácia a odlesk na hoveri).
+  - **Hlavička & Navigácia**: Desktopové menu so zväčšeným písmom (`text-base semibold`), širšími rozostupmi a glassmorphism efektom pozadia.
 - **Vizuálne prvky**:
   - **Zaoblenie**: Väčšie zaoblenia rohov (`borderRadius: 0.75rem` / `lg`).
   - **Tlačidlá**: Výrazné zlaté CTA tlačidlá s hover efektmi a plynulými prechodmi (Framer Motion).
@@ -59,9 +60,13 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
 - **Degustácie**: Vlastný formulár a API endpoint `/api/degustation-reservation`. Pošle email adminovi a zákazníkovi.
 - **Ubytovanie**: Cez externý systém Previo.
 
+### 4. Súkromie a Cookies
+- **Cookie Banner**: Plávajúca karta s vysokou opacitou (95%), rozmazaným pozadím (backdrop-blur) a tieňovaním. Umiestnený vpravo dole pre lepšiu čitateľnosť.
+
 ## 📍 Hlavné body implementácie
 - **Checkout Flow**: Detailne popísaný v `CHECKOUT_FLOW.md`.
 - **Emaily**: Inline logá (CID) pre lepší vizuál v emailových klientoch.
+- **Next.js 16 Proxy**: Používa `proxy.ts` namiesto staršieho `middleware.ts` (Turbopack konvencia).
 - **SEO**: Automaticky generovaná `sitemap.ts` a `robots.ts`.
 
 ---
