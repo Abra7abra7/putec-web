@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Resend } from "resend";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+const fromEmail = process.env.RESEND_FROM_EMAIL || "Kontakt <onboarding@resend.dev>";
 
 // Validation schema
 const ContactSchema = z.object({
@@ -59,7 +60,7 @@ export async function sendContactMessage(
     // Send email to admin
     try {
       await resend.emails.send({
-        from: "Kontakt <onboarding@resend.dev>",
+        from: fromEmail,
         to: process.env.ADMIN_EMAIL || "info@vinoputec.sk",
         replyTo: validatedEmail,
         subject: `📧 Nová správa od ${validatedName}`,

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Resend } from "resend";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+const fromEmail = process.env.RESEND_FROM_EMAIL || "Newsletter <onboarding@resend.dev>";
 
 // Validation schema
 const NewsletterSchema = z.object({
@@ -52,7 +53,7 @@ export async function subscribeToNewsletter(
     // Send notification to admin
     try {
       await resend.emails.send({
-        from: "Newsletter <onboarding@resend.dev>",
+        from: fromEmail,
         to: process.env.ADMIN_EMAIL || "info@vinoputec.sk",
         subject: "📧 Nová registrácia do newslettera",
         text: `Nová registrácia do newslettera:\n\nEmail: ${validatedEmail}\n\nDátum: ${new Date().toLocaleString("sk-SK")}`,

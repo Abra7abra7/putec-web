@@ -58,15 +58,18 @@ interface LocalizationData {
 // Create Context
 const LocalizationContext = createContext<LocalizationData | null>(null);
 
-export function LocalizationProvider({ children }: { children: React.ReactNode }) {
-  const [localization, setLocalization] = useState<LocalizationData | null>(null);
+export function LocalizationProvider({ children, initialData }: { children: React.ReactNode; initialData: LocalizationData }) {
+  const [localization, setLocalization] = useState<LocalizationData | null>(initialData);
 
   useEffect(() => {
-    fetch("/api/localization")
-      .then((res) => res.json())
-      .then((data) => setLocalization(data))
-      .catch(() => console.error("Failed to load localization"));
-  }, []);
+    // Only fetch if initialData is somehow missing, or for valid revalidation
+    if (!initialData) {
+      fetch("/api/localization")
+        .then((res) => res.json())
+        .then((data) => setLocalization(data))
+        .catch(() => console.error("Failed to load localization"));
+    }
+  }, [initialData]);
 
   if (!localization) {
     return <p className="text-center text-gray-600">Loading...</p>; // Show loading state while fetching
