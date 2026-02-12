@@ -47,6 +47,12 @@ interface LocalizationData {
       buttonText: string;
       ctaLink: string;
     };
+    newsletter: {
+      title: string;
+      description: string;
+      placeholder: string;
+      buttonText: string;
+    };
     testimonialsTitle: string;
     testimonials: {
       id: number;
@@ -63,85 +69,116 @@ interface LocalizationData {
     imagePath: string,
     content: string
   },
+  contactForm: {
+    title: string;
+    nameLabel: string;
+    emailLabel: string;
+    messageLabel: string;
+    namePlaceholder: string;
+    emailPlaceholder: string;
+    messagePlaceholder: string;
+    buttonText: string;
+    successMessage: string;
+    errorMessage: string;
+    captchaError: string;
+  };
   copyright: string;
 }
 
 // Default Localization Fallback
 const defaultLocalization: LocalizationData = {
-  email: "contact@example.com",
-  phone: "+1 234 567 890",
-  address: "123 Main Street, Tish City",
+  email: "info@vinoputec.sk",
+  phone: "+421 903 465 666",
+  address: "Pezinská 154, 902 01 Vinosady",
   siteName: "Vino Putec",
-  siteTagline: "Your Database-Free Store",
+  siteTagline: "Rodinné vinárstvo",
   labels: {
     email: "Email",
-    phone: "Phone",
-    address: "Address",
-    quickLinks: "Quick Links",
-    contactUs: "Contact Us",
-    followUs: "Follow Us",
-    searchPlaceholder: "Search products...",
-    allCategories: "All Categories",
-    sortByName: "Sort by Name",
-    sortByPrice: "Sort by Price",
-    sortByNewest: "Sort by Newest",
-    loadingProducts: "Loading products...",
-    noProductsFound: "No products found...",
-    productDetails: "Product Details",
-    products: "Products",
-    recentProducts: "Recent Products",
-    orderConfirmationTitle: "Your Order Confirmation",
-    orderConfirmationMessage: "Your order was placed successfully. We’ll notify you once it’s processed.",
+    phone: "Telefón",
+    address: "Adresa",
+    quickLinks: "Rýchle odkazy",
+    contactUs: "Kontaktujte nás",
+    followUs: "Sledujte nás",
+    searchPlaceholder: "Hľadať produkty...",
+    allCategories: "Všetky kategórie",
+    sortByName: "Zoradiť podľa mena",
+    sortByPrice: "Zoradiť podľa ceny",
+    sortByNewest: "Zoradiť od najnovších",
+    loadingProducts: "Načítavam produkty...",
+    noProductsFound: "Neboli nájdené žiadne produkty...",
+    productDetails: "Detaily produktu",
+    products: "Vína",
+    recentProducts: "Nedávne produkty",
+    orderConfirmationTitle: "Potvrdenie objednávky",
+    orderConfirmationMessage: "Vaša objednávka bola úspešne odoslaná. Budeme vás informovať o jej spracovaní.",
   },
   menu: [
-    { label: "Homepage", href: "/" },
-    { label: "Products", href: "/vina" },
-    { label: "News", href: "/news" },
-    { label: "Contacts", href: "/contactus" },
+    { label: "Domov", href: "/" },
+    { label: "Vína", href: "/vina" },
+    { label: "O nás", href: "/o-nas" },
+    { label: "Kontakt", href: "/kontakt" },
   ],
   footerLinks: [
-    { label: "Home", href: "/" },
-    { label: "Products", href: "/vina" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Contact", href: "/contact" },
+    { label: "Domov", href: "/" },
+    { label: "Vína", href: "/vina" },
+    { label: "Degustácie", href: "/degustacie" },
+    { label: "Ubytovanie", href: "/ubytovanie" },
   ],
   legalLinks: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
+    { label: "Ochrana súkromia", href: "/ochrana-sukromia" },
+    { label: "Obchodné podmienky", href: "/obchodne-podmienky" },
   ],
   socialLinks: [
-    { id: "facebook", icon: "SiFacebook", url: "https://facebook.com/yourpage" },
-    { id: "x", icon: "SiX", url: "https://x.com/yourprofile" },
-    { id: "instagram", icon: "SiInstagram", url: "https://instagram.com/yourpage" },
-    { id: "linkedin", icon: "SiLinkedin", url: "https://linkedin.com/in/yourprofile" },
+    { id: "facebook", icon: "SiFacebook", url: "https://www.facebook.com/vinoputec" },
+    { id: "instagram", icon: "SiInstagram", url: "https://www.instagram.com/vinoputec/" },
+    { id: "youtube", icon: "SiYoutube", url: "https://www.youtube.com/channel/UC4jSLd6VZSsxC34-lS7fFMw" },
   ],
   homepage: {
     banner: {
       title: "Vitajte vo Vino Putec",
-      subtitle: "The easiest way to manage and sell your products online.",
-      buttonText: "Get Started Now",
+      subtitle: "Rodinné vinárstvo z Vinosád",
+      buttonText: "Naša ponuka",
       imagePath: "/o-nas/rodina1.JPG",
       ctaLink: "/vina",
     },
     brandStory: {
-      title: "Our Story",
+      title: "Náš príbeh",
       description:
-        "We’re a family-owned business dedicated to eco-friendly materials and fair trade practices. Our mission is to bring you high-quality, sustainable products that make a difference.",
-      buttonText: "Read More",
-      ctaLink: "/about",
+        "Sme rodinné vinárstvo oddané tradícii a kvalite. Naša misia je prinášať vám tie najlepšie vína z Malokarpatskej oblasti.",
+      buttonText: "Čítať viac",
+      ctaLink: "/o-nas",
     },
-    testimonialsTitle: "What Our Customers Say",
+    newsletter: {
+      title: "Zostaňte v obraze",
+      description: "Prihláste sa na odber noviniek a získajte informácie o nových vínach a akciách.",
+      placeholder: "Váš email",
+      buttonText: "Odoberať",
+    },
+    testimonialsTitle: "Čo hovoria naši zákazníci",
     testimonials: [],
-    brandsTitle: 'Trusted by Top Brands',
+    brandsTitle: 'Partneri',
     brands: []
   },
   about: {
-    title: "About Our Family Business",
+    title: "O našom rodinnom vinárstve",
     imagePath: "/o-nas/rodina1.JPG",
     content:
-      "We’re a family-owned business dedicated to eco-friendly materials and fair trade practices.\n\nOur mission is to bring you high-quality, sustainable products that make a difference.",
+      "Sme rodinné vinárstvo oddané tradícii a kvalite. Naša misia je prinášať vám tie najlepšie vína z Malokarpatskej oblasti.",
   },
-  copyright: "© 2025 Tishonator. All rights reserved.",
+  contactForm: {
+    title: "Napíšte nám",
+    nameLabel: "Meno",
+    emailLabel: "Email",
+    messageLabel: "Správa",
+    namePlaceholder: "Vaše meno",
+    emailPlaceholder: "Váš email",
+    messagePlaceholder: "Ako vám môžeme pomôcť?",
+    buttonText: "Odoslať správu",
+    successMessage: "Správa bola úspešne odoslaná.",
+    errorMessage: "Nepodarilo sa odoslať správu.",
+    captchaError: "Prosím, potvrďte, že nie ste robot."
+  },
+  copyright: "© 2026 Vino Putec. Všetky práva vyhradené.",
 };
 
 /**
