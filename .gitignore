@@ -38,3 +38,5 @@ next-env.d.ts.env.backup
 .env.backup
 configs/# Vino Putec Environment Variables
 next-env.d.ts
+# next-agents-md
+.next-docs/

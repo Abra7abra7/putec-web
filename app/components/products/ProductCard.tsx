@@ -39,13 +39,13 @@ export default function ProductCard({ product }: Props) {
           alt={product.Title}
           fill
           className="object-contain hover:scale-110 transition-transform duration-500 p-4"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           priority={false}
         />
-        
+
         {/* Gradient overlay na hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
+
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           {wineColor && (
@@ -54,7 +54,7 @@ export default function ProductCard({ product }: Props) {
             </Badge>
           )}
         </div>
-        
+
         {isOnSale && (
           <div className="absolute top-3 right-3">
             <Badge variant="error" className="shadow-lg">ZĽAVA</Badge>

@@ -169,43 +169,19 @@ p {
 
 /* Responsive typography scale */
 h1 {
-  @apply text-2xl font-bold tracking-tighter;
-}
-
-@media (min-width: 768px) {
-  h1 {
-    @apply text-4xl tracking-tighter;
-  }
+  @apply text-2xl font-bold tracking-tighter md:text-4xl md:tracking-tighter;
 }
 
 h2 {
-  @apply text-xl font-semibold tracking-tighter;
-}
-
-@media (min-width: 768px) {
-  h2 {
-    @apply text-3xl tracking-tighter;
-  }
+  @apply text-xl font-semibold tracking-tighter md:text-3xl md:tracking-tighter;
 }
 
 h3 {
-  @apply text-lg font-semibold tracking-tight;
-}
-
-@media (min-width: 768px) {
-  h3 {
-    @apply text-2xl tracking-tight;
-  }
+  @apply text-lg font-semibold tracking-tight md:text-2xl md:tracking-tight;
 }
 
 body {
-  @apply text-sm;
-}
-
-@media (min-width: 768px) {
-  body {
-    @apply text-base;
-  }
+  @apply text-sm md:text-base;
 }
 
 /* Screen reader only - hide visually but keep for SEO and accessibility */
@@ -250,17 +226,5 @@ body {
 }
 
 .container-padding {
-  padding: 0 24px;
-}
-
-@media (min-width: 768px) {
-  .container-padding {
-    padding: 0 48px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container-padding {
-    padding: 0 64px;
-  }
+  @apply px-6 md:px-12 lg:px-16;
 }
