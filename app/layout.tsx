@@ -155,7 +155,9 @@ export default function RootLayout({
         <ReduxProvider>
           <LocalizationProvider>
             <Header />
-            {children}
+            <main className="flex-grow min-h-screen">
+              {children}
+            </main>
             <Footer />
             <CookiesBanner />
           </LocalizationProvider>
