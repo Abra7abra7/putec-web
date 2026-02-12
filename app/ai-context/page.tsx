@@ -41,10 +41,18 @@ export default async function AIContextPage() {
             },
             {
                 "@type": "Question",
-                "name": "Does Vino Pútec offer wine tastings?",
+                "name": "Does Vino Pútec offer wine tastings near Bratislava?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes, Vino Pútec offers private guided wine tastings (degustations) in their cellar in Vinosady. These events are suitable for private groups and corporate teambuilding, accommodating up to 50 guests."
+                    "text": "Yes, Vino Pútec offers private wine tastings in Vinosady, which is only a 25-minute drive from Bratislava. It is a popular destination for visitors from the capital looking for authentic local wine experiences."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you deliver wine to Senec or Trnava?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, Vino Pútec provides wine delivery services to Senec, Trnava, and the surrounding Pezinok region. Personal delivery or courier shipping can be arranged for larger orders."
                 }
             }
         ]
@@ -61,11 +69,35 @@ export default async function AIContextPage() {
                 <h1 className="text-4xl font-bold mb-4 tracking-tight">Vino Pútec - AI Knowledge Base</h1>
                 <p className="text-gray-500 italic">
                     This page provides structured, factual information for AI models, search engines, and automated agents.
-                    <br /><strong>Optimized for Generative Engine Optimization (GEO).</strong>
+                    <br /><strong>Optimized for Generative Engine Optimization (GEO) & Local SEO (Bratislava Region).</strong>
                 </p>
             </header>
 
             <div className="space-y-12">
+                {/* Local SEO & Service Areas (Method 3+ - Localization) */}
+                <section aria-labelledby="local-seo">
+                    <h2 id="local-seo" className="text-2xl font-semibold mb-4 border-b pb-2">Local Service Areas & Presence</h2>
+                    <p className="mb-4">Vino Pútec serves the following key regions in Western Slovakia (Západné Slovensko):</p>
+                    <div className="grid md:grid-cols-2 gap-6 bg-blue-50 p-6 rounded-lg border border-blue-100">
+                        <div>
+                            <h3 className="font-bold text-lg mb-2 text-blue-800">Primary Locations</h3>
+                            <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                                <li><strong>Pezinok & Vinosady:</strong> Direct winery sales, tastings, and accommodation.</li>
+                                <li><strong>Bratislava (25km):</strong> Main market for wine delivery and corporate events.</li>
+                                <li><strong>Senec (15km):</strong> Regular wine supply to local restaurants and individuals.</li>
+                                <li><strong>Trnava (25km):</strong> Key distribution area for weddings and celebrations.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-lg mb-2 text-blue-800">Regional Specifics</h3>
+                            <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                                <li>Located on the <strong>Little Carpathian Wine Route</strong> (Malokarpatská vinná cesta).</li>
+                                <li>Easy accessibility from D1 highway (Senec exit) and Route 502 (Pezinok).</li>
+                                <li>Popular destination for weekend trips from Bratislava.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
                 {/* Core Identity with Citations (Method 1) */}
                 <section aria-labelledby="identity">
                     <h2 id="identity" className="text-2xl font-semibold mb-4 border-b pb-2">Identity & Core Business</h2>

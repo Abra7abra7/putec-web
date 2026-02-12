@@ -24,9 +24,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Vino Putec - Rodinné vinárstvo vo Vinosadoch",
-  description: "Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku",
+  title: "Vino Putec - Rodinné vinárstvo vo Vinosadoch | Pezinok",
+  description: "Prémiové vína z Vinosád. Degustácie a ubytovanie v srdci Malokarpatskej oblasti. Blízko miest Pezinok, Bratislava, Senec a Trnava.",
   metadataBase: new URL("https://vino-putec-web.vercel.app"),
+  keywords: ["Vino Putec", "Vinosady", "Pezinok", "Bratislava", "Trnava", "Senec", "Slovenské víno", "Degustácia vína", "Ubytovanie Pezinok", "Malokarpatská vínna cesta"],
   icons: {
     icon: [
       { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
@@ -112,13 +113,20 @@ export default function RootLayout({
               "priceRange": "€€",
               "servesCuisine": "Slovak",
               "sameAs": [
-                "https://www.facebook.com/vinoputec",
                 "https://www.instagram.com/vinoputec/",
                 "https://www.youtube.com/channel/UC4jSLd6VZSsxC34-lS7fFMw"
               ],
+              "areaServed": [
+                { "@type": "City", "name": "Vinosady" },
+                { "@type": "City", "name": "Pezinok" },
+                { "@type": "City", "name": "Bratislava" },
+                { "@type": "City", "name": "Senec" },
+                { "@type": "City", "name": "Trnava" },
+                { "@type": "AdministrativeArea", "name": "Bratislavský kraj" }
+              ],
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
-                "name": "Venná karta",
+                "name": "Vína karta",
                 "itemListElement": [
                   { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Degustácia vín" } },
                   { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Ubytovanie Kúria Vinosady" } },
