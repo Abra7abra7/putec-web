@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { useLocalization } from "../context/LocalizationContext";
 import { ShoppingCart, X, Plus, Minus } from "lucide-react";
@@ -10,7 +11,11 @@ import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
 import { registerMiniCartTrigger } from "../utils/MiniCartController";
 import IconWrapper from "./ui/IconWrapper";
 
-export default function MiniCart() {
+interface MiniCartProps {
+  disableHover?: boolean;
+}
+
+export default function MiniCart({ disableHover = false }: MiniCartProps) {
   const cartItems = useAppSelector((state) => state.cart.items);
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalAmount = cartItems.reduce(
@@ -81,8 +86,8 @@ export default function MiniCart() {
   return (
     <div
       className="relative"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={!disableHover ? handleMouseEnter : undefined}
+      onMouseLeave={!disableHover ? handleMouseLeave : undefined}
       ref={containerRef}
     >
       {/* Cart Icon - kliknuteľný na mobile, hover na desktop */}
@@ -100,18 +105,19 @@ export default function MiniCart() {
         </span>
       </button>
 
-      {/* Mini Cart Dropdown/Overlay */}
-      {isVisible && (
+      {/* Mini Cart Dropdown/Overlay - Rendered via Portal to escape Header stacking context */}
+      {isVisible && typeof document !== 'undefined' && createPortal(
         <>
           {/* Backdrop na mobile */}
           <div
-            className="fixed inset-0 bg-black/50 z-[65] md:hidden"
+            className="fixed inset-0 bg-black/50 z-[9998] md:hidden"
             onClick={closeCart}
           />
 
           {/* Cart content */}
           <div
-            className="fixed md:absolute right-0 top-0 md:top-auto md:mt-2 w-full md:w-96 max-w-md h-full md:h-auto bg-white border-l md:border border-accent/20 shadow-2xl md:rounded-2xl z-[70] p-6 overflow-y-auto"
+            className="fixed md:absolute right-0 top-0 md:top-20 md:right-10 w-full md:w-96 max-w-md h-full md:h-auto bg-white border-l md:border border-accent/20 shadow-2xl md:rounded-2xl z-[9999] p-6 overflow-y-auto"
+            style={typeof window !== 'undefined' && window.innerWidth >= 768 ? { position: 'fixed', top: '80px', right: '20px' } : {}}
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-foreground">
@@ -135,7 +141,7 @@ export default function MiniCart() {
               </div>
             ) : (
               <>
-                <div className="space-y-4 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-4 md:max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                   {cartItems.map((item) => {
                     const price = parseFloat(item.SalePrice || item.RegularPrice);
 
@@ -153,6 +159,7 @@ export default function MiniCart() {
                           <Link
                             href={`/vina/${item.Slug}`}
                             className="text-sm font-bold text-foreground hover:text-accent transition-colors block truncate"
+                            onClick={closeCart}
                           >
                             {item.Title}
                           </Link>
@@ -221,6 +228,7 @@ export default function MiniCart() {
                 </div>
                 <Link
                   href="/kosik"
+                  onClick={closeCart}
                   className="mt-4 inline-block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
                 >
                   {labels.viewCart || "Zobraziť košík"}
@@ -228,6 +236,7 @@ export default function MiniCart() {
 
                 <Link
                   href="/pokladna"
+                  onClick={closeCart}
                   className="mt-4 inline-block w-full text-center bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
                 >
                   {labels.proceedToCheckout || "Pokračovať k objednávke"}
@@ -235,7 +244,8 @@ export default function MiniCart() {
               </>
             )}
           </div>
-        </>
+        </>,
+        document.body
       )}
     </div>
   );

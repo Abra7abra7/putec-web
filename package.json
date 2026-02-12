@@ -10,6 +10,7 @@
     "images:opt": "node scripts/optimize-images.cjs"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4",
     "@react-email/components": "^1.0.0",
     "@react-email/render": "^2.0.0",
     "@reduxjs/toolkit": "^2.8.2",

@@ -27,9 +27,7 @@ export default async function Header() {
           </div>
 
           <div className="ml-4">
-            <ReduxProvider>
-              <MiniCart />
-            </ReduxProvider>
+            <MiniCart />
           </div>
         </div>
       </header>

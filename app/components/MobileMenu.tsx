@@ -69,9 +69,9 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
   }, [isMenuOpen]);
 
   return (
-    <ReduxProvider>
+    <>
       {/* Mobile Header Buttons (Burger + Cart) */}
-      <div className="flex items-center gap-2 md:hidden">
+      <div className={`flex items-center gap-2 md:hidden ${isMenuOpen ? "relative z-[61]" : ""}`}>
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-haspopup="dialog"
@@ -84,7 +84,7 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
         </button>
 
         {!isCartOrCheckoutPage &&
-          <MiniCart />
+          <MiniCart disableHover={true} />
         }
       </div>
 
@@ -118,7 +118,7 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
           </nav>
         </div>
       )}
-    </ReduxProvider>
+    </>
   );
 };
 
