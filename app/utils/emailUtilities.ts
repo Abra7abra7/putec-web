@@ -3,8 +3,6 @@ import { render } from '@react-email/render';
 import { getLocalization } from "./getLocalization";
 import { Product } from "../../types/Product";
 import { downloadInvoicePDF } from "./superFakturaApi";
-import fs from 'fs';
-import path from 'path';
 import OrderConfirmationAdmin from '../emails/OrderConfirmationAdmin';
 import OrderConfirmationCustomer from '../emails/OrderConfirmationCustomer';
 
@@ -149,10 +147,6 @@ export async function sendAdminEmail(body: OrderBody) {
   const localization = await getLocalization();
   const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
-  const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
-  const logoBuffer = fs.readFileSync(logoPath);
-  const logoBase64 = `data:image/jpeg;base64,${logoBuffer.toString('base64')}`;
-
   // Render React Email component to HTML
   const html = await render(
     OrderConfirmationAdmin({
@@ -169,7 +163,6 @@ export async function sendAdminEmail(body: OrderBody) {
       total,
       shippingMethod: body.shippingMethod.name,
       paymentMethod: paymentMethodName,
-      logoSrc: logoBase64,
     })
   );
 
@@ -203,10 +196,6 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
   const localization = await getLocalization();
   const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
-  const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
-  const logoBuffer = fs.readFileSync(logoPath);
-  const logoBase64 = `data:image/jpeg;base64,${logoBuffer.toString('base64')}`;
-
   // Render React Email component to HTML
   const html = await render(
     OrderConfirmationCustomer({
@@ -219,7 +208,6 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
       total,
       shippingMethod: body.shippingMethod.name,
       paymentMethod: paymentMethodName,
-      logoSrc: logoBase64,
     })
   );
 

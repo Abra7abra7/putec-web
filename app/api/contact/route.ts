@@ -2,16 +2,8 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { render } from '@react-email/render';
 import ContactForm from '../../emails/ContactForm';
-import fs from 'fs';
-import path from 'path';
 
 // Load logo as inline attachment (no filename to prevent it from appearing as attachment)
-const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
-const logoBuffer = fs.readFileSync(logoPath);
-const logoAttachment = {
-  content: logoBuffer,
-  cid: 'logo', // Content-ID for inline reference in HTML
-};
 
 export async function POST(req: Request) {
   const { name, email, message } = await req.json();
@@ -27,10 +19,8 @@ export async function POST(req: Request) {
   // Setup Resend
   const resend = new Resend(process.env.RESEND_API_KEY);
 
-  const logoBase64 = `data:image/jpeg;base64,${logoBuffer.toString('base64')}`;
-
   try {
-    const contactHTML = await render(ContactForm({ name, email, message, logoSrc: logoBase64 }));
+    const contactHTML = await render(ContactForm({ name, email, message }));
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL!,
       to: process.env.ADMIN_EMAIL!,

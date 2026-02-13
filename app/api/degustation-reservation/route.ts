@@ -3,8 +3,6 @@ import { Resend } from 'resend';
 import { render } from '@react-email/render';
 import DegustationReservationAdmin from '../../emails/DegustationReservationAdmin';
 import DegustationReservationCustomer from '../../emails/DegustationReservationCustomer';
-import fs from 'fs';
-import path from 'path';
 
 // Initialize Resend lazily to prevent build errors when API key is missing
 const getResend = () => {
@@ -18,13 +16,7 @@ const getResend = () => {
 
 const resend = getResend();
 
-// Load logo as inline attachment (no filename to prevent it from appearing as attachment)
-const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
-const logoBuffer = fs.readFileSync(logoPath);
-const logoAttachment = {
-  content: logoBuffer,
-  cid: 'logo', // Content-ID for inline reference in HTML
-};
+// Initialize Resend lazily to prevent build errors when API key is missing
 
 interface ReservationData {
   name: string;
@@ -49,8 +41,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Send admin email
-    const logoBase64 = `data:image/jpeg;base64,${logoBuffer.toString('base64')}`;
-    const adminEmailHTML = await render(DegustationReservationAdmin({ ...body, logoSrc: logoBase64 }));
+    const adminEmailHTML = await render(DegustationReservationAdmin(body));
 
     console.log("📧 Sending admin email to:", process.env.ADMIN_EMAIL);
     console.log("📧 From email:", process.env.RESEND_FROM_EMAIL);
@@ -65,7 +56,7 @@ export async function POST(req: NextRequest) {
     console.log("✅ Admin email sent:", adminResult);
 
     // Send customer email
-    const customerEmailHTML = await render(DegustationReservationCustomer({ ...body, logoSrc: logoBase64 }));
+    const customerEmailHTML = await render(DegustationReservationCustomer(body));
 
     console.log("📧 Sending customer email to:", body.email);
 

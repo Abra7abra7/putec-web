@@ -8,7 +8,7 @@ import { useLocalization } from "../context/LocalizationContext";
 import { ShoppingCart, X, Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
+import { removeFromCart, updateQuantity, addToCart } from "../store/slices/cartSlice";
 import { registerMiniCartTrigger } from "../utils/MiniCartController";
 import IconWrapper from "./ui/IconWrapper";
 

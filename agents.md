@@ -65,9 +65,18 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
 
 ## 📍 Hlavné body implementácie
 - **Checkout Flow**: Detailne popísaný v `CHECKOUT_FLOW.md`.
-- **Emaily**: Inline logá (CID) pre lepší vizuál v emailových klientoch.
+- **Emaily**: 
+  - Logá sú vkladané ako **Base64** (`fs.readFileSync`), aby sa predišlo problémom s externými URL a blokovaním obrázkov.
+  - Šablóny (`OrderConfirmation`, `ContactForm`, `DegustationReservation`) prijímajú prop `logoSrc`.
+  - **POZOR**: Base64 stringy môžu byť blokované niektorými email klientmi (Outlook, Gmail). Fallback na verejnú URL je odporúčaný ak Base64 zlyhá.
 - **Next.js 16 Proxy**: Používa `proxy.ts` namiesto staršieho `middleware.ts` (Turbopack konvencia).
 - **SEO**: Automaticky generovaná `sitemap.ts` a `robots.ts`.
+- **Known Issues & Fixes**:
+  - **Hydration Error v Košíku**: Vyriešené pridaním `isMounted` checku v `CartContent` (Client-side rendering mismatch s `localStorage`).
+  - **Localhost Crash (macOS)**: Používame `next dev --webpack` a downgrade `sharp` na `0.32.6` kvôli inkompatibilite s Turbopackom/libvips.
+  - **Image Optimization**: V `next.config.ts` je dočasne `unoptimized: true` pre local dev, ale v produkcii by malo byť povolené (ak `sharp` funguje).
+  - **Stripe**: Odstránený `charge.succeeded` webhook handler (duplicitné faktúry), spoliehame sa na `payment_intent.succeeded`.
+  - **Vercel Deployment**: Public assets (`/putec-logo.jpg`) sa môžu javiť ako 404 ak build cache nie je invalidovaná. Nutné preveriť `public` folder v builde.
 
 ---
 ## 5. SEO & GEO Stratégia (New 2026)
