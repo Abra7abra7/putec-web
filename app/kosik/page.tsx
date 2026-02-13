@@ -11,11 +11,18 @@ import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
 import { showMiniCart } from "../utils/MiniCartController";
 import { X, Plus, Minus } from "lucide-react";
 
+import { useState, useEffect } from "react";
+
 function CartContent() {
   const { labels } = useLocalization();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const items = useAppSelector((state) => state.cart.items);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const total = items.reduce(
     (sum, item) => sum + item.quantity * parseFloat(item.SalePrice || item.RegularPrice),
@@ -60,7 +67,7 @@ function CartContent() {
           <h1 className="text-3xl font-bold text-foreground">Váš košík</h1>
         </div>
 
-        {items.length === 0 ? (
+        {!isMounted || items.length === 0 ? (
           <p className="text-gray-600 mt-10 mb-30 text-center">{labels.cartEmpty || "Your cart is empty."}</p>
         ) : (
           <>

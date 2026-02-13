@@ -7,6 +7,7 @@ import { useCheckoutSettings } from "../../context/CheckoutContext";
 
 export default function StripeClientSecretLoader() {
   const [clientSecret, setClientSecret] = useState("");
+  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -30,68 +31,79 @@ export default function StripeClientSecretLoader() {
     ) + shippingCost;
 
   useEffect(() => {
+    // Flag to prevent race conditions or updates after unmount
+    let isMounted = true;
+
     const loadSecret = async () => {
       console.log('🔍 StripeClientSecretLoader - orderId:', orderId);
-      console.log('🔍 StripeClientSecretLoader - cartItems.length:', cartItems.length);
-      console.log('🔍 StripeClientSecretLoader - shippingMethod:', shippingMethod);
-      
+
       if (!orderId || cartItems.length === 0 || !shippingMethod) return;
 
-      const res = await fetch("/api/stripe/create-payment-intent", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: Math.round(total * 100), // Stripe expects cents
-          currency,
-          orderId,
-          cartItems,
-          shippingMethodName: shippingMethod.name,
-          shippingCost,
-          customerEmail: shippingForm?.email,
-          customerName: `${shippingForm?.firstName || ''} ${shippingForm?.lastName || ''}`.trim(),
-          shippingForm,
-          billingForm,
-          paymentMethodId, // Send payment method to track in metadata
-        }),
-      });
+      try {
+        const res = await fetch("/api/stripe/create-payment-intent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: Math.round(total * 100), // Stripe expects cents
+            currency,
+            orderId,
+            cartItems,
+            shippingMethodName: shippingMethod.name,
+            shippingCost,
+            customerEmail: shippingForm?.email,
+            customerName: `${shippingForm?.firstName || ''} ${shippingForm?.lastName || ''}`.trim(),
+            shippingForm,
+            billingForm,
+            paymentMethodId,
+            paymentIntentId: paymentIntentId || undefined, // Send existing ID if available
+          }),
+        });
 
-      const data = await res.json();
-      
-      if (res.ok && data.clientSecret) {
-        setClientSecret(data.clientSecret);
+        const data = await res.json();
 
-        const orderData = {
-          orderId,
-          orderDate,
-          cartItems,
-          shippingForm,
-          billingForm,
-          shippingMethod,
-          paymentMethodId: 'stripe', // Explicitne nastaviť 'stripe' pre Stripe platby
-        };
+        if (isMounted && res.ok && data.clientSecret) {
+          setClientSecret(data.clientSecret);
+          // Update local state with the returned ID (whether new or existing)
+          if (data.paymentIntentId) {
+            setPaymentIntentId(data.paymentIntentId);
+          }
 
-        console.log('💾 StripeClientSecretLoader - Saving order data with paymentMethodId:', orderData.paymentMethodId);
+          const orderData = {
+            orderId,
+            orderDate,
+            cartItems,
+            shippingForm,
+            billingForm,
+            shippingMethod,
+            paymentMethodId: 'stripe',
+          };
 
-        // Store order data for webhook processing
-        localStorage.setItem("recentOrder", JSON.stringify(orderData));
-        localStorage.setItem("stripeOrderData", JSON.stringify(orderData));
-      } else {
-        console.error("❌ Stripe API Error:", data.error || "No clientSecret returned");
-        console.error("❌ Response status:", res.status);
-        console.error("❌ Full response:", data);
-        
-        // Show user-friendly error message
-        if (data.error === "Stripe not configured") {
-          console.error("💡 Stripe is not configured. Please set up Stripe API keys in environment variables.");
+          // Store order data for webhook processing
+          localStorage.setItem("recentOrder", JSON.stringify(orderData));
+          localStorage.setItem("stripeOrderData", JSON.stringify(orderData));
+        } else if (isMounted) {
+          console.error("❌ Stripe API Error:", data.error || "No clientSecret returned");
         }
+      } catch (error) {
+        if (isMounted) console.error("❌ Failed to load payment intent:", error);
       }
     };
 
-    loadSecret();
+    // Debounce slightly to prevent double-calls in strict mode if possible, 
+    // or just rely on the API update logic.
+    const timer = setTimeout(() => {
+      loadSecret();
+    }, 500); // 500ms debounce
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
   }, [
     total,
     orderId,
-    orderDate,
+    // Remove individual dependencies that contribute to total/orderId to reduce re-renders,
+    // but we need them for body payload. The debounce helps.
     cartItems,
     shippingForm,
     billingForm,
@@ -99,7 +111,7 @@ export default function StripeClientSecretLoader() {
     shippingCost,
     paymentMethodId,
     currency,
-    dispatch,
+    // paymentIntentId is NOT in dependency array to avoid infinite loop!
   ]);
 
   if (!clientSecret) {

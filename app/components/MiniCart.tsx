@@ -216,19 +216,55 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                 <div className="mt-6 pt-4 border-t border-gray-100">
                   <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Mohlo by sa vám hodiť</h3>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer">
+                    <div
+                      className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer"
+                      onClick={() => {
+                        dispatch(addToCart({
+                          ID: "wine-032",
+                          Title: "Parížske Zlato - Vinný set",
+                          Slug: "parizske-zlato-set",
+                          RegularPrice: "23.90",
+                          SalePrice: "23.90",
+                          FeatureImageURL: "/vina/set-parizske-zlato.jpg",
+                          Enabled: true,
+                          CatalogVisible: true,
+                          ProductCategories: ["Sety vín", "Ocenené vína"],
+                          ProductType: "wine-set",
+                          Currency: "EUR"
+                        } as any)); // Type assertion for brevity in hardcoded item
+                        setIsVisible(true); // Keep cart open
+                      }}
+                    >
                       <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
-                        <Image src="/vina/degustacny-set.webp" alt="Degustačný set" fill className="object-cover group-hover:scale-105 transition-transform" />
+                        <Image src="/vina/set-parizske-zlato.jpg" alt="Parížske Zlato - Vinný set" fill className="object-cover group-hover:scale-105 transition-transform" />
                       </div>
-                      <p className="text-[10px] font-bold text-foreground truncate">Degustačný set 3ks</p>
-                      <p className="text-[10px] text-accent font-bold">€24.90</p>
+                      <p className="text-[10px] font-bold text-foreground truncate">Parížske Zlato - Vinný set</p>
+                      <p className="text-[10px] text-accent font-bold">€23.90</p>
                     </div>
-                    <div className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer">
+                    <div
+                      className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer"
+                      onClick={() => {
+                        dispatch(addToCart({
+                          ID: "wine-018",
+                          Title: "Cabernet Sauvignon Rosé 2024",
+                          Slug: "cabernet-sauvignon-rose-2024",
+                          RegularPrice: "11.90",
+                          SalePrice: "11.90",
+                          FeatureImageURL: "/vina/cabernet-sauvignon-rose-2024.jpg",
+                          Enabled: true,
+                          CatalogVisible: true,
+                          ProductCategories: ["Ružové vína", "Polosuché vína"],
+                          ProductType: "wine",
+                          Currency: "EUR"
+                        } as any));
+                        setIsVisible(true);
+                      }}
+                    >
                       <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
-                        <Image src="/vina/darcekove-balenie.webp" alt="Darčekové balenie" fill className="object-cover group-hover:scale-105 transition-transform" />
+                        <Image src="/vina/cabernet-sauvignon-rose-2024.jpg" alt="Cabernet Sauvignon Rosé 2024" fill className="object-cover group-hover:scale-105 transition-transform" />
                       </div>
-                      <p className="text-[10px] font-bold text-foreground truncate">Darčekové balenie</p>
-                      <p className="text-[10px] text-accent font-bold">€3.50</p>
+                      <p className="text-[10px] font-bold text-foreground truncate">Cabernet Sauvignon Rosé 2024</p>
+                      <p className="text-[10px] text-accent font-bold">€11.90</p>
                     </div>
                   </div>
                 </div>

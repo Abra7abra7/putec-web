@@ -49,7 +49,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Send admin email
-    const adminEmailHTML = await render(DegustationReservationAdmin(body));
+    const logoBase64 = `data:image/jpeg;base64,${logoBuffer.toString('base64')}`;
+    const adminEmailHTML = await render(DegustationReservationAdmin({ ...body, logoSrc: logoBase64 }));
 
     console.log("📧 Sending admin email to:", process.env.ADMIN_EMAIL);
     console.log("📧 From email:", process.env.RESEND_FROM_EMAIL);
@@ -59,13 +60,12 @@ export async function POST(req: NextRequest) {
       to: process.env.ADMIN_EMAIL!,
       subject: `🍷 Nová rezervácia degustácie od ${body.name}`,
       html: adminEmailHTML,
-      attachments: [logoAttachment],
     });
 
     console.log("✅ Admin email sent:", adminResult);
 
     // Send customer email
-    const customerEmailHTML = await render(DegustationReservationCustomer(body));
+    const customerEmailHTML = await render(DegustationReservationCustomer({ ...body, logoSrc: logoBase64 }));
 
     console.log("📧 Sending customer email to:", body.email);
 
@@ -74,7 +74,6 @@ export async function POST(req: NextRequest) {
       to: body.email,
       subject: '🍷 Potvrdenie rezervácie degustácie - Vino Pútec',
       html: customerEmailHTML,
-      attachments: [logoAttachment],
     });
 
     console.log("✅ Customer email sent:", customerResult);

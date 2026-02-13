@@ -27,14 +27,15 @@ export async function POST(req: Request) {
   // Setup Resend
   const resend = new Resend(process.env.RESEND_API_KEY);
 
+  const logoBase64 = `data:image/jpeg;base64,${logoBuffer.toString('base64')}`;
+
   try {
-    const contactHTML = await render(ContactForm({ name, email, message }));
+    const contactHTML = await render(ContactForm({ name, email, message, logoSrc: logoBase64 }));
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL!,
       to: process.env.ADMIN_EMAIL!,
       subject: `Kontaktný formulár od ${name}`,
       html: contactHTML,
-      attachments: [logoAttachment],
     });
 
     return NextResponse.json({ success: true });

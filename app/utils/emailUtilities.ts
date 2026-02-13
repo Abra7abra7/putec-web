@@ -75,26 +75,8 @@ export async function sendEmail({
     console.log("📧 Has HTML:", !!html);
     console.log("📧 Has attachments:", !!attachments?.length);
     console.log("📧 Resend API Key exists:", !!process.env.RESEND_API_KEY);
-    
+
     const resend = new Resend(process.env.RESEND_API_KEY);
-
-    // Load logo as inline attachment (no filename to prevent it from appearing as attachment)
-    const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
-    const logoBuffer = fs.readFileSync(logoPath);
-    
-    // Logo as inline-only (no filename, only CID for inline display)
-    const logoInline = {
-      content: logoBuffer,
-      cid: 'logo', // Content-ID for inline reference in HTML
-    };
-    
-    const allAttachments = [
-      logoInline,
-      ...(attachments || []),
-    ];
-
-    console.log("📧 Including inline logo (CID: logo) - not sent as attachment");
-    console.log("📧 Total attachments (excluding inline logo):", attachments?.length || 0);
 
     // Build email data with only defined properties
     const emailData: {
@@ -108,7 +90,7 @@ export async function sendEmail({
       from: process.env.RESEND_FROM_EMAIL!,
       to,
       subject,
-      attachments: allAttachments,
+      attachments: attachments || [],
     };
 
     // Add html or text if provided
@@ -167,6 +149,10 @@ export async function sendAdminEmail(body: OrderBody) {
   const localization = await getLocalization();
   const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
+  const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
+  const logoBuffer = fs.readFileSync(logoPath);
+  const logoBase64 = `data:image/jpeg;base64,${logoBuffer.toString('base64')}`;
+
   // Render React Email component to HTML
   const html = await render(
     OrderConfirmationAdmin({
@@ -183,11 +169,12 @@ export async function sendAdminEmail(body: OrderBody) {
       total,
       shippingMethod: body.shippingMethod.name,
       paymentMethod: paymentMethodName,
+      logoSrc: logoBase64,
     })
   );
 
   const adminEmail = process.env.ADMIN_EMAIL;
-  
+
   if (!adminEmail) {
     console.warn("⚠️ ADMIN_EMAIL not set. Skipping admin email.");
     return;
@@ -216,6 +203,10 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
   const localization = await getLocalization();
   const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
+  const logoPath = path.join(process.cwd(), 'public', 'putec-logo.jpg');
+  const logoBuffer = fs.readFileSync(logoPath);
+  const logoBase64 = `data:image/jpeg;base64,${logoBuffer.toString('base64')}`;
+
   // Render React Email component to HTML
   const html = await render(
     OrderConfirmationCustomer({
@@ -228,12 +219,13 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
       total,
       shippingMethod: body.shippingMethod.name,
       paymentMethod: paymentMethodName,
+      logoSrc: logoBase64,
     })
   );
 
   // Try to attach PDF invoice if SuperFaktura is configured and invoiceId is provided
   let attachments: Array<{ filename: string; content: Buffer }> | undefined;
-  
+
   if (invoiceId && process.env.SUPERFAKTURA_API_KEY) {
     console.log("📎 Attempting to attach PDF invoice to customer email");
     console.log("   - Invoice ID:", invoiceId);

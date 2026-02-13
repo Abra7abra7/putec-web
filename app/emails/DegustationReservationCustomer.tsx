@@ -23,6 +23,7 @@ interface DegustationReservationCustomerProps {
   productTitle: string;
   productPrice: string;
   productDeposit?: string;
+  logoSrc?: string;
 }
 
 export const DegustationReservationCustomer = ({
@@ -36,6 +37,7 @@ export const DegustationReservationCustomer = ({
   productTitle = 'Degustácia vín',
   productPrice = '€25/os',
   productDeposit,
+  logoSrc = 'https://vino-putec-web.vercel.app/putec-logo.jpg',
 }: DegustationReservationCustomerProps) => {
   const previewText = 'Potvrdenie rezervácie degustácie - Vino Putec';
 
@@ -48,7 +50,7 @@ export const DegustationReservationCustomer = ({
           {/* Header */}
           <Section style={header}>
             <Img
-              src="cid:logo"
+              src={logoSrc}
               width="80"
               height="80"
               alt="Vino Putec Logo"

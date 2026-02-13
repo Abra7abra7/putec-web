@@ -183,9 +183,10 @@ export async function POST(request: NextRequest) {
         break;
 
       // Fallback: some accounts may see timing anomalies; use charge.succeeded
-      case "charge.succeeded":
-        await handleChargeSucceeded(event.data.object as Stripe.Charge);
-        break;
+      // REMOVED to prevent duplicates: listening to payment_intent.succeeded is sufficient
+      // case "charge.succeeded":
+      //   await handleChargeSucceeded(event.data.object as Stripe.Charge);
+      //   break;
 
       case "payment_intent.payment_failed":
         handlePaymentIntentFailed(event.data.object as Stripe.PaymentIntent);

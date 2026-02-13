@@ -60,6 +60,7 @@ interface OrderConfirmationAdminProps {
   total: number;
   shippingMethod: string;
   paymentMethod: string;
+  logoSrc?: string;
 }
 
 export const OrderConfirmationAdmin = ({
@@ -91,6 +92,7 @@ export const OrderConfirmationAdmin = ({
   total = 0,
   shippingMethod = 'Slovenská pošta',
   paymentMethod = 'Dobierka',
+  logoSrc = 'https://vino-putec-web.vercel.app/putec-logo.jpg',
 }: OrderConfirmationAdminProps) => {
   const previewText = `Nová objednávka ${orderId} od ${customerName}`;
 
@@ -103,7 +105,7 @@ export const OrderConfirmationAdmin = ({
           {/* Header */}
           <Section style={header}>
             <Img
-              src="cid:logo"
+              src={logoSrc}
               width="80"
               height="80"
               alt="Vino Putec Logo"

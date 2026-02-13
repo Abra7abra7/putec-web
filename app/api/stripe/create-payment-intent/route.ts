@@ -63,6 +63,7 @@ const PaymentIntentSchema = z.object({
   shippingForm: BillingAddressSchema.optional(),
   billingForm: BillingAddressSchema.optional(),
   paymentMethodId: z.string().optional(),
+  paymentIntentId: z.string().optional(), // ID existujúceho intentu pre update
 });
 
 /**
@@ -151,7 +152,7 @@ export async function POST(request: NextRequest) {
     // Add billing metadata
     if (billingForm) {
       metadata["billing_is_company"] = billingForm.isCompany ? "1" : "0";
-      
+
       if (billingForm.isCompany) {
         if (billingForm.companyName) metadata["billing_company_name"] = billingForm.companyName;
         if (billingForm.companyICO) metadata["billing_company_ico"] = billingForm.companyICO;
@@ -185,7 +186,7 @@ export async function POST(request: NextRequest) {
       metadata["shipping_phone"] = shippingForm.phone || "";
       metadata["shipping_email"] = shippingForm.email;
       metadata["shipping_is_company"] = shippingForm.isCompany ? "1" : "0";
-      
+
       if (shippingForm.isCompany) {
         if (shippingForm.companyName) metadata["shipping_company_name"] = shippingForm.companyName;
         if (shippingForm.companyICO) metadata["shipping_company_ico"] = shippingForm.companyICO;
@@ -196,15 +197,64 @@ export async function POST(request: NextRequest) {
 
     // Create PaymentIntent without customer to avoid Link
     // Customer not needed for one-time payments
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency: currency.toLowerCase(),
-      description: `${siteName} Order ${orderId}`,
-      metadata,
-      payment_method_types: ['card'], // Len karty (+ Google/Apple Pay automaticky)
-      // Bez customer a setup_future_usage - nebude Link ani možnosť ukladať karty
-      receipt_email: customerEmail, // Email na potvrdenie
-    });
+    // Check if we can update an existing PaymentIntent
+    // ----------------------------------------------------------------
+    let paymentIntent: Stripe.PaymentIntent;
+
+    if (validationResult.data.paymentIntentId) {
+      try {
+        console.log(`🔍 Checking existing PaymentIntent: ${validationResult.data.paymentIntentId}`);
+        const existingIntent = await stripe.paymentIntents.retrieve(validationResult.data.paymentIntentId);
+
+        // We can only update if it's not succeeded/canceled/processing
+        if (
+          existingIntent.status === 'requires_payment_method' ||
+          existingIntent.status === 'requires_confirmation' ||
+          existingIntent.status === 'requires_action'
+        ) {
+          console.log(`🔄 Updating existing PaymentIntent: ${existingIntent.id}`);
+          paymentIntent = await stripe.paymentIntents.update(existingIntent.id, {
+            amount,
+            currency: currency.toLowerCase(),
+            metadata, // Update metadata just in case items changed
+            receipt_email: customerEmail,
+          });
+        } else {
+          console.log(`⚠️ Existing Intent status is ${existingIntent.status}, creating new one.`);
+          // Create new if old one is effectively 'done' or invalid state for update
+          paymentIntent = await stripe.paymentIntents.create({
+            amount,
+            currency: currency.toLowerCase(),
+            description: `${siteName} Order ${orderId}`,
+            metadata,
+            payment_method_types: ['card'],
+            receipt_email: customerEmail,
+          });
+        }
+      } catch (err) {
+        console.warn("⚠️ Failed to retrieve/update existing intent, creating new one:", err);
+        paymentIntent = await stripe.paymentIntents.create({
+          amount,
+          currency: currency.toLowerCase(),
+          description: `${siteName} Order ${orderId}`,
+          metadata,
+          payment_method_types: ['card'],
+          receipt_email: customerEmail,
+        });
+      }
+    } else {
+      // Create PaymentIntent
+      // ----------------------------------------------------------------
+      paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency: currency.toLowerCase(),
+        description: `${siteName} Order ${orderId}`,
+        metadata,
+        payment_method_types: ['card'], // Len karty (+ Google/Apple Pay automaticky)
+        // Bez customer a setup_future_usage - nebude Link ani možnosť ukladať karty
+        receipt_email: customerEmail, // Email na potvrdenie
+      });
+    }
 
     console.log("✅ PaymentIntent created successfully:", paymentIntent.id);
 

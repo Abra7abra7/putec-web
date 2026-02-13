@@ -30,7 +30,7 @@ export const NewsletterWelcome = ({
           {/* Header */}
           <Section style={header}>
             <Img
-              src="cid:logo"
+              src="https://vino-putec-web.vercel.app/putec-logo.jpg"
               width="80"
               height="80"
               alt="Vino Putec Logo"
