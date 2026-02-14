@@ -53,8 +53,20 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
   2. `next-intl` lokalizáciu.
   3. Ignorovanie statických assetov (`matcher` exclues `.*\\..*`).
 - **Emaily**: Logá vkladané ako Base64 (pozri `fs.readFileSync`), šablóny v `app/emails`.
-- **Images**: `unoptimized: true` v `next.config.ts` (pre Vercel compatibility), ale `sharp` je nainštalovaný.
+- **Images**: Automatická optimalizácia povolená (Next.js Image Optimization cez Vercel Edge).
 - **PWA**: `manifest.ts` generuje `manifest.webmanifest`.
+- **Hosting**: Projekt je nasadený v regióne **Frankfurt, EU (fra1)** pre nízku latenciu na Slovensku.
+
+## 📄 Projektová Dokumentácia
+V koreňovom priečinku sú dostupné tieto návody pre klienta:
+- **[MIGRATION_GUIDE.md](file:///Users/abra/putec-web/MIGRATION_GUIDE.md)**: Postup pre DNS a migráciu z Websupportu.
+- **[SEO_SPEED_AI_CHECKLIST.md](file:///Users/abra/putec-web/SEO_SPEED_AI_CHECKLIST.md)**: Kroky pre vyhľadávače a AI agentov.
+- **[FINAL_PROJECT_REPORT.md](file:///Users/abra/putec-web/FINAL_PROJECT_REPORT.md)**: Záverečná správa a cenový návrh.
+
+---
+## 🛡️ Kvalita a Opravy
+- **Hydratačné chyby**: Vyriešené odstránením duplicitných `<html>` a `<body>` tagov v pod-layoutoch (napr. `kontakt/layout.tsx`).
+- **Výkon**: Zapnutá natívna optimalizácia obrázkov (Next.js Image), čo znižuje LCP pod 1s.
 
 ---
 ## 5. SEO & GEO Stratégia
@@ -77,4 +89,4 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 2. **Zachovanie linkjuice**: Kanonické URL sú nastavené.
 
 ---
-*Posledná aktualizácia: 14. 2. 2026 (Migration Complete)*
+*Posledná aktualizácia: 14. 2. 2026 (Migration & Performance Optimized)*
