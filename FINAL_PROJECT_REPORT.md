@@ -9,6 +9,8 @@ Tento dokument slúži ako prehľad vykonaných prác pri migrácii a optimaliz�
 | Parameter | Stará Verzia (WordPress) | Nová Verzia (Next.js + Vercel) | Prínos |
 | :--- | :--- | :--- | :--- |
 | **Rýchlosť (LCP)** | 3.5s - 5s (Pomalé) | < 1.0s (Okamžité) | Lepšia konverzia a SEO |
+| **Optimalizácia Obrázkov** | Žiadna (Raw súbory) | Automatická (Vercel Edge) | Rýchlejšie načítanie na mobile |
+| **Lokalizácia Serverov** | Neznáme | Frankfurt, EU (fra1) | Najnižšia latencia pre SR |
 | **Architektúra** | Monolit (zložitá údržba) | Modulárna (vysoká bezpečnosť) | Odolnosť voči hackerom |
 | **SEO** | Štandardné pluginy | Natívne SEO + AI Schémy | Vyššie pozície v Google |
 | **Mobilná verzia** | Responzívna (priemer) | Mobile-First (vysoký výkon) | Lepšia skúsenosť pre hostí |
