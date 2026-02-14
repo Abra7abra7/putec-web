@@ -7,6 +7,7 @@ import { getCurrencySymbol } from "../../../utils/getCurrencySymbol";
 import { getLocalization } from "../../../utils/getLocalization";
 import AddToCartButtonWrapper from "../../../components/products/AddToCartButtonWrapper";
 import Script from "next/script";
+import JsonLd from "../../../components/JsonLd";
 
 // Dynamic import for ProductLightbox - only loads when images are clicked
 const ProductLightbox = dynamic(() => import("@/app/components/products/ProductLightbox"));
@@ -101,9 +102,9 @@ export default async function ProductPage({
     "@context": "https://schema.org",
     "@type": "Product",
     "name": product.Title,
-    "image": product.Image ? `https://vinoputec.sk${product.Image}` : undefined,
+    "image": product.FeatureImageURL ? `https://vinoputec.sk${product.FeatureImageURL}` : undefined,
     "description": product.ShortDescription,
-    "sku": product.Code || product.ID,
+    "sku": product.ID,
     "offers": {
       "@type": "Offer",
       "priceCurrency": product.Currency,
