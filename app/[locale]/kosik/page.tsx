@@ -1,14 +1,14 @@
 "use client";
 
 import { Provider } from "react-redux";
-import { store } from "../store/store";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { useLocalization } from "../context/LocalizationContext";
+import { store } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useLocalization } from "../../context/LocalizationContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { removeFromCart, updateQuantity } from "../store/slices/cartSlice";
-import { showMiniCart } from "../utils/MiniCartController";
+import { removeFromCart, updateQuantity } from "../../store/slices/cartSlice";
+import { showMiniCart } from "../../utils/MiniCartController";
 import { X, Plus, Minus } from "lucide-react";
 
 import { useState, useEffect } from "react";

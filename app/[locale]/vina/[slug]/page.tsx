@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { getProductBySlug } from "../../utils/getProducts";
-import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
-import { getLocalization } from "../../utils/getLocalization";
-import AddToCartButtonWrapper from "../../components/products/AddToCartButtonWrapper";
+import { getProductBySlug } from "../../../utils/getProducts";
+import { getCurrencySymbol } from "../../../utils/getCurrencySymbol";
+import { getLocalization } from "../../../utils/getLocalization";
+import AddToCartButtonWrapper from "../../../components/products/AddToCartButtonWrapper";
 import Script from "next/script";
 
 // Dynamic import for ProductLightbox - only loads when images are clicked
-const ProductLightbox = dynamic(() => import("../../components/products/ProductLightbox"));
+const ProductLightbox = dynamic(() => import("@/app/components/products/ProductLightbox"));
 
 // Define a type for route params as a Promise
 type AsyncParams = Promise<{ slug?: string }>;

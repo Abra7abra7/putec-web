@@ -1,12 +1,12 @@
-import Hero from "../components/Hero";
-import WineGrid from "../components/products/WineGrid";
-import AgeVerification from "../components/AgeVerification";
-import { getLocalization } from "../utils/getLocalization";
+import Hero from "../../components/Hero";
+import WineGrid from "../../components/products/WineGrid";
+import AgeVerification from "../../components/AgeVerification";
+import { getLocalization } from "../../utils/getLocalization";
 import type { Metadata } from "next";
-import { ReduxProvider } from "../providers";
+import { ReduxProvider } from "@/app/providers";
 import Script from "next/script";
-import RatingBadge from "../components/RatingBadge";
-import { getWines } from "../utils/getProducts"; // Updated import
+import RatingBadge from "../../components/RatingBadge";
+import { getWines } from "../../utils/getProducts"; // Updated import
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {

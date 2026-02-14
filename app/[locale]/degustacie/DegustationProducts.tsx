@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Users, Clock, Check } from "lucide-react";
-import { Product } from "../../types/Product";
+import { Product } from "@/types/Product";
 
 export default function DegustationProducts() {
   const [products, setProducts] = useState<Product[]>([]);

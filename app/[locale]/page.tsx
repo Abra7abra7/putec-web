@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import HomepageBanner from "./components/homepage/HomepageBanner";
+import HomepageBanner from "@/app/components/homepage/HomepageBanner";
 import dynamic from "next/dynamic";
 
 // Lazy-load below-the-fold sections to improve LCP/TBT
-const DegustaciePreview = dynamic(() => import("./components/homepage/DegustaciePreview"), { ssr: true });
-const AccommodationPreview = dynamic(() => import("./components/homepage/AccommodationPreview"), { ssr: true });
-const BrandStory = dynamic(() => import("./components/homepage/BrandStory"), { ssr: true });
-const Testimonials = dynamic(() => import("./components/homepage/Testimonials"), { ssr: true, loading: () => null });
-const NewsletterSignup = dynamic(() => import("./components/homepage/NewsletterSignup"), { ssr: true, loading: () => null });
-const Achievements = dynamic(() => import("./components/homepage/Achievements"), { ssr: true, loading: () => null });
+const DegustaciePreview = dynamic(() => import("@/app/components/homepage/DegustaciePreview"), { ssr: true });
+const AccommodationPreview = dynamic(() => import("@/app/components/homepage/AccommodationPreview"), { ssr: true });
+const BrandStory = dynamic(() => import("@/app/components/homepage/BrandStory"), { ssr: true });
+const Testimonials = dynamic(() => import("@/app/components/homepage/Testimonials"), { ssr: true, loading: () => null });
+const NewsletterSignup = dynamic(() => import("@/app/components/homepage/NewsletterSignup"), { ssr: true, loading: () => null });
+const Achievements = dynamic(() => import("@/app/components/homepage/Achievements"), { ssr: true, loading: () => null });
 
 
 // Set page metadata

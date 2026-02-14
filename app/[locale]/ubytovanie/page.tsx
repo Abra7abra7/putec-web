@@ -1,7 +1,7 @@
-import Hero from "../components/Hero";
+import Hero from "../../components/Hero";
 import Link from "next/link";
-import PrevioBookingClient from "../components/PrevioBookingClient";
-import { Slider } from "../components/business/Slider";
+import PrevioBookingClient from "../../components/PrevioBookingClient";
+import { Slider } from "../../components/business/Slider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

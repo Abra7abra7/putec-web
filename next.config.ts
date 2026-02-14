@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n.ts'); // Default path is './src/i18n/request.ts' but we used src/i18n.ts
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -14,45 +17,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'maps.googleapis.com' },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/sluzby',
-        destination: '/degustacie',
-        permanent: true,
-      },
-      {
-        source: '/moznost-spoluprace',
-        destination: '/kontakt',
-        permanent: true,
-      },
-      {
-        source: '/obchod',
-        destination: '/vina',
-        permanent: true,
-      },
-      {
-        source: '/vinarstvo',
-        destination: '/o-nas',
-        permanent: true,
-      },
-      {
-        source: '/shop',
-        destination: '/vina',
-        permanent: true,
-      },
-      {
-        source: '/cart',
-        destination: '/kosik',
-        permanent: true,
-      },
-      {
-        source: '/checkout',
-        destination: '/pokladna',
-        permanent: true,
-      },
-    ];
-  },
+  // Redirects moved to proxy.ts
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

@@ -1,0 +1,530 @@
+
+> vino-putec@1.0.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 38 errors:
+./app/[locale]/degustacie/[slug]/page.tsx:2:34
+Parsing ecmascript source code failed
+[0m [90m 1 |[39m [36mimport[39m { notFound } [36mfrom[39m [32m"next/navigation"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { getProductBySlug } [36mfrom[39m [32m'../../../utils/getProducts";[39m
+ [90m   |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m [33mReservationForm[39m [36mfrom[39m [32m'../../../components/degustacie/ReservationForm";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/degustacie/[slug]/page.tsx:5:29
+Parsing ecmascript source code failed
+[0m [90m 3 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mReservationForm[39m [36mfrom[39m [32m'../../../components/degustacie/ReservationForm";[39m
+ [90m   |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { getCurrencySymbol } [36mfrom[39m [32m'../../../utils/getCurrencySymbol";[39m
+ [90m 7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m [33mBackButton[39m [36mfrom[39m [32m'../../../components/BackButton";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/degustacie/[slug]/page.tsx:6:35
+Parsing ecmascript source code failed
+[0m [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m [33mReservationForm[39m [36mfrom[39m [32m'../../../components/degustacie/ReservationForm";[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { getCurrencySymbol } [36mfrom[39m [32m'../../../utils/getCurrencySymbol";[39m
+ [90m   |[39m                                   [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m [33mBackButton[39m [36mfrom[39m [32m'../../../components/BackButton";[39m
+ [90m 9 |[39m [36mimport[39m [33mDegustationGallery[39m [36mfrom[39m [32m'../../../components/degustacie/DegustationGallery";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/degustacie/[slug]/page.tsx:8:24
+Parsing ecmascript source code failed
+[0m [90m  6 |[39m [36mimport[39m { getCurrencySymbol } [36mfrom[39m [32m'../../../utils/getCurrencySymbol";[39m
+ [90m  7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+[31m[1m>[22m[39m[90m  8 |[39m [36mimport[39m [33mBackButton[39m [36mfrom[39m [32m'../../../components/BackButton";[39m
+ [90m    |[39m                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  9 |[39m [36mimport[39m [33mDegustationGallery[39m [36mfrom[39m [32m'../../../components/degustacie/DegustationGallery";[39m
+ [90m 10 |[39m
+ [90m 11 |[39m [90m// Generate metadata for each degustation[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/degustacie/[slug]/page.tsx:9:32
+Parsing ecmascript source code failed
+[0m [90m  7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+ [90m  8 |[39m [36mimport[39m [33mBackButton[39m [36mfrom[39m [32m'../../../components/BackButton";[39m
+[31m[1m>[22m[39m[90m  9 |[39m [36mimport[39m [33mDegustationGallery[39m [36mfrom[39m [32m'../../../components/degustacie/DegustationGallery";[39m
+ [90m    |[39m                                [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 10 |[39m
+ [90m 11 |[39m [90m// Generate metadata for each degustation[39m
+ [90m 12 |[39m [36mexport[39m [36masync[39m [36mfunction[39m generateMetadata({ params }[33m:[39m { params[33m:[39m [33mPromise[39m[33m<[39m{ slug[33m:[39m string }[33m>[39m })[33m:[39m [33mPromise[39m[33m<[39m[33mMetadata[39m[33m>[39m {[0m
+
+Unterminated string constant
+
+
+./app/[locale]/degustacie/page.tsx:4:18
+Parsing ecmascript source code failed
+[0m [90m 2 |[39m [36mimport[39m { [33mTrophy[39m[33m,[39m [33mUsers[39m[33m,[39m [33mChefHat[39m[33m,[39m [33mWine[39m [36mas[39m [33mWineIcon[39m[33m,[39m [33mCheck[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mDegustationProducts[39m [36mfrom[39m [32m"./DegustationProducts"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mHero[39m [36mfrom[39m [32m'../../components/Hero";[39m
+ [90m   |[39m                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+ [90m 6 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/degustacie/page.tsx:8:25
+Parsing ecmascript source code failed
+[0m [90m  6 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m  7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+[31m[1m>[22m[39m[90m  8 |[39m [36mimport[39m [33mRatingBadge[39m [36mfrom[39m [32m'../../components/RatingBadge";[39m
+ [90m    |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  9 |[39m
+ [90m 10 |[39m [36mexport[39m [36mconst[39m metadata[33m:[39m [33mMetadata[39m [33m=[39m {
+ [90m 11 |[39m   title[33m:[39m [32m"Degustácie Vinosady | Firemné akcie Pezinok | Ochutnávky vína | Víno Pútec"[39m[33m,[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/degustation-confirmation/page.tsx:4:33
+Parsing ecmascript source code failed
+[0m [90m 2 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mConfirmationDetails[39m [36mfrom[39m [32m'../../components/degustacie/ConfirmationDetails";[39m
+ [90m   |[39m                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m
+ [90m 6 |[39m [36mexport[39m [36mconst[39m metadata[33m:[39m [33mMetadata[39m [33m=[39m {
+ [90m 7 |[39m   title[33m:[39m [32m"Potvrdenie rezervácie | Vino Pútec"[39m[33m,[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/kontakt/page.tsx:1:27
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m [33mContactUsForm[39m [36mfrom[39m [32m'../../components/ContactUsForm";[39m
+ [90m   |[39m                           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m dynamic [36mfrom[39m [32m"next/dynamic"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+ [90m 4 |[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/kosik/page.tsx:4:23
+Parsing ecmascript source code failed
+[0m [90m 2 |[39m
+ [90m 3 |[39m [36mimport[39m { [33mProvider[39m } [36mfrom[39m [32m"react-redux"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m { store } [36mfrom[39m [32m'../../store/store";[39m
+ [90m   |[39m                       [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m [36mimport[39m { useAppDispatch[33m,[39m useAppSelector } [36mfrom[39m [32m'../../store/hooks";[39m
+ [90m 6 |[39m [36mimport[39m { useLocalization } [36mfrom[39m [32m'../../context/LocalizationContext";[39m
+ [90m 7 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/kosik/page.tsx:5:48
+Parsing ecmascript source code failed
+[0m [90m 3 |[39m [36mimport[39m { [33mProvider[39m } [36mfrom[39m [32m"react-redux"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { store } [36mfrom[39m [32m'../../store/store";[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { useAppDispatch[33m,[39m useAppSelector } [36mfrom[39m [32m'../../store/hooks";[39m
+ [90m   |[39m                                                [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { useLocalization } [36mfrom[39m [32m'../../context/LocalizationContext";[39m
+ [90m 7 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/kosik/page.tsx:6:33
+Parsing ecmascript source code failed
+[0m [90m 4 |[39m [36mimport[39m { store } [36mfrom[39m [32m'../../store/store";[39m
+ [90m 5 |[39m [36mimport[39m { useAppDispatch[33m,[39m useAppSelector } [36mfrom[39m [32m'../../store/hooks";[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { useLocalization } [36mfrom[39m [32m'../../context/LocalizationContext";[39m
+ [90m   |[39m                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m 9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m"next/navigation"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/kosik/page.tsx:10:48
+Parsing ecmascript source code failed
+[0m [90m  8 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m"next/navigation"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 10 |[39m [36mimport[39m { removeFromCart[33m,[39m updateQuantity } [36mfrom[39m [32m'../../store/slices/cartSlice";[39m
+ [90m    |[39m                                                [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 11 |[39m [36mimport[39m { showMiniCart } [36mfrom[39m [32m'../../utils/MiniCartController";[39m
+ [90m 12 |[39m [36mimport[39m { [33mX[39m[33m,[39m [33mPlus[39m[33m,[39m [33mMinus[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 13 |[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/kosik/page.tsx:11:30
+Parsing ecmascript source code failed
+[0m [90m  9 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m"next/navigation"[39m[33m;[39m
+ [90m 10 |[39m [36mimport[39m { removeFromCart[33m,[39m updateQuantity } [36mfrom[39m [32m'../../store/slices/cartSlice";[39m
+[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { showMiniCart } [36mfrom[39m [32m'../../utils/MiniCartController";[39m
+ [90m    |[39m                              [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 12 |[39m [36mimport[39m { [33mX[39m[33m,[39m [33mPlus[39m[33m,[39m [33mMinus[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 13 |[39m
+ [90m 14 |[39m [36mimport[39m { useState[33m,[39m useEffect } [36mfrom[39m [32m"react"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/o-nas/page.tsx:3:18
+Parsing ecmascript source code failed
+[0m [90m 1 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+ [90m 2 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m [33mHero[39m [36mfrom[39m [32m'../../components/Hero";[39m
+ [90m   |[39m                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 4 |[39m
+ [90m 5 |[39m [36mexport[39m [36mconst[39m metadata[33m:[39m [33mMetadata[39m [33m=[39m {
+ [90m 6 |[39m   title[33m:[39m [32m"O nás | Rodinné vinárstvo Putec Vinosady | Vízia a misia | Tradícia vína"[39m[33m,[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/ordersummary/page.tsx:1:33
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { [33mProductProvider[39m } [36mfrom[39m [32m'../../context/ProductContext";[39m
+ [90m   |[39m                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m [33mOrderSummaryWrapper[39m [36mfrom[39m [32m'../../components/ordersummary/OrderSummaryWrapper";[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mOrderSummaryPage[39m() {[0m
+
+Unterminated string constant
+
+
+./app/[locale]/ordersummary/page.tsx:2:33
+Parsing ecmascript source code failed
+[0m [90m 1 |[39m [36mimport[39m { [33mProductProvider[39m } [36mfrom[39m [32m'../../context/ProductContext";[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m [33mOrderSummaryWrapper[39m [36mfrom[39m [32m'../../components/ordersummary/OrderSummaryWrapper";[39m
+ [90m   |[39m                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mOrderSummaryPage[39m() {
+ [90m 5 |[39m   [36mreturn[39m ([0m
+
+Unterminated string constant
+
+
+./app/[locale]/pokladna/page.tsx:5:34
+Parsing ecmascript source code failed
+[0m [90m 3 |[39m [36mimport[39m { useEffect[33m,[39m useState } [36mfrom[39m [32m"react"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mOrderInfoInitializer[39m [36mfrom[39m [32m'../../components/checkout/OrderInfoInitializer";[39m
+ [90m   |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m [33mShippingForm[39m [36mfrom[39m [32m'../../components/checkout/ShippingForm";[39m
+ [90m 7 |[39m [36mimport[39m [33mShippingMethod[39m [36mfrom[39m [32m'../../components/checkout/ShippingMethod";[39m
+ [90m 8 |[39m [36mimport[39m [33mBillingForm[39m [36mfrom[39m [32m'../../components/checkout/BillingForm";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/pokladna/page.tsx:6:26
+Parsing ecmascript source code failed
+[0m [90m 4 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m [33mOrderInfoInitializer[39m [36mfrom[39m [32m'../../components/checkout/OrderInfoInitializer";[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m [33mShippingForm[39m [36mfrom[39m [32m'../../components/checkout/ShippingForm";[39m
+ [90m   |[39m                          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m [33mShippingMethod[39m [36mfrom[39m [32m'../../components/checkout/ShippingMethod";[39m
+ [90m 8 |[39m [36mimport[39m [33mBillingForm[39m [36mfrom[39m [32m'../../components/checkout/BillingForm";[39m
+ [90m 9 |[39m [36mimport[39m [33mOrderSummary[39m [36mfrom[39m [32m'../../components/checkout/OrderSummary";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/pokladna/page.tsx:7:28
+Parsing ecmascript source code failed
+[0m [90m  5 |[39m [36mimport[39m [33mOrderInfoInitializer[39m [36mfrom[39m [32m'../../components/checkout/OrderInfoInitializer";[39m
+ [90m  6 |[39m [36mimport[39m [33mShippingForm[39m [36mfrom[39m [32m'../../components/checkout/ShippingForm";[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m [33mShippingMethod[39m [36mfrom[39m [32m'../../components/checkout/ShippingMethod";[39m
+ [90m    |[39m                            [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m [33mBillingForm[39m [36mfrom[39m [32m'../../components/checkout/BillingForm";[39m
+ [90m  9 |[39m [36mimport[39m [33mOrderSummary[39m [36mfrom[39m [32m'../../components/checkout/OrderSummary";[39m
+ [90m 10 |[39m [36mimport[39m [33mPaymentMethods[39m [36mfrom[39m [32m'../../components/checkout/PaymentMethods";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/pokladna/page.tsx:8:25
+Parsing ecmascript source code failed
+[0m [90m  6 |[39m [36mimport[39m [33mShippingForm[39m [36mfrom[39m [32m'../../components/checkout/ShippingForm";[39m
+ [90m  7 |[39m [36mimport[39m [33mShippingMethod[39m [36mfrom[39m [32m'../../components/checkout/ShippingMethod";[39m
+[31m[1m>[22m[39m[90m  8 |[39m [36mimport[39m [33mBillingForm[39m [36mfrom[39m [32m'../../components/checkout/BillingForm";[39m
+ [90m    |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  9 |[39m [36mimport[39m [33mOrderSummary[39m [36mfrom[39m [32m'../../components/checkout/OrderSummary";[39m
+ [90m 10 |[39m [36mimport[39m [33mPaymentMethods[39m [36mfrom[39m [32m'../../components/checkout/PaymentMethods";[39m
+ [90m 11 |[39m [36mimport[39m { [33mCheckoutProvider[39m } [36mfrom[39m [32m'../../context/CheckoutContext";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/pokladna/page.tsx:9:26
+Parsing ecmascript source code failed
+[0m [90m  7 |[39m [36mimport[39m [33mShippingMethod[39m [36mfrom[39m [32m'../../components/checkout/ShippingMethod";[39m
+ [90m  8 |[39m [36mimport[39m [33mBillingForm[39m [36mfrom[39m [32m'../../components/checkout/BillingForm";[39m
+[31m[1m>[22m[39m[90m  9 |[39m [36mimport[39m [33mOrderSummary[39m [36mfrom[39m [32m'../../components/checkout/OrderSummary";[39m
+ [90m    |[39m                          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 10 |[39m [36mimport[39m [33mPaymentMethods[39m [36mfrom[39m [32m'../../components/checkout/PaymentMethods";[39m
+ [90m 11 |[39m [36mimport[39m { [33mCheckoutProvider[39m } [36mfrom[39m [32m'../../context/CheckoutContext";[39m
+ [90m 12 |[39m [36mimport[39m { [33mReduxProvider[39m } [36mfrom[39m [32m"../providers"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/pokladna/page.tsx:10:28
+Parsing ecmascript source code failed
+[0m [90m  8 |[39m [36mimport[39m [33mBillingForm[39m [36mfrom[39m [32m'../../components/checkout/BillingForm";[39m
+ [90m  9 |[39m [36mimport[39m [33mOrderSummary[39m [36mfrom[39m [32m'../../components/checkout/OrderSummary";[39m
+[31m[1m>[22m[39m[90m 10 |[39m [36mimport[39m [33mPaymentMethods[39m [36mfrom[39m [32m'../../components/checkout/PaymentMethods";[39m
+ [90m    |[39m                            [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 11 |[39m [36mimport[39m { [33mCheckoutProvider[39m } [36mfrom[39m [32m'../../context/CheckoutContext";[39m
+ [90m 12 |[39m [36mimport[39m { [33mReduxProvider[39m } [36mfrom[39m [32m"../providers"[39m[33m;[39m
+ [90m 13 |[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/pokladna/page.tsx:11:34
+Parsing ecmascript source code failed
+[0m [90m  9 |[39m [36mimport[39m [33mOrderSummary[39m [36mfrom[39m [32m'../../components/checkout/OrderSummary";[39m
+ [90m 10 |[39m [36mimport[39m [33mPaymentMethods[39m [36mfrom[39m [32m'../../components/checkout/PaymentMethods";[39m
+[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mCheckoutProvider[39m } [36mfrom[39m [32m'../../context/CheckoutContext";[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 12 |[39m [36mimport[39m { [33mReduxProvider[39m } [36mfrom[39m [32m"../providers"[39m[33m;[39m
+ [90m 13 |[39m
+ [90m 14 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mCheckoutPage[39m() {[0m
+
+Unterminated string constant
+
+
+./app/[locale]/ubytovanie/page.tsx:1:18
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m [33mHero[39m [36mfrom[39m [32m'../../components/Hero";[39m
+ [90m   |[39m                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mPrevioBookingClient[39m [36mfrom[39m [32m'../../components/PrevioBookingClient";[39m
+ [90m 4 |[39m [36mimport[39m { [33mSlider[39m } [36mfrom[39m [32m'../../components/business/Slider";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/ubytovanie/page.tsx:3:33
+Parsing ecmascript source code failed
+[0m [90m 1 |[39m [36mimport[39m [33mHero[39m [36mfrom[39m [32m'../../components/Hero";[39m
+ [90m 2 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m [33mPrevioBookingClient[39m [36mfrom[39m [32m'../../components/PrevioBookingClient";[39m
+ [90m   |[39m                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 4 |[39m [36mimport[39m { [33mSlider[39m } [36mfrom[39m [32m'../../components/business/Slider";[39m
+ [90m 5 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+ [90m 6 |[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/ubytovanie/page.tsx:4:24
+Parsing ecmascript source code failed
+[0m [90m 2 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mPrevioBookingClient[39m [36mfrom[39m [32m'../../components/PrevioBookingClient";[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m { [33mSlider[39m } [36mfrom[39m [32m'../../components/business/Slider";[39m
+ [90m   |[39m                        [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+ [90m 6 |[39m
+ [90m 7 |[39m [36mexport[39m [36mconst[39m metadata[33m:[39m [33mMetadata[39m [33m=[39m {[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/[slug]/page.tsx:5:34
+Parsing ecmascript source code failed
+[0m [90m 3 |[39m [36mimport[39m dynamic [36mfrom[39m [32m"next/dynamic"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { getProductBySlug } [36mfrom[39m [32m'../../../utils/getProducts";[39m
+ [90m   |[39m                                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { getCurrencySymbol } [36mfrom[39m [32m'../../../utils/getCurrencySymbol";[39m
+ [90m 7 |[39m [36mimport[39m { getLocalization } [36mfrom[39m [32m'../../../utils/getLocalization";[39m
+ [90m 8 |[39m [36mimport[39m [33mAddToCartButtonWrapper[39m [36mfrom[39m [32m'../../../components/products/AddToCartButtonWrapper";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/[slug]/page.tsx:6:35
+Parsing ecmascript source code failed
+[0m [90m 4 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m 5 |[39m [36mimport[39m { getProductBySlug } [36mfrom[39m [32m'../../../utils/getProducts";[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { getCurrencySymbol } [36mfrom[39m [32m'../../../utils/getCurrencySymbol";[39m
+ [90m   |[39m                                   [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { getLocalization } [36mfrom[39m [32m'../../../utils/getLocalization";[39m
+ [90m 8 |[39m [36mimport[39m [33mAddToCartButtonWrapper[39m [36mfrom[39m [32m'../../../components/products/AddToCartButtonWrapper";[39m
+ [90m 9 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/[slug]/page.tsx:7:33
+Parsing ecmascript source code failed
+[0m [90m  5 |[39m [36mimport[39m { getProductBySlug } [36mfrom[39m [32m'../../../utils/getProducts";[39m
+ [90m  6 |[39m [36mimport[39m { getCurrencySymbol } [36mfrom[39m [32m'../../../utils/getCurrencySymbol";[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { getLocalization } [36mfrom[39m [32m'../../../utils/getLocalization";[39m
+ [90m    |[39m                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m [33mAddToCartButtonWrapper[39m [36mfrom[39m [32m'../../../components/products/AddToCartButtonWrapper";[39m
+ [90m  9 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+ [90m 10 |[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/[slug]/page.tsx:8:36
+Parsing ecmascript source code failed
+[0m [90m  6 |[39m [36mimport[39m { getCurrencySymbol } [36mfrom[39m [32m'../../../utils/getCurrencySymbol";[39m
+ [90m  7 |[39m [36mimport[39m { getLocalization } [36mfrom[39m [32m'../../../utils/getLocalization";[39m
+[31m[1m>[22m[39m[90m  8 |[39m [36mimport[39m [33mAddToCartButtonWrapper[39m [36mfrom[39m [32m'../../../components/products/AddToCartButtonWrapper";[39m
+ [90m    |[39m                                    [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  9 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+ [90m 10 |[39m
+ [90m 11 |[39m [90m// Dynamic import for ProductLightbox - only loads when images are clicked[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/layout.tsx:1:33
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { [33mProductProvider[39m } [36mfrom[39m [32m'../../context/ProductContext";[39m
+ [90m   |[39m                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m
+ [90m 3 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mProductsLayout[39m({ children }[33m:[39m { children[33m:[39m [33mReact[39m[33m.[39m[33mReactNode[39m }) {
+ [90m 4 |[39m   [36mreturn[39m ([0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/page.tsx:1:18
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m [33mHero[39m [36mfrom[39m [32m'../../components/Hero";[39m
+ [90m   |[39m                  [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m [33mWineGrid[39m [36mfrom[39m [32m'../../components/products/WineGrid";[39m
+ [90m 3 |[39m [36mimport[39m [33mAgeVerification[39m [36mfrom[39m [32m'../../components/AgeVerification";[39m
+ [90m 4 |[39m [36mimport[39m { getLocalization } [36mfrom[39m [32m'../../utils/getLocalization";[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/page.tsx:2:22
+Parsing ecmascript source code failed
+[0m [90m 1 |[39m [36mimport[39m [33mHero[39m [36mfrom[39m [32m'../../components/Hero";[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m [33mWineGrid[39m [36mfrom[39m [32m'../../components/products/WineGrid";[39m
+ [90m   |[39m                      [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m [36mimport[39m [33mAgeVerification[39m [36mfrom[39m [32m'../../components/AgeVerification";[39m
+ [90m 4 |[39m [36mimport[39m { getLocalization } [36mfrom[39m [32m'../../utils/getLocalization";[39m
+ [90m 5 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/page.tsx:3:29
+Parsing ecmascript source code failed
+[0m [90m 1 |[39m [36mimport[39m [33mHero[39m [36mfrom[39m [32m'../../components/Hero";[39m
+ [90m 2 |[39m [36mimport[39m [33mWineGrid[39m [36mfrom[39m [32m'../../components/products/WineGrid";[39m
+[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m [33mAgeVerification[39m [36mfrom[39m [32m'../../components/AgeVerification";[39m
+ [90m   |[39m                             [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 4 |[39m [36mimport[39m { getLocalization } [36mfrom[39m [32m'../../utils/getLocalization";[39m
+ [90m 5 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+ [90m 6 |[39m [36mimport[39m { [33mReduxProvider[39m } [36mfrom[39m [32m"../providers"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/page.tsx:4:33
+Parsing ecmascript source code failed
+[0m [90m 2 |[39m [36mimport[39m [33mWineGrid[39m [36mfrom[39m [32m'../../components/products/WineGrid";[39m
+ [90m 3 |[39m [36mimport[39m [33mAgeVerification[39m [36mfrom[39m [32m'../../components/AgeVerification";[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m { getLocalization } [36mfrom[39m [32m'../../utils/getLocalization";[39m
+ [90m   |[39m                                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [32m"next"[39m[33m;[39m
+ [90m 6 |[39m [36mimport[39m { [33mReduxProvider[39m } [36mfrom[39m [32m"../providers"[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/page.tsx:8:25
+Parsing ecmascript source code failed
+[0m [90m  6 |[39m [36mimport[39m { [33mReduxProvider[39m } [36mfrom[39m [32m"../providers"[39m[33m;[39m
+ [90m  7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+[31m[1m>[22m[39m[90m  8 |[39m [36mimport[39m [33mRatingBadge[39m [36mfrom[39m [32m'../../components/RatingBadge";[39m
+ [90m    |[39m                         [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  9 |[39m [36mimport[39m { getWines } [36mfrom[39m [32m'../../utils/getProducts"; // Updated import[39m
+ [90m 10 |[39m
+ [90m 11 |[39m [90m// Generate metadata dynamically[39m[0m
+
+Unterminated string constant
+
+
+./app/[locale]/vina/page.tsx:9:26
+Parsing ecmascript source code failed
+[0m [90m  7 |[39m [36mimport[39m [33mScript[39m [36mfrom[39m [32m"next/script"[39m[33m;[39m
+ [90m  8 |[39m [36mimport[39m [33mRatingBadge[39m [36mfrom[39m [32m'../../components/RatingBadge";[39m
+[31m[1m>[22m[39m[90m  9 |[39m [36mimport[39m { getWines } [36mfrom[39m [32m'../../utils/getProducts"; // Updated import[39m
+ [90m    |[39m                          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 10 |[39m
+ [90m 11 |[39m [90m// Generate metadata dynamically[39m
+ [90m 12 |[39m [36mexport[39m [36masync[39m [36mfunction[39m generateMetadata()[33m:[39m [33mPromise[39m[33m<[39m[33mMetadata[39m[33m>[39m {[0m
+
+Unterminated string constant
+
+
+    at <unknown> (./app/[locale]/degustacie/[slug]/page.tsx:2:34)
+    at <unknown> (./app/[locale]/degustacie/[slug]/page.tsx:5:29)
+    at <unknown> (./app/[locale]/degustacie/[slug]/page.tsx:6:35)
+    at <unknown> (./app/[locale]/degustacie/[slug]/page.tsx:8:24)
+    at <unknown> (./app/[locale]/degustacie/[slug]/page.tsx:9:32)
+    at <unknown> (./app/[locale]/degustacie/page.tsx:4:18)
+    at <unknown> (./app/[locale]/degustacie/page.tsx:8:25)
+    at <unknown> (./app/[locale]/degustation-confirmation/page.tsx:4:33)
+    at <unknown> (./app/[locale]/kontakt/page.tsx:1:27)
+    at <unknown> (./app/[locale]/kosik/page.tsx:4:23)
+    at <unknown> (./app/[locale]/kosik/page.tsx:5:48)
+    at <unknown> (./app/[locale]/kosik/page.tsx:6:33)
+    at <unknown> (./app/[locale]/kosik/page.tsx:10:48)
+    at <unknown> (./app/[locale]/kosik/page.tsx:11:30)
+    at <unknown> (./app/[locale]/o-nas/page.tsx:3:18)
+    at <unknown> (./app/[locale]/ordersummary/page.tsx:1:33)
+    at <unknown> (./app/[locale]/ordersummary/page.tsx:2:33)
+    at <unknown> (./app/[locale]/pokladna/page.tsx:5:34)
+    at <unknown> (./app/[locale]/pokladna/page.tsx:6:26)
+    at <unknown> (./app/[locale]/pokladna/page.tsx:7:28)
+    at <unknown> (./app/[locale]/pokladna/page.tsx:8:25)
+    at <unknown> (./app/[locale]/pokladna/page.tsx:9:26)
+    at <unknown> (./app/[locale]/pokladna/page.tsx:10:28)
+    at <unknown> (./app/[locale]/pokladna/page.tsx:11:34)
+    at <unknown> (./app/[locale]/ubytovanie/page.tsx:1:18)
+    at <unknown> (./app/[locale]/ubytovanie/page.tsx:3:33)
+    at <unknown> (./app/[locale]/ubytovanie/page.tsx:4:24)
+    at <unknown> (./app/[locale]/vina/[slug]/page.tsx:5:34)
+    at <unknown> (./app/[locale]/vina/[slug]/page.tsx:6:35)
+    at <unknown> (./app/[locale]/vina/[slug]/page.tsx:7:33)
+    at <unknown> (./app/[locale]/vina/[slug]/page.tsx:8:36)
+    at <unknown> (./app/[locale]/vina/layout.tsx:1:33)
+    at <unknown> (./app/[locale]/vina/page.tsx:1:18)
+    at <unknown> (./app/[locale]/vina/page.tsx:2:22)
+    at <unknown> (./app/[locale]/vina/page.tsx:3:29)
+    at <unknown> (./app/[locale]/vina/page.tsx:4:33)
+    at <unknown> (./app/[locale]/vina/page.tsx:8:25)
+    at <unknown> (./app/[locale]/vina/page.tsx:9:26)

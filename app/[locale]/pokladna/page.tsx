@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import OrderInfoInitializer from "../components/checkout/OrderInfoInitializer";
-import ShippingForm from "../components/checkout/ShippingForm";
-import ShippingMethod from "../components/checkout/ShippingMethod";
-import BillingForm from "../components/checkout/BillingForm";
-import OrderSummary from "../components/checkout/OrderSummary";
-import PaymentMethods from "../components/checkout/PaymentMethods";
-import { CheckoutProvider } from "../context/CheckoutContext";
-import { ReduxProvider } from "../providers";
+import OrderInfoInitializer from "../../components/checkout/OrderInfoInitializer";
+import ShippingForm from "../../components/checkout/ShippingForm";
+import ShippingMethod from "../../components/checkout/ShippingMethod";
+import BillingForm from "../../components/checkout/BillingForm";
+import OrderSummary from "../../components/checkout/OrderSummary";
+import PaymentMethods from "../../components/checkout/PaymentMethods";
+import { CheckoutProvider } from "../../context/CheckoutContext";
+import { ReduxProvider } from "@/app/providers";
 
 export default function CheckoutPage() {
   const [isLoading, setIsLoading] = useState(true);

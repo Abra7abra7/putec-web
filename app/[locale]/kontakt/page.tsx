@@ -1,9 +1,9 @@
-import ContactUsForm from "../components/ContactUsForm";
+import ContactUsForm from "../../components/ContactUsForm";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 
 // Dynamic import for GoogleMaps - only loads when page is visited
-const GoogleMaps = dynamic(() => import("../components/GoogleMaps"), {
+const GoogleMaps = dynamic(() => import("../../components/GoogleMaps"), {
   loading: () => (
     <div className="w-full h-[400px] bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
       <p className="text-gray-500">Načítavam mapu...</p>

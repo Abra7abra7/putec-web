@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import { getProductBySlug } from "../../utils/getProducts";
+import { getProductBySlug } from "../../../utils/getProducts";
 import type { Metadata } from "next";
 import Image from "next/image";
-import ReservationForm from "../../components/degustacie/ReservationForm";
-import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
+import ReservationForm from "../../../components/degustacie/ReservationForm";
+import { getCurrencySymbol } from "../../../utils/getCurrencySymbol";
 import Script from "next/script";
-import BackButton from "../../components/BackButton";
-import DegustationGallery from "../../components/degustacie/DegustationGallery";
+import BackButton from "../../../components/BackButton";
+import DegustationGallery from "../../../components/degustacie/DegustationGallery";
 
 // Generate metadata for each degustation
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

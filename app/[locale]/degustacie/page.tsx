@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Trophy, Users, ChefHat, Wine as WineIcon, Check } from "lucide-react";
 import DegustationProducts from "./DegustationProducts";
-import Hero from "../components/Hero";
+import Hero from "../../components/Hero";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import RatingBadge from "../components/RatingBadge";
+import RatingBadge from "../../components/RatingBadge";
 
 export const metadata: Metadata = {
   title: "Degustácie Vinosady | Firemné akcie Pezinok | Ochutnávky vína | Víno Pútec",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Hero from "../components/Hero";
+import Hero from "../../components/Hero";
 
 export const metadata: Metadata = {
   title: "O nás | Rodinné vinárstvo Putec Vinosady | Vízia a misia | Tradícia vína",
