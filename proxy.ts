@@ -51,11 +51,23 @@ export function proxy(request: NextRequest) {
         return NextResponse.redirect(new URL(redirects[cleanPath], request.url));
     }
 
-    // 3. Dynamické presmerovania
+    // 4. Dynamické presmerovania
     // Presmerovanie pre /products/[slug] na /vina/[slug]
     if (pathname.startsWith('/products/')) {
         const slug = pathname.replace('/products/', '');
         return NextResponse.redirect(new URL(`/vina/${slug}`, request.url));
+    }
+
+    // Presmerovanie pre /produkt/[slug] (WordPress) na /vina/[slug]
+    if (pathname.startsWith('/produkt/')) {
+        const slug = pathname.replace('/produkt/', '');
+        return NextResponse.redirect(new URL(`/vina/${slug}`, request.url));
+    }
+
+    // Presmerovanie pre /kategoria-produktu/[slug] na /vina
+    // TODO: V budúcnosti môžeme mapovať "biele-vina" -> "/vina?kategoria=biele"
+    if (pathname.startsWith('/kategoria-produktu/')) {
+        return NextResponse.redirect(new URL('/vina', request.url));
     }
 
     // 4. Spustenie next-intl middleware pre lokalizáciu
