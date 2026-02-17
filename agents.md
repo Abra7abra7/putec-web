@@ -88,5 +88,42 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 1. **Redirects (301/307)**: Všetky staré WordPress URL sú pokryté v `proxy.ts`.
 2. **Zachovanie linkjuice**: Kanonické URL sú nastavené.
 
+## 6. Migrácia a Produkčné Nastavenia (Coolify, Hetzner, Integrácie)
+
+### 🏗️ Coolify & Docker
+- **Server**: Hetzner Cloud (CX22/31), Ubuntu 24.04, Coolify v4.
+- **Build Pack**: **Dockerfile** (nie Nixpacks!).
+- **Node.js**: Verzia 20 (Alpine), `npm install`, `npm run build` (standalone).
+- **Port**: `3000` (Exposed), `0.0.0.0` host.
+- **Domains**: `https://vinoputec.sk` (Direction: Allow www & non-www).
+
+### 🌐 DNS (WebSupport)
+- **A Záznamy**:
+  - `@` -> IP Hetzner Servera (`46.225.136.48`)
+  - `www` -> IP Hetzner Servera (`46.225.136.48`)
+  - `*` -> IP Hetzner Servera (voliteľné)
+- **MX Záznamy**:
+  - Hlavná doména: Ponechané WebSupport MX (`mailin1.vinoputec.sk`, ...)
+  - Subdoména `send`: `feedback-smtp.eu-west-1.amazonses.com` (Priorita 10)
+
+### 📧 Resend (Transakčné Emaily)
+- **Domain**: `vinoputec.sk` (Region: EU - Ireland).
+- **DNS Nastavenia**:
+  - **DKIM**: `resend._domainkey` (TXT)
+  - **SPF (send)**: `send` (TXT) -> `v=spf1 include:amazonses.com ~all`
+- **Odosielateľ**: `RESEND_FROM_EMAIL="Vino Putec <objednavky@vinoputec.sk>"`
+
+### 💳 Stripe (Platby)
+- **Mode**: Live (Production).
+- **Webhooks**:
+  - **Endpoint**: `https://vinoputec.sk/api/stripe/webhook`
+  - **Events**: `payment_intent.succeeded` (Kľúčový pre faktúry), `payment_intent.payment_failed`, `payment_intent.canceled`, `charge.failed`.
+  - **Secret**: `STRIPE_WEBHOOK_SECRET` (začína `whsec_`).
+
+### 🧾 SuperFaktúra
+- **Mode**: Produkcia (`SUPERFAKTURA_SANDBOX=0`).
+- **Email**: `brano.putec@gmail.com`
+- **Nastavenia**: `SUPERFAKTURA_SEND_EMAILS=1`.
+
 ---
-*Posledná aktualizácia: 14. 2. 2026 (Migration & Performance Optimized)*
+*Posledná aktualizácia: 17. 2. 2026 (Production Migration Complete)*
