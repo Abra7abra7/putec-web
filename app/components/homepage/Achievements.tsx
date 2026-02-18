@@ -33,14 +33,14 @@ export default function Achievements() {
   }, []);
 
   const diplomy: AchievementItem[] = [
-    { id: 1, title: "Zlatá medaila Paris Vinalies 2025", subtitle: "Cabernet Sauvignon Rosé 2024", image: "/uspechy/diplomy/VI-2025 Cabernet Rosé_page-0001.jpg" },
-    { id: 2, title: "Zlatá medaila Paris Vinalies 2024", subtitle: "Chardonnay 2023", image: "/uspechy/diplomy/VI-2024 Chardonnay_page-0001.jpg" },
-    { id: 3, title: "Linčanský džbánek zlatá medaila 2024", subtitle: "Cabernet Sauvignon 2018", image: "/uspechy/diplomy/Linčanský džbánek 2024 Cabernet 2018_page-0001.jpg" },
-    { id: 4, title: "Strieborná medaila Paris Vinalies 2020", subtitle: "Muller Thurgau 2019", image: "/uspechy/diplomy/VI-2020 Muller_page-0001.jpg" },
-    { id: 5, title: "Strieborná medaila Paris Vinalies 2020", subtitle: "Rizling Vlašský 2019", image: "/uspechy/diplomy/VI-2020 rizling opravený_page-0001.jpg" },
-    { id: 6, title: "Zlatá medaila Paris Vinalies 2018", subtitle: "Tramín Červený 2018", image: "/uspechy/diplomy/VI- 2018 Tramin_page-0001.jpg" },
-    { id: 7, title: "Strieborná medaila Paris Vinalies 2018", subtitle: "Muller Thurgau 2017", image: "/uspechy/diplomy/VI-2018 Muller_page-0001.jpg" },
-    { id: 8, title: "Strieborná medaila Paris Vinalies 2017", subtitle: "Rizling Vlašský 2016", image: "/uspechy/diplomy/VI-2017 Rizling Vlašský_page-0001.jpg" },
+    { id: 1, title: "Zlatá medaila Paris Vinalies 2025", subtitle: "Cabernet Sauvignon Rosé 2024", image: "/uspechy/diplomy/vi-2025-cabernet-rose.jpg" },
+    { id: 2, title: "Zlatá medaila Paris Vinalies 2024", subtitle: "Chardonnay 2023", image: "/uspechy/diplomy/vi-2024-chardonnay.jpg" },
+    { id: 3, title: "Linčanský džbánek zlatá medaila 2024", subtitle: "Cabernet Sauvignon 2018", image: "/uspechy/diplomy/lincansky-dzbanek-2024.jpg" },
+    { id: 4, title: "Strieborná medaila Paris Vinalies 2020", subtitle: "Muller Thurgau 2019", image: "/uspechy/diplomy/vi-2020-muller.jpg" },
+    { id: 5, title: "Strieborná medaila Paris Vinalies 2020", subtitle: "Rizling Vlašský 2019", image: "/uspechy/diplomy/vi-2020-rizling.jpg" },
+    { id: 6, title: "Zlatá medaila Paris Vinalies 2018", subtitle: "Tramín Červený 2018", image: "/uspechy/diplomy/vi-2018-tramin.jpg" },
+    { id: 7, title: "Strieborná medaila Paris Vinalies 2018", subtitle: "Muller Thurgau 2017", image: "/uspechy/diplomy/vi-2018-muller.jpg" },
+    { id: 8, title: "Strieborná medaila Paris Vinalies 2017", subtitle: "Rizling Vlašský 2016", image: "/uspechy/diplomy/vi-2017-rizling-vlassky.jpg" },
   ];
 
   const ocenenia: AchievementItem[] = [
@@ -50,7 +50,7 @@ export default function Achievements() {
   ];
 
   const currentItems = selectedCategory === 'diplomy' ? diplomy : ocenenia;
-  const maxItems = isMobile ? 4 : 6;
+  const maxItems = isMobile ? 4 : 8;
   const displayItems = showAll ? currentItems : currentItems.slice(0, maxItems);
 
   const openLightbox = (index: number) => setLightboxIndex(index);
@@ -125,8 +125,8 @@ export default function Achievements() {
         {/* Achievements Grid */}
         <div className="flex justify-center">
           <div className={`grid gap-5 w-full ${isDiplomy
-              ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-5xl'
-              : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-4xl'
+            ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-5xl'
+            : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-4xl'
             }`}>
             {displayItems.map((item, index) => (
               <div
