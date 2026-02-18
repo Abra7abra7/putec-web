@@ -54,8 +54,7 @@ export default function DegustationSliderClient({ slides }: { slides: Slide[] })
                 className="object-cover transition-transform duration-700 hover:scale-105"
                 style={{ objectPosition: slide.position || 'center' }}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                priority={index === 0}
-                quality={70}
+                quality={60}
               />
             </div>
           ))}

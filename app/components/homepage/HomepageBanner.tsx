@@ -26,10 +26,11 @@ export default function HomepageBanner() {
         alt="Vinohrad Putec – úvodný banner"
         fill
         priority
+        loading="eager"
         fetchPriority="high"
-        sizes="(max-width: 768px) 100vw, 100vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1200px, 1920px"
         placeholder="empty"
-        quality={70}
+        quality={60}
         style={{ objectFit: "cover", objectPosition: "center" }}
         className="z-0"
       />
