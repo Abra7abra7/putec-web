@@ -12,6 +12,8 @@ interface HeroProps {
   focalPoint?: string; // e.g. "center 25%" or "50% 30%"
   heightClass?: string;
   headingLevel?: "h1" | "h2";
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
 }
 
 export default function Hero({
