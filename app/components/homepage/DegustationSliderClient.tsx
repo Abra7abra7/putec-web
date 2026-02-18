@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Lightbox from "yet-another-react-lightbox";
+import dynamic from "next/dynamic";
 import "yet-another-react-lightbox/styles.css";
+
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), { ssr: false });
 
 interface Slide {
   src: string;
@@ -53,6 +55,7 @@ export default function DegustationSliderClient({ slides }: { slides: Slide[] })
                 style={{ objectPosition: slide.position || 'center' }}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                 priority={index === 0}
+                quality={70}
               />
             </div>
           ))}

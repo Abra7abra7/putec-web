@@ -303,6 +303,7 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
 
   const metadata = paymentIntent.metadata as Record<string, string>;
   const orderId = metadata.orderId || paymentIntent.id;
+  const locale = metadata.locale || 'sk'; // Get locale from metadata
 
   // Idempotency: In serverless (Vercel), we cannot rely on in-memory Sets (processedOrderIds).
   // We rely on Stripe's strict ordering and our downstream systems (SuperFaktura check) to handle duplicates.
@@ -430,7 +431,7 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
 
     // Send customer email
     try {
-      await sendCustomerEmail(orderBody, invoiceId);
+      await sendCustomerEmail(orderBody, invoiceId, locale);
       console.log("✅ Customer email sent");
     } catch (error) {
       console.error("❌ Failed to send customer email:", error);
@@ -438,7 +439,7 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
 
     // Send admin email
     try {
-      await sendAdminEmail(orderBody);
+      await sendAdminEmail(orderBody, locale);
       console.log("✅ Admin email sent");
     } catch (error) {
       console.error("❌ Failed to send admin email:", error);

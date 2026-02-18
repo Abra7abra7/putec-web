@@ -64,6 +64,7 @@ const PaymentIntentSchema = z.object({
   billingForm: BillingAddressSchema.optional(),
   paymentMethodId: z.string().optional(),
   paymentIntentId: z.string().optional(), // ID existujúceho intentu pre update
+  locale: z.string().optional(),
 });
 
 /**
@@ -115,6 +116,7 @@ export async function POST(request: NextRequest) {
       shippingForm,
       billingForm,
       paymentMethodId,
+      locale = 'sk', // Default to SK if not provided
       // customerName is available but not used in PaymentIntent creation
     } = validationResult.data;
 
@@ -133,6 +135,7 @@ export async function POST(request: NextRequest) {
       shippingPriceCents: Math.round((shippingCost || 0) * 100).toString(),
       shippingCurrency: currency,
       paymentMethod: paymentMethodId || "stripe",
+      locale,
     };
 
     // Add cart items to metadata

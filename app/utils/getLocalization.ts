@@ -186,17 +186,20 @@ const defaultLocalization: LocalizationData = {
  * Cached async function to load localization from JSON
  * Uses React cache() for automatic request deduplication
  */
-export const getLocalization = cache(async (): Promise<LocalizationData> => {
+export const getLocalization = cache(async (localeArg?: string): Promise<LocalizationData> => {
   try {
-    // 1. Get current locale (default 'sk' if standard way fails)
-    // We import getting locale dynamically to avoid static-gen issues if needed
-    const { getLocale } = await import('next-intl/server');
-    let locale = 'sk';
-    try {
-      locale = await getLocale();
-    } catch (e) {
-      // Fallback if called outside request context
-      locale = 'sk';
+    let locale = localeArg;
+
+    // 1. If no locale provided, try to detect it
+    if (!locale) {
+      // We import getting locale dynamically to avoid static-gen issues if needed
+      const { getLocale } = await import('next-intl/server');
+      try {
+        locale = await getLocale();
+      } catch (e) {
+        // Fallback if called outside request context
+        locale = 'sk';
+      }
     }
 
     // 2. Load the correct JSON file based on locale

@@ -34,25 +34,25 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
   console.log('🔍 SUPERFAKTURA_SEND_EMAILS:', process.env.SUPERFAKTURA_SEND_EMAILS);
   console.log('🔍 SUPERFAKTURA_SANDBOX:', process.env.SUPERFAKTURA_SANDBOX);
   console.log('🔍 SUPERFAKTURA_EMAIL value:', process.env.SUPERFAKTURA_EMAIL);
-  
+
   if (!process.env.SUPERFAKTURA_EMAIL || !process.env.SUPERFAKTURA_API_KEY) {
     console.warn("⚠️ SuperFaktura credentials are not set. Skipping invoice creation.");
     return;
   }
 
   const metadata = pi.metadata as Record<string, string>;
-  
+
   // Kontrola platobnej metódy - faktúru vytvárame len pri online platbe cez Stripe
   const paymentMethod = metadata.paymentMethod || 'unknown';
   console.log('🔍 SuperFaktura - Payment method from metadata:', paymentMethod);
-  
+
   if (paymentMethod !== 'stripe') {
     console.log(`ℹ️ Payment method is "${paymentMethod}", skipping SuperFaktura invoice (faktúru vystaví kurier/prevádzka)`);
     return;
   }
-  
+
   console.log('✅ Payment method is "stripe", proceeding with SuperFaktura invoice creation');
-  
+
   console.log('🔍 SuperFaktura - PaymentIntent metadata:', metadata);
   console.log('🔍 SuperFaktura - Order ID from metadata:', metadata.orderId);
 
@@ -67,7 +67,7 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
 
   // Získanie emailu - priorita: chargeEmail > pi.receipt_email > metadata.billing_email
   const customerEmail = chargeEmail || pi.receipt_email || metadata.billing_email || '';
-  
+
   // Príprava dát o klientovi z metadát PaymentIntent
   const clientData: SFClientData = {
     name: metadata.billing_company_name || `${metadata.billing_firstName} ${metadata.billing_lastName}`,
@@ -89,7 +89,7 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     billing_email: metadata.billing_email,
     final_customerEmail: customerEmail,
   });
-  
+
   // Debug log pre kontrolu metadát
   console.log('🔍 SuperFaktura - Billing metadata:', {
     company_name: metadata.billing_company_name,
@@ -124,7 +124,7 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     // OPRAVA: čítame z price_cents a delíme 100 pre eurá
     const unitPriceCents = parseInt(metadata[`item_${i}_price_cents`] || '0', 10);
     const unitPrice = unitPriceCents / 100;
-    
+
     invoiceItems.push({
       name: metadata[`item_${i}_title`] || `Položka ${i}`,
       description: `Produkt ID: ${metadata[`item_${i}_id`]}`,
@@ -138,7 +138,7 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
   // Pridanie dopravy ako položky faktúry - OPRAVA: používame shippingPriceCents
   const shippingCostCents = parseInt(metadata.shippingPriceCents || '0', 10);
   const shippingCost = shippingCostCents / 100;
-  
+
   if (shippingCost > 0) {
     invoiceItems.push({
       name: `Doprava: ${metadata.shippingMethod || ''}`.trim(),
@@ -149,7 +149,7 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
       tax: 20, // Predpokladáme 20% DPH
     });
   }
-  
+
   // Príprava finálneho JSONu pre API
   const invoicePayload = {
     Invoice: {
@@ -200,17 +200,18 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     if (response.data.error === 0) {
       const invoiceId = response.data.data.Invoice.id;
       console.log(`✅ SuperFaktura invoice created successfully for order ${metadata.orderId}. Invoice ID: ${invoiceId} (${isSandbox ? 'SANDBOX' : 'PRODUCTION'} mode)`);
-      
+
       // Vrátiť invoiceId pre webhook handler (webhook pošle emaily s PDF)
       return invoiceId;
     } else {
-      console.error(`❌ SuperFaktura API Error for order ${metadata.orderId} (${isSandbox ? 'SANDBOX' : 'PRODUCTION'} mode):`, response.data.error_message);
-      // Return undefined instead of throwing - let webhook continue with emails
-      return undefined;
+      const errorMessage = response.data.error_message || "Unknown SuperFaktura Error";
+      console.error(`❌ SuperFaktura API Error for order ${metadata.orderId} (${isSandbox ? 'SANDBOX' : 'PRODUCTION'} mode):`, errorMessage);
+      // THROW error to trigger Stripe Retry
+      throw new Error(`SuperFaktura API Error: ${errorMessage}`);
     }
   } catch (error) {
     console.error(`❌ Failed to create SuperFaktura invoice for order ${metadata.orderId} (${isSandbox ? 'SANDBOX' : 'PRODUCTION'} mode):`, error);
-    
+
     // Log detailed error information for debugging
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { status?: number; data?: unknown; statusText?: string } };
@@ -225,7 +226,7 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
         mode: isSandbox ? 'SANDBOX' : 'PRODUCTION',
       });
     }
-    // Return undefined instead of throwing - let webhook continue with emails
-    return undefined;
+    // THROW error to trigger Stripe Retry
+    throw error;
   }
 }

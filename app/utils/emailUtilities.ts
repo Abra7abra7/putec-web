@@ -139,12 +139,12 @@ export function formatOrderSummary(cartItems: OrderCartItem[]): {
 
 // ----- Admin Email -----
 
-export async function sendAdminEmail(body: OrderBody) {
+export async function sendAdminEmail(body: OrderBody, locale: string = 'sk') {
   const { subtotal } = formatOrderSummary(body.cartItems);
   const shippingCost = body.shippingMethod.price;
   const total = subtotal + shippingCost;
 
-  const localization = await getLocalization();
+  const localization = await getLocalization(locale);
   const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
   // Render React Email component to HTML
@@ -188,12 +188,12 @@ export async function sendAdminEmail(body: OrderBody) {
 
 // ----- Customer Email -----
 
-export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
+export async function sendCustomerEmail(body: OrderBody, invoiceId?: string, locale: string = 'sk') {
   const { subtotal } = formatOrderSummary(body.cartItems);
   const shippingCost = body.shippingMethod.price;
   const total = subtotal + shippingCost;
 
-  const localization = await getLocalization();
+  const localization = await getLocalization(locale);
   const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
 
   // Render React Email component to HTML
@@ -245,7 +245,7 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string) {
 
   await sendEmail({
     to: body.shippingForm.email,
-    subject: (await getLocalization()).labels.orderConfirmationTitle || "Potvrdenie objednávky",
+    subject: (await getLocalization(locale)).labels.orderConfirmationTitle || "Potvrdenie objednávky",
     html,
     attachments,
   });

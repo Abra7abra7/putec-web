@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import StripeWrapper from "./StripeWrapper";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { useCheckoutSettings } from "../../context/CheckoutContext";
+import { useLocale } from "next-intl";
 
 export default function StripeClientSecretLoader() {
   const [clientSecret, setClientSecret] = useState("");
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const dispatch = useAppDispatch();
+  const locale = useLocale();
 
   const cartItems = useAppSelector((state) => state.cart.items);
   const shippingMethodId = useAppSelector((state) => state.checkout.shippingMethodId);
@@ -56,6 +58,7 @@ export default function StripeClientSecretLoader() {
             billingForm,
             paymentMethodId,
             paymentIntentId: paymentIntentId || undefined, // Send existing ID if available
+            locale,
           }),
         });
 
@@ -111,6 +114,7 @@ export default function StripeClientSecretLoader() {
     shippingCost,
     paymentMethodId,
     currency,
+    locale,
     // paymentIntentId is NOT in dependency array to avoid infinite loop!
   ]);
 

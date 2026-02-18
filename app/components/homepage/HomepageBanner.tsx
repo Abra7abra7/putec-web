@@ -29,6 +29,7 @@ export default function HomepageBanner() {
         fetchPriority="high"
         sizes="(max-width: 768px) 100vw, 100vw"
         placeholder="empty"
+        quality={70}
         style={{ objectFit: "cover", objectPosition: "center" }}
         className="z-0"
       />
