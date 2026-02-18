@@ -139,6 +139,13 @@ body {
   --color-primary-light: var(--primary-light);
   --color-accent-brown: var(--accent-brown);
   --color-accent-gold: var(--accent-gold);
+
+  /* Custom Utilities */
+  --breakpoint-desktop: 768px;
+  
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.375rem;
 }
 
 /* Font Variables Map */
