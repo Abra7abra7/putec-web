@@ -1,9 +1,12 @@
 import { getRequestConfig } from 'next-intl/server';
 
-export default getRequestConfig(async () => {
-  // Provide a static locale, fetch a user setting,
-  // read from `cookies()`, `headers()`, etc.
-  const locale = 'sk';
+export default getRequestConfig(async ({ requestLocale }) => {
+  let locale = await requestLocale;
+
+  // Validate that the incoming `locale` parameter is valid
+  if (!locale || !['sk', 'en'].includes(locale)) {
+    locale = 'sk';
+  }
 
   return {
     locale,

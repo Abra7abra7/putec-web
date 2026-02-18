@@ -1,0 +1,249 @@
+{
+    "email": "info@vinoputec.sk",
+    "phone": "+421 911 250 400",
+    "address": "Pezinská 154, 902 01 Vinosady, Slovakia",
+    "siteName": "Vino Putec",
+    "siteTagline": "Family Winery in Vinosady",
+    "labels": {
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "quickLinks": "Quick Links",
+        "contactUs": "Contact Us",
+        "followUs": "Follow Us",
+        "searchPlaceholder": "Search wines...",
+        "allCategories": "All Categories",
+        "sortByName": "Sort by Name",
+        "sortByPrice": "Sort by Price",
+        "sortByNewest": "Sort by Newest",
+        "loadingProducts": "Loading wines...",
+        "noProductsFound": "No wines found...",
+        "productDetails": "Wine Details",
+        "products": "Wines",
+        "recentProducts": "Latest Wines",
+        "addToCart": "Add to Cart",
+        "viewProduct": "View Product",
+        "cartEmpty": "Your cart is empty.",
+        "viewCart": "View Cart",
+        "total": "Total",
+        "quantity": "Quantity",
+        "proceedToCheckout": "Proceed to Checkout",
+        "remove": "Remove",
+        "unitPrice": "Unit Price",
+        "productTotal": "Total Price",
+        "cartTitle": "Your Shopping Cart",
+        "orderSummary": "Order Summary",
+        "subtotal": "Subtotal",
+        "shipping": "Shipping",
+        "noShippingSelected": "Not selected",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "country": "Country",
+        "state": "State/Region",
+        "city": "City",
+        "address1": "Address Line 1",
+        "address2": "Address Line 2",
+        "postalCode": "Postal Code",
+        "shippingInformation": "Shipping Information",
+        "billingInformation": "Billing Information",
+        "shippingMethod": "Shipping Method",
+        "paymentMethod": "Payment Method",
+        "placeOrder": "Place Order",
+        "placingOrder": "Placing order...",
+        "checkoutValidationError": "Please fill in all required fields.",
+        "orderPlacedSuccess": "Your order has been successfully placed!",
+        "orderFailed": "Failed to place order. Please try again.",
+        "sameAsShipping": "Same as shipping address",
+        "orderConfirmationMessage": "Your order has been successfully sent. We will notify you when we process it.",
+        "orderDetails": "Order Details",
+        "orderId": "Order Number",
+        "orderDate": "Order Date",
+        "completeBeforePayment": "Please complete all shipping and billing details before selecting a payment method.",
+        "payNow": "Pay Now",
+        "orderConfirmationTitle": "Order Confirmation",
+        "isCompany": "Purchase as Company",
+        "companyName": "Company Name",
+        "companyICO": "Company ID (IČO)",
+        "companyDIC": "Tax ID (DIČ)",
+        "companyICDPH": "VAT ID (IČ DPH)",
+        "differentBilling": "Billing address is different from shipping address"
+    },
+    "menu": [
+        {
+            "label": "Home",
+            "href": "/"
+        },
+        {
+            "label": "Wines",
+            "href": "/vina"
+        },
+        {
+            "label": "Tastings",
+            "href": "/degustacie"
+        },
+        {
+            "label": "Gallery",
+            "href": "/galeria"
+        },
+        {
+            "label": "Accommodation",
+            "href": "/ubytovanie"
+        },
+        {
+            "label": "About Us",
+            "href": "/o-nas"
+        },
+        {
+            "label": "Contact",
+            "href": "/kontakt"
+        }
+    ],
+    "footerLinks": [
+        {
+            "label": "Home",
+            "href": "/"
+        },
+        {
+            "label": "Wines",
+            "href": "/vina"
+        },
+        {
+            "label": "Wine Tastings",
+            "href": "/degustacie"
+        },
+        {
+            "label": "Accommodation",
+            "href": "/ubytovanie"
+        },
+        {
+            "label": "About Us",
+            "href": "/o-nas"
+        },
+        {
+            "label": "Contact",
+            "href": "/kontakt"
+        }
+    ],
+    "legalLinks": [
+        {
+            "label": "Privacy Policy",
+            "href": "/zasady-ochrany-osobnych-udajov"
+        },
+        {
+            "label": "Terms & Conditions",
+            "href": "/obchodne-podmienky"
+        },
+        {
+            "label": "Complaint Procedure",
+            "href": "/reklamacny-poriadok"
+        },
+        {
+            "label": "Privacy Tools",
+            "href": "/nastroje-ochrany-sukromia"
+        }
+    ],
+    "socialLinks": [
+        {
+            "id": "facebook",
+            "icon": "SiFacebook",
+            "url": "https://www.facebook.com/vinoputec"
+        },
+        {
+            "id": "instagram",
+            "icon": "SiInstagram",
+            "url": "https://www.instagram.com/vinoputec/"
+        },
+        {
+            "id": "youtube",
+            "icon": "SiYoutube",
+            "url": "https://www.youtube.com/channel/UC4jSLd6VZSsxC34-lS7fFMw"
+        }
+    ],
+    "homepage": {
+        "banner": {
+            "title": "Family Winery Putec Pezinok | Accommodation Vinosady | Wine Tastings",
+            "subtitle": "Premium wines from Vinosady, accommodation, and wine tastings near Pezinok. A family winery with tradition serving Bratislava, Senec, Trnava, and the region.",
+            "buttonText": "View Our Wines",
+            "imagePath": "/vineyard-banner.webp",
+            "ctaLink": "/vina"
+        },
+        "brandStory": {
+            "title": "Family Winery Putec - Tradition in Vinosady",
+            "description": "Putec s.r.o. is a family winery with a long tradition in Vinosady near Pezinok. Our premium wines are the result of a careful approach to viticulture and love for wine. Every bottle carries the unique taste of our land and family heritage. We offer accommodation and wine tastings for visitors from Bratislava, Senec, Trnava, and the entire region.",
+            "buttonText": "Learn More",
+            "ctaLink": "/o-nas"
+        },
+        "testimonialsTitle": "What Our Customers Say",
+        "testimonials": [
+            {
+                "id": 1,
+                "name": "Jana K.",
+                "avatar": "/user1.jpg",
+                "rating": 5,
+                "review": "Excellent wines! The taste is amazing and the quality is top-notch. I will definitely order again."
+            },
+            {
+                "id": 2,
+                "name": "Peter Novák",
+                "avatar": "/user2.jpg",
+                "rating": 5,
+                "review": "Best wines in the region! You can feel the family tradition in every bottle. Highly recommended to all wine lovers."
+            },
+            {
+                "id": 3,
+                "name": "Mária Svobodová",
+                "avatar": "/user3.jpg",
+                "rating": 5,
+                "review": "Professional approach and fast delivery. The wines are truly premium. Thank you for the great service!"
+            }
+        ],
+        "newsletter": {
+            "title": "Subscribe to Our Newsletter",
+            "description": "Be among the first to know about new wines and special offers.",
+            "placeholder": "Enter your email",
+            "buttonText": "Subscribe"
+        },
+        "brandsTitle": "Our Wines",
+        "brands": [
+            {
+                "name": "Red Wines",
+                "logo": "/brands/brand1.svg"
+            },
+            {
+                "name": "White Wines",
+                "logo": "/brands/brand2.svg"
+            },
+            {
+                "name": "Rosé Wines",
+                "logo": "/brands/brand3.svg"
+            },
+            {
+                "name": "Sparkling Wines",
+                "logo": "/brands/brand4.svg"
+            },
+            {
+                "name": "Dessert Wines",
+                "logo": "/brands/brand5.svg"
+            }
+        ]
+    },
+    "about": {
+        "title": "Family Winery Putec Vinosady | About Us",
+        "imagePath": "/o-nas/rodina1.JPG",
+        "content": "Putec s.r.o. is a family winery with a long-standing tradition in Vinosady near Pezinok, specializing in the production of premium wines and offering accommodation and wine tastings.\n\nOur history began with a passion for viticulture and a desire to create something unique. Today, we are known for our meticulous approach to winemaking and our personal relationship with customers from Bratislava, Senec, Trnava, and the entire region.\n\nWe believe in the power of tradition, the value of quality ingredients, and the joy of sharing great wines with the community. Every bottle is chosen with love - and every customer becomes part of our extended family. We offer accommodation and wine tastings in the beautiful surroundings of Vinosady."
+    },
+    "contactForm": {
+        "title": "Contact Us",
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "messageLabel": "Message",
+        "namePlaceholder": "Your Name",
+        "emailPlaceholder": "your@email.com",
+        "messagePlaceholder": "How can we help you?",
+        "buttonText": "Send Message",
+        "successMessage": "Your message has been successfully sent!",
+        "errorMessage": "Failed to send message. Please try again later.",
+        "captchaError": "reCAPTCHA is not available."
+    },
+    "copyright": "© 2025 Putec s.r.o. All rights reserved."
+}

@@ -188,9 +188,31 @@ const defaultLocalization: LocalizationData = {
  */
 export const getLocalization = cache(async (): Promise<LocalizationData> => {
   try {
-    const localePath = path.join(process.cwd(), "configs/locale.en.json");
-    const data = await fs.readFile(localePath, "utf-8");
-    return JSON.parse(data) as LocalizationData;
+    // 1. Get current locale (default 'sk' if standard way fails)
+    // We import getting locale dynamically to avoid static-gen issues if needed
+    const { getLocale } = await import('next-intl/server');
+    let locale = 'sk';
+    try {
+      locale = await getLocale();
+    } catch (e) {
+      // Fallback if called outside request context
+      locale = 'sk';
+    }
+
+    // 2. Load the correct JSON file based on locale
+    const messagesPath = path.join(process.cwd(), `messages/${locale}.json`);
+
+    // 3. Fallback to SK if specific locale file doesn't exist
+    let dataStr = '';
+    try {
+      dataStr = await fs.readFile(messagesPath, "utf-8");
+    } catch (e) {
+      // If EN missing, fallback to SK
+      const fallbackPath = path.join(process.cwd(), `messages/sk.json`);
+      dataStr = await fs.readFile(fallbackPath, "utf-8");
+    }
+
+    return JSON.parse(dataStr) as LocalizationData;
   } catch (error) {
     console.error("Error loading localization file:", error);
     return defaultLocalization;

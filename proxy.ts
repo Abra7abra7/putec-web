@@ -4,9 +4,9 @@ import createMiddleware from 'next-intl/middleware';
 
 // Vytvoríme middleware pre next-intl
 const handleI18n = createMiddleware({
-    locales: ['sk'],
+    locales: ['sk', 'en'],
     defaultLocale: 'sk',
-    localePrefix: 'never'
+    localePrefix: 'as-needed' // 'never' prevents creating /sk/, but we need prefix for /en/
 });
 
 export function proxy(request: NextRequest) {

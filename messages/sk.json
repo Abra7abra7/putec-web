@@ -1,6 +1,249 @@
 {
-    "Index": {
-        "title": "Vino Pútec",
-        "description": "Rodinné vinárstvo v srdci Malokarpatskej oblasti"
-    }
+    "email": "info@vinoputec.sk",
+    "phone": "+421 911 250 400",
+    "address": "Pezinská 154, 902 01 Vinosady, Slovensko",
+    "siteName": "Vino Putec",
+    "siteTagline": "Rodinné vinárstvo vo Vinosadoch",
+    "labels": {
+        "email": "Email",
+        "phone": "Telefón",
+        "address": "Adresa",
+        "quickLinks": "Rýchle odkazy",
+        "contactUs": "Kontaktujte nás",
+        "followUs": "Sledujte nás",
+        "searchPlaceholder": "Hľadať vína...",
+        "allCategories": "Všetky kategórie",
+        "sortByName": "Zoradiť podľa názvu",
+        "sortByPrice": "Zoradiť podľa ceny",
+        "sortByNewest": "Zoradiť podľa najnovších",
+        "loadingProducts": "Načítavanie vín...",
+        "noProductsFound": "Žiadne vína sa nenašli...",
+        "productDetails": "Detaily vína",
+        "products": "Vína",
+        "recentProducts": "Najnovšie vína",
+        "addToCart": "Pridať do košíka",
+        "viewProduct": "Zobraziť produkt",
+        "cartEmpty": "Váš košík je prázdny.",
+        "viewCart": "Zobraziť košík",
+        "total": "Celkom",
+        "quantity": "Množstvo",
+        "proceedToCheckout": "Pokračovať k objednávke",
+        "remove": "Odstrániť",
+        "unitPrice": "Jednotková cena",
+        "productTotal": "Celková cena",
+        "cartTitle": "Váš nákupný košík",
+        "orderSummary": "Súhrn objednávky",
+        "subtotal": "Medzisúčet",
+        "shipping": "Doprava",
+        "noShippingSelected": "Nie je vybrané",
+        "firstName": "Meno",
+        "lastName": "Priezvisko",
+        "country": "Krajina",
+        "state": "Kraj",
+        "city": "Mesto",
+        "address1": "Adresa 1",
+        "address2": "Adresa 2",
+        "postalCode": "PSČ",
+        "shippingInformation": "Dodacie údaje",
+        "billingInformation": "Fakturačné údaje",
+        "shippingMethod": "Spôsob doručenia",
+        "paymentMethod": "Spôsob platby",
+        "placeOrder": "Objednať",
+        "placingOrder": "Objednávam...",
+        "checkoutValidationError": "Prosím vyplňte všetky povinné polia.",
+        "orderPlacedSuccess": "Vaša objednávka bola úspešne odoslaná!",
+        "orderFailed": "Objednávku sa nepodarilo odoslať. Skúste to znovu.",
+        "sameAsShipping": "Rovnaké ako dodacie údaje",
+        "orderConfirmationMessage": "Vaša objednávka bola úspešne odoslaná. Oznámime vám, keď ju spracujeme.",
+        "orderDetails": "Detaily objednávky",
+        "orderId": "Číslo objednávky",
+        "orderDate": "Dátum objednávky",
+        "completeBeforePayment": "Prosím vyplňte všetky dodacie a fakturačné polia pred výberom spôsobu platby.",
+        "payNow": "Zaplatiť teraz",
+        "orderConfirmationTitle": "Potvrdenie objednávky",
+        "isCompany": "Nákup ako firma",
+        "companyName": "Názov firmy",
+        "companyICO": "IČO",
+        "companyDIC": "DIČ",
+        "companyICDPH": "IČ DPH",
+        "differentBilling": "Dodacie údaje sú iné ako fakturačné"
+    },
+    "menu": [
+        {
+            "label": "Domov",
+            "href": "/"
+        },
+        {
+            "label": "Vína",
+            "href": "/vina"
+        },
+        {
+            "label": "Degustácie",
+            "href": "/degustacie"
+        },
+        {
+            "label": "Galéria",
+            "href": "/galeria"
+        },
+        {
+            "label": "Ubytovanie",
+            "href": "/ubytovanie"
+        },
+        {
+            "label": "O nás",
+            "href": "/o-nas"
+        },
+        {
+            "label": "Kontakt",
+            "href": "/kontakt"
+        }
+    ],
+    "footerLinks": [
+        {
+            "label": "Domov",
+            "href": "/"
+        },
+        {
+            "label": "Vína",
+            "href": "/vina"
+        },
+        {
+            "label": "Degustácie vína",
+            "href": "/degustacie"
+        },
+        {
+            "label": "Ubytovanie",
+            "href": "/ubytovanie"
+        },
+        {
+            "label": "O nás",
+            "href": "/o-nas"
+        },
+        {
+            "label": "Kontakt",
+            "href": "/kontakt"
+        }
+    ],
+    "legalLinks": [
+        {
+            "label": "Zásady ochrany osobných údajov",
+            "href": "/zasady-ochrany-osobnych-udajov"
+        },
+        {
+            "label": "Obchodné podmienky",
+            "href": "/obchodne-podmienky"
+        },
+        {
+            "label": "Reklamačný poriadok",
+            "href": "/reklamacny-poriadok"
+        },
+        {
+            "label": "Nástroje na ochranu súkromia",
+            "href": "/nastroje-ochrany-sukromia"
+        }
+    ],
+    "socialLinks": [
+        {
+            "id": "facebook",
+            "icon": "SiFacebook",
+            "url": "https://www.facebook.com/vinoputec"
+        },
+        {
+            "id": "instagram",
+            "icon": "SiInstagram",
+            "url": "https://www.instagram.com/vinoputec/"
+        },
+        {
+            "id": "youtube",
+            "icon": "SiYoutube",
+            "url": "https://www.youtube.com/channel/UC4jSLd6VZSsxC34-lS7fFMw"
+        }
+    ],
+    "homepage": {
+        "banner": {
+            "title": "Rodinné vinárstvo Putec Pezinok | Ubytovanie Vinosady | Degustácie vína",
+            "subtitle": "Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku. Rodinné vinárstvo s tradíciou pre Bratislavu, Senec, Trnavu a okolie.",
+            "buttonText": "Pozrite naše vína",
+            "imagePath": "/vineyard-banner.webp",
+            "ctaLink": "/vina"
+        },
+        "brandStory": {
+            "title": "Rodinné vinárstvo Putec - Tradícia vo Vinosadoch",
+            "description": "Putec s.r.o. je rodinné vinárstvo s dlhoročnou tradíciou vo Vinosadoch pri Pezinku. Naše prémiové vína sú výsledkom starostlivého prístupu k vinohradníctvu a lásky k vínu. Každá fľaša nesie v sebe jedinečnú chuť našej krajiny a rodinnej tradície. Ponúkame ubytovanie a degustácie vína pre návštevníkov z Bratislavy, Senca, Trnavy a celého regiónu.",
+            "buttonText": "Dozvedieť sa viac",
+            "ctaLink": "/o-nas"
+        },
+        "testimonialsTitle": "Čo hovoria naši zákazníci",
+        "testimonials": [
+            {
+                "id": 1,
+                "name": "Jana K.",
+                "avatar": "/user1.jpg",
+                "rating": 5,
+                "review": "Vynikajúce vína! Chuť je úžasná a kvalita je na najvyššej úrovni. Určite si objednám znovu."
+            },
+            {
+                "id": 2,
+                "name": "Peter Novák",
+                "avatar": "/user2.jpg",
+                "rating": 5,
+                "review": "Najlepšie vína v regióne! Rodinná tradícia je cítiť v každej fľaši. Odporúčam všetkým milovníkom vína."
+            },
+            {
+                "id": 3,
+                "name": "Mária Svobodová",
+                "avatar": "/user3.jpg",
+                "rating": 5,
+                "review": "Profesionálny prístup a rýchle doručenie. Vína sú skutočne prémiové. Ďakujeme za skvelý servis!"
+            }
+        ],
+        "newsletter": {
+            "title": "Prihláste sa na náš newsletter",
+            "description": "Buďte medzi prvými, ktorí sa dozvedia o nových vínoch a špeciálnych ponukách.",
+            "placeholder": "Zadajte váš email",
+            "buttonText": "Prihlásiť sa"
+        },
+        "brandsTitle": "Naše vína",
+        "brands": [
+            {
+                "name": "Červené vína",
+                "logo": "/brands/brand1.svg"
+            },
+            {
+                "name": "Biele vína",
+                "logo": "/brands/brand2.svg"
+            },
+            {
+                "name": "Ružové vína",
+                "logo": "/brands/brand3.svg"
+            },
+            {
+                "name": "Šumivé vína",
+                "logo": "/brands/brand4.svg"
+            },
+            {
+                "name": "Dessert vína",
+                "logo": "/brands/brand5.svg"
+            }
+        ]
+    },
+    "about": {
+        "title": "Rodinné vinárstvo Putec Vinosady | O nás",
+        "imagePath": "/o-nas/rodina1.JPG",
+        "content": "Putec s.r.o. je rodinné vinárstvo s dlhoročnou tradíciou vo Vinosadoch pri Pezinku, ktoré sa špecializuje na výrobu prémiových vín a ponúka ubytovanie a degustácie vína.\n\nNaša história sa začala s láskou k vinohradníctvu a túžbou vytvoriť niečo jedinečné. Dnes sme známi svojím starostlivým prístupom k výrobe vína a osobným vzťahom k zákazníkom z Bratislavy, Senca, Trnavy a celého regiónu.\n\nVeríme v silu tradície, hodnotu kvalitných surovín a radosť z delenia sa o skvelé vína s komunitou. Každá fľaša vína je vybraná s láskou - a každý zákazník sa stáva súčasťou našej rozšírenej rodiny. Ponúkame ubytovanie a degustácie vína v krásnom prostredí Vinosád."
+    },
+    "contactForm": {
+        "title": "Kontaktujte nás",
+        "nameLabel": "Meno",
+        "emailLabel": "Email",
+        "messageLabel": "Správa",
+        "namePlaceholder": "Vaše meno",
+        "emailPlaceholder": "vas@email.sk",
+        "messagePlaceholder": "Vaša správa",
+        "buttonText": "Odoslať správu",
+        "successMessage": "Vaša správa bola úspešne odoslaná!",
+        "errorMessage": "Nepodarilo sa odoslať správu. Skúste to neskôr.",
+        "captchaError": "reCAPTCHA nie je k dispozícii."
+    },
+    "copyright": "© 2025 Putec s.r.o. Všetky práva vyhradené."
 }
