@@ -32,8 +32,14 @@ ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
 
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+
+# Start: Optimization for Sharp (Image Processing)
+RUN apk add --no-cache libc6-compat
+# End: Optimization
+
 
 COPY --from=builder /app/public ./public
 

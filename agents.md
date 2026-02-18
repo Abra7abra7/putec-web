@@ -126,4 +126,14 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 - **Nastavenia**: `SUPERFAKTURA_SEND_EMAILS=1`.
 
 ---
-*Posledná aktualizácia: 17. 2. 2026 (Production Migration Complete)*
+### 7. Aktuálne Vylepšenia a Opravy (Feb 18, 2026)
+- **SEO**: Opravená kritická chyba `canonical` URL v `layout.tsx` (týkala sa indexácie podstránok).
+- **UI/UX**:
+  - **Overenie Veku**: Redizajn na High-Contrast (Biele pozadie, čierne písmo, zlaté tlačidlá).
+  - **Načítanie**: Nahradená "červená ikona" (vnímala sa ako chyba) za skákajúcu zlatú fľašu.
+- **Performance**: Pridaná podpora `libc6-compat` do `Dockerfile` pre `sharp` (rýchlejšie obrázky).
+- **Bugfix**: Opravené nekonečné presmerovania na stránkach *Obchodné podmienky* a *Reklamačný poriadok* (`proxy.ts`).
+- **Legal**: Doplnené IČO na stránku Ochrany osobných údajov.
+
+---
+*Posledná aktualizácia: 18. 2. 2026 (SEO & UI Polishing)*
