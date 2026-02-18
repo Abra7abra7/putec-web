@@ -44,7 +44,7 @@ export const OrderConfirmationCustomer = ({
   total = 0,
   shippingMethod = 'Slovenská pošta',
   paymentMethod = 'Dobierka',
-  logoSrc = 'https://vino-putec-web.vercel.app/putec-logo.jpg',
+  logoSrc = 'https://vinoputec.sk/putec-logo.jpg',
 }: OrderConfirmationCustomerProps) => {
   const previewText = `Ďakujeme za objednávku ${orderId}!`;
 

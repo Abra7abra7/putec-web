@@ -42,16 +42,16 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
 
   const metadata = pi.metadata as Record<string, string>;
 
-  // Kontrola platobnej metódy - faktúru vytvárame len pri online platbe cez Stripe
+  // Kontrola platobnej metódy
   const paymentMethod = metadata.paymentMethod || 'unknown';
   console.log('🔍 SuperFaktura - Payment method from metadata:', paymentMethod);
 
-  if (paymentMethod !== 'stripe') {
-    console.log(`ℹ️ Payment method is "${paymentMethod}", skipping SuperFaktura invoice (faktúru vystaví kurier/prevádzka)`);
+  if (paymentMethod !== 'stripe' && paymentMethod !== 'cash_on_delivery' && paymentMethod !== 'dobierka') {
+    console.log(`ℹ️ Payment method is "${paymentMethod}", skipping SuperFaktura invoice.`);
     return;
   }
 
-  console.log('✅ Payment method is "stripe", proceeding with SuperFaktura invoice creation');
+  console.log(`✅ Payment method is "${paymentMethod}", proceeding with SuperFaktura invoice creation`);
 
   console.log('🔍 SuperFaktura - PaymentIntent metadata:', metadata);
   console.log('🔍 SuperFaktura - Order ID from metadata:', metadata.orderId);
@@ -65,75 +65,97 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     }
   };
 
-  // Získanie emailu - priorita: chargeEmail > pi.receipt_email > metadata.billing_email
-  const customerEmail = chargeEmail || pi.receipt_email || metadata.billing_email || '';
+  // --- Parse billing form (new compact JSON or old per-field format) ---
+  let billingParsed: Record<string, string> = {};
+  if (metadata.billing) {
+    try { billingParsed = JSON.parse(metadata.billing); } catch { /* ignore */ }
+  }
+  const billingFirstName = billingParsed.fn || metadata.billing_firstName || '';
+  const billingLastName = billingParsed.ln || metadata.billing_lastName || '';
+  const billingAddr = billingParsed.addr || metadata.billing_address1 || '';
+  const billingCity = billingParsed.city || metadata.billing_city || '';
+  const billingZip = billingParsed.zip || metadata.billing_postalCode || '';
+  const billingCountry = billingParsed.country || metadata.billing_country || '';
+  const billingEmail = billingParsed.email || metadata.billing_email || '';
+  const billingPhone = billingParsed.phone || metadata.billing_phone || undefined;
+  const billingCompanyName = billingParsed.cname || metadata.billing_company_name || undefined;
+  const billingICO = billingParsed.ico || metadata.billing_company_ico || undefined;
+  const billingDIC = billingParsed.dic || metadata.billing_company_dic || undefined;
+  const billingICDPH = metadata.billing_company_icdph || undefined;
 
-  // Príprava dát o klientovi z metadát PaymentIntent
+  // --- Parse shipping form (new compact JSON or old per-field format) ---
+  let shippingParsed: Record<string, string> = {};
+  if (metadata.shipping) {
+    try { shippingParsed = JSON.parse(metadata.shipping); } catch { /* ignore */ }
+  }
+  const shippingAddr = shippingParsed.addr || metadata.shipping_address1 || '';
+  const shippingCity = shippingParsed.city || metadata.shipping_city || '';
+  const shippingZip = shippingParsed.zip || metadata.shipping_postalCode || '';
+  const shippingCountry = shippingParsed.country || metadata.shipping_country || '';
+
+  // Získanie emailu - priorita: chargeEmail > pi.receipt_email > billing email
+  const customerEmail = chargeEmail || pi.receipt_email || billingEmail || '';
+
+  // Príprava dát o klientovi
   const clientData: SFClientData = {
-    name: metadata.billing_company_name || `${metadata.billing_firstName} ${metadata.billing_lastName}`,
-    ico: metadata.billing_company_ico || undefined,
-    dic: metadata.billing_company_dic || undefined,
-    ic_dph: metadata.billing_company_icdph || undefined,
-    address: metadata.billing_address1 || '',
-    city: metadata.billing_city || '',
-    zip: metadata.billing_postalCode || '',
-    country_id: getCountryId(metadata.billing_country),
+    name: billingCompanyName || `${billingFirstName} ${billingLastName}`.trim(),
+    ico: billingICO,
+    dic: billingDIC,
+    ic_dph: billingICDPH,
+    address: billingAddr,
+    city: billingCity,
+    zip: billingZip,
+    country_id: getCountryId(billingCountry || shippingCountry),
     email: customerEmail,
-    phone: metadata.billing_phone || undefined,
+    phone: billingPhone,
   };
 
-  // Debug log pre kontrolu emailov
-  console.log('🔍 SuperFaktura - Email sources:', {
-    chargeEmail,
-    receipt_email: pi.receipt_email,
-    billing_email: metadata.billing_email,
-    final_customerEmail: customerEmail,
-  });
+  // Debug log
+  console.log('🔍 SuperFaktura - Client data:', { name: clientData.name, email: clientData.email, city: clientData.city });
 
-  // Debug log pre kontrolu metadát
-  console.log('🔍 SuperFaktura - Billing metadata:', {
-    company_name: metadata.billing_company_name,
-    company_ico: metadata.billing_company_ico,
-    company_dic: metadata.billing_company_dic,
-    company_icdph: metadata.billing_company_icdph,
-    firstName: metadata.billing_firstName,
-    lastName: metadata.billing_lastName,
-    address: metadata.billing_address1,
-    city: metadata.billing_city,
-    country: metadata.billing_country,
-    email: metadata.billing_email,
-  });
-
-  console.log('🔍 SuperFaktura - Shipping metadata:', {
-    shipping_firstName: metadata.shipping_firstName,
-    shipping_lastName: metadata.shipping_lastName,
-    shipping_address1: metadata.shipping_address1,
-    shipping_city: metadata.shipping_city,
-    shipping_country: metadata.shipping_country,
-  });
-
-  // Príprava položiek faktúry - OPRAVA: používame price_cents namiesto price
+  // --- Parse cart items (new compact JSON or old per-field format) ---
   const invoiceItems: SFInvoiceItem[] = [];
-  const indices = new Set<number>();
-  Object.keys(metadata).forEach(k => {
-    const m = k.match(/^item_(\d+)_/);
-    if (m) indices.add(parseInt(m[1], 10));
-  });
 
-  indices.forEach(i => {
-    // OPRAVA: čítame z price_cents a delíme 100 pre eurá
-    const unitPriceCents = parseInt(metadata[`item_${i}_price_cents`] || '0', 10);
-    const unitPrice = unitPriceCents / 100;
-
-    invoiceItems.push({
-      name: metadata[`item_${i}_title`] || `Položka ${i}`,
-      description: `Produkt ID: ${metadata[`item_${i}_id`]}`,
-      quantity: parseInt(metadata[`item_${i}_qty`] || '1', 10),
-      unit: 'ks',
-      unit_price: unitPrice,
-      tax: 20, // Predpokladáme 20% DPH, upravte podľa potreby
+  if (metadata.cart_items) {
+    // New compact format
+    try {
+      const parsed = JSON.parse(metadata.cart_items) as Array<{ id: string; title: string; qty: number; price: number }>;
+      parsed.forEach(item => {
+        invoiceItems.push({
+          name: item.title || `Položka`,
+          description: `Produkt ID: ${item.id}`,
+          quantity: item.qty || 1,
+          unit: 'ks',
+          unit_price: item.price || 0,
+          tax: 20,
+        });
+      });
+    } catch {
+      console.warn('⚠️ Failed to parse cart_items JSON');
+    }
+  } else {
+    // Old per-field format fallback
+    const indices = new Set<number>();
+    Object.keys(metadata).forEach(k => {
+      const m = k.match(/^item_(\d+)_/);
+      if (m) indices.add(parseInt(m[1], 10));
     });
-  });
+    indices.forEach(i => {
+      const unitPriceCents = parseInt(metadata[`item_${i}_price_cents`] || '0', 10);
+      const unitPrice = unitPriceCents > 0 ? unitPriceCents / 100 : parseFloat(metadata[`item_${i}_price`] || '0');
+      invoiceItems.push({
+        name: metadata[`item_${i}_title`] || `Položka ${i}`,
+        description: `Produkt ID: ${metadata[`item_${i}_id`]}`,
+        quantity: parseInt(metadata[`item_${i}_qty`] || '1', 10),
+        unit: 'ks',
+        unit_price: unitPrice,
+        tax: 20,
+      });
+    });
+  }
+
+  console.log(`🔍 SuperFaktura - Invoice items count: ${invoiceItems.length}`);
+
 
   // Pridanie dopravy ako položky faktúry - OPRAVA: používame shippingPriceCents
   const shippingCostCents = parseInt(metadata.shippingPriceCents || '0', 10);
@@ -150,23 +172,26 @@ export async function createSuperFakturaInvoice(pi: Stripe.PaymentIntent, charge
     });
   }
 
+  // Create Dobierka item if COD
+  const isCOD = paymentMethod === 'cash_on_delivery' || paymentMethod === 'dobierka';
+
   // Príprava finálneho JSONu pre API
   const invoicePayload = {
     Invoice: {
       name: `Objednávka ${metadata.orderId}`,
       invoice_currency: pi.currency.toUpperCase(),
-      payment_type: 'card', // Platba kartou cez Stripe
-      already_paid: true, // Faktúra je už uhradená
-      paydate: new Date().toISOString().split('T')[0], // Dátum úhrady (YYYY-MM-DD)
+      payment_type: isCOD ? 'cod' : 'card', // 'cod' for dobierka, 'card' for stuck
+      already_paid: !isCOD, // False for COD
+      paydate: !isCOD ? new Date().toISOString().split('T')[0] : undefined, // Dátum úhrady len ak je zaplatené
       vs: metadata.orderId.replace(/[^0-9]/g, '').slice(0, 10) || undefined, // Variabilný symbol z orderId
     },
     InvoiceItem: invoiceItems,
     Client: {
       ...clientData,
-      delivery_address: metadata.shipping_address1,
-      delivery_city: metadata.shipping_city,
-      delivery_zip: metadata.shipping_postalCode,
-      delivery_country_id: getCountryId(metadata.shipping_country),
+      delivery_address: shippingAddr,
+      delivery_city: shippingCity,
+      delivery_zip: shippingZip,
+      delivery_country_id: getCountryId(shippingCountry),
     },
   };
 

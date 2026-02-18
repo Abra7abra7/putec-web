@@ -34,14 +34,7 @@ export default async function Testimonials() {
       <Container>
         <div className="text-center">
           {/* Social Proof Badge */}
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 px-4 py-2 rounded-full mb-6">
-            <span className="flex">
-              {[1, 2, 3, 4, 5].map((s) => (
-                <span key={s} className="text-accent text-xs">★</span>
-              ))}
-            </span>
-            <span className="text-xs font-bold text-yellow-800 tracking-wider uppercase">Viac ako 10,000 spokojných zákazníkov</span>
-          </div>
+
 
           {/* Section Title */}
           <h2 className="mb-4 text-3xl md:text-4xl font-bold tracking-tighter">

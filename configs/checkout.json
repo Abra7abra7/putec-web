@@ -1,67 +1,144 @@
 {
-    "shippingMethods": [
+  "shippingMethods": [
+    {
+      "id": "courier",
+      "name": "Kurier (2-3 pracovné dni)",
+      "price": 3.00,
+      "currency": "EUR"
+    },
+    {
+      "id": "pickup",
+      "name": "Osobne na prevádzke (Vinosady)",
+      "price": 0.00,
+      "currency": "EUR"
+    }
+  ],
+  "shippingCountries": [
+    {
+      "code": "SK",
+      "name": "Slovensko"
+    },
+    {
+      "code": "CZ",
+      "name": "Česko"
+    }
+  ],
+  "billingCountries": [
+    {
+      "code": "SK",
+      "name": "Slovensko"
+    },
+    {
+      "code": "CZ",
+      "name": "Česko"
+    }
+  ],
+  "countryStates": {
+    "SK": [
       {
-        "id": "courier",
-        "name": "Kurier (2-3 pracovné dni)",
-        "price": 3.00,
-        "currency": "EUR"
+        "code": "BC",
+        "name": "Banskobystrický kraj"
       },
       {
-        "id": "pickup",
-        "name": "Osobne na prevádzke (Vinosady)",
-        "price": 0.00,
-        "currency": "EUR"
+        "code": "BL",
+        "name": "Bratislavský kraj"
+      },
+      {
+        "code": "KI",
+        "name": "Košický kraj"
+      },
+      {
+        "code": "NI",
+        "name": "Nitriansky kraj"
+      },
+      {
+        "code": "PV",
+        "name": "Prešovský kraj"
+      },
+      {
+        "code": "TC",
+        "name": "Trenčiansky kraj"
+      },
+      {
+        "code": "TA",
+        "name": "Trnavský kraj"
+      },
+      {
+        "code": "ZI",
+        "name": "Žilinský kraj"
       }
     ],
-    "shippingCountries": [
-      { "code": "SK", "name": "Slovensko" },
-      { "code": "CZ", "name": "Česko" }
-    ],
-    "billingCountries": [
-      { "code": "SK", "name": "Slovensko" },
-      { "code": "CZ", "name": "Česko" }
-    ],
-    "countryStates": {
-      "SK": [
-        { "code": "BC", "name": "Banskobystrický kraj" },
-        { "code": "BL", "name": "Bratislavský kraj" },
-        { "code": "KI", "name": "Košický kraj" },
-        { "code": "NI", "name": "Nitriansky kraj" },
-        { "code": "PV", "name": "Prešovský kraj" },
-        { "code": "TC", "name": "Trenčiansky kraj" },
-        { "code": "TA", "name": "Trnavský kraj" },
-        { "code": "ZI", "name": "Žilinský kraj" }
-      ],
-      "CZ": [
-        { "code": "JC", "name": "Jihočeský kraj" },
-        { "code": "JM", "name": "Jihomoravský kraj" },
-        { "code": "KA", "name": "Karlovarský kraj" },
-        { "code": "KR", "name": "Královéhradecký kraj" },
-        { "code": "LI", "name": "Liberecký kraj" },
-        { "code": "MO", "name": "Moravskoslezský kraj" },
-        { "code": "OL", "name": "Olomoucký kraj" },
-        { "code": "PA", "name": "Pardubický kraj" },
-        { "code": "PL", "name": "Plzeňský kraj" },
-        { "code": "PR", "name": "Praha" },
-        { "code": "ST", "name": "Středočeský kraj" },
-        { "code": "US", "name": "Ústecký kraj" },
-        { "code": "VY", "name": "Vysočina" },
-        { "code": "ZL", "name": "Zlínský kraj" }
-      ]
-    },
-    "paymentMethods": [
+    "CZ": [
       {
-        "id": "cod",
-        "name": "Cash on Delivery",
-        "enabled": true,
-        "icon": "/payments/cash.png"
+        "code": "JC",
+        "name": "Jihočeský kraj"
       },
       {
-        "id": "stripe",
-        "name": "Stripe (Credit/Debit Card)",
-        "enabled": true,
-        "icon": "/payments/stripe.png"
+        "code": "JM",
+        "name": "Jihomoravský kraj"
+      },
+      {
+        "code": "KA",
+        "name": "Karlovarský kraj"
+      },
+      {
+        "code": "KR",
+        "name": "Královéhradecký kraj"
+      },
+      {
+        "code": "LI",
+        "name": "Liberecký kraj"
+      },
+      {
+        "code": "MO",
+        "name": "Moravskoslezský kraj"
+      },
+      {
+        "code": "OL",
+        "name": "Olomoucký kraj"
+      },
+      {
+        "code": "PA",
+        "name": "Pardubický kraj"
+      },
+      {
+        "code": "PL",
+        "name": "Plzeňský kraj"
+      },
+      {
+        "code": "PR",
+        "name": "Praha"
+      },
+      {
+        "code": "ST",
+        "name": "Středočeský kraj"
+      },
+      {
+        "code": "US",
+        "name": "Ústecký kraj"
+      },
+      {
+        "code": "VY",
+        "name": "Vysočina"
+      },
+      {
+        "code": "ZL",
+        "name": "Zlínský kraj"
       }
     ]
-  }
-  
+  },
+  "paymentMethods": [
+    {
+      "id": "cod",
+      "name": "Dobierka",
+      "enabled": true,
+      "icon": "/payments/cash.png"
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe (kreditná / debetná karta)",
+      "enabled": true,
+      "icon": "/payments/stripe.png"
+    }
+  ]
+}

@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
 
     for (const item of orderData.cartItems) {
       const product = allProducts.find((p) => p.ID === item.ID);
-      
+
       if (!product) {
         invalidItems.push(`Product ${item.ID} not found`);
         continue;
@@ -167,28 +167,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send emails for COD (cash on delivery) - NO invoice
+    // COD: No SuperFaktura invoice — physical invoice delivered by courier with the wine
+    console.log("📦 COD order - physical invoice will be delivered by courier");
+
+    // Send admin notification email
     try {
-      // Send admin notification email
       await sendAdminEmail(orderData);
       emailResults.admin = true;
       console.log("✅ Admin email sent successfully");
-      
       // Add small delay to avoid rate limiting
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 500));
     } catch (error) {
       console.error("❌ Failed to send admin email:", error);
-      // Continue even if admin email fails
     }
 
-    // Send customer confirmation email (NO invoice for COD)
+    // Send customer confirmation email (no invoice attachment for COD)
     try {
-      await sendCustomerEmail(orderData); // No invoiceId - COD doesn't get invoice
+      await sendCustomerEmail(orderData);
       emailResults.customer = true;
-      console.log("✅ Customer email sent successfully (COD - no invoice)");
+      console.log("✅ Customer email sent successfully (COD)");
     } catch (error) {
       console.error("❌ Failed to send customer email:", error);
-      // This is more critical - we should still return success but log warning
     }
 
     return NextResponse.json(

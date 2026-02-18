@@ -128,6 +128,7 @@ export async function POST(request: NextRequest) {
     const siteName = localization.siteName || "Vino Putec";
 
     // Build metadata for Stripe
+    // IMPORTANT: Stripe allows max 50 keys, each value max 500 chars
     const metadata: Record<string, string> = {
       orderId,
       siteName,
@@ -138,65 +139,64 @@ export async function POST(request: NextRequest) {
       locale,
     };
 
-    // Add cart items to metadata
+    // Store cart items as a single compact JSON string (1 key instead of 5 per item)
     if (Array.isArray(cartItems) && cartItems.length > 0) {
-      cartItems.forEach((item, index) => {
-        const unit = parseFloat(item.SalePrice || item.RegularPrice || "0");
-        const unitCents = Math.round(unit * 100);
-
-        metadata[`item_${index + 1}_id`] = item.Slug;
-        metadata[`item_${index + 1}_title`] = item.Title;
-        metadata[`item_${index + 1}_qty`] = item.quantity.toString();
-        metadata[`item_${index + 1}_price`] = unit.toString();
-        metadata[`item_${index + 1}_price_cents`] = unitCents.toString();
-      });
+      const cartSummary = cartItems.map(item => ({
+        id: item.Slug,
+        title: item.Title,
+        qty: item.quantity,
+        price: parseFloat(item.SalePrice || item.RegularPrice || "0"),
+      }));
+      // Stripe metadata values max 500 chars - truncate if needed
+      const cartJson = JSON.stringify(cartSummary);
+      metadata["cart_items"] = cartJson.length <= 500 ? cartJson : cartJson.substring(0, 497) + "...";
+      metadata["cart_count"] = cartItems.length.toString();
     }
 
-    // Add billing metadata
+    // Store billing as compact JSON (1 key instead of 10+)
     if (billingForm) {
-      metadata["billing_is_company"] = billingForm.isCompany ? "1" : "0";
-
+      const billingData: Record<string, string | boolean | undefined> = {
+        fn: billingForm.firstName,
+        ln: billingForm.lastName,
+        addr: billingForm.address1,
+        city: billingForm.city,
+        zip: billingForm.postalCode,
+        country: billingForm.country,
+        email: billingForm.email,
+        phone: billingForm.phone || "",
+        company: billingForm.isCompany ? "1" : "0",
+      };
       if (billingForm.isCompany) {
-        if (billingForm.companyName) metadata["billing_company_name"] = billingForm.companyName;
-        if (billingForm.companyICO) metadata["billing_company_ico"] = billingForm.companyICO;
-        if (billingForm.companyDIC) metadata["billing_company_dic"] = billingForm.companyDIC;
-        if (billingForm.companyICDPH) metadata["billing_company_icdph"] = billingForm.companyICDPH;
+        if (billingForm.companyName) billingData["cname"] = billingForm.companyName;
+        if (billingForm.companyICO) billingData["ico"] = billingForm.companyICO;
+        if (billingForm.companyDIC) billingData["dic"] = billingForm.companyDIC;
       }
-
-      // Add billing address
-      metadata["billing_firstName"] = billingForm.firstName;
-      metadata["billing_lastName"] = billingForm.lastName;
-      metadata["billing_address1"] = billingForm.address1;
-      metadata["billing_address2"] = billingForm.address2 || "";
-      metadata["billing_city"] = billingForm.city;
-      metadata["billing_state"] = billingForm.state || "";
-      metadata["billing_postalCode"] = billingForm.postalCode;
-      metadata["billing_country"] = billingForm.country;
-      metadata["billing_phone"] = billingForm.phone || "";
-      metadata["billing_email"] = billingForm.email;
+      const billingJson = JSON.stringify(billingData);
+      metadata["billing"] = billingJson.length <= 500 ? billingJson : billingJson.substring(0, 497) + "...";
     }
 
-    // Add shipping metadata
+    // Store shipping as compact JSON (1 key instead of 10+)
     if (shippingForm) {
-      metadata["shipping_firstName"] = shippingForm.firstName;
-      metadata["shipping_lastName"] = shippingForm.lastName;
-      metadata["shipping_address1"] = shippingForm.address1;
-      metadata["shipping_address2"] = shippingForm.address2 || "";
-      metadata["shipping_city"] = shippingForm.city;
-      metadata["shipping_state"] = shippingForm.state || "";
-      metadata["shipping_postalCode"] = shippingForm.postalCode;
-      metadata["shipping_country"] = shippingForm.country;
-      metadata["shipping_phone"] = shippingForm.phone || "";
-      metadata["shipping_email"] = shippingForm.email;
-      metadata["shipping_is_company"] = shippingForm.isCompany ? "1" : "0";
-
+      const shippingData: Record<string, string | boolean | undefined> = {
+        fn: shippingForm.firstName,
+        ln: shippingForm.lastName,
+        addr: shippingForm.address1,
+        city: shippingForm.city,
+        zip: shippingForm.postalCode,
+        country: shippingForm.country,
+        email: shippingForm.email,
+        phone: shippingForm.phone || "",
+        company: shippingForm.isCompany ? "1" : "0",
+      };
       if (shippingForm.isCompany) {
-        if (shippingForm.companyName) metadata["shipping_company_name"] = shippingForm.companyName;
-        if (shippingForm.companyICO) metadata["shipping_company_ico"] = shippingForm.companyICO;
-        if (shippingForm.companyDIC) metadata["shipping_company_dic"] = shippingForm.companyDIC;
-        if (shippingForm.companyICDPH) metadata["shipping_company_icdph"] = shippingForm.companyICDPH;
+        if (shippingForm.companyName) shippingData["cname"] = shippingForm.companyName;
+        if (shippingForm.companyICO) shippingData["ico"] = shippingForm.companyICO;
+        if (shippingForm.companyDIC) shippingData["dic"] = shippingForm.companyDIC;
       }
+      const shippingJson = JSON.stringify(shippingData);
+      metadata["shipping"] = shippingJson.length <= 500 ? shippingJson : shippingJson.substring(0, 497) + "...";
     }
+
 
     // Create PaymentIntent without customer to avoid Link
     // Customer not needed for one-time payments

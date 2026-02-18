@@ -8,6 +8,7 @@ import type { StripeElementsOptions } from "@stripe/stripe-js";
 export default function StripeWrapper({ clientSecret }: { clientSecret: string }) {
   const options: StripeElementsOptions = {
     clientSecret,
+    locale: 'sk', // Slovenčina
     appearance: {
       theme: "stripe",
     },

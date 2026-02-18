@@ -67,7 +67,7 @@ export default function BrandStory() {
           </div>
 
           {/* Right Side - Image (dole na mobile, vpravo na desktop) */}
-          <div className="relative order-2 md:order-2">
+          <div className="relative order-2 md:order-2 pt-6 pb-6 pl-6">
             <div className="relative">
               <Image
                 src="/o-nas/rodina2.jpg"
@@ -84,14 +84,14 @@ export default function BrandStory() {
             </div>
 
             {/* Floating Stats */}
-            <div className="absolute -top-4 -left-4 bg-background border border-accent/20 rounded-xl p-3 shadow-lg">
+            <div className="absolute top-0 -left-0 bg-background border border-accent/20 rounded-xl p-3 shadow-lg z-10">
               <div className="text-center">
                 <div className="text-xl font-bold text-accent">2012</div>
                 <div className="text-xs text-foreground-muted">Založenie vinárstva</div>
               </div>
             </div>
 
-            <div className="absolute -bottom-4 -left-4 bg-background border border-accent/20 rounded-xl p-3 shadow-lg">
+            <div className="absolute bottom-0 left-0 bg-background border border-accent/20 rounded-xl p-3 shadow-lg z-10">
               <div className="text-center">
                 <div className="text-xl font-bold text-accent">Generácie</div>
                 <div className="text-xs text-foreground-muted">Rodinná tradícia</div>

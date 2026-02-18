@@ -32,6 +32,12 @@ export default function StripeClientSecretLoader() {
       0
     ) + shippingCost;
 
+  // Create stable string keys from cart/form objects to avoid infinite re-renders
+  // (objects/arrays change reference on every render, causing useEffect to fire in a loop)
+  const cartKey = cartItems.map(i => `${i.ID}:${i.quantity}`).join(',');
+  const shippingKey = `${shippingForm?.firstName}|${shippingForm?.lastName}|${shippingForm?.email}|${shippingForm?.address1}|${shippingForm?.city}|${shippingForm?.postalCode}|${shippingForm?.country}`;
+  const billingKey = `${billingForm?.firstName}|${billingForm?.lastName}|${billingForm?.email}|${billingForm?.address1}|${billingForm?.city}|${billingForm?.postalCode}|${billingForm?.country}`;
+
   useEffect(() => {
     // Flag to prevent race conditions or updates after unmount
     let isMounted = true;
@@ -92,8 +98,7 @@ export default function StripeClientSecretLoader() {
       }
     };
 
-    // Debounce slightly to prevent double-calls in strict mode if possible, 
-    // or just rely on the API update logic.
+    // Debounce slightly to prevent double-calls in strict mode
     const timer = setTimeout(() => {
       loadSecret();
     }, 500); // 500ms debounce
@@ -105,17 +110,16 @@ export default function StripeClientSecretLoader() {
   }, [
     total,
     orderId,
-    // Remove individual dependencies that contribute to total/orderId to reduce re-renders,
-    // but we need them for body payload. The debounce helps.
-    cartItems,
-    shippingForm,
-    billingForm,
-    shippingMethod,
+    cartKey,       // Stable string key instead of cartItems array reference
+    shippingKey,   // Stable string key instead of shippingForm object reference
+    billingKey,    // Stable string key instead of billingForm object reference
     shippingCost,
     paymentMethodId,
     currency,
     locale,
     // paymentIntentId is NOT in dependency array to avoid infinite loop!
+    // cartItems, shippingForm, billingForm, shippingMethod are used in the body
+    // but their stable keys above handle the dependency tracking
   ]);
 
   if (!clientSecret) {

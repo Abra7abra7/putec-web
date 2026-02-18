@@ -37,7 +37,7 @@ export const DegustationReservationCustomer = ({
   productTitle = 'Degustácia vín',
   productPrice = '€25/os',
   productDeposit,
-  logoSrc = 'https://vino-putec-web.vercel.app/putec-logo.jpg',
+  logoSrc = 'https://vinoputec.sk/putec-logo.jpg',
 }: DegustationReservationCustomerProps) => {
   const previewText = 'Potvrdenie rezervácie degustácie - Vino Putec';
 

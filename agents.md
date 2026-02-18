@@ -145,5 +145,11 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
   - **Performance**: Upravené `sizes` atribúty pre obrázky v slideroch a `BrandStory` (prevencia sťahovania zbytočne veľkých obrázkov).
   - **Accessibility**: Opravená hierarchia nadpisov (H2 -> H3) a kontrast textu v recenziách.
 
+- **Checkout & Payments (Feb 18, 2026)**:
+  - **Stripe Metadata**: Vyriešený limit 50 kľúčov konsolidáciou dát (`cart_items`, `billing`, `shipping`) do kompaktných JSON stringov.
+  - **SuperFaktúra**: Opravený parsing metadát v `superfaktura.ts` a `webhook/route.ts`. Pridaná podpora pre Sandbox/Production prepínanie cez ENV.
+  - **Email Flow**: Oddelené odosielanie emailov od úspešnosti vytvorenia faktúry (emaily idú vždy). Opravená URL loga v šablónach.
+  - **Lokalizácia**: Preložené názvy platobných metód v `configs/checkout.json` do slovenčiny.
+
 ---
-*Posledná aktualizácia: 18. 2. 2026 (SEO Fixes & Final Polish)*
+*Posledná aktualizácia: 18. 2. 2026 (Stripe, SuperFaktúra & Email Fixes)*

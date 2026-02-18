@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import fs from "fs";
 import path from "path";
+import GalleryGrid from "@/app/components/gallery/GalleryGrid";
 
 function listImagesFrom(dirPath: string): string[] {
   try {
@@ -25,6 +26,19 @@ export default async function GalleryCategoryPage({ params }: { params: Promise<
   const { category } = await params;
   const safeCategory = category.replace(/[^a-z0-9-_]/gi, "");
   const base = path.join(process.cwd(), "public", "galeria", safeCategory);
+
+  // Ensure directory exists to avoid errors
+  if (!fs.existsSync(base)) {
+    return (
+      <section className="py-12 md:py-16 bg-background">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h1 className="text-3xl font-bold text-foreground mb-4">Galéria sa nenašla</h1>
+          <Link href="/galeria" className="text-accent hover:underline">Späť na galériu</Link>
+        </div>
+      </section>
+    );
+  }
+
   const photos = listImagesFrom(base);
   const categoryTitle = categoryTitles[safeCategory] || safeCategory;
 
@@ -32,7 +46,7 @@ export default async function GalleryCategoryPage({ params }: { params: Promise<
     <section className="py-12 md:py-16 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         {/* Back button - vľavo hore */}
-        <Link 
+        <Link
           href="/galeria"
           className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-6 group"
         >
@@ -44,15 +58,9 @@ export default async function GalleryCategoryPage({ params }: { params: Promise<
           Galéria – {categoryTitle}
         </h1>
         {photos.length === 0 ? (
-          <p className="text-foreground-muted">Žiadne fotografie.</p>
+          <p className="text-foreground-muted">Žiadne fotografie v tejto kategórii.</p>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {photos.map((src) => (
-              <div key={src} className="relative aspect-[4/3] rounded-lg overflow-hidden border border-gray-200">
-                <Image src={src} alt={safeCategory} fill className="object-cover" sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw" />
-              </div>
-            ))}
-          </div>
+          <GalleryGrid images={photos} />
         )}
       </div>
     </section>

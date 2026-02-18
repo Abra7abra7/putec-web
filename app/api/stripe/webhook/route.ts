@@ -321,24 +321,29 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
     console.warn("⚠️ Unable to retrieve charge for email:", error);
   }
 
-  // Create SuperFaktúra invoice (CRITICAL STEP)
-  // If this fails, we want Stripe to RETRY. So we must throw an error or return 500.
+  // Create SuperFaktúra invoice (best-effort — emails always go out regardless)
   let invoiceId: string | undefined;
   try {
     console.log("🧾 Creating SuperFaktúra invoice for order:", orderId);
     invoiceId = await createSuperFakturaInvoice(paymentIntent, chargeEmail);
 
     if (!invoiceId) {
-      // If logic returns undefined but didn't throw, it's ambiguous. 
-      // Assuming if it returns undefined, it might have failed silently or already exists.
       console.warn("⚠️ SuperFaktúra invoice creation returned undefined.");
     } else {
       console.log("✅ SuperFaktúra invoice created successfully, Invoice ID:", invoiceId);
     }
   } catch (error) {
-    console.error("❌ SuperFaktura invoice creation FAILED:", error);
-    // CRITICAL: Throwing error here ensures Stripe receives 500 and schedules a retry.
-    throw new Error("Failed to create SuperFaktura invoice - Requesting Stripe Retry");
+    // Log the error in detail but DO NOT throw — emails must still go out
+    console.error("❌ SuperFaktura invoice creation FAILED (emails will still be sent):", error);
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number; data?: unknown; statusText?: string } };
+      console.error("❌ SuperFaktura HTTP response:", {
+        status: axiosError.response?.status,
+        statusText: axiosError.response?.statusText,
+        data: JSON.stringify(axiosError.response?.data),
+      });
+    }
+    // invoiceId stays undefined — emails go out without invoice attachment
   }
 
   // Send emails (Secondary Step)
@@ -352,72 +357,136 @@ async function processPaidOrder(paymentIntent: Stripe.PaymentIntent): Promise<vo
   }
 
   try {
-    // Build OrderBody
+    // Build OrderBody from metadata
+    // Support new compact JSON format (cart_items, billing, shipping keys)
+    // and old per-field format as fallback
     const cartItems: OrderCartItem[] = [];
-    const indices = new Set<number>();
-    Object.keys(metadata).forEach(k => {
-      const m = k.match(/^item_(\d+)_/);
-      if (m) indices.add(parseInt(m[1], 10));
-    });
 
-    indices.forEach(i => {
-      cartItems.push({
-        ID: metadata[`item_${i}_id`] || '',
-        Title: metadata[`item_${i}_title`] || '',
-        Slug: metadata[`item_${i}_id`] || '',
-        Enabled: true,
-        CatalogVisible: true,
-        ProductCategories: [],
-        ProductImageGallery: [],
-        RegularPrice: metadata[`item_${i}_price`] || '0',
-        SalePrice: metadata[`item_${i}_price`] || '',
-        quantity: parseInt(metadata[`item_${i}_qty`] || '1', 10),
-        FeatureImageURL: '',
-        ShortDescription: '',
-        LongDescription: '',
-        Currency: 'EUR',
-        SubscriptionEnabled: false,
-        SubscriptionType: '',
-        ProductType: 'wine',
+    // --- Parse cart items ---
+    if (metadata.cart_items) {
+      // New compact format: single JSON string
+      try {
+        const parsed = JSON.parse(metadata.cart_items) as Array<{ id: string; title: string; qty: number; price: number }>;
+        parsed.forEach(item => {
+          cartItems.push({
+            ID: item.id || '',
+            Title: item.title || '',
+            Slug: item.id || '',
+            Enabled: true,
+            CatalogVisible: true,
+            ProductCategories: [],
+            ProductImageGallery: [],
+            RegularPrice: item.price?.toString() || '0',
+            SalePrice: item.price?.toString() || '',
+            quantity: item.qty || 1,
+            FeatureImageURL: '',
+            ShortDescription: '',
+            LongDescription: '',
+            Currency: 'EUR',
+            SubscriptionEnabled: false,
+            SubscriptionType: '',
+            ProductType: 'wine',
+          });
+        });
+      } catch {
+        console.warn('⚠️ Failed to parse cart_items JSON from metadata');
+      }
+    } else {
+      // Old format: item_1_id, item_1_title, etc.
+      const indices = new Set<number>();
+      Object.keys(metadata).forEach(k => {
+        const m = k.match(/^item_(\d+)_/);
+        if (m) indices.add(parseInt(m[1], 10));
       });
-    });
+      indices.forEach(i => {
+        cartItems.push({
+          ID: metadata[`item_${i}_id`] || '',
+          Title: metadata[`item_${i}_title`] || '',
+          Slug: metadata[`item_${i}_id`] || '',
+          Enabled: true,
+          CatalogVisible: true,
+          ProductCategories: [],
+          ProductImageGallery: [],
+          RegularPrice: metadata[`item_${i}_price`] || '0',
+          SalePrice: metadata[`item_${i}_price`] || '',
+          quantity: parseInt(metadata[`item_${i}_qty`] || '1', 10),
+          FeatureImageURL: '',
+          ShortDescription: '',
+          LongDescription: '',
+          Currency: 'EUR',
+          SubscriptionEnabled: false,
+          SubscriptionType: '',
+          ProductType: 'wine',
+        });
+      });
+    }
+
+    // --- Parse shipping form ---
+    let shippingParsed: Record<string, string> = {};
+    if (metadata.shipping) {
+      try { shippingParsed = JSON.parse(metadata.shipping); } catch { /* ignore */ }
+    }
+    const shippingFirstName = shippingParsed.fn || metadata.shipping_firstName || '';
+    const shippingLastName = shippingParsed.ln || metadata.shipping_lastName || '';
+    const shippingEmail = shippingParsed.email || metadata.shipping_email || customerEmail || '';
+    const shippingPhone = shippingParsed.phone || metadata.shipping_phone || '';
+    const shippingAddr = shippingParsed.addr || metadata.shipping_address1 || '';
+    const shippingCity = shippingParsed.city || metadata.shipping_city || '';
+    const shippingZip = shippingParsed.zip || metadata.shipping_postalCode || '';
+    const shippingCountry = shippingParsed.country || metadata.shipping_country || '';
+    const shippingIsCompany = shippingParsed.company === '1' || metadata.shipping_is_company === '1';
+
+    // --- Parse billing form ---
+    let billingParsed: Record<string, string> = {};
+    if (metadata.billing) {
+      try { billingParsed = JSON.parse(metadata.billing); } catch { /* ignore */ }
+    }
+    const billingFirstName = billingParsed.fn || metadata.billing_firstName || shippingFirstName;
+    const billingLastName = billingParsed.ln || metadata.billing_lastName || shippingLastName;
+    const billingEmail = billingParsed.email || metadata.billing_email || shippingEmail;
+    const billingPhone = billingParsed.phone || metadata.billing_phone || shippingPhone;
+    const billingAddr = billingParsed.addr || metadata.billing_address1 || shippingAddr;
+    const billingCity = billingParsed.city || metadata.billing_city || shippingCity;
+    const billingZip = billingParsed.zip || metadata.billing_postalCode || shippingZip;
+    const billingCountry = billingParsed.country || metadata.billing_country || shippingCountry;
+    const billingIsCompany = billingParsed.company === '1' || metadata.billing_is_company === '1';
 
     const orderBody: OrderBody = {
       orderId: metadata.orderId || paymentIntent.id,
       orderDate: new Date().toISOString(),
       cartItems,
       shippingForm: {
-        firstName: metadata.shipping_firstName || '',
-        lastName: metadata.shipping_lastName || '',
-        country: metadata.shipping_country || '',
-        state: metadata.shipping_state || '',
-        city: metadata.shipping_city || '',
-        address1: metadata.shipping_address1 || '',
-        address2: metadata.shipping_address2 || '',
-        postalCode: metadata.shipping_postalCode || '',
-        phone: metadata.shipping_phone || '',
-        email: metadata.shipping_email || customerEmail,
-        isCompany: metadata.shipping_is_company === '1',
-        companyName: metadata.shipping_company_name,
-        companyICO: metadata.shipping_company_ico,
-        companyDIC: metadata.shipping_company_dic,
+        firstName: shippingFirstName,
+        lastName: shippingLastName,
+        country: shippingCountry,
+        state: shippingParsed.state || metadata.shipping_state || '',
+        city: shippingCity,
+        address1: shippingAddr,
+        address2: shippingParsed.addr2 || metadata.shipping_address2 || '',
+        postalCode: shippingZip,
+        phone: shippingPhone,
+        email: shippingEmail,
+        isCompany: shippingIsCompany,
+        companyName: shippingParsed.cname || metadata.shipping_company_name,
+        companyICO: shippingParsed.ico || metadata.shipping_company_ico,
+        companyDIC: shippingParsed.dic || metadata.shipping_company_dic,
         companyICDPH: metadata.shipping_company_icdph,
       },
       billingForm: {
-        firstName: metadata.billing_firstName || metadata.shipping_firstName || '',
-        lastName: metadata.billing_lastName || metadata.shipping_lastName || '',
-        country: metadata.billing_country || metadata.shipping_country || '',
-        state: metadata.billing_state || metadata.shipping_state || '',
-        city: metadata.billing_city || metadata.shipping_city || '',
-        address1: metadata.billing_address1 || metadata.shipping_address1 || '',
-        address2: metadata.billing_address2 || metadata.shipping_address2 || '',
-        postalCode: metadata.billing_postalCode || metadata.shipping_postalCode || '',
-        phone: metadata.billing_phone || metadata.shipping_phone || '',
-        email: metadata.billing_email || metadata.shipping_email || customerEmail,
-        isCompany: metadata.billing_is_company === '1',
-        companyName: metadata.billing_company_name,
-        companyICO: metadata.billing_company_ico,
-        companyDIC: metadata.billing_company_dic,
+        firstName: billingFirstName,
+        lastName: billingLastName,
+        country: billingCountry,
+        state: billingParsed.state || metadata.billing_state || '',
+        city: billingCity,
+        address1: billingAddr,
+        address2: billingParsed.addr2 || metadata.billing_address2 || '',
+        postalCode: billingZip,
+        phone: billingPhone,
+        email: billingEmail,
+        isCompany: billingIsCompany,
+        companyName: billingParsed.cname || metadata.billing_company_name,
+        companyICO: billingParsed.ico || metadata.billing_company_ico,
+        companyDIC: billingParsed.dic || metadata.billing_company_dic,
         companyICDPH: metadata.billing_company_icdph,
       },
       shippingMethod: {

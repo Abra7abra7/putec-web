@@ -44,6 +44,8 @@ interface SuperFakturaInvoice {
     variable: string;
     delivery: string;
     payment_type: string;
+    already_paid?: boolean;
+    paydate?: string;
     due?: string;
     comment?: string;
   };
@@ -77,9 +79,9 @@ function getAuthHeaders(): HeadersInit {
 async function getOrCreateClient(orderData: OrderBody): Promise<number> {
   try {
     const billingForm = orderData.billingForm;
-    
+
     const clientData: SuperFakturaClient = {
-      name: billingForm.isCompany 
+      name: billingForm.isCompany
         ? billingForm.companyName || `${billingForm.firstName} ${billingForm.lastName}`
         : `${billingForm.firstName} ${billingForm.lastName}`,
       ico: billingForm.companyICO || undefined,
@@ -103,17 +105,17 @@ async function getOrCreateClient(orderData: OrderBody): Promise<number> {
     );
 
     console.log("🔍 SuperFaktúra search response status:", searchResponse.status);
-    
+
     if (searchResponse.ok) {
       const responseText = await searchResponse.text();
       console.log("📄 SuperFaktúra search response:", responseText.substring(0, 500));
-      
+
       try {
         const clients = JSON.parse(responseText);
         if (clients && clients.length > 0) {
           const clientId = clients[0].Client.id;
           console.log("✅ SuperFaktúra: Našiel sa existujúci klient ID:", clientId);
-          
+
           // Aktualizuj klienta s novými údajmi z aktuálnej objednávky
           console.log("🔄 SuperFaktúra: Aktualizujem klienta s novými údajmi");
           const updateResponse = await fetch(`${SUPERFAKTURA_API_URL}/clients/edit/${clientId}`, {
@@ -121,7 +123,7 @@ async function getOrCreateClient(orderData: OrderBody): Promise<number> {
             headers: getAuthHeaders(),
             body: JSON.stringify({ Client: clientData }),
           });
-          
+
           if (updateResponse.ok) {
             console.log("✅ SuperFaktúra: Klient aktualizovaný s novými údajmi");
           } else {
@@ -129,7 +131,7 @@ async function getOrCreateClient(orderData: OrderBody): Promise<number> {
             console.warn("⚠️ SuperFaktúra: Nepodarilo sa aktualizovať klienta:", updateResponse.status, updateError.substring(0, 200));
             // Pokračujeme aj tak - použijeme existujúceho klienta
           }
-          
+
           return clientId;
         }
       } catch (parseError) {
@@ -193,16 +195,19 @@ export async function createSuperFakturaInvoice(orderData: OrderBody): Promise<s
       });
     }
 
-    // Určenie typu platby
-    const paymentType = orderData.paymentMethodId === "cod" ? "cod" : "card";
+    // Určenie typu platby a stavu úhrady
+    const isStripe = orderData.paymentMethodId === "stripe";
+    const paymentType = isStripe ? "card" : "cod"; // 'cod' is dobierka
 
     // Vytvor faktúru
     const invoiceData: SuperFakturaInvoice = {
       Invoice: {
         name: `Objednávka ${orderData.orderId}`,
-        variable: orderData.orderId,
+        variable: orderData.orderId.replace(/[^0-9]/g, '').slice(0, 10), // Ensure numeric variable symbol
         delivery: new Date().toISOString().split("T")[0],
         payment_type: paymentType,
+        already_paid: isStripe, // Only Stripe is paid immediately
+        paydate: isStripe ? new Date().toISOString().split("T")[0] : undefined, // Paydate only if paid
         comment: `Objednávka z e-shopu\nSpôsob platby: ${orderData.paymentMethodId.toUpperCase()}`,
       },
       Client: {
@@ -226,7 +231,7 @@ export async function createSuperFakturaInvoice(orderData: OrderBody): Promise<s
     const result = await response.json();
     const invoiceId = result.data?.Invoice?.id || result.Invoice?.id;
     const invoiceTotal = parseFloat(result.data?.Invoice?.total || result.Invoice?.total || "0");
-    
+
     console.log("✅ SuperFaktúra: Faktúra vytvorená ID:", invoiceId);
     console.log("💰 Celková suma faktúry (s DPH):", invoiceTotal, "EUR");
 
@@ -323,13 +328,13 @@ export async function downloadInvoicePDF(invoiceId: string): Promise<Buffer> {
     // V sandbox móde môže PDF download zlyhať - logujeme a pokračujeme
     const isSandbox = isSandboxMode();
     const pdfUrl = `${SUPERFAKTURA_API_URL}/invoices/pdf/${invoiceId}/lang/slo`;
-    
+
     console.log("📄 SuperFaktúra: Sťahujem PDF faktúru");
     console.log("   - Invoice ID:", invoiceId);
     console.log("   - URL:", pdfUrl);
     console.log("   - Mode:", isSandbox ? "SANDBOX" : "PRODUCTION");
     console.log("   - SUPERFAKTURA_SANDBOX value:", process.env.SUPERFAKTURA_SANDBOX);
-    
+
     const response = await fetch(pdfUrl, {
       method: "GET",
       headers: getAuthHeaders(),
@@ -342,13 +347,13 @@ export async function downloadInvoicePDF(invoiceId: string): Promise<Buffer> {
       const errorText = await response.text();
       console.error("❌ SuperFaktúra: Chyba pri sťahovaní PDF:", response.status);
       console.error("   - Error response:", errorText.substring(0, 300));
-      
+
       // V sandbox mode môže PDF download nefungovať - to je OK
       if (isSandbox) {
         console.warn("⚠️ SuperFaktúra Sandbox: PDF download nie je podporovaný, preskakujem prílohu");
         throw new Error("PDF download not supported in sandbox mode");
       }
-      
+
       throw new Error(`Failed to download PDF: ${response.status}`);
     }
 
@@ -362,7 +367,7 @@ export async function downloadInvoicePDF(invoiceId: string): Promise<Buffer> {
 
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    
+
     console.log("✅ SuperFaktúra: PDF faktúra stiahnutá, veľkosť:", buffer.length, "bytes");
     return buffer;
   } catch (error) {
