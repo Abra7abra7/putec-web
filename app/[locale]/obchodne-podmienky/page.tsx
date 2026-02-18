@@ -22,7 +22,7 @@ export default function TermsConditionsPage() {
         <h1 className="text-4xl font-bold text-foreground mb-8">
           Obchodné podmienky
         </h1>
-        
+
         <div className="prose prose-lg max-w-none text-foreground">
           <p className="text-foreground-muted mb-6">
             <strong>Účinnosť od:</strong> 1. januára 2025<br />
@@ -32,15 +32,15 @@ export default function TermsConditionsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">1. Úvodné ustanovenia</h2>
             <p className="mb-4">
-              Tieto obchodné podmienky upravujú vzájomné práva a povinnosti medzi spoločnosťou 
-              <strong> Putec s.r.o.</strong> (ďalej len &quot;predávajúci&quot;) a kupujúcim pri predaji vína 
+              Tieto obchodné podmienky upravujú vzájomné práva a povinnosti medzi spoločnosťou
+              <strong> Putec s.r.o.</strong> (ďalej len &quot;predávajúci&quot;) a kupujúcim pri predaji vína
               prostredníctvom internetového obchodu.
             </p>
             <p className="mb-4">
               <strong>Identifikačné údaje predávajúceho:</strong><br />
               Putec s.r.o.<br />
               Pezinská 154, 902 01 Vinosady, Slovensko<br />
-              IČO: [IČO]<br />
+              IČO:36 658 774<br />
               Email: info@vinoputec.sk<br />
               Telefón: +421 903465666
             </p>
@@ -49,11 +49,11 @@ export default function TermsConditionsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">2. Predmet obchodu</h2>
             <p className="mb-4">
-              Predávajúci predáva vína vlastnej výroby a súvisiace služby (degustácie, ubytovanie) 
+              Predávajúci predáva vína vlastnej výroby a súvisiace služby (degustácie, ubytovanie)
               prostredníctvom internetového obchodu na adrese vinoputec.sk.
             </p>
             <p className="mb-4">
-              <strong>Vekové obmedzenia:</strong> Predaj alkoholických nápojov je zakázaný osobám mladším ako 18 rokov. 
+              <strong>Vekové obmedzenia:</strong> Predaj alkoholických nápojov je zakázaný osobám mladším ako 18 rokov.
               Kupujúci potvrdzuje, že má 18 a viac rokov.
             </p>
           </section>
@@ -116,11 +116,11 @@ export default function TermsConditionsPage() {
               <strong>Záručná doba:</strong> 24 mesiacov od dodania tovaru.
             </p>
             <p className="mb-4">
-              <strong>Reklamačné práva:</strong> Kupujúci má právo na bezplatné opravy, výmenu alebo vrátenie tovaru 
+              <strong>Reklamačné práva:</strong> Kupujúci má právo na bezplatné opravy, výmenu alebo vrátenie tovaru
               v prípade vady.
             </p>
             <p className="mb-4">
-              <strong>Reklamačný postup:</strong> Reklamáciu je potrebné podať do 2 rokov od dodania tovaru 
+              <strong>Reklamačný postup:</strong> Reklamáciu je potrebné podať do 2 rokov od dodania tovaru
               na email info@vinoputec.sk.
             </p>
           </section>
@@ -143,7 +143,7 @@ export default function TermsConditionsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">8. Ochrana osobných údajov</h2>
             <p className="mb-4">
-              Spracovanie osobných údajov sa riadi našimi Zásadami ochrany osobných údajov, 
+              Spracovanie osobných údajov sa riadi našimi Zásadami ochrany osobných údajov,
               ktoré sú dostupné na stránke.
             </p>
           </section>
@@ -157,7 +157,7 @@ export default function TermsConditionsPage() {
               <strong>Riešenie sporov:</strong> Spory sa riešia pred príslušnými súdmi Slovenskej republiky.
             </p>
             <p className="mb-4">
-              <strong>Zmeny podmienok:</strong> Predávajúci si vyhradzuje právo zmeniť tieto podmienky. 
+              <strong>Zmeny podmienok:</strong> Predávajúci si vyhradzuje právo zmeniť tieto podmienky.
               O zmene bude kupujúci informovaný.
             </p>
           </section>

@@ -29,7 +29,7 @@ export default function AgeVerification() {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-background rounded-lg shadow-xl max-w-md w-full p-6">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
         <div className="text-center">
           <div className="mb-4">
             <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
@@ -60,7 +60,7 @@ export default function AgeVerification() {
             </button>
           </div>
 
-          <p className="text-xs text-foreground-muted mt-4">
+          <p className="text-xs text-gray-500 mt-4">
             Podľa zákona č. 171/2018 Z. z. o ochrane zdravia pred škodlivými účinkami návykových látok
           </p>
         </div>

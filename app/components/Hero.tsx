@@ -11,8 +11,7 @@ interface HeroProps {
   mobileBackgroundImageUrl?: string; // New prop for Art Direction
   focalPoint?: string; // e.g. "center 25%" or "50% 30%"
   heightClass?: string;
-  primaryCta?: { label: string; href: string };
-  secondaryCta?: { label: string; href: string };
+  headingLevel?: "h1" | "h2";
 }
 
 export default function Hero({
@@ -24,6 +23,7 @@ export default function Hero({
   heightClass = "h-[60vh]",
   primaryCta,
   secondaryCta,
+  headingLevel = "h1",
 }: HeroProps) {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -32,6 +32,7 @@ export default function Hero({
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const Heading = motion[headingLevel];
 
   return (
     <section ref={containerRef} className={`relative ${heightClass} bg-background overflow-hidden`}>
@@ -69,14 +70,14 @@ export default function Hero({
 
       <div className="relative z-10 h-full">
         <div className="container mx-auto px-6 h-full flex flex-col items-center justify-center text-center">
-          <motion.h1
+          <Heading
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-xl mb-6 !text-white tracking-tight"
           >
             {title}
-          </motion.h1>
+          </Heading>
           {subtitle && (
             <motion.p
               initial={{ opacity: 0, y: 20 }}

@@ -62,7 +62,7 @@ export default async function Testimonials() {
                   {/* User Avatar */}
                   <Image
                     src={testimonial.avatar}
-                    alt={testimonial.name}
+                    alt={testimonial.name || "Customer Avatar"}
                     width={64}
                     height={64}
                     className="rounded-full mb-4 border-2 border-accent"

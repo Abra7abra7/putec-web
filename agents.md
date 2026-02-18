@@ -127,13 +127,17 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 
 ---
 ### 7. Aktuálne Vylepšenia a Opravy (Feb 18, 2026)
-- **SEO**: Opravená kritická chyba `canonical` URL v `layout.tsx` (týkala sa indexácie podstránok).
+- **SEO & Indexing**:
+  - **Bing Fixes**: Opravené duplicitné H1 tagy (Hero komponent refaktorovaný na podporu H2). Doplnené fallback ALT atribúty pre obrázky.
+  - **Canonical URL**: Opravená kritická chyba v `layout.tsx` pre správnu indexáciu podstránok.
+  - **Schema.org**: Implementovaná `Winery` schéma v `layout.tsx`.
 - **UI/UX**:
-  - **Overenie Veku**: Redizajn na High-Contrast (Biele pozadie, čierne písmo, zlaté tlačidlá).
-  - **Načítanie**: Nahradená "červená ikona" (vnímala sa ako chyba) za skákajúcu zlatú fľašu.
-- **Performance**: Pridaná podpora `libc6-compat` do `Dockerfile` pre `sharp` (rýchlejšie obrázky).
-- **Bugfix**: Opravené nekonečné presmerovania na stránkach *Obchodné podmienky* a *Reklamačný poriadok* (`proxy.ts`).
+  - **Overenie Veku**: Redizajn na High-Contrast (Biele pozadie, čierne písmo, zlaté tlačidlá) pre lepšiu čitateľnosť.
+  - **Načítanie (Loading)**: Nahradená "červená ikona" za animovanú zlatú fľašu.
+- **Infrastructure**:
+  - **Docker**: Pridaná podpora `libc6-compat` do `Dockerfile` (runner stage) pre funkčnosť `sharp` (optimalizácia obrázkov).
+  - **Bugfix**: Opravené nekonečné presmerovania na stránkach *Obchodné podmienky* a *Reklamačný poriadok* (`proxy.ts`).
 - **Legal**: Doplnené IČO na stránku Ochrany osobných údajov.
 
 ---
-*Posledná aktualizácia: 18. 2. 2026 (SEO & UI Polishing)*
+*Posledná aktualizácia: 18. 2. 2026 (SEO Fixes & Final Polish)*

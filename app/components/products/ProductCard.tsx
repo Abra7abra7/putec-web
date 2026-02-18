@@ -36,7 +36,7 @@ export default function ProductCard({ product }: Props) {
       <Link href={`/vina/${product.Slug}`} className="relative w-full aspect-[1/1] block overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
         <Image
           src={product.FeatureImageURL}
-          alt={product.Title}
+          alt={product.Title || "Product Image"}
           fill
           className="object-contain hover:scale-110 transition-transform duration-500 p-4"
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"

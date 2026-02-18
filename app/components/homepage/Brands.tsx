@@ -20,7 +20,7 @@ export default async function Brands() {
             <div key={index} className="flex justify-center">
               <Image
                 src={brand.logo}
-                alt={brand.name}
+                alt={brand.name || "Brand Logo"}
                 width={120}
                 height={60}
                 className="max-h-20 max-w-full object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 hover:scale-105 transition-all duration-300"

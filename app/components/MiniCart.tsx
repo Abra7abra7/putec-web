@@ -167,7 +167,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                         <div className="relative w-16 h-20 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white">
                           <Image
                             src={item.FeatureImageURL}
-                            alt={item.Title}
+                            alt={item.Title || "Product Image"}
                             fill
                             className="object-cover"
                           />
