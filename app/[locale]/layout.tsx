@@ -43,7 +43,7 @@ export const metadata = {
     description: "Rodinné vinárstvo Pezinok - Vinosady",
   },
   alternates: {
-    canonical: 'https://vinoputec.sk',
+    canonical: './',
   }
 };
 

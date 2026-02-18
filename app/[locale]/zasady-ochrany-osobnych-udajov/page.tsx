@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
         <h1 className="text-4xl font-bold text-foreground mb-8">
           Zásady ochrany osobných údajov
         </h1>
-        
+
         <div className="prose prose-lg max-w-none text-foreground">
           <p className="text-foreground-muted mb-6">
             <strong>Účinnosť od:</strong> 1. januára 2025<br />
@@ -32,7 +32,7 @@ export default function PrivacyPolicyPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">1. Správca osobných údajov</h2>
             <p className="mb-4">
-              Správcom osobných údajov je spoločnosť <strong>Putec s.r.o.</strong> so sídlom Pezinská 154, 902 01 Vinosady, Slovensko, IČO: [IČO], zapísaná v Obchodnom registri Okresného súdu Trnava.
+              Správcom osobných údajov je spoločnosť <strong>Putec s.r.o.</strong> so sídlom Pezinská 154, 902 01 Vinosady, Slovensko, IČO: 36 658 774, zapísaná v Obchodnom registri Okresného súdu Trnava.
             </p>
             <p className="mb-4">
               <strong>Kontaktné údaje:</strong><br />
@@ -107,7 +107,7 @@ export default function PrivacyPolicyPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">7. Cookies</h2>
             <p className="mb-4">
-              Naša webová stránka používa cookies na zlepšenie používateľskej skúsenosti a analýzu návštevnosti. 
+              Naša webová stránka používa cookies na zlepšenie používateľskej skúsenosti a analýzu návštevnosti.
               Cookies sú malé textové súbory ukladané vo vašom prehliadači.
             </p>
             <p className="mb-4">
@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">8. Zabezpečenie údajov</h2>
             <p className="mb-4">
-              Implementovali sme vhodné technické a organizačné opatrenia na ochranu vašich osobných údajov pred 
+              Implementovali sme vhodné technické a organizačné opatrenia na ochranu vašich osobných údajov pred
               neoprávneným prístupom, zmenou, zničením alebo stratou.
             </p>
           </section>
@@ -143,7 +143,7 @@ export default function PrivacyPolicyPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">10. Zmeny zásad</h2>
             <p className="mb-4">
-              Tieto zásady môžeme aktualizovať. O významných zmenách vás budeme informovať prostredníctvom 
+              Tieto zásady môžeme aktualizovať. O významných zmenách vás budeme informovať prostredníctvom
               webovej stránky alebo emailu.
             </p>
           </section>

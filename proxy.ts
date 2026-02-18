@@ -36,8 +36,6 @@ export function proxy(request: NextRequest) {
         '/mapa-stranok': '/',
         '/nastroje-na-ochranu-sukromia': '/nastroje-ochrany-sukromia',
         '/ochrana-sukromia': '/zasady-ochrany-osobnych-udajov',
-        '/reklamacny-poriadok': '/reklamacny-poriadok',
-        '/obchodne-podmienky': '/obchodne-podmienky',
         '/kategoria-produktu/ruzove-vina': '/vina',
         '/produkt/rizling-vlassky-biele-suche-2024': '/vina/rizling-vlassky-biele-suche-2024',
         // '/cart' a '/checkout' sú už v zozname vyššie
