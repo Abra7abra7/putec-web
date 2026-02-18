@@ -138,6 +138,9 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
   - **Docker**: Pridaná podpora `libc6-compat` do `Dockerfile` (runner stage) pre funkčnosť `sharp` (optimalizácia obrázkov).
   - **Bugfix**: Opravené nekonečné presmerovania na stránkach *Obchodné podmienky* a *Reklamačný poriadok* (`proxy.ts`).
 - **Legal**: Doplnené IČO na stránku Ochrany osobných údajov.
+- **Mobile & Accessibility**:
+  - **Performance**: Optimalizované načítanie hlavného bannera (`fetchPriority="high"`).
+  - **Accessibility**: Zvýšený kontrast textu na banneroch, pridané `aria-labels` (sociálne siete) a zväčšené dotykové plochy (slider).
 
 ---
 *Posledná aktualizácia: 18. 2. 2026 (SEO Fixes & Final Polish)*

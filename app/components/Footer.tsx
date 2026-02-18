@@ -108,7 +108,7 @@ export default async function Footer() {
                 {content.socialLinks.map((social) => {
                   const IconComponent = iconMap[social.icon as SocialIcon]; // Type assertion to ensure TS compliance
                   return (
-                    <Link key={social.id} href={social.url} target="_blank">
+                    <Link key={social.id} href={social.url} target="_blank" aria-label={`Sledujte nás na ${social.icon.replace('Si', '')}`}>
                       <IconWrapper>
                         <IconComponent size={20} strokeWidth={1.5} />
                       </IconWrapper>

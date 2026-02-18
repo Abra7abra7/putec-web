@@ -30,18 +30,19 @@ export default function HomepageBanner() {
         sizes="(max-width: 768px) 100vw, 100vw"
         placeholder="empty"
         style={{ objectFit: "cover", objectPosition: "center" }}
+        className="z-0"
       />
-      {/* soft overlay for readability - REPLACED WITH STRONGER GRADIENT */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80" aria-hidden />
+      {/* Stronger gradient overlay for better text contrast on mobile */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-10" aria-hidden />
 
-      <div className="relative max-w-4xl mx-auto px-6 py-32 md:py-48 flex flex-col items-center">
+      <div className="relative z-20 max-w-4xl mx-auto px-6 py-32 md:py-48 flex flex-col items-center text-center">
         <RatingBadge ratingValue={5} reviewCount={31} className="mb-4" />
 
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 drop-shadow-xl !text-white tracking-tight">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 drop-shadow-2xl !text-white tracking-tight">
           Rodinné vinárstvo Putec
         </h1>
 
-        <p className="text-lg md:text-xl lg:text-2xl mb-10 max-w-2xl drop-shadow-md !text-white font-medium">
+        <p className="text-lg md:text-xl lg:text-2xl mb-10 max-w-2xl drop-shadow-xl !text-white font-medium text-white/90">
           Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku
         </p>
 
