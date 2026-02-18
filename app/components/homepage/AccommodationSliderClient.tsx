@@ -38,7 +38,16 @@ export default function AccommodationSliderClient({ slides }: { slides: { src: s
         {slides.length > 1 && (
           <div className="absolute bottom-3 left-0 right-0 flex items-center justify-center gap-2" role="tablist" aria-label="Navigácia slidera">
             {slides.map((_, i) => (
-              <button key={i} onClick={() => setCurrent(i)} aria-label={`Snímka ${i + 1}`} role="tab" aria-selected={i === current} className={`w-2.5 h-2.5 rounded-full transition-all ${i === current ? 'bg-white w-8' : 'bg-white/50'}`} />
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                aria-label={`Snímka ${i + 1}`}
+                role="tab"
+                aria-selected={i === current}
+                className="w-12 h-12 flex items-center justify-center focus:outline-none group"
+              >
+                <span className={`block rounded-full transition-all ${i === current ? 'bg-white w-8 h-2.5' : 'bg-white/50 w-2.5 h-2.5 group-hover:bg-white/80'}`} />
+              </button>
             ))}
           </div>
         )}

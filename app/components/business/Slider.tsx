@@ -134,7 +134,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                   key={i}
                   aria-label={`Prejsť na snímku ${i + 1}`}
                   onClick={() => setCurrent(i)}
-                  className="w-10 h-10 flex items-center justify-center group focus:outline-none"
+                  className="w-12 h-12 flex items-center justify-center group focus:outline-none"
                 >
                   <span className={cn(
                     "block rounded-full transition-all duration-300",

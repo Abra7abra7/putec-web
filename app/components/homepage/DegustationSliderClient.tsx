@@ -93,12 +93,17 @@ export default function DegustationSliderClient({ slides }: { slides: Slide[] })
               {slides.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrent(i)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrent(i);
+                  }}
                   aria-label={`Snímka ${i + 1}`}
                   role="tab"
                   aria-selected={i === current}
-                  className={`w-2.5 h-2.5 rounded-full transition-all shadow-sm ${i === current ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/80'}`}
-                />
+                  className="w-12 h-12 flex items-center justify-center focus:outline-none group"
+                >
+                  <span className={`block rounded-full transition-all shadow-sm ${i === current ? 'bg-white w-8 h-2.5' : 'bg-white/50 w-2.5 h-2.5 group-hover:bg-white/80'}`} />
+                </button>
               ))}
             </div>
           )}

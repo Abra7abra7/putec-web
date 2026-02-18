@@ -77,6 +77,7 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
           aria-haspopup="dialog"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu-panel"
+          aria-label={isMenuOpen ? "Zatvoriť menu" : "Otvoriť menu"}
         >
           <IconWrapper>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
