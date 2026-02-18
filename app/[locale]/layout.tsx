@@ -10,6 +10,8 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
 import { getLocalization } from "@/app/utils/getLocalization";
+import Script from 'next/script';
+import ConsentManagerInitializer from "@/app/components/ConsentManagerInitializer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const poppins = Poppins({
@@ -99,6 +101,28 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={`${inter.variable} ${poppins.variable}`}>
+      <head>
+        {/* Google Consent Mode v2 Default State - MUST BE BEFORE GTM */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied',
+                'functionality_storage': 'granted',
+                'security_storage': 'granted',
+                'wait_for_update': 500
+              });
+            `,
+          }}
+        />
+        <link rel="stylesheet" href="/silktide-consent-manager.css" />
+      </head>
       <body>
         <NextIntlClientProvider messages={messages}>
           <LocalizationProvider initialData={localizationData}>
@@ -108,9 +132,14 @@ export default async function LocaleLayout({
               <Footer />
               <JsonLd data={winerySchema} />
               <Toaster position="top-center" />
+              <ConsentManagerInitializer />
             </Providers>
           </LocalizationProvider>
         </NextIntlClientProvider>
+        <Script
+          src="/silktide-consent-manager.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
