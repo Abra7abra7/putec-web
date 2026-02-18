@@ -85,13 +85,13 @@ export default function ReservationForm({ product }: ReservationFormProps) {
   };
 
   const timeSlots = [
-    "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
+    "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"
   ];
 
   return (
     <div className="mt-10 p-6 bg-background border border-gray-200 rounded-lg">
       <h3 className="text-2xl font-semibold text-foreground mb-6">Rezervácia degustácie</h3>
-      
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -108,7 +108,7 @@ export default function ReservationForm({ product }: ReservationFormProps) {
               placeholder="Vaše meno a priezvisko"
             />
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
               Email *
@@ -123,7 +123,7 @@ export default function ReservationForm({ product }: ReservationFormProps) {
               placeholder="vas@email.sk"
             />
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
               Telefón *
@@ -138,7 +138,7 @@ export default function ReservationForm({ product }: ReservationFormProps) {
               placeholder="+421 XXX XXX XXX"
             />
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
               Počet osôb *
@@ -155,7 +155,7 @@ export default function ReservationForm({ product }: ReservationFormProps) {
               ))}
             </select>
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
               Dátum *
@@ -170,17 +170,17 @@ export default function ReservationForm({ product }: ReservationFormProps) {
               <option value="">Vyberte dátum</option>
               {generateDates().map(date => (
                 <option key={date} value={date}>
-                  {new Date(date).toLocaleDateString('sk-SK', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                  {new Date(date).toLocaleDateString('sk-SK', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </option>
               ))}
             </select>
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
               Čas *
@@ -199,7 +199,7 @@ export default function ReservationForm({ product }: ReservationFormProps) {
             </select>
           </div>
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-foreground mb-2">
             Dodatočné poznámky
@@ -213,27 +213,27 @@ export default function ReservationForm({ product }: ReservationFormProps) {
             placeholder="Špeciálne požiadavky, alergie, atď."
           />
         </div>
-        
+
         <div className="bg-background p-4 rounded-lg">
           <h4 className="font-semibold text-foreground mb-2">Súhrn rezervácie:</h4>
           <p className="text-foreground-muted">
-            <strong>{product.Title}</strong><br/>
+            <strong>{product.Title}</strong><br />
             {formData.date && formData.time && (
               <>
-                Dátum: {new Date(formData.date).toLocaleDateString('sk-SK')}<br/>
-                Čas: {formData.time}<br/>
+                Dátum: {new Date(formData.date).toLocaleDateString('sk-SK')}<br />
+                Čas: {formData.time}<br />
               </>
             )}
-            Počet osôb: {formData.guests}<br/>
+            Počet osôb: {formData.guests}<br />
             Cena: €{product.RegularPrice}
             {product.Deposit && (
               <>
-                <br/>Vratná záloha: €{product.Deposit}
+                <br />Vratná záloha: €{product.Deposit}
               </>
             )}
           </p>
         </div>
-        
+
         {error && (
           <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
             {error}
@@ -243,11 +243,10 @@ export default function ReservationForm({ product }: ReservationFormProps) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full px-6 py-3 rounded-lg font-semibold transition-colors ${
-            isSubmitting
+          className={`w-full px-6 py-3 rounded-lg font-semibold transition-colors ${isSubmitting
               ? "bg-gray-400 cursor-not-allowed text-gray-700"
               : "bg-accent hover:bg-accent-dark text-foreground"
-          }`}
+            }`}
         >
           {isSubmitting ? "Odosielam rezerváciu..." : "Rezervovať degustáciu"}
         </button>
