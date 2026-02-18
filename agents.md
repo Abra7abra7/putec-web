@@ -141,6 +141,9 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 - **Mobile & Accessibility**:
   - **Performance**: Optimalizované načítanie hlavného bannera (`fetchPriority="high"`).
   - **Accessibility**: Zvýšený kontrast textu na banneroch, pridané `aria-labels` (sociálne siete) a zväčšené dotykové plochy (slider).
+- **Desktop**:
+  - **Performance**: Upravené `sizes` atribúty pre obrázky v slideroch a `BrandStory` (prevencia sťahovania zbytočne veľkých obrázkov).
+  - **Accessibility**: Opravená hierarchia nadpisov (H2 -> H3) a kontrast textu v recenziách.
 
 ---
 *Posledná aktualizácia: 18. 2. 2026 (SEO Fixes & Final Polish)*

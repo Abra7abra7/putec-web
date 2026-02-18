@@ -35,6 +35,11 @@ export interface SliderProps {
    * @default "h-80 md:h-[500px]"
    */
   height?: string;
+  /**
+   * Sizes attribute for Next/Image
+   * @default "(max-width: 768px) 100vw, 50vw"
+   */
+  sizes?: string;
 }
 
 const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
@@ -45,6 +50,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       autoPlay = true,
       className,
       height = "h-80 md:h-[500px]",
+      sizes = "(max-width: 768px) 100vw, 50vw",
     },
     ref
   ) => {
@@ -92,7 +98,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                 alt={slide.alt}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes={sizes}
                 priority={index === 0}
               />
             </div>

@@ -24,7 +24,7 @@ export default function AccommodationSliderClient({ slides }: { slides: { src: s
       <div className="relative w-full aspect-[4/5] md:aspect-auto md:h-full md:min-h-[600px] rounded-xl overflow-hidden shadow-2xl">
         {slides.map((slide, index) => (
           <div key={slide.src} className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0'}`}>
-            <Image src={slide.src} alt={slide.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority={index === 0} />
+            <Image src={slide.src} alt={slide.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px" priority={index === 0} />
           </div>
         ))}
 

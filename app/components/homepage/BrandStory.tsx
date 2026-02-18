@@ -18,7 +18,7 @@ export default function BrandStory() {
     <Section spacing="lg" background="accent">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
-          
+
           {/* Left Side - Content (hore na mobile, vľavo na desktop) */}
           <div className="space-y-8 order-1 md:order-1">
             <div className="space-y-4">
@@ -29,15 +29,15 @@ export default function BrandStory() {
                 Tradícia a kvalita vína
               </p>
             </div>
-            
+
             <div className="space-y-6 text-foreground-muted">
               <p className="text-base md:text-lg leading-relaxed">
-                Víno Pútec je malé rodinné vinárstvo vo Vinosadoch na úpätí Malých Karpát. 
+                Víno Pútec je malé rodinné vinárstvo vo Vinosadoch na úpätí Malých Karpát.
                 Výrobe vín sa s láskou venujeme už niekoľko generácií a sme hrdí na svetové úspechy našich vín.
               </p>
-              
+
               <p className="text-base md:text-lg leading-relaxed">
-                Sme malé rodinné vinárstvo vo Vinosadoch – naša rodina sa výrobe vína venuje už niekoľko generácií. 
+                Sme malé rodinné vinárstvo vo Vinosadoch – naša rodina sa výrobe vína venuje už niekoľko generácií.
                 Žijeme vínom a chceme vám priniesť skvelý pôžitok z tohto unikátneho umenia, ktorým víno je.
               </p>
             </div>
@@ -48,7 +48,7 @@ export default function BrandStory() {
                 <div key={feature.title} className="flex items-start gap-3">
                   <FeatureIcon icon={feature.icon} size="sm" className="mt-1" />
                   <div>
-                    <h4 className="font-semibold text-foreground mb-1">{feature.title}</h4>
+                    <h3 className="text-base font-semibold text-foreground mb-1">{feature.title}</h3>
                     <p className="text-sm text-foreground-muted">{feature.description}</p>
                   </div>
                 </div>
@@ -76,13 +76,13 @@ export default function BrandStory() {
                 height={333}
                 className="rounded-2xl shadow-2xl w-full h-auto"
                 priority
-                sizes="(max-width: 1024px) 100vw, 500px"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
               />
               <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-accent rounded-full flex items-center justify-center shadow-xl">
                 <span className="text-2xl">🍷</span>
               </div>
             </div>
-            
+
             {/* Floating Stats */}
             <div className="absolute -top-4 -left-4 bg-background border border-accent/20 rounded-xl p-3 shadow-lg">
               <div className="text-center">
@@ -90,7 +90,7 @@ export default function BrandStory() {
                 <div className="text-xs text-foreground-muted">Založenie vinárstva</div>
               </div>
             </div>
-            
+
             <div className="absolute -bottom-4 -left-4 bg-background border border-accent/20 rounded-xl p-3 shadow-lg">
               <div className="text-center">
                 <div className="text-xl font-bold text-accent">Generácie</div>

@@ -40,7 +40,7 @@ export default async function Testimonials() {
                 <span key={s} className="text-accent text-xs">★</span>
               ))}
             </span>
-            <span className="text-xs font-bold text-accent tracking-wider uppercase">Viac ako 10,000 spokojných zákazníkov</span>
+            <span className="text-xs font-bold text-accent-dark tracking-wider uppercase">Viac ako 10,000 spokojných zákazníkov</span>
           </div>
 
           {/* Section Title */}
