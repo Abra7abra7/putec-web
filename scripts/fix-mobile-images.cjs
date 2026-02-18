@@ -8,32 +8,38 @@ const PUBLIC_DIR = path.join(process.cwd(), 'public');
 const TARGETS = [
     {
         path: 'vineyard-banner.webp',
-        width: 1920, // Limit max width (currently original is likely huge)
-        quality: 75,
+        width: 1200, // Reduced from 1920 to 1200 for mobile LCP
+        quality: 60, // Aggressive compression for LCP
         format: 'webp'
     },
     {
         path: 'degustacie/degustacia-skupina.jpg',
-        width: 1200,
-        quality: 75,
+        width: 800, // Reduced from 1200
+        quality: 65,
         format: 'jpg'
     },
     {
         path: 'o-nas/rodina2.jpg',
-        width: 800,
-        quality: 75,
+        width: 600, // Reduced from 800
+        quality: 65,
         format: 'jpg'
     },
     {
         path: 'galeria/ubytovanie/dvor-s-kostolom-x.jpg',
-        width: 800,
-        quality: 75,
+        width: 600,
+        quality: 65,
         format: 'jpg'
     },
     {
         path: 'galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg',
-        width: 800,
-        quality: 75,
+        width: 600,
+        quality: 65,
+        format: 'jpg'
+    },
+    {
+        path: 'galeria/ubytovanie/dvor-so-sudom-x.jpg', // Added this one from report
+        width: 600,
+        quality: 65,
         format: 'jpg'
     }
 ];
@@ -59,8 +65,7 @@ async function optimize() {
             // Skip if already smaller than target
             if (meta.width <= target.width && meta.format === target.format && !process.env.FORCE) {
                 console.log(`   Skipping: Width ${meta.width} <= ${target.width} and format matches.`);
-                // We might still want to recompress if quality is high, but let's be safe.
-                // Actually, let's force re-compression to ensure quality is 75
+                continue;
             }
 
             let pipeline = input.resize({ width: target.width, withoutEnlargement: true });
