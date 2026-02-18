@@ -84,17 +84,17 @@ export default function BrandStory() {
             </div>
 
             {/* Floating Stats */}
-            <div className="absolute top-0 -left-0 bg-background border border-accent/20 rounded-xl p-3 shadow-lg z-10">
+            <div className="absolute top-4 -left-4 bg-white/90 backdrop-blur-md border-2 border-accent/30 rounded-2xl p-4 shadow-2xl z-20 min-w-[140px] hover:scale-105 transition-transform duration-300">
               <div className="text-center">
-                <div className="text-xl font-bold text-accent">2012</div>
-                <div className="text-xs text-foreground-muted">Založenie vinárstva</div>
+                <div className="text-2xl font-bold text-accent mb-0.5">2012</div>
+                <div className="text-[10px] uppercase tracking-wider font-bold text-foreground/60">Založenie vinárstva</div>
               </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 bg-background border border-accent/20 rounded-xl p-3 shadow-lg z-10">
+            <div className="absolute -bottom-4 left-6 bg-white/90 backdrop-blur-md border-2 border-accent/30 rounded-2xl p-4 shadow-2xl z-20 min-w-[140px] hover:scale-105 transition-transform duration-300">
               <div className="text-center">
-                <div className="text-xl font-bold text-accent">Generácie</div>
-                <div className="text-xs text-foreground-muted">Rodinná tradícia</div>
+                <div className="text-2xl font-bold text-accent mb-0.5">Generácie</div>
+                <div className="text-[10px] uppercase tracking-wider font-bold text-foreground/60">Rodinná tradícia</div>
               </div>
             </div>
           </div>
