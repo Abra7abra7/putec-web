@@ -8,14 +8,17 @@
 /* Wrapper (Global) */
 #stcm-wrapper {
   --boxShadow: -5px 5px 10px 0px #00000012, 0px 0px 50px 0px #0000001a;
-  --fontFamily: Helvetica Neue, Segoe UI, Arial, sans-serif;
-  --primaryColor: #F9D000;
-  --backgroundColor: #050505;
-  --textColor: #F4F0DF;
+  --fontFamily: var(--font-inter), Helvetica Neue, Segoe UI, Arial, sans-serif;
+  --primaryColor: #D6AD60;
+  /* Brand Gold */
+  --backgroundColor: #18181b;
+  /* Brand Dark Gray */
+  --textColor: #f4f4f5;
+  /* gray-100 */
   --backdropBackgroundColor: #00000077;
-  --backdropBackgroundBlur: 0px;
-  --iconColor: #050505;
-  --iconBackgroundColor: #F9D000;
+  --backdropBackgroundBlur: 4px;
+  --iconColor: #18181b;
+  --iconBackgroundColor: #D6AD60;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -27,6 +30,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Hide credit link */
+.stcm-credit-link {
+  display: none !important;
 }
 
 /* --------------------------------
@@ -195,7 +203,8 @@ Banner
   display: flex;
   align-items: center;
   justify-content: center;
-  fill: var(--primaryColor); /* passed down to svg > path */
+  fill: var(--primaryColor);
+  /* passed down to svg > path */
   margin-left: auto;
   width: 48px;
   height: 48px;
@@ -290,13 +299,17 @@ Modal - Content
 }
 
 #stcm-modal section::-webkit-scrollbar {
-  display: block; /* Force scrollbars to show */
-  width: 5px; /* Width of the scrollbar */
+  display: block;
+  /* Force scrollbars to show */
+  width: 5px;
+  /* Width of the scrollbar */
 }
 
 #stcm-modal section::-webkit-scrollbar-thumb {
-  background-color: var(--textColor); /* Color of the scrollbar thumb */
-  border-radius: 10px; /* Rounded corners for the thumb */
+  background-color: var(--textColor);
+  /* Color of the scrollbar thumb */
+  border-radius: 10px;
+  /* Rounded corners for the thumb */
 }
 
 #stcm-modal p {
@@ -333,7 +346,7 @@ Modal - Content
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 24px;  
+  gap: 24px;
 }
 
 /* --------------------------------
@@ -402,25 +415,25 @@ Modal - Switches
 }
 
 /* Checked Switch Styles */
-#stcm-modal .stcm-toggle input:checked + .stcm-toggle-track {
+#stcm-modal .stcm-toggle input:checked+.stcm-toggle-track {
   background: var(--primaryColor);
 }
 
-#stcm-modal .stcm-toggle input:checked ~ .stcm-toggle-thumb {
+#stcm-modal .stcm-toggle input:checked~.stcm-toggle-thumb {
   left: calc(100% - 32px);
 }
 
-#stcm-modal .stcm-toggle input:checked ~ .stcm-toggle-off {
+#stcm-modal .stcm-toggle input:checked~.stcm-toggle-off {
   right: calc(100% - 32px);
   opacity: 0;
 }
 
-#stcm-modal .stcm-toggle input:checked ~ .stcm-toggle-on {
+#stcm-modal .stcm-toggle input:checked~.stcm-toggle-on {
   right: calc(100% - 34px);
   opacity: 1;
 }
 
-#stcm-modal .stcm-toggle input:disabled + .stcm-toggle-track {
+#stcm-modal .stcm-toggle input:disabled+.stcm-toggle-track {
   opacity: 0.65;
   filter: grayscale(100%);
   cursor: not-allowed;
@@ -507,6 +520,7 @@ Animations
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -517,6 +531,7 @@ Animations
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -528,6 +543,7 @@ Animations
     opacity: 0;
     transform: translate(-50%, calc(-50% - 20px));
   }
+
   to {
     opacity: 1;
     transform: translate(-50%, -50%);
@@ -539,6 +555,7 @@ Animations
     opacity: 0;
     transform: translate(-50%, -20px);
   }
+
   to {
     opacity: 1;
     transform: translate(-50%, 0);
@@ -550,6 +567,7 @@ Animations
     opacity: 0;
     transform: translate(0px, 20px);
   }
+
   to {
     opacity: 1;
     transform: translate(0px, 0px);
@@ -560,9 +578,26 @@ Animations
 Animation - backdrop click feedback
 -------------------------------- */
 @keyframes stcm-nudge {
-  0%, 100% { right: 16px; }
-  10%, 30%, 50%, 70%, 90% { right: 20px; }
-  20%, 40%, 60%, 80% { right: 12px; }
+
+  0%,
+  100% {
+    right: 16px;
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    right: 20px;
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    right: 12px;
+  }
 }
 
 /* Apply to banner */
@@ -577,13 +612,21 @@ Animation - backdrop click feedback
 
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
+
   #stcm-banner.stcm-nudge,
   #stcm-modal.stcm-nudge {
     animation: stcm-pulse 0.5s ease-in-out;
   }
-  
+
   @keyframes stcm-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.85; }
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.85;
+    }
   }
 }

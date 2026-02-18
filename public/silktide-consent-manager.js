@@ -16,7 +16,7 @@ class SilktideConsentManager {
 
     // Set default eventName if not provided
     this.config.eventName = this.config.eventName || 'stcm_consent_update';
-    
+
     // Set default debug mode (false = no console logs in production)
     // Ensure debug is a boolean, default to false
     this.config.debug = this.config.debug === true;
@@ -578,11 +578,11 @@ class SilktideConsentManager {
     this.config.consentTypes.forEach((type) => {
       const newState = consentStates[type.id];
       const previousState = this.getConsentChoice(type.id);
-      
+
       // Check if this consent actually changed
       if (newState !== previousState) {
         hasChanges = true;
-        
+
         changes.push({
           type: type,
           newState: newState,
@@ -748,9 +748,9 @@ class SilktideConsentManager {
           this.setConsentChoice(type.id, true);
           isFirstConsentLoad = true; // Required consent was just set for first time
         }
-        
+
         this._injectConsentScripts(type);
-        
+
         // Add required consents to gtag update (always granted)
         if (type.gtag) {
           hasGtagUpdates = true;
@@ -759,7 +759,7 @@ class SilktideConsentManager {
             gtagConsentUpdate[param] = 'granted';
           });
         }
-        
+
         if (typeof type.onAccept === 'function') {
           type.onAccept();
         }
@@ -769,7 +769,7 @@ class SilktideConsentManager {
       // Check if accepted
       if (acceptedConsents[type.id]) {
         this._injectConsentScripts(type);
-        
+
         if (type.gtag) {
           hasGtagUpdates = true;
           const gtagParams = Array.isArray(type.gtag) ? type.gtag : [type.gtag];
@@ -853,7 +853,7 @@ class SilktideConsentManager {
   // ----------------------------------------------------------------
   // Banner
   // ----------------------------------------------------------------
-  
+
   /**
    * Get banner HTML content
    * @private
@@ -867,29 +867,26 @@ class SilktideConsentManager {
     // Accept button
     const acceptAllButtonText = this.config.text?.prompt?.acceptAllButtonText || 'Accept all';
     const acceptAllButtonLabel = this.config.text?.prompt?.acceptAllButtonAccessibleLabel;
-    const acceptAllButton = `<button class="stcm-accept-all stcm-button stcm-button-primary"${
-      acceptAllButtonLabel && acceptAllButtonLabel !== acceptAllButtonText
+    const acceptAllButton = `<button class="stcm-accept-all stcm-button stcm-button-primary"${acceptAllButtonLabel && acceptAllButtonLabel !== acceptAllButtonText
         ? ` aria-label="${acceptAllButtonLabel}"`
         : ''
-    }>${acceptAllButtonText}</button>`;
+      }>${acceptAllButtonText}</button>`;
 
     // Reject button
     const rejectNonEssentialButtonText = this.config.text?.prompt?.rejectNonEssentialButtonText || 'Reject non-essential';
     const rejectNonEssentialButtonLabel = this.config.text?.prompt?.rejectNonEssentialButtonAccessibleLabel;
-    const rejectNonEssentialButton = `<button class="stcm-reject-all stcm-button stcm-button-primary"${
-      rejectNonEssentialButtonLabel && rejectNonEssentialButtonLabel !== rejectNonEssentialButtonText
+    const rejectNonEssentialButton = `<button class="stcm-reject-all stcm-button stcm-button-primary"${rejectNonEssentialButtonLabel && rejectNonEssentialButtonLabel !== rejectNonEssentialButtonText
         ? ` aria-label="${rejectNonEssentialButtonLabel}"`
         : ''
-    }>${rejectNonEssentialButtonText}</button>`;
+      }>${rejectNonEssentialButtonText}</button>`;
 
     // Preferences button
     const preferencesButtonText = this.config.text?.prompt?.preferencesButtonText || 'Preferences';
     const preferencesButtonLabel = this.config.text?.prompt?.preferencesButtonAccessibleLabel;
-    const preferencesButton = `<button class="stcm-preferences-button"${
-      preferencesButtonLabel && preferencesButtonLabel !== preferencesButtonText
+    const preferencesButton = `<button class="stcm-preferences-button"${preferencesButtonLabel && preferencesButtonLabel !== preferencesButtonText
         ? ` aria-label="${preferencesButtonLabel}"`
         : ''
-    }><span>${preferencesButtonText}</span></button>`;
+      }><span>${preferencesButtonText}</span></button>`;
 
 
     // Silktide logo link
@@ -983,7 +980,7 @@ class SilktideConsentManager {
   // ----------------------------------------------------------------
   // Modal
   // ----------------------------------------------------------------
-  
+
   /**
    * Get modal HTML content
    * @private
@@ -1013,29 +1010,26 @@ class SilktideConsentManager {
     // Save button
     const saveButtonText = this.config.text?.preferences?.saveButtonText || 'Save and close';
     const saveButtonLabel = this.config.text?.preferences?.saveButtonAccessibleLabel;
-    const saveButton = `<button class="stcm-modal-save stcm-button stcm-button-primary"${
-      saveButtonLabel && saveButtonLabel !== saveButtonText
+    const saveButton = `<button class="stcm-modal-save stcm-button stcm-button-primary"${saveButtonLabel && saveButtonLabel !== saveButtonText
         ? ` aria-label="${saveButtonLabel}"`
         : ''
-    }>${saveButtonText}</button>`;
+      }>${saveButtonText}</button>`;
 
     // Reject button
     const rejectNonEssentialButtonText = this.config.text?.prompt?.rejectNonEssentialButtonText || 'Reject non-essential';
     const rejectNonEssentialButtonLabel = this.config.text?.prompt?.rejectNonEssentialButtonAccessibleLabel;
-    const rejectNonEssentialButton = `<button class="stcm-modal-reject-all stcm-button stcm-button-primary"${
-      rejectNonEssentialButtonLabel && rejectNonEssentialButtonLabel !== rejectNonEssentialButtonText
+    const rejectNonEssentialButton = `<button class="stcm-modal-reject-all stcm-button stcm-button-primary"${rejectNonEssentialButtonLabel && rejectNonEssentialButtonLabel !== rejectNonEssentialButtonText
         ? ` aria-label="${rejectNonEssentialButtonLabel}"`
         : ''
-    }>${rejectNonEssentialButtonText}</button>`;
+      }>${rejectNonEssentialButtonText}</button>`;
 
     // Credit link
     const creditLinkText = this.config.text?.preferences?.creditLinkText || 'Get this consent manager for free';
     const creditLinkAccessibleLabel = this.config.text?.preferences?.creditLinkAccessibleLabel;
-    const creditLink = `<a class="stcm-credit-link" href="https://silktide.com/consent-manager" target="_blank" rel="noreferrer"${
-      creditLinkAccessibleLabel && creditLinkAccessibleLabel !== creditLinkText
+    const creditLink = `<a class="stcm-credit-link" href="https://silktide.com/consent-manager" target="_blank" rel="noreferrer"${creditLinkAccessibleLabel && creditLinkAccessibleLabel !== creditLinkText
         ? ` aria-label="${creditLinkAccessibleLabel}"`
         : ''
-    }>${creditLinkText}</a>`;
+      }>${creditLinkText}</a>`;
 
 
 
@@ -1047,39 +1041,38 @@ class SilktideConsentManager {
       ${preferencesDescription}
       <section id="stcm-form">
         ${consentTypes
-          .map((type) => {
-            const accepted = acceptedConsentMap[type.id];
-            let isChecked = false;
+        .map((type) => {
+          const accepted = acceptedConsentMap[type.id];
+          let isChecked = false;
 
-            // if it's accepted then show as checked
-            if (accepted) {
-              isChecked = true;
-            }
+          // if it's accepted then show as checked
+          if (accepted) {
+            isChecked = true;
+          }
 
-            // if nothing has been accepted / rejected yet, then show as checked if the default value is true
-            if (!accepted && !this.hasConsented()) {
-              isChecked = type.defaultValue;
-            }
+          // if nothing has been accepted / rejected yet, then show as checked if the default value is true
+          if (!accepted && !this.hasConsented()) {
+            isChecked = type.defaultValue;
+          }
 
-            return `
+          return `
             <fieldset>
               <legend>${type.label}</legend>
               <div class="stcm-consent-row">
                 <div class="stcm-consent-description">${type.description}</div>
                 <label class="stcm-toggle" for="consent-${type.id}">
-                  <input type="checkbox" id="consent-${type.id}" ${
-              type.required ? 'checked disabled' : isChecked ? 'checked' : ''
+                  <input type="checkbox" id="consent-${type.id}" ${type.required ? 'checked disabled' : isChecked ? 'checked' : ''
             } />
                   <span class="stcm-toggle-track" aria-hidden="true"></span>
                   <span class="stcm-toggle-thumb" aria-hidden="true"></span>
-                  <span class="stcm-toggle-off" aria-hidden="true">Off</span>
-                  <span class="stcm-toggle-on" aria-hidden="true">On</span>
+                  <span class="stcm-toggle-off" aria-hidden="true">Vyp</span>
+                  <span class="stcm-toggle-on" aria-hidden="true">Zap</span>
                 </label>
               </div>
             </fieldset>
           `;
-          })
-          .join('')}
+        })
+        .join('')}
       </section>
       <footer>
         ${saveButton}
@@ -1133,7 +1126,7 @@ class SilktideConsentManager {
   // ----------------------------------------------------------------
   // Consent Icon
   // ----------------------------------------------------------------
-  
+
   /**
    * Get cookie icon SVG content
    * @private
@@ -1227,7 +1220,7 @@ class SilktideConsentManager {
   // ----------------------------------------------------------------
   // Focusable Elements
   // ----------------------------------------------------------------
-  
+
   /**
    * Get all focusable elements within a container
    * @private
@@ -1297,7 +1290,7 @@ class SilktideConsentManager {
       closeButton?.addEventListener('click', () => {
         this.toggleModal(false);
         this.hideBackdrop();
-        
+
         // If user hasn't made initial choice, show prompt again next time
         // Otherwise, just close without doing anything
       });
@@ -1335,11 +1328,11 @@ class SilktideConsentManager {
         // First, update the checkbox UI to reflect rejection
         const preferencesSection = this.preferences.querySelector('#stcm-form');
         const checkboxes = preferencesSection.querySelectorAll('input[type="checkbox"]');
-        
+
         checkboxes.forEach(checkbox => {
           const [, consentId] = checkbox.id.split('consent-');
           const consentType = this.config.consentTypes.find(type => type.id === consentId);
-          
+
           if (consentType && !consentType.required) {
             checkbox.checked = false;
           }
@@ -1460,7 +1453,7 @@ class SilktideConsentManager {
     if (document.body) {
       create();
     } else {
-      document.addEventListener('DOMContentLoaded', create, {once: true});
+      document.addEventListener('DOMContentLoaded', create, { once: true });
     }
   }
 
@@ -1492,7 +1485,7 @@ class SilktideConsentManager {
     const mergedConfig = deepMerge(consentManager.config, newConfig);
     init(mergedConfig);
   }
-  
+
   /**
    * Reset all consent choices and show the prompt again
    * Clears all localStorage entries and reinitializes as if fresh page load
