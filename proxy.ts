@@ -9,7 +9,7 @@ const handleI18n = createMiddleware({
     localePrefix: 'as-needed' // 'never' prevents creating /sk/, but we need prefix for /en/
 });
 
-export function proxy(request: NextRequest) {
+export default function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // 1. Centralizované presmerovania (zlúčené z proxy.ts a next.config.ts)
@@ -62,20 +62,19 @@ export function proxy(request: NextRequest) {
 
     // 4. Dynamické presmerovania
     // Presmerovanie pre /products/[slug] na /vina/[slug]
-    if (pathname.startsWith('/products/')) {
-        const slug = pathname.replace('/products/', '');
-        return NextResponse.redirect(new URL(`/vina/${slug}`, request.url));
+    if (pathname.startsWith('/products')) {
+        const slug = pathname.replace('/products', '').replace(/^\//, '');
+        return NextResponse.redirect(new URL(slug ? `/vina/${slug}` : '/vina', request.url));
     }
 
     // Presmerovanie pre /produkt/[slug] (WordPress) na /vina/[slug]
-    if (pathname.startsWith('/produkt/')) {
-        const slug = pathname.replace('/produkt/', '');
-        return NextResponse.redirect(new URL(`/vina/${slug}`, request.url));
+    if (pathname.startsWith('/produkt')) {
+        const slug = pathname.replace('/produkt', '').replace(/^\//, '');
+        return NextResponse.redirect(new URL(slug ? `/vina/${slug}` : '/vina', request.url));
     }
 
     // Presmerovanie pre /kategoria-produktu/[slug] na /vina
-    // TODO: V budúcnosti môžeme mapovať "biele-vina" -> "/vina?kategoria=biele"
-    if (pathname.startsWith('/kategoria-produktu/')) {
+    if (pathname.startsWith('/kategoria-produktu')) {
         return NextResponse.redirect(new URL('/vina', request.url));
     }
 
