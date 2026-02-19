@@ -8,6 +8,7 @@ import { getLocalization } from "../../../utils/getLocalization";
 import AddToCartButtonWrapper from "../../../components/products/AddToCartButtonWrapper";
 import Script from "next/script";
 import JsonLd from "../../../components/JsonLd";
+import { getGoogleRating } from "../../../utils/getGoogleRating";
 
 // Dynamic import for ProductLightbox - only loads when images are clicked
 const ProductLightbox = dynamic(() => import("@/app/components/products/ProductLightbox"));
@@ -67,9 +68,10 @@ export default async function ProductPage({
   }
 
   // Now do local file read
-  const [product, localeData] = await Promise.all([
+  const [product, localeData, googleRating] = await Promise.all([
     getProductBySlug(slug),
     getLocalization(),
+    getGoogleRating(),
   ]);
 
   if (!product) {
@@ -163,8 +165,8 @@ export default async function ProductPage({
           <div className="flex justify-center mb-6">
             <span className="inline-flex items-center gap-2 text-sm text-foreground">
               <span aria-hidden>★</span>
-              <span className="font-semibold">5.0</span>
-              <span className="opacity-70">(31 recenzií)</span>
+              <span className="font-semibold">{googleRating.rating.toFixed(1)}</span>
+              <span className="opacity-70">({googleRating.totalReviews} recenzií)</span>
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -6,7 +6,12 @@ import { useLocalization } from "../../context/LocalizationContext";
 import RatingBadge from "../RatingBadge";
 import { Button } from "../ui/button";
 
-export default function HomepageBanner() {
+interface HomepageBannerProps {
+  ratingValue?: number;
+  reviewCount?: number;
+}
+
+export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: HomepageBannerProps) {
   const { homepage } = useLocalization();
 
   if (!homepage?.banner) {
@@ -38,7 +43,7 @@ export default function HomepageBanner() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-10" aria-hidden />
 
       <div className="relative z-20 max-w-4xl mx-auto px-6 py-32 md:py-48 flex flex-col items-center text-center">
-        <RatingBadge ratingValue={5} reviewCount={31} className="mb-4" />
+        <RatingBadge ratingValue={ratingValue} reviewCount={reviewCount} className="mb-4" />
 
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 drop-shadow-2xl !text-white tracking-tight">
           Rodinné vinárstvo Putec

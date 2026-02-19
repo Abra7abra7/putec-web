@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import RatingBadge from "../../components/RatingBadge";
+import { getGoogleRating } from "../../utils/getGoogleRating";
 
 export const metadata: Metadata = {
   title: "Degustácie Vinosady | Firemné akcie Pezinok | Ochutnávky vína | Víno Pútec",
@@ -30,24 +31,30 @@ export const metadata: Metadata = {
   },
 };
 
-export default function DegustaciePage() {
+export default async function DegustaciePage() {
+  const googleRating = await getGoogleRating();
+
   return (
     <div className="min-h-screen bg-background">
       <Script id="ld-json-breadcrumbs-degust" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {"@type":"ListItem","position":1,"name":"Domov","item":"https://vinoputec.sk/"},
-            {"@type":"ListItem","position":2,"name":"Degustácie","item":"https://vinoputec.sk/degustacie"}
-          ]
-        }) }} />
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://vinoputec.sk/" },
+              { "@type": "ListItem", "position": 2, "name": "Degustácie", "item": "https://vinoputec.sk/degustacie" }
+            ]
+          })
+        }} />
       <Script id="ld-json-itemlist-degust" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context":"https://schema.org",
-          "@type":"ItemList",
-          "itemListElement": []
-        }) }} />
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": []
+          })
+        }} />
       <Hero
         title="Degustácie vína"
         subtitle="Nezabudnuteľné zážitky s našimi prémiovými vínami v srdci Malých Karpát"
@@ -57,7 +64,7 @@ export default function DegustaciePage() {
         heightClass="h-[60vh]"
       />
       <div className="container mx-auto px-6 -mt-10">
-        <RatingBadge ratingValue={5} reviewCount={31} />
+        <RatingBadge ratingValue={googleRating.rating} reviewCount={googleRating.totalReviews} />
       </div>
 
       {/* Quick Reservation Section - Moved to top */}
@@ -118,7 +125,7 @@ export default function DegustaciePage() {
       {/* Main Content - Details moved below */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          
+
           {/* Introduction */}
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
@@ -126,11 +133,11 @@ export default function DegustaciePage() {
             </h2>
             <div className="max-w-4xl mx-auto">
               <p className="text-xl text-foreground-muted leading-relaxed mb-6">
-                Ponúkame jedinečné degustácie vína priamo vo vinárstve, kde spájame tradíciu s modernými technológiami. 
+                Ponúkame jedinečné degustácie vína priamo vo vinárstve, kde spájame tradíciu s modernými technológiami.
                 Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty.
               </p>
               <p className="text-lg text-foreground-muted leading-relaxed">
-                Naša degustačná miestnosť má kapacitu až 17 osôb a ponúka kompletný zážitok s ochutnávkami vína, 
+                Naša degustačná miestnosť má kapacitu až 17 osôb a ponúka kompletný zážitok s ochutnávkami vína,
                 catering službami a profesionálnym sprievodcom.
               </p>
             </div>
@@ -154,7 +161,7 @@ export default function DegustaciePage() {
 
             <div>
               <h3 className="text-3xl font-bold text-foreground mb-8">Prečo si vybrať naše degustácie?</h3>
-              
+
               <div className="space-y-6">
                 <div className="bg-accent/10 p-6 rounded-xl">
                   <div className="flex items-center mb-4">
@@ -176,7 +183,7 @@ export default function DegustaciePage() {
                     </div>
                     <p className="text-foreground-muted text-sm">Profesionálne zorganizované pre firmy</p>
                   </div>
-                  
+
                   <div className="bg-background border border-gray-200 rounded-xl p-6">
                     <div className="flex items-center mb-3">
                       <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-3">

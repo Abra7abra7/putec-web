@@ -7,6 +7,7 @@ import { getCurrencySymbol } from "../../../utils/getCurrencySymbol";
 import Script from "next/script";
 import BackButton from "../../../components/BackButton";
 import DegustationGallery from "../../../components/degustacie/DegustationGallery";
+import { getGoogleRating } from "../../../utils/getGoogleRating";
 
 // Generate metadata for each degustation
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -38,7 +39,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function DegustationPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const [product, googleRating] = await Promise.all([
+    getProductBySlug(slug),
+    getGoogleRating(),
+  ]);
 
   if (!product || product.ProductType !== 'degustation') {
     notFound();
@@ -109,8 +113,8 @@ export default async function DegustationPage({ params }: { params: Promise<{ sl
         <div className="flex justify-center mb-6">
           <span className="inline-flex items-center gap-2 text-sm text-foreground">
             <span aria-hidden>★</span>
-            <span className="font-semibold">5.0</span>
-            <span className="opacity-70">(31 recenzií)</span>
+            <span className="font-semibold">{googleRating.rating.toFixed(1)}</span>
+            <span className="opacity-70">({googleRating.totalReviews} recenzií)</span>
           </span>
         </div>
 

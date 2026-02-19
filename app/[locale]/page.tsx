@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HomepageBanner from "@/app/components/homepage/HomepageBanner";
 import dynamic from "next/dynamic";
+import { getGoogleRating } from "@/app/utils/getGoogleRating";
 
 // Lazy-load below-the-fold sections to improve LCP/TBT
 const DegustaciePreview = dynamic(() => import("@/app/components/homepage/DegustaciePreview"), { ssr: true });
@@ -35,19 +36,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const googleRating = await getGoogleRating();
+
   return (
     <main>
-      <HomepageBanner />
-      
+      <HomepageBanner ratingValue={googleRating.rating} reviewCount={googleRating.totalReviews} />
+
       <DegustaciePreview />
       <AccommodationPreview />
-      
+
       <BrandStory />
       <Testimonials />
       <NewsletterSignup />
       <Achievements />
-      
+
     </main>
   );
 }

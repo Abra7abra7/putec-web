@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { ReduxProvider } from "@/app/providers";
 import Script from "next/script";
 import RatingBadge from "../../components/RatingBadge";
+import { getGoogleRating } from "../../utils/getGoogleRating";
 import { getWines } from "../../utils/getProducts"; // Updated import
 
 // Generate metadata dynamically
@@ -19,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function VinaPage() {
-  const wines = await getWines(); // SERVER SIDE FETCH
+  const [wines, googleRating] = await Promise.all([getWines(), getGoogleRating()]);
 
   const schemaProducts = wines.map((wine, index) => ({
     "@type": "ListItem",
@@ -69,7 +70,7 @@ export default async function VinaPage() {
         heightClass="h-[50vh]"
       />
       <div className="container mx-auto px-4 -mt-10">
-        <RatingBadge ratingValue={5} reviewCount={31} />
+        <RatingBadge ratingValue={googleRating.rating} reviewCount={googleRating.totalReviews} />
       </div>
       <section id="vsetky-vina" className="py-12 bg-background">
         <div className="container mx-auto px-4">
