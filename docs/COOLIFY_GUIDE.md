@@ -4,7 +4,7 @@ Tento dokument vás prevedie procesom nasadenia aplikácie `vinoputec.sk` na ser
 
 ## 🚀 1. Príprava Coolify Projektu
 
-1.  Prihláste sa do vašej inštancie **Coolify**.
+1.  Prihláste sa do vašeho inštancie **Coolify**.
 2.  Prejdite do **Projects** -> **New Project** (alebo použite existujúci).
 3.  Vyberte prostredie (napr. **Production**).
 4.  Kliknite na **+ New Resource** -> **Git Repository** (Private alebo Public, podľa toho kde je repo).

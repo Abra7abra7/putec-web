@@ -63,10 +63,16 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
 - **Hosting**: Projekt je nasadený v regióne **Frankfurt, EU (fra1)** pre nízku latenciu na Slovensku.
 
 ## 📄 Projektová Dokumentácia
-V koreňovom priečinku sú dostupné tieto návody pre klienta:
-- **[MIGRATION_GUIDE.md](file:///Users/abra/putec-web/MIGRATION_GUIDE.md)**: Postup pre DNS a migráciu z Websupportu.
-- **[SEO_SPEED_AI_CHECKLIST.md](file:///Users/abra/putec-web/SEO_SPEED_AI_CHECKLIST.md)**: Kroky pre vyhľadávače a AI agentov.
-- **[FINAL_PROJECT_REPORT.md](file:///Users/abra/putec-web/FINAL_PROJECT_REPORT.md)**: Záverečná správa a cenový návrh.
+V priečinku `docs/` sú dostupné tieto technické návody:
+- **[OPERATIONS.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/OPERATIONS.md)**: Správa Stripe platieb, webhook a SEO checklist.
+- **[SUPERFAKTURA_INTEGRATION.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/SUPERFAKTURA_INTEGRATION.md)**: Automatizovaná fakturácia a SuperFaktúra API.
+- **[Implementácia Silktide v Next.js.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/Implement%C3%A1cia%20Silktide%20v%20Next.js.md)**: GDPR, Consent Mode v2 a Silktide banner.
+- **[GDPR_AND_NEXTJS_COMPLIANCE.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/GDPR_AND_NEXTJS_COMPLIANCE.md)**: Analýza GDPR riešení pre Next.js 16.
+- **[SEO_AI_INDEXING_PLAN.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/SEO_AI_INDEXING_PLAN.md)**: Postup indexácie pre Google, Bing a AI botov.
+- **[SEO_SPEED_AI_CHECKLIST.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/SEO_SPEED_AI_CHECKLIST.md)**: Checklist pre rýchlosť a AI viditeľnosť (GEO).
+- **[CHECKOUT_FLOW.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/CHECKOUT_FLOW.md)**: Detailný popis nákupného procesu a integrácií.
+- **[COOLIFY_GUIDE.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/COOLIFY_GUIDE.md)**: Sprievodca nasadením na Coolify (Hetzner).
+- **[FINAL_PROJECT_REPORT.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/FINAL_PROJECT_REPORT.md)**: Záverečná správa projektu.
 
 ---
 ## 🛡️ Kvalita a Opravy
