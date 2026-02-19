@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Users, Clock, Check } from "lucide-react";
 import { Product } from "@/types/Product";
+import { getMediaUrl } from "@/app/utils/media";
 
 interface DegustationProductsProps {
   initialProducts?: Product[];
@@ -52,7 +53,7 @@ export default function DegustationProducts({ initialProducts = [] }: Degustatio
               <div key={product.ID} className="relative rounded-lg shadow-lg overflow-hidden border border-gray-200 min-h-[400px] md:min-h-[600px]">
                 {/* Full background image */}
                 <Image
-                  src={product.FeatureImageURL || '/placeholder.png'}
+                  src={getMediaUrl(product.FeatureImageURL) || '/placeholder.png'}
                   alt={product.Title}
                   fill
                   className="object-cover object-center"

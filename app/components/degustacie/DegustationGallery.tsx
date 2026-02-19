@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { getMediaUrl } from "@/app/utils/media";
 
 interface DegustationGalleryProps {
     featureImage: string;
@@ -27,7 +28,7 @@ export default function DegustationGallery({ featureImage, title, galleryImages 
                 onClick={() => { setIndex(0); setOpen(true); }}
             >
                 <Image
-                    src={featureImage}
+                    src={getMediaUrl(featureImage)}
                     alt={title}
                     width={800}
                     height={600}
@@ -51,7 +52,7 @@ export default function DegustationGallery({ featureImage, title, galleryImages 
                             onClick={() => { setIndex(i + 1); setOpen(true); }}
                         >
                             <Image
-                                src={image}
+                                src={getMediaUrl(image)}
                                 alt={`${title} - galéria ${i + 1}`}
                                 fill
                                 sizes="(max-width: 768px) 50vw, 33vw"
@@ -71,7 +72,7 @@ export default function DegustationGallery({ featureImage, title, galleryImages 
                 open={open}
                 close={() => setOpen(false)}
                 index={index}
-                slides={allImages.map(src => ({ src }))}
+                slides={allImages.map(src => ({ src: getMediaUrl(src) }))}
                 styles={{ container: { backgroundColor: "rgba(0, 0, 0, .9)" } }}
             />
         </div>
