@@ -13,6 +13,7 @@ Tento dokument slúži ako hlavný zdroj informácií pre AI agentov pracujúcic
 - **Platby**: Stripe (React Stripe JS)
 - **Validácia**: Zod
 - **Spracovanie obrázkov**: Sharp
+- **CDN & Storage**: Cloudflare R2 (Bucket: `putec-media`)
 
 ## 🎨 Design a Vizuálny Štýl
 Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vinárstva.
@@ -51,6 +52,7 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
 - **SuperFaktúra**: Automatická fakturácia pri platbe.
 - **Resend**: Transakčné emaily (Objednávka, Rezervácia).
 - **Previo**: Rezervačný systém pre ubytovanie (iframe).
+- **Cloudflare R2**: Centralizované úložisko pre obrázky produktov, galériu a branding. Spravované cez `app/utils/media.ts`.
 
 ## 📍 Hlavné body implementácie
 - **Proxy Middleware**: `proxy.ts` rieši:
@@ -58,7 +60,7 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
   2. `next-intl` lokalizáciu.
   3. Ignorovanie statických assetov (`matcher` exclues `.*\\..*`).
 - **Emaily**: Logá vkladané ako Base64 (pozri `fs.readFileSync`), šablóny v `app/emails`.
-- **Images**: Automatická optimalizácia povolená (Next.js Image Optimization cez Vercel Edge).
+- **Images & Media**: Všetky produkčné obrázky sú uložené v **Cloudflare R2** a servované cez CDN. Lokálny priečinok `public/` obsahuje len systémové súbory (favicons, scripts). Optimalizácia prebieha cez Next.js Image Optimization.
 - **PWA**: `manifest.ts` generuje `manifest.webmanifest`.
 - **Hosting**: Projekt je nasadený v regióne **Frankfurt, EU (fra1)** pre nízku latenciu na Slovensku.
 
