@@ -1,6 +1,7 @@
 import Hero from "../../components/Hero";
 import Link from "next/link";
 import PrevioBookingClient from "../../components/PrevioBookingClient";
+import InquiryForm from "../../components/ubytovanie/InquiryForm";
 import { Slider } from "../../components/business/Slider";
 import type { Metadata } from "next";
 
@@ -54,7 +55,7 @@ export default function AccommodationPage() {
       {/* Main Content */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          
+
           {/* Introduction */}
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
@@ -78,7 +79,7 @@ export default function AccommodationPage() {
 
             <div>
               <h3 className="text-3xl font-bold text-foreground mb-8">Kapacita a parametre ubytovania</h3>
-              
+
               <div className="space-y-6">
                 <div className="bg-accent/10 p-6 rounded-xl">
                   <div className="flex items-center mb-4">
@@ -98,7 +99,7 @@ export default function AccommodationPage() {
                     </div>
                     <p className="text-foreground-muted text-sm">Spolu 9 lôžok</p>
                   </div>
-                  
+
                   <div className="bg-background border border-gray-200 rounded-xl p-6">
                     <div className="flex items-center mb-3">
                       <span className="text-2xl mr-3">🛏️</span>
@@ -264,6 +265,11 @@ export default function AccommodationPage() {
             </div>
           </div>
 
+          {/* Inquiry Form Section */}
+          <div id="teambuilding" className="mt-20">
+            <InquiryForm />
+          </div>
+
           {/* CTA Section */}
           <div className="bg-gradient-to-r from-accent/10 to-accent/5 rounded-3xl p-12 text-center">
             <h3 className="text-3xl font-bold text-foreground mb-6">
@@ -300,7 +306,7 @@ export default function AccommodationPage() {
                 Vyplňte formulár nižšie pre rezerváciu ubytovania vo vinárstve
               </p>
             </div>
-            
+
             <div className="bg-background rounded-lg shadow-lg p-8">
               <PrevioBookingClient />
             </div>

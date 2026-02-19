@@ -30,6 +30,7 @@ interface LocalizationData {
     orderConfirmationMessage: string;
   };
   menu: { label: string; href: string }[];
+  ubytovanieMenu: { label: string; href: string }[];
   footerLinks: { label: string; href: string }[];
   legalLinks: { label: string; href: string }[];
   socialLinks: { id: string; icon: string; url: string }[];
@@ -117,6 +118,13 @@ const defaultLocalization: LocalizationData = {
     { label: "Vína", href: "/vina" },
     { label: "O nás", href: "/o-nas" },
     { label: "Kontakt", href: "/kontakt" },
+  ],
+  ubytovanieMenu: [
+    { label: "Ubytovanie", href: "/" },
+    { label: "Teambuilding", href: "/#teambuilding" },
+    { label: "Rezervácia", href: "/#rezervacia" },
+    { label: "Galéria", href: "/galeria/ubytovanie" },
+    { label: "Vína & Vinárstvo", href: "https://vinoputec.sk" },
   ],
   footerLinks: [
     { label: "Domov", href: "/" },

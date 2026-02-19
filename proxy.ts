@@ -1,18 +1,28 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
+import { locales, localePrefix } from './i18n.config';
 
 // Vytvoríme middleware pre next-intl
 const handleI18n = createMiddleware({
-    locales: ['sk', 'en'],
     defaultLocale: 'sk',
-    localePrefix: 'as-needed' // 'never' prevents creating /sk/, but we need prefix for /en/
+    locales,
+    localePrefix
 });
 
 export default function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
+    const host = request.headers.get('host') || '';
 
-    // 1. Centralizované presmerovania (zlúčené z proxy.ts a next.config.ts)
+    // 1. Multi-domain Routing (Feature Flag)
+    // Ak pristupujeme cez subdoménu ubytovania, "podstrčíme" mu obsah sekcie ubytovanie
+    if (host.includes('ubytovanie.vinoputec.sk') || host.includes('ubytovanie.localhost')) {
+        // Ak je na roote, zobrazíme mu ubytovanie v slovenčine (default)
+        if (pathname === '/' || pathname === '/sk' || pathname === '/sk/') {
+            return NextResponse.rewrite(new URL('/sk/ubytovanie', request.url));
+        }
+    }
+
+    // 2. Centralizované presmerovania (zlúčené z proxy.ts a next.config.ts)
     const redirects: Record<string, string> = {
         // Pôvodné proxy.ts
         '/products': '/vina',

@@ -6,6 +6,7 @@ import ScrollToTopButton from "./ScrollToTopButton"; // Keep this as a client co
 import { getLocalization } from "../utils/getLocalization";
 import { Container } from "./ui/container";
 import IconWrapper from "./ui/IconWrapper";
+import { headers } from "next/headers";
 
 // Define TypeScript interfaces
 interface FooterLink {
@@ -24,6 +25,11 @@ const iconMap: Record<SocialIcon, React.ElementType> = {
 
 export default async function Footer() {
   const content = await getLocalization(); // Load localization data asynchronously
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+
+  const isUbytovanieDomain = host.includes("ubytovanie.vinoputec.sk") || host.includes("ubytovanie.localhost");
+  const footerLinks = isUbytovanieDomain ? content.ubytovanieMenu : content.footerLinks;
 
   return (
     <footer className="bg-background text-foreground py-8 md:py-12 relative border-t border-gray-200">
@@ -53,7 +59,7 @@ export default async function Footer() {
           <div>
             <h3 className="text-xl font-semibold mb-4 text-foreground">{content.labels.quickLinks}</h3>
             <ul className="space-y-2">
-              {content.footerLinks.map((link: FooterLink) => (
+              {footerLinks.map((link: FooterLink) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-foreground hover:text-accent transition-colors duration-200">
                     {link.label}

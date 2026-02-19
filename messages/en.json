@@ -98,6 +98,28 @@
             "href": "/kontakt"
         }
     ],
+    "ubytovanieMenu": [
+        {
+            "label": "Accommodation",
+            "href": "/"
+        },
+        {
+            "label": "Teambuilding",
+            "href": "/#teambuilding"
+        },
+        {
+            "label": "Booking",
+            "href": "/#rezervacia"
+        },
+        {
+            "label": "Gallery",
+            "href": "/galeria/ubytovanie"
+        },
+        {
+            "label": "Winery & Wines",
+            "href": "https://vinoputec.sk"
+        }
+    ],
     "footerLinks": [
         {
             "label": "Home",
