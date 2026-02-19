@@ -3,6 +3,7 @@
 Tento dokument slúži ako hlavný zdroj informácií pre AI agentov pracujúcich na projekte.
 
 ## 🚀 Technologický Stack
+
 - **Framework**: Next.js 16.1.6 (App Router, Turbopack)
 - **Lokalizácia**: `next-intl` (Routing: `app/[locale]/`, Middleware: `proxy.ts`)
 - **Frontend**: React 19.2.3, Tailwind CSS 4
@@ -16,6 +17,7 @@ Tento dokument slúži ako hlavný zdroj informácií pre AI agentov pracujúcic
 - **CDN & Storage**: Cloudflare R2 (Bucket: `putec-media`)
 
 ## 🎨 Design a Vizuálny Štýl
+
 Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vinárstva.
 
 - **Farebná Paleta**:
@@ -32,22 +34,27 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
   - **Štýl**: Duo-tone zlaté ikony s jemným pozadím (`bg-accent/5`) a mikro-animáciami.
 
 ## 🛠️ Funkcie a Integrácie
+
 ### 1. Lokalizácia & Routing (New 2026)
+
 - **Štruktúra**: Všetky stránky sú v `app/[locale]/`. Default locale: `sk`.
 - **Middleware/Proxy**: Používame `proxy.ts` (Next.js 16 entry point). Rieši lokalizáciu a 308 redirecty.
 - **Provider**: `LocalizationProvider` v `layout.tsx` zabezpečuje kontext pre klientske komponenty.
 - **Redirects**: Staré WordPress URL (napr. `/produkt/...`) sú trvalo (308) presmerované v `proxy.ts`.
 
 ### 2. Google Reviews Integration (Feb 2026)
+
 - **Utility**: `app/utils/getGoogleRating.ts` s ISR 1 hodina.
 - **API**: `/api/google-reviews` pre klientske CMS komponenty.
 - **Components**: `Testimonials.tsx` a dynamický rating badge na všetkých dôležitých stránkach (Home, Vína, Degustácie).
 
 ### 2. Nákupný proces a Košík
+
 - **Košík**: Redux store zabezpečuje perzistenciu produktov.
 - **Pokladňa**: `/pokladna` s formulármi pre dodacie a fakturačné údaje.
 
 ### 3. Externé Služby a API
+
 - **Stripe (Platby)**: Generuje `PaymentIntent`, webhook na spracovanie objednávky.
 - **SuperFaktúra**: Automatická fakturácia pri platbe.
 - **Resend**: Transakčné emaily (Objednávka, Rezervácia).
@@ -55,6 +62,7 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
 - **Cloudflare R2**: Centralizované úložisko pre obrázky produktov, galériu a branding. Spravované cez `app/utils/media.ts`.
 
 ## 📍 Hlavné body implementácie
+
 - **Proxy Middleware**: `proxy.ts` rieši:
   1. Presmerovania starých URL (SEO continuity).
   2. `next-intl` lokalizáciu.
@@ -65,31 +73,46 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
 - **Hosting**: Projekt je nasadený v regióne **Frankfurt, EU (fra1)** pre nízku latenciu na Slovensku.
 
 ## 📄 Projektová Dokumentácia
+
+## 📄 Projektová Dokumentácia
+
+V koreňovom priečinku sú dostupné tieto návody pre klienta:
+
+- **[MIGRATION_GUIDE.md](file:///Users/abra/putec-web/MIGRATION_GUIDE.md)**: Postup pre DNS a migráciu z Websupportu.
+- **[SEO_SPEED_AI_CHECKLIST.md](file:///Users/abra/putec-web/SEO_SPEED_AI_CHECKLIST.md)**: Kroky pre vyhľadávače a AI agentov.
+- **[FINAL_PROJECT_REPORT.md](file:///Users/abra/putec-web/FINAL_PROJECT_REPORT.md)**: Záverečná správa a cenový návrh.
+
 V priečinku `docs/` sú dostupné tieto technické návody:
-- **[OPERATIONS.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/OPERATIONS.md)**: Správa Stripe platieb, webhook a SEO checklist.
-- **[SUPERFAKTURA_INTEGRATION.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/SUPERFAKTURA_INTEGRATION.md)**: Automatizovaná fakturácia a SuperFaktúra API.
-- **[Implementácia Silktide v Next.js.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/Implement%C3%A1cia%20Silktide%20v%20Next.js.md)**: GDPR, Consent Mode v2 a Silktide banner.
-- **[GDPR_AND_NEXTJS_COMPLIANCE.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/GDPR_AND_NEXTJS_COMPLIANCE.md)**: Analýza GDPR riešení pre Next.js 16.
-- **[SEO_AI_INDEXING_PLAN.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/SEO_AI_INDEXING_PLAN.md)**: Postup indexácie pre Google, Bing a AI botov.
-- **[SEO_SPEED_AI_CHECKLIST.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/SEO_SPEED_AI_CHECKLIST.md)**: Checklist pre rýchlosť a AI viditeľnosť (GEO).
-- **[CHECKOUT_FLOW.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/CHECKOUT_FLOW.md)**: Detailný popis nákupného procesu a integrácií.
-- **[COOLIFY_GUIDE.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/COOLIFY_GUIDE.md)**: Sprievodca nasadením na Coolify (Hetzner).
-- **[FINAL_PROJECT_REPORT.md](file:///c:/Users/mstancik/Desktop/putec-web/docs/FINAL_PROJECT_REPORT.md)**: Záverečná správa projektu.
+
+- **[OPERATIONS.md](file:///Users/abra/putec-web/docs/OPERATIONS.md)**: Správa Stripe platieb, webhook a SEO checklist.
+- **[SUPERFAKTURA_INTEGRATION.md](file:///Users/abra/putec-web/docs/SUPERFAKTURA_INTEGRATION.md)**: Automatizovaná fakturácia a SuperFaktúra API.
+- **[Implementácia Silktide v Next.js.md](file:///Users/abra/putec-web/docs/Implement%C3%A1cia%20Silktide%20v%20Next.js.md)**: GDPR, Consent Mode v2 a Silktide banner.
+- **[GDPR_AND_NEXTJS_COMPLIANCE.md](file:///Users/abra/putec-web/docs/GDPR_AND_NEXTJS_COMPLIANCE.md)**: Analýza GDPR riešení pre Next.js 16.
+- **[SEO_AI_INDEXING_PLAN.md](file:///Users/abra/putec-web/docs/SEO_AI_INDEXING_PLAN.md)**: Postup indexácie pre Google, Bing a AI botov.
+- **[CHECKOUT_FLOW.md](file:///Users/abra/putec-web/docs/CHECKOUT_FLOW.md)**: Detailný popis nákupného procesu a integrácií.
+- **[COOLIFY_GUIDE.md](file:///Users/abra/putec-web/docs/COOLIFY_GUIDE.md)**: Sprievodca nasadením na Coolify (Hetzner).
 
 ---
+
 ## 🛡️ Kvalita a Opravy
+
 - **Hydratačné chyby**: Vyriešené odstránením duplicitných `<html>` a `<body>` tagov v pod-layoutoch (napr. `kontakt/layout.tsx`).
 - **Výkon**: Zapnutá natívna optimalizácia obrázkov (Next.js Image), čo znižuje LCP pod 1s.
 
 ---
+
 ## 5. SEO & GEO Stratégia
+
 ### 🧠 Generative Engine Optimization (GEO)
+
 Projekt implementuje metódy na zvýšenie viditeľnosti v AI modeloch:
+
 - **AI Context Page**: `/ai-context` (Knowledge Base).
 - **Robots.txt**: Explicitne povolené AI boty (`GPTBot`, `ClaudeBot`).
 - **Metadata**: Rich metadata v `layout.tsx` (OpenGraph, Keywords).
 
 ### 🌍 Lokálne SEO & Schema.org
+
 Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 
 - **JSON-LD Schema**:
@@ -98,11 +121,13 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 - **Sitemap**: Dynamicky generovaná v `app/sitemap.ts`.
 
 ### 🛡️ Migračné Safeguards
+
 1. **Redirects (308 Permanent)**: Všetky staré WordPress URL sú pokryté v `proxy.ts`.
 2. **Linkjuice**: Používame 308 redirecty pre prenos rankingu zo starých adries.
 3. **Sitemap**: Dynamická sitemap (`/sitemap.xml`) musí obsahovať len nové URL.
 
 ### 🔍 GSC & Bing Webmaster Checklist
+
 - **Sitemap**: Skontrolovať, či je `https://vinoputec.sk/sitemap.xml` úspešne načítaná.
 - **URL Inspection**: Pri dôležitých produktoch vyvolať "Request Indexing" na novej URL.
 - **Bing**: Použiť "IndexNow" alebo nahrať sitemapu manuálne.
@@ -110,6 +135,7 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 ## 6. Migrácia a Produkčné Nastavenia (Coolify, Hetzner, Integrácie)
 
 ### 🏗️ Coolify & Docker
+
 - **Server**: Hetzner Cloud (CX22/31), Ubuntu 24.04, Coolify v4.
 - **Build Pack**: **Dockerfile** (nie Nixpacks!).
 - **Node.js**: Verzia 20 (Alpine), `npm install`, `npm run build` (standalone).
@@ -117,15 +143,18 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 - **Domains**: `https://vinoputec.sk` (Direction: Allow www & non-www).
 
 ### 🌐 DNS (WebSupport)
+
 - **A Záznamy**:
   - `@` -> IP Hetzner Servera (`46.225.136.48`)
   - `www` -> IP Hetzner Servera (`46.225.136.48`)
-  - `*` -> IP Hetzner Servera (voliteľné)
+  - `ubytovanie` -> IP Websupport Hostingu (`37.9.175.187`) - _Pôvodný web ubytovania_
+  - `*` -> IP Hetzner Servera (Wildcard pre ostatné subdomény)
 - **MX Záznamy**:
   - Hlavná doména: Ponechané WebSupport MX (`mailin1.vinoputec.sk`, ...)
   - Subdoména `send`: `feedback-smtp.eu-west-1.amazonses.com` (Priorita 10)
 
 ### 📧 Resend (Transakčné Emaily)
+
 - **Domain**: `vinoputec.sk` (Region: EU - Ireland).
 - **DNS Nastavenia**:
   - **DKIM**: `resend._domainkey` (TXT)
@@ -133,6 +162,7 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 - **Odosielateľ**: `RESEND_FROM_EMAIL="Vino Putec <objednavky@vinoputec.sk>"`
 
 ### 💳 Stripe (Platby)
+
 - **Mode**: Live (Production).
 - **Webhooks**:
   - **Endpoint**: `https://vinoputec.sk/api/stripe/webhook`
@@ -140,12 +170,15 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
   - **Secret**: `STRIPE_WEBHOOK_SECRET` (začína `whsec_`).
 
 ### 🧾 SuperFaktúra
+
 - **Mode**: Produkcia (`SUPERFAKTURA_SANDBOX=0`).
 - **Email**: `brano.putec@gmail.com`
 - **Nastavenia**: `SUPERFAKTURA_SEND_EMAILS=1`.
 
 ---
+
 ### 7. Aktuálne Vylepšenia a Opravy (Feb 18, 2026)
+
 - **GDPR & Compliance**:
   - **Silktide Consent Manager**: Kompletná implementácia open-source banneru s podporou **Google Consent Mode v2**.
   - **Lokalizácia**: Banner a nastavenia sú plne preložené do slovenčiny (vrátane patchu pre Zap/Vyp prepínače).
@@ -163,37 +196,44 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
   - **Gallery & Achievements**: Opravené názvy diplomov (URL-safe), vylepšený layout gridu (4x2) a pridaný Lightbox.
 - **Ubytovanie Multi-domain & Lead Gen (Feb 19, 2026)**:
   - **Dopytový formulár**: Implementovaný `InquiryForm` so serverovou akciou `sendInquiry` (Resend).
-  - **Domain Routing**: `proxy.ts` deteguje host `ubytovanie.*` a prepisuje root na ubytovanie sekciu.
+  - **Domain Routing**: `proxy.ts` deteguje host `ubytovanie.*` and prepisuje root na ubytovanie sekciu.
   - **Dynamic Navbar**: Header/Footer menia položky podľa domény pre zachovanie "standalone" dojmu.
 
 ---
+
 ## 8. Multi-domain & Aktivácia Ubytovania
 
 ### 🔗 Princíp fungovania
+
 Jedna Next.js aplikácia obsluhuje obe domény. `proxy.ts` (middleware) kontroluje hlavičku `Host`:
+
 - **Host**: `vinoputec.sk` -> Štandardný web vinárstva.
 - **Host**: `ubytovanie.vinoputec.sk` -> Rewrite na `/sk/ubytovanie`. Užívateľ vidí ubytovanie ako hlavnú stránku.
 
 ### 🛠️ Postup aktivácie (WebSupport)
+
 1. **A Záznam**: Pre subdoménu `ubytovanie` nastaviť A záznam na IP servera (`46.225.136.48`).
 2. **A Záznam**: Pre subdoménu `www.ubytovanie` taktiež nastaviť A záznam na tú istú IP.
 3. **Coolify**: V nastaveniach aplikácie (Domains) pridať doménu `https://ubytovanie.vinoputec.sk`.
 
 ### 📉 Údržba
+
 Všetky texty pre ubytovacie menu sa nachádzajú v `messages/sk.json` pod kľúčom `ubytovanieMenu`.
 
 - **React 19 & Next.js 16.1.6 Optimalizácie (Feb 19, 2026)**:
-  - **Server-side Fetching**: Migrácia z `useEffect` fetchingu na Server Components (Vína, Degustácie, Pokladňa). Dáta sú v HTML, čo zlepšuje SEO a LCP.
+  - **Server-side Fetching**: Migrácia z `useEffect` fetchingu na Server Components (Vína, Degustácie, Pokladňa). Dáta sú v HTML, čo zlepšuje SEO and LCP.
   - **Async Params Compliance**: Povinné `await params` a `await searchParams` v Server komponentoch podľa štandardu Next.js 16.
   - **Context Injection**: `CheckoutContext` a `ProductContext` podporujú `initialData` injekciu zo servera, čo eliminuje loading stavy pri prechode na pokladňu.
   - **Stabilitá kľúčov**: Odstránené nestabilné `key={index}` v Achievements a MiniCart, nahradené unikátnymi ID pre spoľahlivejší rendering.
-  - **Suspense**: Implementované Suspense boundary pre OrderSummary a dynamické parametre.
+  - **Suspense**: Implementované Suspense boundary pre OrderSummary and dynamické parametre.
 
 ---
-*Posledná aktualizácia: 19. 2. 2026 (React 19 & Next.js 16 Optimizations)*
+
+_Posledná aktualizácia: 19. 2. 2026 (React 19 & Next.js 16 Optimizations)_
 
 > [!IMPORTANT]
 > **PLÁN KROKOV PRE OSTRÝ ŠTART (cca 26. 2. 2026)**
+>
 > 1. Overiť u klienta pripravenosť (návrat z dovolenky).
 > 2. Prepnúť DNS vo WebSupporte (A záznamy pre `ubytovanie` a `www.ubytovanie`).
 > 3. Pridať doménu v Coolify.
