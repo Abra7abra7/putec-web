@@ -7,6 +7,7 @@ import { Section } from "../ui/section";
 import { Container } from "../ui/container";
 import { Button } from "../ui/button";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { getMediaUrl } from "@/app/utils/media";
 
 interface AchievementItem {
   id: number;
@@ -33,20 +34,20 @@ export default function Achievements() {
   }, []);
 
   const diplomy: AchievementItem[] = [
-    { id: 1, title: "Zlatá medaila Paris Vinalies 2025", subtitle: "Cabernet Sauvignon Rosé 2024", image: "/uspechy/diplomy/vi-2025-cabernet-rose.jpg" },
-    { id: 2, title: "Zlatá medaila Paris Vinalies 2024", subtitle: "Chardonnay 2023", image: "/uspechy/diplomy/vi-2024-chardonnay.jpg" },
-    { id: 3, title: "Linčanský džbánek zlatá medaila 2024", subtitle: "Cabernet Sauvignon 2018", image: "/uspechy/diplomy/lincansky-dzbanek-2024.jpg" },
-    { id: 4, title: "Strieborná medaila Paris Vinalies 2020", subtitle: "Muller Thurgau 2019", image: "/uspechy/diplomy/vi-2020-muller.jpg" },
-    { id: 5, title: "Strieborná medaila Paris Vinalies 2020", subtitle: "Rizling Vlašský 2019", image: "/uspechy/diplomy/vi-2020-rizling.jpg" },
-    { id: 6, title: "Zlatá medaila Paris Vinalies 2018", subtitle: "Tramín Červený 2018", image: "/uspechy/diplomy/vi-2018-tramin.jpg" },
-    { id: 7, title: "Strieborná medaila Paris Vinalies 2018", subtitle: "Muller Thurgau 2017", image: "/uspechy/diplomy/vi-2018-muller.jpg" },
-    { id: 8, title: "Strieborná medaila Paris Vinalies 2017", subtitle: "Rizling Vlašský 2016", image: "/uspechy/diplomy/vi-2017-rizling-vlassky.jpg" },
+    { id: 1, title: "Zlatá medaila Paris Vinalies 2025", subtitle: "Cabernet Sauvignon Rosé 2024", image: getMediaUrl("/uspechy/diplomy/vi-2025-cabernet-rose.jpg") },
+    { id: 2, title: "Zlatá medaila Paris Vinalies 2024", subtitle: "Chardonnay 2023", image: getMediaUrl("/uspechy/diplomy/vi-2024-chardonnay.jpg") },
+    { id: 3, title: "Linčanský džbánek zlatá medaila 2024", subtitle: "Cabernet Sauvignon 2018", image: getMediaUrl("/uspechy/diplomy/lincansky-dzbanek-2024.jpg") },
+    { id: 4, title: "Strieborná medaila Paris Vinalies 2020", subtitle: "Muller Thurgau 2019", image: getMediaUrl("/uspechy/diplomy/vi-2020-muller.jpg") },
+    { id: 5, title: "Strieborná medaila Paris Vinalies 2020", subtitle: "Rizling Vlašský 2019", image: getMediaUrl("/uspechy/diplomy/vi-2020-rizling.jpg") },
+    { id: 6, title: "Zlatá medaila Paris Vinalies 2018", subtitle: "Tramín Červený 2018", image: getMediaUrl("/uspechy/diplomy/vi-2018-tramin.jpg") },
+    { id: 7, title: "Strieborná medaila Paris Vinalies 2018", subtitle: "Muller Thurgau 2017", image: getMediaUrl("/uspechy/diplomy/vi-2018-muller.jpg") },
+    { id: 8, title: "Strieborná medaila Paris Vinalies 2017", subtitle: "Rizling Vlašský 2016", image: getMediaUrl("/uspechy/diplomy/vi-2017-rizling-vlassky.jpg") },
   ];
 
   const ocenenia: AchievementItem[] = [
-    { id: 1, title: "Ocenenie 2025", subtitle: "Víno Inak", image: "/uspechy/ocenenia/VI-2025_page-0001.jpg" },
-    { id: 2, title: "Ocenenie 2024", subtitle: "Víno Inak", image: "/uspechy/ocenenia/VI-2024_page-0001.jpg" },
-    { id: 3, title: "Ocenenie 2020", subtitle: "Víno Inak", image: "/uspechy/ocenenia/VI-2020_page-0001.jpg" },
+    { id: 1, title: "Ocenenie 2025", subtitle: "Víno Inak", image: getMediaUrl("/uspechy/ocenenia/VI-2025_page-0001.jpg") },
+    { id: 2, title: "Ocenenie 2024", subtitle: "Víno Inak", image: getMediaUrl("/uspechy/ocenenia/VI-2024_page-0001.jpg") },
+    { id: 3, title: "Ocenenie 2020", subtitle: "Víno Inak", image: getMediaUrl("/uspechy/ocenenia/VI-2020_page-0001.jpg") },
   ];
 
   const currentItems = selectedCategory === 'diplomy' ? diplomy : ocenenia;

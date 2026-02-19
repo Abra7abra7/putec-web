@@ -60,7 +60,7 @@ export default async function DegustaciePage() {
       <Hero
         title="Degustácie vína"
         subtitle="Nezabudnuteľné zážitky s našimi prémiovými vínami v srdci Malých Karpát"
-        backgroundImageUrl="galeria/degustacie/degustacia-skupina.jpg"
+        backgroundImageUrl={getMediaUrl("galeria/degustacie/degustacia-skupina.jpg")}
         primaryCta={{ label: "Rezervovať teraz", href: "#rezervacia" }}
         secondaryCta={{ label: "Galéria", href: "/galeria/degustacie" }}
         heightClass="h-[60vh]"

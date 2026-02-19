@@ -8,14 +8,15 @@ import { Button } from "../ui/button";
 import { SectionHeader } from "../business/SectionHeader";
 import { FeatureIcon } from "../business/FeatureIcon";
 import DegustationSliderClient from "./DegustationSliderClient";
+import { getMediaUrl } from "../../utils/media";
 
 export default function DegustaciePreview() {
   const slides = [
-    { src: "/degustacie/brano-degustacia-x.jpg", alt: "Degustácia s majiteľom", position: "top" }, // Image 1 (Starts at top to see heads)
-    { src: "/degustacie/degustacia-skupina.jpg", alt: "Degustácia so skupinou", position: "center" },
-    { src: "/degustacie/degustacia-x.jpg", alt: "Degustácia - atmosféra", position: "center" },
-    { src: "/degustacie/IMG_6063-2.jpg", alt: "Ochutnávka vína", position: "top" }, // Image 4 (Focus on top)
-    { src: "/degustacie/degustacia-brano-x.jpg", alt: "Degustácia vo vinárstva", position: "top" }, // Image 5 (Focus on top)
+    { src: getMediaUrl("degustacie/brano-degustacia-x.jpg"), alt: "Degustácia s majiteľom", position: "top" },
+    { src: getMediaUrl("degustacie/degustacia-skupina.jpg"), alt: "Degustácia so skupinou", position: "center" },
+    { src: getMediaUrl("degustacie/degustacia-x.jpg"), alt: "Degustácia - atmosféra", position: "center" },
+    { src: getMediaUrl("degustacie/IMG_6063-2.jpg"), alt: "Ochutnávka vína", position: "top" },
+    { src: getMediaUrl("degustacie/degustacia-brano-x.jpg"), alt: "Degustácia vo vinárstva", position: "top" },
   ];
 
   const packages = [

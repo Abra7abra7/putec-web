@@ -3,6 +3,8 @@ import HomepageBanner from "@/app/components/homepage/HomepageBanner";
 import dynamic from "next/dynamic";
 import { getGoogleRating } from "@/app/utils/getGoogleRating";
 
+import { getMediaUrl } from "@/app/utils/media";
+
 // Lazy-load below-the-fold sections to improve LCP/TBT
 const DegustaciePreview = dynamic(() => import("@/app/components/homepage/DegustaciePreview"), { ssr: true });
 const AccommodationPreview = dynamic(() => import("@/app/components/homepage/AccommodationPreview"), { ssr: true });
@@ -16,7 +18,7 @@ const Achievements = dynamic(() => import("@/app/components/homepage/Achievement
 export const metadata: Metadata = {
   title: "Vino Putec - Rodinné vinárstvo Pezinok | Ubytovanie Vinosady | Degustácie vína",
   description: "Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku. Rodinné vinárstvo s tradíciou pre Bratislavu, Senec, Trnavu a okolie. Rezervujte si ubytovanie a degustácie vína už dnes.",
-  keywords: "víno, vinárstvo, Putec, Vinosady, Pezinok, Bratislava, Senec, Trnava, rodinné vinárstvo, prémiové vína, ubytovanie, degustácie vína",
+  keywords: "víno, vinárstvo, Putec, Vinosady, Pezinok, Bratislava, Senec, Trnavu, rodinné vinárstvo, prémiové vína, ubytovanie, degustácie vína",
   openGraph: {
     title: "Vino Putec - Rodinné vinárstvo Pezinok",
     description: "Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     locale: "sk_SK",
     images: [
       {
-        url: "/o-nas/rodina2.jpg",
+        url: getMediaUrl("/o-nas/rodina2.jpg"),
         width: 1200,
         height: 630,
         alt: "Rodinné vinárstvo Putec Vinosady",

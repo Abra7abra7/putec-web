@@ -1,21 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import fs from "fs";
-import path from "path";
+import { GALLERY_IMAGES } from "@/app/data/gallery-data";
 import GalleryGrid from "@/app/components/gallery/GalleryGrid";
-
 import { getMediaUrl } from "@/app/utils/media";
 
-function listImagesFrom(dirPath: string): string[] {
-  try {
-    if (!fs.existsSync(dirPath)) return [];
-    const files = fs.readdirSync(dirPath);
-    const images = files.filter((name) => /\.(png|jpe?g|webp|avif)$/i.test(name));
-    return images.map((file) => getMediaUrl(`/galeria/${path.basename(dirPath)}/${file}`));
-  } catch {
-    return [];
-  }
+function listImagesFrom(category: string): string[] {
+  const images = GALLERY_IMAGES[category] || [];
+  return images.map((file) => getMediaUrl(`/galeria/${category}/${file}`));
 }
 
 const categoryTitles: Record<string, string> = {
@@ -27,10 +18,10 @@ const categoryTitles: Record<string, string> = {
 export default async function GalleryCategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
   const safeCategory = category.replace(/[^a-z0-9-_]/gi, "");
-  const base = path.join(process.cwd(), "public", "galeria", safeCategory);
 
-  // Ensure directory exists to avoid errors
-  if (!fs.existsSync(base)) {
+  const categoryTitle = categoryTitles[safeCategory];
+
+  if (!categoryTitle) {
     return (
       <section className="py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 md:px-6 text-center">
@@ -41,8 +32,7 @@ export default async function GalleryCategoryPage({ params }: { params: Promise<
     );
   }
 
-  const photos = listImagesFrom(base);
-  const categoryTitle = categoryTitles[safeCategory] || safeCategory;
+  const photos = listImagesFrom(safeCategory);
 
   return (
     <section className="py-12 md:py-16 bg-background">
@@ -68,4 +58,3 @@ export default async function GalleryCategoryPage({ params }: { params: Promise<
     </section>
   );
 }
-

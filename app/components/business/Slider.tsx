@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/app/utils/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getMediaUrl } from "@/app/utils/media";
 
 export interface SliderSlide {
   src: string;
@@ -94,7 +95,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
               )}
             >
               <Image
-                src={slide.src}
+                src={getMediaUrl(slide.src)}
                 alt={slide.alt}
                 fill
                 className="object-cover"

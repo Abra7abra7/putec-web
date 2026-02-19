@@ -9,6 +9,8 @@ import RatingBadge from "../../components/RatingBadge";
 import { getGoogleRating } from "../../utils/getGoogleRating";
 import { getWines } from "../../utils/getProducts"; // Updated import
 
+import { getMediaUrl } from "../../utils/media";
+
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   const localeData = await getLocalization();
@@ -65,7 +67,7 @@ export default async function VinaPage() {
       <Hero
         title="Naše vína"
         subtitle="Prémiové vína z rodinného vinárstva Putec"
-        backgroundImageUrl="/vineyard-banner.webp"
+        backgroundImageUrl={getMediaUrl("/vineyard-banner.webp")}
         secondaryCta={{ label: "Zobraziť všetky", href: "#vsetky-vina" }}
         heightClass="h-[50vh]"
       />

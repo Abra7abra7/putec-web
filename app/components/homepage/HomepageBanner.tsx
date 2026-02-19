@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useLocalization } from "../../context/LocalizationContext";
 import RatingBadge from "../RatingBadge";
 import { Button } from "../ui/button";
+import { getMediaUrl } from "../../utils/media";
 
 interface HomepageBannerProps {
   ratingValue?: number;
@@ -19,6 +20,7 @@ export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: Ho
   }
 
   const { buttonText, ctaLink, imagePath } = homepage.banner;
+  const mediaUrl = getMediaUrl(imagePath);
 
   return (
     <section
@@ -27,7 +29,7 @@ export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: Ho
     >
       {/* LCP image as Next/Image with priority to improve LCP */}
       <Image
-        src={imagePath}
+        src={mediaUrl}
         alt="Vinohrad Putec – úvodný banner"
         fill
         priority

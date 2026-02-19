@@ -13,7 +13,7 @@ const categories = [
   {
     slug: "degustacie",
     title: "Degustácie",
-    thumbnail: getMediaUrl("degustacie/brano-degustacia-x.jpg"),
+    thumbnail: getMediaUrl("galeria/degustacie/brano-degustacia-x.jpg"),
     description: "Ochutnajte naše prémiové vína"
   },
   {

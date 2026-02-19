@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     locale: "sk_SK",
     images: [
       {
-        url: r2Url ? `${r2Url}/o-nas/rodina2.jpg` : "/o-nas/rodina2.jpg",
+        url: getMediaUrl("o-nas/rodina2.jpg"),
         width: 1200,
         height: 630,
         alt: "Rodinné vinárstvo Putec Vinosady - tradícia a kvalita",

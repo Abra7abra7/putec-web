@@ -167,7 +167,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                       <div key={item.ID} className="flex items-start gap-4 p-3 rounded-2xl bg-gray-50/50 hover:bg-gray-50 transition-colors border border-transparent hover:border-accent/10">
                         <div className="relative w-16 h-20 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white">
                           <Image
-                            src={item.FeatureImageURL}
+                            src={getMediaUrl(item.FeatureImageURL)}
                             alt={item.Title || "Product Image"}
                             fill
                             className="object-cover"
@@ -226,7 +226,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                           Slug: "parizske-zlato-set",
                           RegularPrice: "23.90",
                           SalePrice: "23.90",
-                          FeatureImageURL: "/vina/set-parizske-zlato.jpg",
+                          FeatureImageURL: getMediaUrl("vina/set-parizske-zlato.jpg"),
                           Enabled: true,
                           CatalogVisible: true,
                           ProductCategories: ["Sety vín", "Ocenené vína"],
@@ -251,7 +251,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                           Slug: "cabernet-sauvignon-rose-2024",
                           RegularPrice: "11.90",
                           SalePrice: "11.90",
-                          FeatureImageURL: "/vina/cabernet-sauvignon-rose-2024.jpg",
+                          FeatureImageURL: getMediaUrl("vina/cabernet-sauvignon-rose-2024.jpg"),
                           Enabled: true,
                           CatalogVisible: true,
                           ProductCategories: ["Ružové vína", "Polosuché vína"],

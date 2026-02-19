@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     locale: "sk_SK",
     images: [
       {
-        url: "/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg",
+        url: getMediaUrl("galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"),
         width: 1200,
         height: 630,
         alt: "Ubytovanie vo vinárstve Vinosady - výhľad na vinohrady",
@@ -257,7 +257,10 @@ export default function AccommodationPage() {
 
           {/* CTA Section */}
           <div className="bg-accent text-white rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 left-0 w-full h-full bg-[url('/putec-logo.jpg')] opacity-5 mix-blend-overlay"></div>
+            <div
+              className="absolute top-0 left-0 w-full h-full opacity-5 mix-blend-overlay"
+              style={{ backgroundImage: `url(${getMediaUrl('putec-logo.jpg')})`, backgroundSize: 'cover' }}
+            ></div>
             <div className="relative z-10">
               <h3 className="text-3xl md:text-5xl font-bold mb-8">
                 Rezervujte si ubytovanie vo vinárstve
