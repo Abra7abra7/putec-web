@@ -182,8 +182,15 @@ Jedna Next.js aplikácia obsluhuje obe domény. `proxy.ts` (middleware) kontrolu
 ### 📉 Údržba
 Všetky texty pre ubytovacie menu sa nachádzajú v `messages/sk.json` pod kľúčom `ubytovanieMenu`.
 
+- **React 19 & Next.js 16.1.6 Optimalizácie (Feb 19, 2026)**:
+  - **Server-side Fetching**: Migrácia z `useEffect` fetchingu na Server Components (Vína, Degustácie, Pokladňa). Dáta sú v HTML, čo zlepšuje SEO a LCP.
+  - **Async Params Compliance**: Povinné `await params` a `await searchParams` v Server komponentoch podľa štandardu Next.js 16.
+  - **Context Injection**: `CheckoutContext` a `ProductContext` podporujú `initialData` injekciu zo servera, čo eliminuje loading stavy pri prechode na pokladňu.
+  - **Stabilitá kľúčov**: Odstránené nestabilné `key={index}` v Achievements a MiniCart, nahradené unikátnymi ID pre spoľahlivejší rendering.
+  - **Suspense**: Implementované Suspense boundary pre OrderSummary a dynamické parametre.
+
 ---
-*Posledná aktualizácia: 19. 2. 2026 (Accommodation Multi-domain & UI Polish)*
+*Posledná aktualizácia: 19. 2. 2026 (React 19 & Next.js 16 Optimizations)*
 
 > [!IMPORTANT]
 > **PLÁN KROKOV PRE OSTRÝ ŠTART (cca 26. 2. 2026)**
