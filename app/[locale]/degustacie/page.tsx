@@ -8,10 +8,12 @@ import Script from "next/script";
 import RatingBadge from "../../components/RatingBadge";
 import { getGoogleRating } from "../../utils/getGoogleRating";
 
+import { getMediaUrl } from "../../utils/media";
+
 export const metadata: Metadata = {
   title: "Degustácie Vinosady | Firemné akcie Pezinok | Ochutnávky vína | Víno Pútec",
   description: "Degustácie vína vo Vinosadoch pri Pezinku - firemné akcie, teambuildingy, ochutnávky prémiových vín. Rezervujte si degustáciu v rodinnom vinárstve Putec pre Bratislavu, Senec, Trnavu. Skupinové degustácie až 17 osôb.",
-  keywords: "degustácie Vinosady, degustácie Pezinok, firemné akcie, teambuildingy, ochutnávky vína, degustácie vína, skupinové degustácie, degustačné balíky, víno Vinosady, vinárstvo Putec, Bratislava, Senec, Trnava, Malé Karpaty, degustačné miestnosti, catering degustácie",
+  keywords: "degustácie Vinosady, degustácie Pezinok, firemné akcie, teambuildingy, ochutnávky vína, degustácie vína, skupinové degustácie, degustačné balíky, víno Vinosady, vinárstvo Putec, Bratislava, Senec, Trnavu, Malé Karpaty, degustačné miestnosti, catering degustácie",
   openGraph: {
     title: "Degustácie Vinosady | Firemné akcie a Ochutnávky vína",
     description: "Degustácie vína vo Vinosadoch - firemné akcie, teambuildingy, ochutnávky prémiových vín v srdci Malých Karpát",
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
     locale: "sk_SK",
     images: [
       {
-        url: "/galeria/degustacie/degustacia-skupina.jpg",
+        url: getMediaUrl("galeria/degustacie/degustacia-skupina.jpg"),
         width: 1200,
         height: 630,
         alt: "Degustácie vína vo Vinosadoch - skupinové ochutnávky",
@@ -58,7 +60,7 @@ export default async function DegustaciePage() {
       <Hero
         title="Degustácie vína"
         subtitle="Nezabudnuteľné zážitky s našimi prémiovými vínami v srdci Malých Karpát"
-        backgroundImageUrl="/galeria/degustacie/degustacia-skupina.jpg"
+        backgroundImageUrl="galeria/degustacie/degustacia-skupina.jpg"
         primaryCta={{ label: "Rezervovať teraz", href: "#rezervacia" }}
         secondaryCta={{ label: "Galéria", href: "/galeria/degustacie" }}
         heightClass="h-[60vh]"
@@ -147,7 +149,7 @@ export default async function DegustaciePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
             <div className="relative">
               <Image
-                src="/galeria/degustacie/degustacia-skupina.jpg"
+                src={getMediaUrl("galeria/degustacie/degustacia-skupina.jpg")}
                 alt="Degustácie vína vo Vinosadoch - skupinové ochutnávky"
                 width={600}
                 height={400}

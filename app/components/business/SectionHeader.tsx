@@ -1,5 +1,6 @@
 import * as React from "react";
 import Image from "next/image";
+import { getMediaUrl } from "@/app/utils/media";
 import { cn } from "@/app/utils/utils";
 
 export interface SectionHeaderProps {
@@ -42,7 +43,7 @@ const SectionHeader = React.forwardRef<HTMLDivElement, SectionHeaderProps>(
       >
         {showLogo && (
           <Image
-            src="/putec-logo.jpg"
+            src={getMediaUrl("putec-logo.jpg")}
             alt="Pútec Logo"
             width={60}
             height={60}

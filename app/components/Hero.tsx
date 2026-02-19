@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { getMediaUrl } from "../utils/media";
 
 interface HeroProps {
   title: string;
@@ -36,13 +37,16 @@ export default function Hero({
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const Heading = motion[headingLevel];
 
+  const desktopBg = getMediaUrl(backgroundImageUrl);
+  const mobileBg = getMediaUrl(mobileBackgroundImageUrl);
+
   return (
     <section ref={containerRef} className={`relative ${heightClass} bg-background overflow-hidden`}>
       <motion.div className="absolute inset-0" style={{ y }}>
         {/* Desktop Image (Hidden on mobile if mobile image exists) */}
-        <div className={`relative w-full h-[120%] -top-[10%] ${mobileBackgroundImageUrl ? 'hidden md:block' : ''}`}>
+        <div className={`relative w-full h-[120%] -top-[10%] ${mobileBg ? 'hidden md:block' : ''}`}>
           <Image
-            src={backgroundImageUrl}
+            src={desktopBg}
             alt={title}
             fill
             priority
@@ -53,10 +57,10 @@ export default function Hero({
         </div>
 
         {/* Mobile Image (Only if provided) */}
-        {mobileBackgroundImageUrl && (
+        {mobileBg && (
           <div className="relative w-full h-[120%] -top-[10%] md:hidden">
             <Image
-              src={mobileBackgroundImageUrl}
+              src={mobileBg}
               alt={title}
               fill
               priority

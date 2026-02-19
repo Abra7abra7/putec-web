@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Hero from "../../components/Hero";
+import { getMediaUrl } from "../../utils/media";
+
+// Note: metadata cannot use functions inside generateMetadata easily if they depend on env vars 
+// but since this is static, we can use the env var directly or trust the component handles it.
+// However, the OG image SHOULD be fully qualified if possible.
+const r2Url = process.env.NEXT_PUBLIC_R2_URL;
 
 export const metadata: Metadata = {
   title: "O nás | Rodinné vinárstvo Putec Vinosady | Vízia a misia | Tradícia vína",
@@ -8,12 +14,12 @@ export const metadata: Metadata = {
   keywords: "vinárstvo Putec, Vinosady, Malé Karpaty, rodinné vinárstvo, tradícia vína, kvalitné víno, vízia vinárstva, misia vinárstva, ochrana vinohradov, turizmus Malé Karpaty, slovenské víno, Branislav Pútec, Natali, francúzske sudy, remeselné víno, Bratislava, Pezinok",
   openGraph: {
     title: "O nás | Rodinné vinárstvo Putec Vinosady",
-    description: "Rodinné vinárstvo s tradíciou už niekoľko generácií vo Vinosadoch na úpätí Malých Karpát",
+    description: "Rodinné vinárstvo with tradíciou už niekoľko generácií vo Vinosadoch na úpätí Malých Karpát",
     type: "website",
     locale: "sk_SK",
     images: [
       {
-        url: "/o-nas/rodina2.jpg",
+        url: r2Url ? `${r2Url}/o-nas/rodina2.jpg` : "/o-nas/rodina2.jpg",
         width: 1200,
         height: 630,
         alt: "Rodinné vinárstvo Putec Vinosady - tradícia a kvalita",
@@ -33,7 +39,7 @@ export default function AboutPage() {
       <Hero
         title="O vinárstve"
         subtitle="Rodinné vinárstvo s tradíciou už niekoľko generácií vo Vinosadoch na úpätí Malých Karpát"
-        backgroundImageUrl="/o-nas/rodina2.jpg"
+        backgroundImageUrl="o-nas/rodina2.jpg"
         secondaryCta={{ label: "Degustácie", href: "/degustacie" }}
         heightClass="h-[60vh]"
       />
@@ -63,7 +69,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
             <div className="relative">
               <Image
-                src="/o-nas/rodina1.JPG"
+                src={getMediaUrl("o-nas/rodina1.JPG")}
                 alt="História vinárstva Putec - rodinná tradícia"
                 width={600}
                 height={400}
@@ -276,7 +282,7 @@ export default function AboutPage() {
               <div className="group">
                 <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-300">
                   <Image
-                    src="/o-nas/rodina1.JPG"
+                    src={getMediaUrl("o-nas/rodina1.JPG")}
                     alt="Rodina Pútec - tradícia a vášeň pre víno"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -293,7 +299,7 @@ export default function AboutPage() {
               <div className="group">
                 <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-300">
                   <Image
-                    src="/o-nas/rodina2.jpg"
+                    src={getMediaUrl("o-nas/rodina2.jpg")}
                     alt="Rodina Pútec - dedičstvo a láska k vinohradníctvu"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"

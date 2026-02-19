@@ -8,6 +8,7 @@ import AddToCartButton from "./AddToCartButton";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Wine, Calendar } from "lucide-react";
+import { getMediaUrl } from "../../utils/media";
 
 interface Props {
   product: Product;
@@ -35,7 +36,7 @@ export default function ProductCard({ product }: Props) {
       {/* Product Image */}
       <Link href={`/vina/${product.Slug}`} className="relative w-full aspect-[1/1] block overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
         <Image
-          src={product.FeatureImageURL}
+          src={getMediaUrl(product.FeatureImageURL)}
           alt={product.Title || "Product Image"}
           fill
           className="object-contain hover:scale-110 transition-transform duration-500 p-4"

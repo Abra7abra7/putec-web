@@ -9,6 +9,7 @@ import AddToCartButtonWrapper from "../../../components/products/AddToCartButton
 import Script from "next/script";
 import JsonLd from "../../../components/JsonLd";
 import { getGoogleRating } from "../../../utils/getGoogleRating";
+import { getMediaUrl } from "../../../utils/media";
 
 // Dynamic import for ProductLightbox - only loads when images are clicked
 const ProductLightbox = dynamic(() => import("@/app/components/products/ProductLightbox"));
@@ -104,7 +105,7 @@ export default async function ProductPage({
     "@context": "https://schema.org",
     "@type": "Product",
     "name": product.Title,
-    "image": product.FeatureImageURL ? `https://vinoputec.sk${product.FeatureImageURL}` : undefined,
+    "image": product.FeatureImageURL ? getMediaUrl(product.FeatureImageURL) : undefined,
     "description": product.ShortDescription,
     "sku": product.ID,
     "offers": {
@@ -134,7 +135,10 @@ export default async function ProductPage({
           __html: JSON.stringify({
             "@context": "https://schema.org", "@type": "Product",
             "name": product.Title,
-            "image": [product.FeatureImageURL, ...(product.ProductImageGallery || [])],
+            "image": [
+              getMediaUrl(product.FeatureImageURL),
+              ...(product.ProductImageGallery?.map(img => getMediaUrl(img)) || [])
+            ],
             "description": product.ShortDescription,
             "sku": product.ID,
             "gtin13": product.WineDetails?.gtin || undefined,

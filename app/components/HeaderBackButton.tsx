@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { getMediaUrl } from "../utils/media";
 
 export default function HeaderBackButton() {
   // Vždy zobrazíme len logo v navigácii (žiadny back button)
@@ -9,7 +10,7 @@ export default function HeaderBackButton() {
     <Link href="/" className="hover:opacity-80 transition-opacity">
       <div className="p-1 border-4 border-accent rounded-full md:p-2">
         <Image
-          src="/putec-logo.jpg"
+          src={getMediaUrl("putec-logo.jpg")}
           alt="Pútec Logo"
           width={48}
           height={48}

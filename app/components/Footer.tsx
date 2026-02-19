@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getMediaUrl } from "../utils/media";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { SiFacebook, SiInstagram, SiYoutube } from "react-icons/si";
 import ScrollToTopButton from "./ScrollToTopButton"; // Keep this as a client component
@@ -41,7 +42,7 @@ export default async function Footer() {
             <Link href="/" className="flex flex-col items-center md:items-start space-y-3 hover:opacity-80 transition-opacity">
               <div className="p-1 border-2 border-accent rounded-full">
                 <Image
-                  src="/putec-logo.jpg"
+                  src={getMediaUrl("putec-logo.jpg")}
                   alt="Pútec Logo"
                   width={64}
                   height={64}

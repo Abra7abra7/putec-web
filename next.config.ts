@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       { protocol: 'http', hostname: 'localhost' },
       { protocol: 'https', hostname: 'vinoputec.sk' },
       { protocol: 'https', hostname: 'maps.googleapis.com' },
+      { protocol: 'https', hostname: 'pub-049b5673c21f4cc291802dc6fc171c6c.r2.dev' },
     ],
   },
   // Redirects moved to proxy.ts

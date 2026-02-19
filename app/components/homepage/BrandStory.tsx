@@ -5,6 +5,7 @@ import { Section } from "../ui/section";
 import { Container } from "../ui/container";
 import { Button } from "../ui/button";
 import { FeatureIcon } from "../business/FeatureIcon";
+import { getMediaUrl } from "../../utils/media";
 
 export default function BrandStory() {
   const keyFeatures = [
@@ -70,7 +71,7 @@ export default function BrandStory() {
           <div className="relative order-2 md:order-2 pt-6 pb-6 pl-6">
             <div className="relative">
               <Image
-                src="/o-nas/rodina2.jpg"
+                src={getMediaUrl("o-nas/rodina2.jpg")}
                 alt="Rodinné vinárstvo Putec Vinosady - tradícia a kvalita"
                 width={500}
                 height={333}

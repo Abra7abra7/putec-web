@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { removeFromCart, updateQuantity, addToCart } from "../store/slices/cartSlice";
 import { registerMiniCartTrigger } from "../utils/MiniCartController";
 import IconWrapper from "./ui/IconWrapper";
+import { getMediaUrl } from "../utils/media";
 
 interface MiniCartProps {
   disableHover?: boolean;
@@ -236,7 +237,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                       }}
                     >
                       <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
-                        <Image src="/vina/set-parizske-zlato.jpg" alt="Parížske Zlato - Vinný set" fill className="object-cover group-hover:scale-105 transition-transform" />
+                        <Image src={getMediaUrl("vina/set-parizske-zlato.jpg")} alt="Parížske Zlato - Vinný set" fill className="object-cover group-hover:scale-105 transition-transform" />
                       </div>
                       <p className="text-[10px] font-bold text-foreground truncate">Parížske Zlato - Vinný set</p>
                       <p className="text-[10px] text-accent font-bold">€23.90</p>
@@ -261,7 +262,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                       }}
                     >
                       <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
-                        <Image src="/vina/cabernet-sauvignon-rose-2024.jpg" alt="Cabernet Sauvignon Rosé 2024" fill className="object-cover group-hover:scale-105 transition-transform" />
+                        <Image src={getMediaUrl("vina/cabernet-sauvignon-rose-2024.jpg")} alt="Cabernet Sauvignon Rosé 2024" fill className="object-cover group-hover:scale-105 transition-transform" />
                       </div>
                       <p className="text-[10px] font-bold text-foreground truncate">Cabernet Sauvignon Rosé 2024</p>
                       <p className="text-[10px] text-accent font-bold">€11.90</p>

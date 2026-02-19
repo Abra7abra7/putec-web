@@ -10,6 +10,7 @@ import OrderSummary from "../../components/checkout/OrderSummary";
 import PaymentMethods from "../../components/checkout/PaymentMethods";
 import { CheckoutProvider } from "../../context/CheckoutContext";
 import { ReduxProvider } from "@/app/providers";
+import { getMediaUrl } from "../../utils/media";
 
 export default function CheckoutPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +38,7 @@ export default function CheckoutPage() {
           <div className="bg-background border-b border-gray-200">
             <div className="container mx-auto px-4 py-6">
               {/* Back button - vľavo hore */}
-              <a 
+              <a
                 href="/kosik"
                 className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-4 group"
               >
@@ -49,7 +50,7 @@ export default function CheckoutPage() {
 
               <div className="flex items-center justify-center">
                 <Image
-                  src="/putec-logo.jpg"
+                  src={getMediaUrl("putec-logo.jpg")}
                   alt="Pútec Logo"
                   width={60}
                   height={60}

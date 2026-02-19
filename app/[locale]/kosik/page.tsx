@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { removeFromCart, updateQuantity } from "../../store/slices/cartSlice";
 import { showMiniCart } from "../../utils/MiniCartController";
 import { X, Plus, Minus } from "lucide-react";
+import { getMediaUrl } from "../../utils/media";
 
 import { useState, useEffect } from "react";
 
@@ -57,7 +58,7 @@ function CartContent() {
         {/* Logo Section */}
         <div className="text-center mb-8">
           <Image
-            src="/putec-logo.jpg"
+            src={getMediaUrl("putec-logo.jpg")}
             alt="Pútec Logo"
             width={100}
             height={100}

@@ -7,23 +7,25 @@ export const metadata: Metadata = {
   description: "Fotogalérie vinárstva Pútec",
 };
 
+import { getMediaUrl } from "../../utils/media";
+
 const categories = [
-  { 
-    slug: "degustacie", 
+  {
+    slug: "degustacie",
     title: "Degustácie",
-    thumbnail: "/degustacie/brano-degustacia-x.jpg",
+    thumbnail: getMediaUrl("degustacie/brano-degustacia-x.jpg"),
     description: "Ochutnajte naše prémiové vína"
   },
-  { 
-    slug: "ubytovanie", 
+  {
+    slug: "ubytovanie",
     title: "Ubytovanie",
-    thumbnail: "/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg",
+    thumbnail: getMediaUrl("galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"),
     description: "Pohodlie v srdci viníc"
   },
-  { 
-    slug: "rodina", 
+  {
+    slug: "rodina",
     title: "Rodina",
-    thumbnail: "/o-nas/rodina2.jpg",
+    thumbnail: getMediaUrl("o-nas/rodina2.jpg"),
     description: "Rodinná tradícia"
   },
 ];
@@ -35,9 +37,9 @@ export default function GalleryIndexPage() {
         <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-8 text-center md:text-left">Galéria</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {categories.map((c) => (
-            <Link 
-              key={c.slug} 
-              href={`/galeria/${c.slug}`} 
+            <Link
+              key={c.slug}
+              href={`/galeria/${c.slug}`}
               className="group block overflow-hidden rounded-xl border-2 border-gray-200 hover:border-accent transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
             >
               {/* Obrázok miniatúry */}
@@ -51,7 +53,7 @@ export default function GalleryIndexPage() {
                 />
                 {/* Tmavý gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70" />
-                
+
                 {/* Text overlay - biele texty s tieňom */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 z-20">
                   <h2 className="text-xl md:text-2xl font-bold mb-1" style={{ color: '#ffffff', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>

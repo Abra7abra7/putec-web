@@ -5,12 +5,14 @@ import fs from "fs";
 import path from "path";
 import GalleryGrid from "@/app/components/gallery/GalleryGrid";
 
+import { getMediaUrl } from "@/app/utils/media";
+
 function listImagesFrom(dirPath: string): string[] {
   try {
     if (!fs.existsSync(dirPath)) return [];
     const files = fs.readdirSync(dirPath);
     const images = files.filter((name) => /\.(png|jpe?g|webp|avif)$/i.test(name));
-    return images.map((file) => `/galeria/${path.basename(dirPath)}/${file}`);
+    return images.map((file) => getMediaUrl(`/galeria/${path.basename(dirPath)}/${file}`));
   } catch {
     return [];
   }

@@ -9,6 +9,7 @@ import { sendInquiry } from "@/app/actions/inquiry";
 import { Container } from "../ui/container";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { getMediaUrl } from "../../utils/media";
 
 function SubmitButton({ buttonText }: { buttonText: string }) {
     const { pending } = useFormStatus();
@@ -84,7 +85,7 @@ export default function InquiryForm() {
                             <div className="mt-12 pt-12 border-t border-white/10">
                                 <div className="flex items-center gap-4">
                                     <Image
-                                        src="/putec-logo.jpg"
+                                        src={getMediaUrl("putec-logo.jpg")}
                                         alt="Logo"
                                         width={50}
                                         height={50}

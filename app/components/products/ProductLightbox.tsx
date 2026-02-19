@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { getMediaUrl } from "../../utils/media";
 import "yet-another-react-lightbox/styles.css";
 
 // Defer heavy lightbox bundle until needed (client-only)
@@ -31,7 +32,7 @@ export default function ProductLightbox({ images }: ProductLightboxProps) {
         }}
       >
         <Image
-          src={images[0]}
+          src={getMediaUrl(images[0])}
           alt={`Hlavný obrázok produktu`}
           width={800}
           height={600}
@@ -52,7 +53,7 @@ export default function ProductLightbox({ images }: ProductLightboxProps) {
             }}
           >
             <Image
-              src={image}
+              src={getMediaUrl(image)}
               alt={`Galéria – obrázok ${index + 1}`}
               width={96}
               height={96}
@@ -68,7 +69,7 @@ export default function ProductLightbox({ images }: ProductLightboxProps) {
           open={lightboxOpen}
           close={() => setLightboxOpen(false)}
           index={lightboxIndex}
-          slides={images.map((src) => ({ src }))}
+          slides={images.map((src) => ({ src: getMediaUrl(src) }))}
         />
       )}
     </div>

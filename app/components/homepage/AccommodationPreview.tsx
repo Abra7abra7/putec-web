@@ -8,15 +8,16 @@ import { Button } from "../ui/button";
 import { SectionHeader } from "../business/SectionHeader";
 import { FeatureIcon } from "../business/FeatureIcon";
 import AccommodationSliderClient from "./AccommodationSliderClient";
+import { getMediaUrl } from "@/app/utils/media";
 
 export default function AccommodationPreview() {
   const slides = [
-    { src: "/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg", alt: "Výhľad na vinohrad" },
-    { src: "/galeria/ubytovanie/dvor-s-kostolom-x.jpg", alt: "Dvor s kostolom" },
-    { src: "/galeria/ubytovanie/dvor-so-sudom-x.jpg", alt: "Dvor so sudom" },
-    { src: "/galeria/ubytovanie/izba-interier-x.jpg", alt: "Interiér izby" },
-    { src: "/galeria/ubytovanie/kuchyna-x.jpg", alt: "Kuchyňa" },
-    { src: "/galeria/ubytovanie/kupelna-2-x.jpg", alt: "Kúpeľňa" },
+    { src: getMediaUrl("galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"), alt: "Výhľad na vinohrad" },
+    { src: getMediaUrl("galeria/ubytovanie/dvor-s-kostolom-x.jpg"), alt: "Dvor s kostolom" },
+    { src: getMediaUrl("galeria/ubytovanie/dvor-so-sudom-x.jpg"), alt: "Dvor so sudom" },
+    { src: getMediaUrl("galeria/ubytovanie/izba-interier-x.jpg"), alt: "Interiér izby" },
+    { src: getMediaUrl("galeria/ubytovanie/kuchyna-x.jpg"), alt: "Kuchyňa" },
+    { src: getMediaUrl("galeria/ubytovanie/kupelna-2-x.jpg"), alt: "Kúpeľňa" },
   ];
 
   const features = [

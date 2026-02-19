@@ -9,6 +9,7 @@ import { clearCart } from "../../store/slices/cartSlice";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import Image from "next/image";
 import { Product } from "../../../types/Product";
+import { getMediaUrl } from "../../utils/media";
 
 // Interfaces
 interface CartItem extends Product {
@@ -62,34 +63,34 @@ export default function OrderSummaryClient() {
   useEffect(() => {
     const orderIdFromQuery = searchParams.get("orderId");
     const recent = localStorage.getItem("recentOrder");
-  
+
     if (recent) {
       const parsed = JSON.parse(recent) as OrderData;
-  
+
       setOrder(parsed);
-  
+
       // Clear cart ONCE if we're redirected from Stripe with orderId in query
       if (orderIdFromQuery && parsed.orderId === orderIdFromQuery) {
         dispatch(clearCart());
-        
+
         console.log('🔍 OrderSummaryClient - Payment method:', parsed.paymentMethodId);
         console.log('🔍 OrderSummaryClient - Order ID:', parsed.orderId);
-        
+
         // For Stripe payments: emails are sent by webhook, don't call placeorder
         if (parsed.paymentMethodId === 'stripe') {
           console.log('ℹ️ Stripe payment detected - skipping placeorder, emails will be sent by webhook');
           return;
         }
-        
+
         // For COD (cash on delivery): send emails via placeorder
         // Use ref guard to prevent duplicate calls (React Strict Mode)
         if (!emailsSentRef.current.has(parsed.orderId)) {
           emailsSentRef.current.add(parsed.orderId);
-          
+
           // Also check localStorage as backup
           const sentKey = `emailsSent:${parsed.orderId}`;
           const alreadySent = localStorage.getItem(sentKey);
-          
+
           if (!alreadySent) {
             (async () => {
               try {
@@ -99,7 +100,7 @@ export default function OrderSummaryClient() {
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(parsed),
                 });
-                
+
                 if (response.ok) {
                   localStorage.setItem(sentKey, 'true');
                   console.log('✅ Confirmation emails sent successfully (COD)');
@@ -162,7 +163,7 @@ export default function OrderSummaryClient() {
       {/* Logo Section */}
       <div className="text-center mb-8">
         <Image
-          src="/putec-logo.jpg"
+          src={getMediaUrl("putec-logo.jpg")}
           alt="Pútec Logo"
           width={100}
           height={100}
@@ -234,8 +235,8 @@ export default function OrderSummaryClient() {
             {order.paymentMethodId === "cod"
               ? "Cash on Delivery"
               : order.paymentMethodId === "stripe"
-              ? "Credit Card (Stripe)"
-              : order.paymentMethodId}
+                ? "Credit Card (Stripe)"
+                : order.paymentMethodId}
           </p>
         </div>
 

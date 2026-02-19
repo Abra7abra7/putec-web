@@ -28,19 +28,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AccommodationPage() {
-  const r2Url = process.env.NEXT_PUBLIC_R2_URL || "";
+import { getMediaUrl } from "../../utils/media";
 
+export default function AccommodationPage() {
   // Slider slides - fotky z ubytovania
   const accommodationSlides = [
-    { src: `${r2Url}/izba-interier-x.jpg`, alt: "Interiér ubytovania vo vinárstve Vinosady" },
-    { src: `${r2Url}/altanok-krb-x.jpg`, alt: "Altánok s krbom" },
-    { src: `${r2Url}/altanok-x.jpg`, alt: "Altánok" },
-    { src: `${r2Url}/kuchyna-x.jpg`, alt: "Kuchyňa" },
-    { src: `${r2Url}/kupelna-x.jpg`, alt: "Kúpeľňa" },
-    { src: `${r2Url}/veranda-na-poschodi-x.jpg`, alt: "Veranda na poschodí" },
-    { src: `${r2Url}/dvor-so-sudom-x.jpg`, alt: "Dvor so sudom" },
-    { src: `${r2Url}/vyhlad-na-vinohrad-x.jpg`, alt: "Výhľad na vinohrad" },
+    { src: getMediaUrl("galeria/ubytovanie/izba-interier-x.jpg"), alt: "Interiér ubytovania vo vinárstve Vinosady" },
+    { src: getMediaUrl("galeria/ubytovanie/altanok-krb-x.jpg"), alt: "Altánok s krbom" },
+    { src: getMediaUrl("galeria/ubytovanie/altanok-x.jpg"), alt: "Altánok" },
+    { src: getMediaUrl("galeria/ubytovanie/kuchyna-x.jpg"), alt: "Kuchyňa" },
+    { src: getMediaUrl("galeria/ubytovanie/kupelna-x.jpg"), alt: "Kúpeľňa" },
+    { src: getMediaUrl("galeria/ubytovanie/veranda-na-poschodi-x.jpg"), alt: "Veranda na poschodí" },
+    { src: getMediaUrl("galeria/ubytovanie/dvor-so-sudom-x.jpg"), alt: "Dvor so sudom" },
+    { src: getMediaUrl("galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"), alt: "Výhľad na vinohrad" },
   ];
 
   return (
@@ -48,7 +48,7 @@ export default function AccommodationPage() {
       <Hero
         title="Ubytovanie vo vinárstve"
         subtitle="Jedinečné ubytovanie priamo vo vinárstve s neopakovateľnými vínnymi a gastronomickými zážitkami v srdci Malých Karpát"
-        backgroundImageUrl={`${r2Url}/vyhlad-na-vinohrad-x.jpg`}
+        backgroundImageUrl="galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"
         primaryCta={{ label: "Rezervovať ubytovanie", href: "#rezervacia" }}
         secondaryCta={{ label: "Galéria", href: "/galeria/ubytovanie" }}
         heightClass="h-[80vh]"

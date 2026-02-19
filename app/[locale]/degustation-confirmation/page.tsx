@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getMediaUrl } from "../../utils/media";
 import type { Metadata } from "next";
 import ConfirmationDetails from "../../components/degustacie/ConfirmationDetails";
 
@@ -16,7 +17,7 @@ export default function DegustationConfirmationPage() {
         {/* Logo Section */}
         <div className="text-center mb-8">
           <Image
-            src="/putec-logo.jpg"
+            src={getMediaUrl("putec-logo.jpg")}
             alt="Pútec Logo"
             width={100}
             height={100}
@@ -35,7 +36,7 @@ export default function DegustationConfirmationPage() {
           <h2 className="text-2xl font-semibold text-foreground mb-6 text-center">
             Detaily rezervácie
           </h2>
-          
+
           <ConfirmationDetails />
 
           <div className="mt-6 p-4 bg-gray-50 rounded-lg">
