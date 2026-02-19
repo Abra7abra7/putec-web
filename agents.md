@@ -33,9 +33,14 @@ Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vin�
 ## 🛠️ Funkcie a Integrácie
 ### 1. Lokalizácia & Routing (New 2026)
 - **Štruktúra**: Všetky stránky sú v `app/[locale]/`. Default locale: `sk`.
-- **Middleware**: Používame `proxy.ts` (nie `middleware.ts`) kvôli Next.js 16 kompatibilite.
+- **Middleware/Proxy**: Používame `proxy.ts` (Next.js 16 entry point). Rieši lokalizáciu a 308 redirecty.
 - **Provider**: `LocalizationProvider` v `layout.tsx` zabezpečuje kontext pre klientske komponenty.
-- **Redirects**: Staré URL (napr. `/sluzby`) sú presmerované v `proxy.ts`.
+- **Redirects**: Staré WordPress URL (napr. `/produkt/...`) sú trvalo (308) presmerované v `proxy.ts`.
+
+### 2. Google Reviews Integration (Feb 2026)
+- **Utility**: `app/utils/getGoogleRating.ts` s ISR 1 hodina.
+- **API**: `/api/google-reviews` pre klientske CMS komponenty.
+- **Components**: `Testimonials.tsx` a dynamický rating badge na všetkých dôležitých stránkach (Home, Vína, Degustácie).
 
 ### 2. Nákupný proces a Košík
 - **Košík**: Redux store zabezpečuje perzistenciu produktov.
@@ -85,8 +90,14 @@ Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
 - **Sitemap**: Dynamicky generovaná v `app/sitemap.ts`.
 
 ### 🛡️ Migračné Safeguards
-1. **Redirects (301/307)**: Všetky staré WordPress URL sú pokryté v `proxy.ts`.
-2. **Zachovanie linkjuice**: Kanonické URL sú nastavené.
+1. **Redirects (308 Permanent)**: Všetky staré WordPress URL sú pokryté v `proxy.ts`.
+2. **Linkjuice**: Používame 308 redirecty pre prenos rankingu zo starých adries.
+3. **Sitemap**: Dynamická sitemap (`/sitemap.xml`) musí obsahovať len nové URL.
+
+### 🔍 GSC & Bing Webmaster Checklist
+- **Sitemap**: Skontrolovať, či je `https://vinoputec.sk/sitemap.xml` úspešne načítaná.
+- **URL Inspection**: Pri dôležitých produktoch vyvolať "Request Indexing" na novej URL.
+- **Bing**: Použiť "IndexNow" alebo nahrať sitemapu manuálne.
 
 ## 6. Migrácia a Produkčné Nastavenia (Coolify, Hetzner, Integrácie)
 

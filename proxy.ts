@@ -57,25 +57,25 @@ export default function proxy(request: NextRequest) {
     const cleanPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
 
     if (redirects[cleanPath]) {
-        return NextResponse.redirect(new URL(redirects[cleanPath], request.url));
+        return NextResponse.redirect(new URL(redirects[cleanPath], request.url), { status: 308 });
     }
 
     // 4. Dynamické presmerovania
     // Presmerovanie pre /products/[slug] na /vina/[slug]
     if (pathname.startsWith('/products')) {
         const slug = pathname.replace('/products', '').replace(/^\//, '');
-        return NextResponse.redirect(new URL(slug ? `/vina/${slug}` : '/vina', request.url));
+        return NextResponse.redirect(new URL(slug ? `/vina/${slug}` : '/vina', request.url), { status: 308 });
     }
 
     // Presmerovanie pre /produkt/[slug] (WordPress) na /vina/[slug]
     if (pathname.startsWith('/produkt')) {
         const slug = pathname.replace('/produkt', '').replace(/^\//, '');
-        return NextResponse.redirect(new URL(slug ? `/vina/${slug}` : '/vina', request.url));
+        return NextResponse.redirect(new URL(slug ? `/vina/${slug}` : '/vina', request.url), { status: 308 });
     }
 
     // Presmerovanie pre /kategoria-produktu/[slug] na /vina
     if (pathname.startsWith('/kategoria-produktu')) {
-        return NextResponse.redirect(new URL('/vina', request.url));
+        return NextResponse.redirect(new URL('/vina', request.url), { status: 308 });
     }
 
     // 4. Spustenie next-intl middleware pre lokalizáciu
