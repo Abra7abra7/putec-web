@@ -41,3 +41,6 @@ next-env.d.ts
 # browser automation
 auth-state.json
 .agent-browser/
+
+# next-agents-md
+.next-docs/
