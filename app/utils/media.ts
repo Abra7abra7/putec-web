@@ -19,7 +19,8 @@ export function getMediaUrl(path: string | undefined | null): string {
         // We can exclude specific patterns that should stay local (e.g., config files)
         const localExclusions = [
             "favicon",
-            "silktide"
+            "silktide",
+            "placeholder"
         ];
 
         const isExcluded = localExclusions.some(exclusion => cleanPath.includes(exclusion));

@@ -6,6 +6,7 @@ import { useLocalization } from "../../context/LocalizationContext";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import Image from "next/image";
 import Link from "next/link";
+import { getMediaUrl } from "../../utils/media";
 
 import { ShieldCheck, Zap, Wine } from "lucide-react";
 import IconWrapper from "../ui/IconWrapper";
@@ -41,7 +42,7 @@ export default function OrderSummary() {
       <div className="space-y-4">
         {cartItems.map((item) => (
           <div key={item.ID} className="flex items-center gap-4">
-            <Image src={item.FeatureImageURL} alt={item.Title} width={60} height={60} className="rounded object-cover" />
+            <Image src={getMediaUrl(item.FeatureImageURL)} alt={item.Title} width={60} height={60} className="rounded object-cover" />
             <div className="flex-1">
               <Link
                 href={`/vina/${item.Slug}`}

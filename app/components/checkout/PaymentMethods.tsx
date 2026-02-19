@@ -9,6 +9,7 @@ import StripeClientSecretLoader from "./StripeClientSecretLoader";
 import PlaceOrderButton from "./PlaceOrderButton";
 import FormValidationAlert from "./FormValidationAlert";
 import Image from "next/image";
+import { getMediaUrl } from "../../utils/media";
 
 export default function PaymentMethods() {
   const { labels } = useLocalization();
@@ -64,14 +65,14 @@ export default function PaymentMethods() {
     // Ak sú fakturačné údaje odlišné, vyžaduj aj tie (telefón je voliteľný)
     const billingFields = differentBilling
       ? [
-          billingForm.firstName,
-          billingForm.lastName,
-          billingForm.country,
-          billingForm.address1,
-          billingForm.city,
-          billingForm.postalCode,
-          billingForm.email,
-        ]
+        billingForm.firstName,
+        billingForm.lastName,
+        billingForm.country,
+        billingForm.address1,
+        billingForm.city,
+        billingForm.postalCode,
+        billingForm.email,
+      ]
       : [];
 
     const all = [...baseFields, ...billingFields];
@@ -98,7 +99,7 @@ export default function PaymentMethods() {
       </h2>
 
       {!formReady && showValidation && (
-        <FormValidationAlert 
+        <FormValidationAlert
           missingFields={missingFields}
           onClose={() => setShowValidation(false)}
         />
@@ -116,9 +117,8 @@ export default function PaymentMethods() {
       )}
 
       <div
-        className={`space-y-4 bg-background rounded p-5 transition-all duration-300 ${
-          formReady ? "" : "opacity-80 blur-[1px] pointer-events-none"
-        }`}
+        className={`space-y-4 bg-background rounded p-5 transition-all duration-300 ${formReady ? "" : "opacity-80 blur-[1px] pointer-events-none"
+          }`}
       >
         {paymentMethods
           .filter((method) => method.enabled)
@@ -137,7 +137,7 @@ export default function PaymentMethods() {
                   <span className="text-sm font-medium text-foreground">{method.name}</span>
                   {method.icon && (
                     <Image
-                      src={method.icon}
+                      src={getMediaUrl(method.icon)}
                       alt={method.name}
                       width={40}
                       height={24}

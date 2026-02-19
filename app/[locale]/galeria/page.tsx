@@ -13,19 +13,19 @@ const categories = [
   {
     slug: "degustacie",
     title: "Degustácie",
-    thumbnail: getMediaUrl("galeria/degustacie/brano-degustacia-x.jpg"),
+    thumbnail: getMediaUrl("brano-degustacia-x.jpg"),
     description: "Ochutnajte naše prémiové vína"
   },
   {
     slug: "ubytovanie",
     title: "Ubytovanie",
-    thumbnail: getMediaUrl("galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"),
+    thumbnail: getMediaUrl("vyhlad-na-vinohrad-x.jpg"),
     description: "Pohodlie v srdci viníc"
   },
   {
     slug: "rodina",
     title: "Rodina",
-    thumbnail: getMediaUrl("o-nas/rodina2.jpg"),
+    thumbnail: getMediaUrl("rodina2.jpg"),
     description: "Rodinná tradícia"
   },
 ];

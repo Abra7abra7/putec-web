@@ -17,7 +17,7 @@ const categoryTitles: Record<string, string> = {
 
 export default async function GalleryCategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
-  const safeCategory = category.replace(/[^a-z0-9-_]/gi, "");
+  const safeCategory = category.replace(/[^a-z0-9-_]/gi, "").toLowerCase();
 
   const categoryTitle = categoryTitles[safeCategory];
 
