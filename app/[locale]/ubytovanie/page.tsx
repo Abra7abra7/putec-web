@@ -29,16 +29,18 @@ export const metadata: Metadata = {
 };
 
 export default function AccommodationPage() {
+  const r2Url = process.env.NEXT_PUBLIC_R2_URL || "";
+
   // Slider slides - fotky z ubytovania
   const accommodationSlides = [
-    { src: "/galeria/ubytovanie/izba-interier-x.jpg", alt: "Interiér ubytovania vo vinárstve Vinosady" },
-    { src: "/galeria/ubytovanie/altanok-krb-x.jpg", alt: "Altánok s krbom" },
-    { src: "/galeria/ubytovanie/altanok-x.jpg", alt: "Altánok" },
-    { src: "/galeria/ubytovanie/kuchyna-x.jpg", alt: "Kuchyňa" },
-    { src: "/galeria/ubytovanie/kupelna-x.jpg", alt: "Kúpeľňa" },
-    { src: "/galeria/ubytovanie/veranda-na-poschodi-x.jpg", alt: "Veranda na poschodí" },
-    { src: "/galeria/ubytovanie/dvor-so-sudom-x.jpg", alt: "Dvor so sudom" },
-    { src: "/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg", alt: "Výhľad na vinohrad" },
+    { src: `${r2Url}/izba-interier-x.jpg`, alt: "Interiér ubytovania vo vinárstve Vinosady" },
+    { src: `${r2Url}/altanok-krb-x.jpg`, alt: "Altánok s krbom" },
+    { src: `${r2Url}/altanok-x.jpg`, alt: "Altánok" },
+    { src: `${r2Url}/kuchyna-x.jpg`, alt: "Kuchyňa" },
+    { src: `${r2Url}/kupelna-x.jpg`, alt: "Kúpeľňa" },
+    { src: `${r2Url}/veranda-na-poschodi-x.jpg`, alt: "Veranda na poschodí" },
+    { src: `${r2Url}/dvor-so-sudom-x.jpg`, alt: "Dvor so sudom" },
+    { src: `${r2Url}/vyhlad-na-vinohrad-x.jpg`, alt: "Výhľad na vinohrad" },
   ];
 
   return (
@@ -46,7 +48,7 @@ export default function AccommodationPage() {
       <Hero
         title="Ubytovanie vo vinárstve"
         subtitle="Jedinečné ubytovanie priamo vo vinárstve s neopakovateľnými vínnymi a gastronomickými zážitkami v srdci Malých Karpát"
-        backgroundImageUrl="/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"
+        backgroundImageUrl={`${r2Url}/vyhlad-na-vinohrad-x.jpg`}
         primaryCta={{ label: "Rezervovať ubytovanie", href: "#rezervacia" }}
         secondaryCta={{ label: "Galéria", href: "/galeria/ubytovanie" }}
         heightClass="h-[80vh]"
