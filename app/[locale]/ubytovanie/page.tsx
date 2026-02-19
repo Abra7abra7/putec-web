@@ -42,81 +42,90 @@ export default function AccommodationPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background selection:bg-accent/30">
       <Hero
         title="Ubytovanie vo vinárstve"
         subtitle="Jedinečné ubytovanie priamo vo vinárstve s neopakovateľnými vínnymi a gastronomickými zážitkami v srdci Malých Karpát"
         backgroundImageUrl="/galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"
         primaryCta={{ label: "Rezervovať ubytovanie", href: "#rezervacia" }}
         secondaryCta={{ label: "Galéria", href: "/galeria/ubytovanie" }}
-        heightClass="h-[60vh]"
+        heightClass="h-[80vh]"
       />
 
       {/* Main Content */}
-      <section className="py-20 bg-background">
+      <section className="py-24 md:py-32 bg-background">
         <div className="container mx-auto px-6">
 
           {/* Introduction */}
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
+          <div className="text-center mb-24 max-w-4xl mx-auto">
+            <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-4 block">Vitajte u nás</span>
+            <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-10 leading-tight">
               Ubytovanie vo vinárstve Vinosady
             </h2>
-            <div className="max-w-4xl mx-auto">
-              <p className="text-xl text-foreground-muted leading-relaxed mb-6">
-                Víno Pútec ponúka jedinečné ubytovanie priamo vo vinárstve, kde spájajú pohodlie s neopakovateľnými vínnymi a gastronomickými zážitkami v srdci Malých Karpát.
-              </p>
-              <p className="text-lg text-foreground-muted leading-relaxed">
-                Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty s možnosťou ochutnávok vína a catering služieb.
-              </p>
-            </div>
+            <p className="text-xl md:text-2xl text-foreground-muted leading-relaxed mb-8">
+              Víno Pútec ponúka jedinečné ubytovanie priamo vo vinárstve, kde spájajú pohodlie s neopakovateľnými vínnymi a gastronomickými zážitkami v srdci Malých Karpát.
+            </p>
+            <div className="w-24 h-1 bg-accent mx-auto mb-8 opacity-50"></div>
+            <p className="text-lg text-foreground-muted leading-relaxed">
+              Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty s možnosťou ochutnávok vína a catering služieb.
+            </p>
           </div>
 
           {/* Capacity and Rooms */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-            <div className="relative">
-              <Slider slides={accommodationSlides} height="h-[400px] md:h-[500px]" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-32">
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-accent/5 rounded-[2rem] blur-2xl group-hover:bg-accent/10 transition-colors"></div>
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-accent/10">
+                <Slider slides={accommodationSlides} height="h-[450px] md:h-[600px]" />
+              </div>
             </div>
 
             <div>
-              <h3 className="text-3xl font-bold text-foreground mb-8">Kapacita a parametre ubytovania</h3>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Parametre</span>
+              <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-10">Kapacita a komfort</h3>
 
-              <div className="space-y-6">
-                <div className="bg-accent/10 p-6 rounded-xl">
-                  <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mr-4">
-                      <span className="text-white font-bold text-lg">15</span>
+              <div className="space-y-8">
+                <div className="bg-white border border-gray-100 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-center mb-6">
+                    <div className="w-14 h-14 bg-accent text-white rounded-xl flex items-center justify-center mr-5 shadow-lg shadow-accent/20">
+                      <span className="font-bold text-2xl">15</span>
                     </div>
-                    <h4 className="text-xl font-semibold text-foreground">Celková kapacita</h4>
+                    <div>
+                      <h4 className="text-xl font-bold text-foreground">Celková kapacita</h4>
+                      <p className="text-accent text-sm font-medium">Rodinný dom pri vinárstve</p>
+                    </div>
                   </div>
-                  <p className="text-foreground-muted">Typ ubytovania: Rodinný dom priamo pri vinárstve</p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-gray-50 mt-4">
+                    <div className="flex items-center gap-4">
+                      <div className="text-3xl">🛏️</div>
+                      <div>
+                        <p className="font-bold text-foreground">3 izby</p>
+                        <p className="text-xs text-foreground-muted uppercase tracking-tighter">Trojlôžkové</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-3xl">🛏️</div>
+                      <div>
+                        <p className="font-bold text-foreground">3 izby</p>
+                        <p className="text-xs text-foreground-muted uppercase tracking-tighter">Dvojlôžkové</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-background border border-gray-200 rounded-xl p-6">
-                    <div className="flex items-center mb-3">
-                      <span className="text-2xl mr-3">🛏️</span>
-                      <h5 className="font-semibold text-foreground">3 izby s troma lôžkami</h5>
+                <div className="space-y-4 px-4">
+                  <div className="flex items-center group">
+                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-4 group-hover:bg-accent transition-colors">
+                      <span className="text-accent group-hover:text-white transition-colors">✓</span>
                     </div>
-                    <p className="text-foreground-muted text-sm">Spolu 9 lôžok</p>
+                    <span className="text-foreground text-lg font-medium group-hover:text-accent transition-colors">Každá izba disponuje vlastnou kúpeľňou</span>
                   </div>
-
-                  <div className="bg-background border border-gray-200 rounded-xl p-6">
-                    <div className="flex items-center mb-3">
-                      <span className="text-2xl mr-3">🛏️</span>
-                      <h5 className="font-semibold text-foreground">3 izby s dvoma lôžkami</h5>
+                  <div className="flex items-center group">
+                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-4 group-hover:bg-accent transition-colors">
+                      <span className="text-accent group-hover:text-white transition-colors">✓</span>
                     </div>
-                    <p className="text-foreground-muted text-sm">Spolu 6 lôžok</p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <span className="text-accent mr-3">✓</span>
-                    <span className="text-foreground">Každá izba disponuje vlastnou kúpeľňou</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="text-accent mr-3">✓</span>
-                    <span className="text-foreground">Maximálny komfort a osobný priestor pre všetkých hostí</span>
+                    <span className="text-foreground text-lg font-medium group-hover:text-accent transition-colors">Maximálny komfort a osobný priestor</span>
                   </div>
                 </div>
               </div>
@@ -124,65 +133,54 @@ export default function AccommodationPage() {
           </div>
 
           {/* Equipment and Facilities */}
-          <div className="mb-20">
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-foreground mb-6">Vybavenie a priestory</h3>
-              <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
-                Plne vybavené priestory pre pohodlný a bezstarostný pobyt
-              </p>
+          <div className="mb-32">
+            <div className="text-center mb-16">
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Čo ponúkame</span>
+              <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">Vybavenie a priestory</h3>
+              <div className="w-20 h-1 bg-accent/30 mx-auto"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl p-8">
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mr-4">
-                    <span className="text-2xl">🍳</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="bg-white border border-gray-100 rounded-3xl p-10 shadow-sm hover:shadow-xl transition-all group">
+                <div className="flex items-center mb-8">
+                  <div className="w-20 h-20 bg-accent/10 text-accent rounded-2xl flex items-center justify-center mr-6 group-hover:bg-accent group-hover:text-white transition-all transform group-hover:rotate-6">
+                    <span className="text-4xl">🍳</span>
                   </div>
-                  <h4 className="text-2xl font-semibold text-foreground">Kuchyňa</h4>
+                  <h4 className="text-2xl md:text-3xl font-bold text-foreground">Spoločná Kuchyňa</h4>
                 </div>
-                <div className="space-y-3">
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Plne vybavená kuchyňa pripravená pre všetkých hostí</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Všetko potrebné pre pohodlný a bezstarostný pobyt</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Možnosť prípravy spoločného jedla</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Priestor na oddych pri šálke kávy</span>
-                  </div>
+                <div className="space-y-4">
+                  {['Plne vybavená pre všetkých hostí', 'Všetko potrebné pre gastro zážitky', 'Možnosť vlastnej prípravy jedla', 'Coworking priestor na oddych'].map((text) => (
+                    <div key={text} className="flex items-start">
+                      <span className="text-accent mr-3 mt-1 font-bold">→</span>
+                      <span className="text-foreground-muted text-lg">{text}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl p-8">
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mr-4">
-                    <span className="text-2xl">📍</span>
+              <div className="bg-white border border-gray-100 rounded-3xl p-10 shadow-sm hover:shadow-xl transition-all group">
+                <div className="flex items-center mb-8">
+                  <div className="w-20 h-20 bg-accent/10 text-accent rounded-2xl flex items-center justify-center mr-6 group-hover:bg-accent group-hover:text-white transition-all transform group-hover:-rotate-6">
+                    <span className="text-4xl">📍</span>
                   </div>
-                  <h4 className="text-2xl font-semibold text-foreground">Lokácia</h4>
+                  <h4 className="text-2xl md:text-3xl font-bold text-foreground">Lokácia & Okolie</h4>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-4 text-lg">
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">📍</span>
-                    <span className="text-foreground-muted">Adresa: Pezinská 154, 90201 Vinosady</span>
+                    <span className="text-foreground-muted underline decoration-accent/30">Pezinská 154, Vinosady</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">🏔️</span>
-                    <span className="text-foreground-muted">Poloha: V srdci Malých Karpát</span>
+                    <span className="text-foreground-muted">V srdci Malých Karpát</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">🍇</span>
-                    <span className="text-foreground-muted">Prostredie: Krásne prostredie vinohradov</span>
+                    <span className="text-foreground-muted">Priamo medzi vinohradmi</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">🏠</span>
-                    <span className="text-foreground-muted">Charakter: Priamo v rodinnom dome pri vinárstve</span>
+                    <span className="text-foreground-muted">Autentický rodinný dom</span>
                   </div>
                 </div>
               </div>
@@ -190,107 +188,95 @@ export default function AccommodationPage() {
           </div>
 
           {/* Services */}
-          <div className="mb-20">
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-foreground mb-6">Služby s ubytovaním</h3>
+          <div className="mb-32">
+            <div className="text-center mb-16">
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Boutique Služby</span>
+              <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">Služby s ubytovaním</h3>
               <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
                 Kompletné zabezpečenie pre firemné akcie, teambuildingy a rodinné oslavy
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
               {/* Catering */}
-              <div className="bg-background border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow">
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-2xl">🍽️</span>
+              <div className="bg-white border border-gray-100 rounded-3xl p-10 shadow-sm hover:shadow-xl transition-all group">
+                <div className="flex items-center mb-8">
+                  <div className="w-16 h-16 bg-accent/5 text-accent rounded-full flex items-center justify-center mr-5 group-hover:bg-accent group-hover:text-white transition-all">
+                    <span className="text-3xl">🍽️</span>
                   </div>
-                  <h4 className="text-2xl font-semibold text-foreground">Catering a stravovanie</h4>
+                  <h4 className="text-2xl font-bold text-foreground">Catering a stravovanie</h4>
                 </div>
-                <div className="space-y-3">
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Raňajky dostupné pre firemné akcie a skupiny</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Catering služby pre firemné akcie a teambuildingy</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Rodinné oslavy a špeciálne príležitosti</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Kompletné zabezpečenie stravovania</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Prispôsobenie podľa požiadaviek klientov</span>
-                  </div>
+                <div className="space-y-4">
+                  {[
+                    'Raňajky dostupné pre firemné akcie a skupiny',
+                    'Catering služby pre teambuildingy',
+                    'Rodinné oslavy a špeciálne príležitosti',
+                    'Kompletné zabezpečenie menu',
+                    'Prispôsobenie podľa vašich požiadaviek'
+                  ].map((text) => (
+                    <div key={text} className="flex items-center group/item">
+                      <span className="w-2 h-2 rounded-full bg-accent/30 mr-4 group-hover/item:scale-150 group-hover/item:bg-accent transition-all"></span>
+                      <span className="text-foreground-muted text-lg">{text}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               {/* Corporate Services */}
-              <div className="bg-background border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow">
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-2xl">🏢</span>
+              <div className="bg-white border border-gray-100 rounded-3xl p-10 shadow-sm hover:shadow-xl transition-all group">
+                <div className="flex items-center mb-8">
+                  <div className="w-16 h-16 bg-accent/5 text-accent rounded-full flex items-center justify-center mr-5 group-hover:bg-accent group-hover:text-white transition-all">
+                    <span className="text-3xl">🏢</span>
                   </div>
-                  <h4 className="text-2xl font-semibold text-foreground">Firemné služby a teambuilding</h4>
+                  <h4 className="text-2xl font-bold text-foreground">Firmy a teambuilding</h4>
                 </div>
-                <div className="space-y-3">
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Priestor v srdci Malých Karpát</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Kapacita až 17 osôb pre degustácie</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Kombinácia vínovej kultúry s tímovou prácou</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Profesionálny prístup k organizácii</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="text-accent mr-3 mt-1">✓</span>
-                    <span className="text-foreground-muted">Nezabudnuteľné zážitky v prírodnom prostredí</span>
-                  </div>
+                <div className="space-y-4">
+                  {[
+                    'Exkluzívny priestor v srdci Malých Karpát',
+                    'Kapacita až 17 osôb pre odborné degustácie',
+                    'Kombinácia vínovej kultúry s prácou',
+                    'Profesionálny prístup k organizácii',
+                    'Nezabudnuteľné zážitky v prírode'
+                  ].map((text) => (
+                    <div key={text} className="flex items-center group/item">
+                      <span className="w-2 h-2 rounded-full bg-accent/30 mr-4 group-hover/item:scale-150 group-hover/item:bg-accent transition-all"></span>
+                      <span className="text-foreground-muted text-lg">{text}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Inquiry Form Section */}
-          <div id="teambuilding" className="mt-20">
+          <div id="teambuilding" className="mt-32">
             <InquiryForm />
           </div>
 
           {/* CTA Section */}
-          <div className="bg-gradient-to-r from-accent/10 to-accent/5 rounded-3xl p-12 text-center">
-            <h3 className="text-3xl font-bold text-foreground mb-6">
-              Rezervujte si ubytovanie vo vinárstve
-            </h3>
-            <p className="text-xl text-foreground-muted mb-8 max-w-2xl mx-auto">
-              Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty s ochutnávkami vína
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#rezervacia"
-                className="bg-accent hover:bg-accent-dark text-foreground px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
-              >
-                Rezervovať ubytovanie
-              </a>
-              <Link
-                href="/galeria/ubytovanie"
-                className="border-2 border-accent text-accent hover:bg-accent hover:text-foreground px-8 py-4 rounded-lg font-semibold transition-all"
-              >
-                Pozrieť galériu
-              </Link>
+          <div className="bg-accent text-white rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 left-0 w-full h-full bg-[url('/putec-logo.jpg')] opacity-5 mix-blend-overlay"></div>
+            <div className="relative z-10">
+              <h3 className="text-3xl md:text-5xl font-bold mb-8">
+                Rezervujte si ubytovanie vo vinárstve
+              </h3>
+              <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto opacity-90">
+                Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty s ochutnávkami vína
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <a
+                  href="#rezervacia"
+                  className="bg-white text-accent hover:bg-gray-100 px-10 py-5 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-xl"
+                >
+                  Rezervovať ubytovanie
+                </a>
+                <Link
+                  href="/galeria/ubytovanie"
+                  className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all"
+                >
+                  Pozrieť galériu
+                </Link>
+              </div>
             </div>
           </div>
         </div>
