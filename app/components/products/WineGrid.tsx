@@ -18,27 +18,10 @@ export default function WineGrid({ initialWines = [] }: WineGridProps) {
   const { labels } = useLocalization();
 
   useEffect(() => {
-    // If we have initial wines, we don't need to fetch
-    if (initialWines.length > 0) {
-      setLoading(false);
-      return;
-    }
-
-    const fetchWines = async () => {
-      try {
-        const response = await fetch('/api/wines');
-        const data = await response.json();
-        const wines = data.wines || [];
-        setAllWines(wines);
-        setFilteredWines(wines);
-      } catch (error) {
-        console.error('Chyba pri načítaní vín:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWines();
+    // Sync allWines and filteredWines when initialWines change
+    setAllWines(initialWines);
+    setFilteredWines(initialWines);
+    setLoading(false);
   }, [initialWines]);
 
   const handleFilterChange = useCallback((filtered: Product[]) => {

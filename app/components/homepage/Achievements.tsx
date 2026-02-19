@@ -131,7 +131,7 @@ export default function Achievements() {
             }`}>
             {displayItems.map((item, index) => (
               <div
-                key={item.id}
+                key={`${selectedCategory}-${item.id}`}
                 className="group cursor-pointer rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white border border-gray-100"
                 onClick={() => openLightbox(index)}
                 title="Kliknite pre zväčšenie"

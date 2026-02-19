@@ -18,25 +18,21 @@ interface ProductContextType {
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 // Context provider component
-export function ProductProvider({ children }: { children: ReactNode }) {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
+export function ProductProvider({
+  children,
+  initialData = [],
+}: {
+  children: ReactNode;
+  initialData?: Product[];
+}) {
+  const [products] = useState<Product[]>(initialData);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(initialData);
+  const [categories] = useState<string[]>(
+    [...new Set(initialData.flatMap((p) => p.ProductCategories))].sort()
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [sortBy, setSortBy] = useState<string>("name");
-
-  useEffect(() => {
-    fetch("/api/products")
-      .then((res) => res.json())
-      .then((response: { products: Product[] }) => {
-        const data = response.products;
-        setProducts(data);
-        setFilteredProducts(data);
-        setCategories([...new Set(data.flatMap((p) => p.ProductCategories))].sort());
-      })
-      .catch((err) => console.error("Failed to load products", err));
-  }, []);
 
   useEffect(() => {
     let updatedProducts = [...products];

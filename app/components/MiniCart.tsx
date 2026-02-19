@@ -218,6 +218,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                   <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Mohlo by sa vám hodiť</h3>
                   <div className="grid grid-cols-2 gap-3">
                     <div
+                      key="upsell-set-parizske"
                       className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer"
                       onClick={() => {
                         dispatch(addToCart({
@@ -243,6 +244,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                       <p className="text-[10px] text-accent font-bold">€23.90</p>
                     </div>
                     <div
+                      key="upsell-cabernet-rose"
                       className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer"
                       onClick={() => {
                         dispatch(addToCart({

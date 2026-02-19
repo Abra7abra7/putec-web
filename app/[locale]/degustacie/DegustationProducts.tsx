@@ -6,25 +6,20 @@ import Link from "next/link";
 import { Users, Clock, Check } from "lucide-react";
 import { Product } from "@/types/Product";
 
-export default function DegustationProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+interface DegustationProductsProps {
+  initialProducts?: Product[];
+}
+
+export default function DegustationProducts({ initialProducts = [] }: DegustationProductsProps) {
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [loading, setLoading] = useState(initialProducts.length === 0);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('/api/degustacie');
-        const data = await response.json();
-        setProducts(data.degustacie || []);
-      } catch (error) {
-        console.error('Chyba pri načítaní degustačných produktov:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+    if (initialProducts.length > 0) {
+      setProducts(initialProducts);
+      setLoading(false);
+    }
+  }, [initialProducts]);
 
   if (loading) {
     return (

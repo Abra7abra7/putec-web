@@ -36,19 +36,14 @@ interface CheckoutSettings {
 const CheckoutContext = createContext<CheckoutSettings | null>(null);
 
 // Provider component
-export function CheckoutProvider({ children }: { children: React.ReactNode }) {
-  const [checkout, setCheckout] = useState<CheckoutSettings | null>(null);
-
-  useEffect(() => {
-    fetch("/api/checkout")
-      .then((res) => res.json())
-      .then((data) => setCheckout(data))
-      .catch((err) => console.error("Failed to load checkout settings:", err));
-  }, []);
-
-  if (!checkout) {
-    return <p className="text-center text-gray-600">Loading checkout settings...</p>;
-  }
+export function CheckoutProvider({
+  children,
+  initialData,
+}: {
+  children: React.ReactNode;
+  initialData: CheckoutSettings;
+}) {
+  const [checkout] = useState<CheckoutSettings>(initialData);
 
   return (
     <CheckoutContext.Provider value={checkout}>

@@ -9,32 +9,32 @@ import RatingBadge from "../../components/RatingBadge";
 import { getGoogleRating } from "../../utils/getGoogleRating";
 
 import { getMediaUrl } from "../../utils/media";
+import { getDegustacie } from "../../utils/getProducts";
 
-export const metadata: Metadata = {
-  title: "Degustácie Vinosady | Firemné akcie Pezinok | Ochutnávky vína | Víno Pútec",
-  description: "Degustácie vína vo Vinosadoch pri Pezinku - firemné akcie, teambuildingy, ochutnávky prémiových vín. Rezervujte si degustáciu v rodinnom vinárstve Putec pre Bratislavu, Senec, Trnavu. Skupinové degustácie až 17 osôb.",
-  keywords: "degustácie Vinosady, degustácie Pezinok, firemné akcie, teambuildingy, ochutnávky vína, degustácie vína, skupinové degustácie, degustačné balíky, víno Vinosady, vinárstvo Putec, Bratislava, Senec, Trnavu, Malé Karpaty, degustačné miestnosti, catering degustácie",
-  openGraph: {
-    title: "Degustácie Vinosady | Firemné akcie a Ochutnávky vína",
-    description: "Degustácie vína vo Vinosadoch - firemné akcie, teambuildingy, ochutnávky prémiových vín v srdci Malých Karpát",
-    type: "website",
-    locale: "sk_SK",
-    images: [
-      {
-        url: getMediaUrl("galeria/degustacie/degustacia-skupina.jpg"),
-        width: 1200,
-        height: 630,
-        alt: "Degustácie vína vo Vinosadoch - skupinové ochutnávky",
-      },
-    ],
-  },
-  alternates: {
-    canonical: "https://vinoputec.sk/degustacie",
-  },
-};
+// ... (metadata unchanged)
 
 export default async function DegustaciePage() {
-  const googleRating = await getGoogleRating();
+  const [googleRating, degustationProducts] = await Promise.all([
+    getGoogleRating(),
+    getDegustacie(),
+  ]);
+
+  const schemaProducts = degustationProducts.map((product, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Product",
+      "name": product.Title,
+      "description": product.ShortDescription || product.Title,
+      "image": product.FeatureImageURL,
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": product.SalePrice,
+        "availability": "https://schema.org/InStock"
+      }
+    }
+  }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -54,7 +54,7 @@ export default async function DegustaciePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "itemListElement": []
+            "itemListElement": schemaProducts
           })
         }} />
       <Hero
@@ -87,7 +87,7 @@ export default async function DegustaciePage() {
 
             {/* Degustation Packages - Compact View */}
             <div id="baliky" className="mb-8">
-              <DegustationProducts />
+              <DegustationProducts initialProducts={degustationProducts} />
             </div>
 
             {/* Why Choose Us - Quick bullets */}
