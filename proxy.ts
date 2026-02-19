@@ -38,7 +38,18 @@ export function proxy(request: NextRequest) {
         '/ochrana-sukromia': '/zasady-ochrany-osobnych-udajov',
         '/kategoria-produktu/ruzove-vina': '/vina',
         '/produkt/rizling-vlassky-biele-suche-2024': '/vina/rizling-vlassky-biele-suche-2024',
-        // '/cart' a '/checkout' sú už v zozname vyššie
+
+        // New findings from Search Console list
+        '/vina-videa': '/',
+        '/kategoria-produktu/vina-k-dezertom': '/vina',
+        '/kategoria-produktu/biele-vina': '/vina',
+        '/kategoria-produktu/cervene-vina': '/vina',
+        '/kategoria-produktu/darcekove-sety': '/vina',
+        '/kategoria-produktu/darcekove-poukazy': '/vina',
+        '/kategoria-produktu/rada-premium': '/vina',
+        '/kategoria-produktu/rada-exclusive': '/vina',
+        '/kategoria-produktu/vina-k-divine': '/vina',
+        '/kategoria-produktu/vina-k-salatom': '/vina',
     };
 
     // 2. Kontrola presnej zhody
