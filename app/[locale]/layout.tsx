@@ -128,7 +128,9 @@ export default async function LocaleLayout({
           <LocalizationProvider initialData={localizationData}>
             <Providers>
               <Header />
-              {children}
+              <main className="flex-grow flex flex-col">
+                {children}
+              </main>
               <Footer />
               <JsonLd data={winerySchema} />
               <Toaster position="top-center" />
