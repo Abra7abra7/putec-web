@@ -1,19 +1,26 @@
+import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Nástroje na ochranu súkromia | Putec Vinosady | Cookies, GDPR",
-  description: "Nástroje na ochranu súkromia pre webovú stránku rodinného vinárstva Putec. Správa cookies, nastavenia súkromia, GDPR compliance.",
-  keywords: "nástroje ochrany súkromia, cookies, GDPR, Putec, Vinosady, súkromie, nastavenia",
-  openGraph: {
-    title: "Nástroje na ochranu súkromia | Putec Vinosady",
-    description: "Nástroje na ochranu súkromia a správa cookies",
-    type: "website",
-    locale: "sk_SK",
-  },
-  alternates: {
-    canonical: "https://vinoputec.sk/nastroje-ochrany-sukromia",
-  },
-};
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.privacyTools" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "https://vinoputec.sk/nastroje-ochrany-sukromia",
+      languages: {
+        "sk-SK": "/nastroje-ochrany-sukromia",
+        "en-US": "/en/nastroje-ochrany-sukromia",
+      },
+    },
+  };
+}
 
 export default function PrivacyToolsPage() {
   return (
@@ -22,7 +29,7 @@ export default function PrivacyToolsPage() {
         <h1 className="text-4xl font-bold text-foreground mb-8">
           Nástroje na ochranu súkromia
         </h1>
-        
+
         <div className="prose prose-lg max-w-none text-foreground">
           <p className="text-foreground-muted mb-6">
             <strong>Účinnosť od:</strong> 1. januára 2025<br />
@@ -32,11 +39,11 @@ export default function PrivacyToolsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">1. Správa cookies</h2>
             <p className="mb-4">
-              Na tejto stránke môžete spravovať svoje nastavenia cookies a súkromia. 
-              Cookies sú malé textové súbory, ktoré sa ukladajú vo vašom prehliadači 
+              Na tejto stránke môžete spravovať svoje nastavenia cookies a súkromia.
+              Cookies sú malé textové súbory, ktoré sa ukladajú vo vašom prehliadači
               a pomáhajú nám zlepšovať vašu skúsenosť na webe.
             </p>
-            
+
             <div className="bg-gray-50 p-6 rounded-lg mb-6">
               <h3 className="text-lg font-semibold mb-4">Aktuálne nastavenia cookies</h3>
               <div className="space-y-4">
@@ -51,7 +58,7 @@ export default function PrivacyToolsPage() {
                     Vždy aktívne
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-medium">Analytické cookies</h4>
@@ -63,7 +70,7 @@ export default function PrivacyToolsPage() {
                     Môžete spravovať
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-medium">Marketingové cookies</h4>
@@ -81,7 +88,7 @@ export default function PrivacyToolsPage() {
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">2. Typy cookies</h2>
-            
+
             <div className="space-y-6">
               <div className="border border-gray-200 rounded-lg p-6">
                 <h3 className="text-lg font-semibold mb-3 text-foreground">Nevyhnutné cookies</h3>
@@ -127,10 +134,10 @@ export default function PrivacyToolsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">3. Správa súhlasu</h2>
             <p className="mb-4">
-              Môžete kedykoľvek zmeniť svoje nastavenia cookies. Váš súhlas je dobrovoľný 
+              Môžete kedykoľvek zmeniť svoje nastavenia cookies. Váš súhlas je dobrovoľný
               a môžete ho kedykoľvek odvolať.
             </p>
-            
+
             <div className="bg-accent/10 p-6 rounded-lg mb-6">
               <h3 className="text-lg font-semibold mb-4">Ako zmeniť nastavenia</h3>
               <ol className="list-decimal pl-6 space-y-2 text-foreground-muted">
@@ -147,7 +154,7 @@ export default function PrivacyToolsPage() {
             <p className="mb-4">
               Podľa GDPR máte nasledovné práva týkajúce sa vašich osobných údajov:
             </p>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-3 text-foreground">Právo na prístup</h3>
@@ -155,21 +162,21 @@ export default function PrivacyToolsPage() {
                   Môžete požiadať o informácie o tom, aké osobné údaje o vás spracovávame.
                 </p>
               </div>
-              
+
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-3 text-foreground">Právo na opravu</h3>
                 <p className="text-sm text-foreground-muted">
                   Môžete požiadať o opravu nepresných alebo neúplných údajov.
                 </p>
               </div>
-              
+
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-3 text-foreground">Právo na vymazanie</h3>
                 <p className="text-sm text-foreground-muted">
                   Môžete požiadať o vymazanie vašich osobných údajov.
                 </p>
               </div>
-              
+
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-3 text-foreground">Právo na obmedzenie</h3>
                 <p className="text-sm text-foreground-muted">
@@ -182,25 +189,25 @@ export default function PrivacyToolsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">5. Tretie strany</h2>
             <p className="mb-4">
-              Naša webová stránka môže obsahovať odkazy na tretie strany alebo používať služby tretích strán. 
+              Naša webová stránka môže obsahovať odkazy na tretie strany alebo používať služby tretích strán.
               Tieto služby majú svoje vlastné zásady ochrany súkromia.
             </p>
-            
+
             <div className="space-y-4">
               <div className="border-l-4 border-accent pl-4">
                 <h3 className="font-semibold text-foreground">Google Analytics</h3>
                 <p className="text-sm text-foreground-muted">
-                  Používame Google Analytics na analýzu návštevnosti. 
+                  Používame Google Analytics na analýzu návštevnosti.
                   <a href="https://policies.google.com/privacy" className="text-accent hover:underline ml-1">
                     Zásady ochrany súkromia Google
                   </a>
                 </p>
               </div>
-              
+
               <div className="border-l-4 border-accent pl-4">
                 <h3 className="font-semibold text-foreground">Stripe</h3>
                 <p className="text-sm text-foreground-muted">
-                  Pre platby používame Stripe. 
+                  Pre platby používame Stripe.
                   <a href="https://stripe.com/privacy" className="text-accent hover:underline ml-1">
                     Zásady ochrany súkromia Stripe
                   </a>
@@ -214,7 +221,7 @@ export default function PrivacyToolsPage() {
             <p className="mb-4">
               Pre otázky týkajúce sa ochrany súkromia alebo spravovania cookies nás kontaktujte:
             </p>
-            
+
             <div className="bg-accent/10 p-6 rounded-lg">
               <p className="mb-2">
                 <strong>Email:</strong> info@vinoputec.sk
@@ -231,11 +238,11 @@ export default function PrivacyToolsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">7. Zmeny v nastaveniach</h2>
             <p className="mb-4">
-              Tieto nástroje na ochranu súkromia môžeme aktualizovať. O významných zmenách 
+              Tieto nástroje na ochranu súkromia môžeme aktualizovať. O významných zmenách
               vás budeme informovať prostredníctvom webovej stránky alebo emailu.
             </p>
             <p className="mb-4">
-              Odporúčame vám pravidelne kontrolovať túto stránku, aby ste zostali informovaní 
+              Odporúčame vám pravidelne kontrolovať túto stránku, aby ste zostali informovaní
               o našich praktikách ochrany súkromia.
             </p>
           </section>

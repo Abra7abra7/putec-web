@@ -8,6 +8,8 @@ import { ReduxProvider } from "../providers";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import IconWrapper from "./ui/IconWrapper";
+import { useLocalization } from "../context/LocalizationContext";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface MenuItem {
   label: string;
@@ -16,9 +18,11 @@ interface MenuItem {
 
 interface MobileMenuProps {
   menuItems: MenuItem[];
+  locale: string;
 }
 
-const MobileMenu = ({ menuItems }: MobileMenuProps) => {
+const MobileMenu = ({ menuItems, locale }: MobileMenuProps) => {
+  const { labels } = useLocalization();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const lastFocused = useRef<HTMLElement | null>(null);
@@ -77,7 +81,7 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
           aria-haspopup="dialog"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu-panel"
-          aria-label={isMenuOpen ? "Zatvoriť menu" : "Otvoriť menu"}
+          aria-label={isMenuOpen ? labels.closeMenu : labels.openMenu}
         >
           <IconWrapper>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -115,6 +119,9 @@ const MobileMenu = ({ menuItems }: MobileMenuProps) => {
                   {label}
                 </Link>
               ))}
+              <div className="mt-4 px-6 pt-4 border-t border-gray-100">
+                <LanguageSwitcher currentLocale={locale} className="gap-2" />
+              </div>
             </div>
           </nav>
         </div>

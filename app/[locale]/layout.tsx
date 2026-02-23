@@ -20,34 +20,45 @@ const poppins = Poppins({
   variable: "--font-poppins"
 });
 
-export const metadata = {
-  metadataBase: new URL('https://vinoputec.sk'),
-  title: {
-    default: "Vino Putec - Rodinné vinárstvo Pezinok, Vinosady",
-    template: "%s | Vino Putec"
-  },
-  description: "Rodinné vinárstvo v srdci Malokarpatskej oblasti. Ponúkame degustácie vína, ubytovanie vo Vinosadoch a predaj kvalitných odrodových vín.",
-  keywords: ["víno", "vinárstvo", "Pezinok", "Vinosady", "degustácia", "ubytovanie", "Malokarpatská oblasť", "slovenské víno"],
-  authors: [{ name: "Vino Putec" }],
-  creator: "Vino Putec",
-  publisher: "Vino Putec",
-  openGraph: {
-    title: "Vino Putec - Rodinné vinárstvo",
-    description: "Tradičné rodinné vinárstvo z Vinosád. Objavte naše vína, rezervujte si degustáciu alebo ubytovanie.",
-    url: 'https://vinoputec.sk',
-    siteName: 'Vino Putec',
-    locale: 'sk_SK',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: "Vino Putec",
-    description: "Rodinné vinárstvo Pezinok - Vinosady",
-  },
-  alternates: {
-    canonical: './',
-  }
-};
+import { getTranslations } from 'next-intl/server';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata' });
+
+  return {
+    metadataBase: new URL('https://vinoputec.sk'),
+    title: {
+      default: t('title'),
+      template: "%s | Vino Putec"
+    },
+    description: t('description'),
+    keywords: t('keywords').split(',').map(k => k.trim()),
+    authors: [{ name: "Vino Putec" }],
+    creator: "Vino Putec",
+    publisher: "Vino Putec",
+    openGraph: {
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      url: 'https://vinoputec.sk',
+      siteName: 'Vino Putec',
+      locale: locale === 'sk' ? 'sk_SK' : 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('twitterTitle'),
+      description: t('twitterDescription'),
+    },
+    alternates: {
+      canonical: '/',
+      languages: {
+        'sk-SK': '/',
+        'en-US': '/en',
+      },
+    }
+  };
+}
 
 export default async function LocaleLayout({
   children,
@@ -127,7 +138,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <LocalizationProvider initialData={localizationData}>
             <Providers>
-              <Header />
+              <Header locale={locale} />
               <main className="flex-grow flex flex-col">
                 {children}
               </main>

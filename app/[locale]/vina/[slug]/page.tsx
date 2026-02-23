@@ -15,7 +15,7 @@ import { getMediaUrl } from "../../../utils/media";
 const ProductLightbox = dynamic(() => import("@/app/components/products/ProductLightbox"));
 
 // Define a type for route params as a Promise
-type AsyncParams = Promise<{ slug?: string }>;
+type AsyncParams = Promise<{ slug?: string; locale: string }>;
 
 /**
  * Note: `generateMetadata` must also treat `params` as a Promise.
@@ -26,7 +26,7 @@ export async function generateMetadata({
 }: {
   params: AsyncParams;
 }): Promise<Metadata> {
-  const { slug } = await params; // MUST await
+  const { slug, locale } = await params;
 
   if (!slug) {
     return {
@@ -37,8 +37,8 @@ export async function generateMetadata({
 
   // Fetch data asynchronously
   const [product, localeData] = await Promise.all([
-    getProductBySlug(slug),
-    getLocalization(),
+    getProductBySlug(slug, locale),
+    getLocalization(locale),
   ]);
 
   if (!product) {
@@ -51,6 +51,13 @@ export async function generateMetadata({
   return {
     title: `${product.Title} - ${localeData.siteName}`,
     description: product.ShortDescription,
+    alternates: {
+      canonical: `https://vinoputec.sk/vina/${product.Slug}`,
+      languages: {
+        "sk-SK": `/vina/${product.Slug}`,
+        "en-US": `/en/vina/${product.Slug}`,
+      },
+    },
   };
 }
 
@@ -63,15 +70,15 @@ export default async function ProductPage({
   params: AsyncParams;
 }) {
   // First await for the real param
-  const { slug } = await params;
+  const { slug, locale } = await params;
   if (!slug) {
     return notFound();
   }
 
   // Now do local file read
   const [product, localeData, googleRating] = await Promise.all([
-    getProductBySlug(slug),
-    getLocalization(),
+    getProductBySlug(slug, locale),
+    getLocalization(locale),
     getGoogleRating(),
   ]);
 
@@ -125,8 +132,8 @@ export default async function ProductPage({
           __html: JSON.stringify({
             "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://vinoputec.sk/" },
-              { "@type": "ListItem", "position": 2, "name": "Vína", "item": "https://vinoputec.sk/vina" },
-              { "@type": "ListItem", "position": 3, "name": product.Title, "item": `https://vinoputec.sk/vina/${product.Slug}` }
+              { "@type": "ListItem", "position": 2, "name": localeData.labels.products || "Vína", "item": `https://vinoputec.sk/${locale === 'sk' ? 'vina' : 'en/vina'}` },
+              { "@type": "ListItem", "position": 3, "name": product.Title, "item": `https://vinoputec.sk/${locale === 'sk' ? 'vina' : 'en/vina'}/${product.Slug}` }
             ]
           })
         }} />
@@ -148,7 +155,7 @@ export default async function ProductPage({
               "priceCurrency": product.Currency,
               "price": product.SalePrice || product.RegularPrice,
               "availability": "https://schema.org/InStock",
-              "url": `https://vinoputec.sk/vina/${product.Slug}`
+              "url": `https://vinoputec.sk/${locale === 'sk' ? 'vina' : 'en/vina'}/${product.Slug}`
             }
           })
         }} />
@@ -156,13 +163,13 @@ export default async function ProductPage({
         <div className="container mx-auto px-4">
           {/* Back button */}
           <Link
-            href="/vina"
+            href={locale === 'sk' ? "/vina" : "/en/vina"}
             className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-6 group"
           >
             <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="font-medium">Späť na vína</span>
+            <span className="font-medium">{localeData.labels.backToWines || "Späť na vína"}</span>
           </Link>
 
           <h1 className="text-3xl font-bold text-center text-foreground mb-8">{product.Title}</h1>
@@ -187,20 +194,20 @@ export default async function ProductPage({
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     {product.Capacity && (
                       <div>
-                        <span className="font-semibold text-foreground">Kapacita:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.capacity || "Kapacita"}:</span>
                         <p className="text-foreground-muted">{product.Capacity}</p>
                       </div>
                     )}
                     {product.Duration && (
                       <div>
-                        <span className="font-semibold text-foreground">Trvanie:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.duration || "Trvanie"}:</span>
                         <p className="text-foreground-muted">{product.Duration}</p>
                       </div>
                     )}
                   </div>
                   {product.Deposit && (
                     <div className="mt-2 text-sm">
-                      <span className="font-semibold text-foreground">Vratná záloha:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.refundableDeposit || "Vratná záloha"}:</span>
                       <span className="text-foreground-muted ml-1">{product.Deposit}€</span>
                     </div>
                   )}
@@ -219,7 +226,7 @@ export default async function ProductPage({
           {isDegustation && product.Features && (
             <div className="mt-10">
               <h2 className="text-2xl font-semibold text-foreground mb-4">
-                Zahrnuté v balíku
+                {localeData.labels.includedInPackage || "Zahrnuté v balíku"}
               </h2>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {product.Features.map((feature, index) => (
@@ -238,29 +245,29 @@ export default async function ProductPage({
               {/* Basic Wine Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="bg-background border border-gray-200 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold text-foreground mb-4">O víne</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-4">{localeData.labels.aboutWine || "O víne"}</h3>
                   <div className="space-y-3">
                     {product.WineDetails.vintage && (
                       <div>
-                        <span className="font-semibold text-foreground">Ročník:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.vintage || "Ročník"}:</span>
                         <span className="text-foreground-muted ml-2">{product.WineDetails.vintage}</span>
                       </div>
                     )}
                     {product.WineDetails.wineType && (
                       <div>
-                        <span className="font-semibold text-foreground">Druh vína:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.wineType || "Druh vína"}:</span>
                         <span className="text-foreground-muted ml-2">{product.WineDetails.wineType}</span>
                       </div>
                     )}
                     {product.WineDetails.quality && (
                       <div>
-                        <span className="font-semibold text-foreground">Kvalita:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.quality || "Kvalita"}:</span>
                         <span className="text-foreground-muted ml-2">{product.WineDetails.quality}</span>
                       </div>
                     )}
                     {product.WineDetails.region && (
                       <div>
-                        <span className="font-semibold text-foreground">Oblasť:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.region || "Oblasť"}:</span>
                         <span className="text-foreground-muted ml-2">{product.WineDetails.region}</span>
                       </div>
                     )}
@@ -268,23 +275,23 @@ export default async function ProductPage({
                 </div>
 
                 <div className="bg-background border border-gray-200 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold text-foreground mb-4">Charakteristika</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-4">{localeData.labels.characteristics || "Charakteristika"}</h3>
                   <div className="space-y-3">
                     {product.WineDetails.color && (
                       <div>
-                        <span className="font-semibold text-foreground">Farba:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.color || "Farba"}:</span>
                         <p className="text-foreground-muted mt-1">{product.WineDetails.color}</p>
                       </div>
                     )}
                     {product.WineDetails.aroma && (
                       <div>
-                        <span className="font-semibold text-foreground">Vôňa:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.aroma || "Vôňa"}:</span>
                         <p className="text-foreground-muted mt-1">{product.WineDetails.aroma}</p>
                       </div>
                     )}
                     {product.WineDetails.taste && (
                       <div>
-                        <span className="font-semibold text-foreground">Chuť:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.taste || "Chuť"}:</span>
                         <p className="text-foreground-muted mt-1">{product.WineDetails.taste}</p>
                       </div>
                     )}
@@ -294,53 +301,53 @@ export default async function ProductPage({
 
               {/* Technical Details */}
               <div className="bg-background border border-gray-200 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Technické údaje</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-4">{localeData.labels.technicalData || "Technické údaje"}</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {product.WineDetails.alcoholContent && (
                     <div>
-                      <span className="font-semibold text-foreground">Obsah alkoholu:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.alcoholContent || "Obsah alkoholu"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.alcoholContent}</p>
                     </div>
                   )}
                   {product.WineDetails.residualSugar && (
                     <div>
-                      <span className="font-semibold text-foreground">Zbytkový cukor:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.residualSugar || "Zbytkový cukor"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.residualSugar}</p>
                     </div>
                   )}
                   {product.WineDetails.sugar && (
                     <div>
-                      <span className="font-semibold text-foreground">Cukor:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.sugar || "Cukor"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.sugar}</p>
                     </div>
                   )}
                   {product.WineDetails.bottleVolume && (
                     <div>
-                      <span className="font-semibold text-foreground">Objem fľaše:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.bottleVolume || "Objem fľaše"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.bottleVolume}</p>
                     </div>
                   )}
                   {product.WineDetails.storageTemp && (
                     <div>
-                      <span className="font-semibold text-foreground">Teplota skladovania:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.storageTemp || "Teplota skladovania"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.storageTemp}</p>
                     </div>
                   )}
                   {product.WineDetails.servingTemp && (
                     <div>
-                      <span className="font-semibold text-foreground">Teplota podávania:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.servingTemp || "Teplota podávania"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.servingTemp}</p>
                     </div>
                   )}
                   {product.WineDetails.batchNumber && (
                     <div>
-                      <span className="font-semibold text-foreground">Výrobná dávka:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.batchNumber || "Výrobná dávka"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.batchNumber}</p>
                     </div>
                   )}
                   {product.WineDetails.gtin && (
                     <div>
-                      <span className="font-semibold text-foreground">GTIN:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.gtin || "GTIN"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.gtin}</p>
                     </div>
                   )}
@@ -349,23 +356,23 @@ export default async function ProductPage({
 
               {/* Producer Info */}
               <div className="bg-background border border-gray-200 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Výrobca</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-4">{localeData.labels.producer || "Výrobca"}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {product.WineDetails.producer && (
                     <div>
-                      <span className="font-semibold text-foreground">Vyrába:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.producedBy || "Vyrába"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.producer}</p>
                     </div>
                   )}
                   {product.WineDetails.bottler && (
                     <div>
-                      <span className="font-semibold text-foreground">Plní:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.bottledBy || "Plní"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.bottler}</p>
                     </div>
                   )}
                   {product.WineDetails.countryOfOrigin && (
                     <div>
-                      <span className="font-semibold text-foreground">Krajina pôvodu:</span>
+                      <span className="font-semibold text-foreground">{localeData.labels.countryOfOrigin || "Krajina pôvodu"}:</span>
                       <p className="text-foreground-muted">{product.WineDetails.countryOfOrigin}</p>
                     </div>
                   )}
@@ -375,24 +382,24 @@ export default async function ProductPage({
               {/* Warnings and Additional Info */}
               {(product.WineDetails.warnings || product.WineDetails.nutritionalInfoUrl) && (
                 <div className="bg-background border border-gray-200 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold text-foreground mb-4">Dodatočné informácie</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-4">{localeData.labels.additionalInfo || "Dodatočné informácie"}</h3>
                   <div className="space-y-3">
                     {product.WineDetails.warnings && (
                       <div>
-                        <span className="font-semibold text-foreground">Upozornenia:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.warnings || "Upozornenia"}:</span>
                         <p className="text-foreground-muted mt-1">{product.WineDetails.warnings}</p>
                       </div>
                     )}
                     {product.WineDetails.nutritionalInfoUrl && (
                       <div>
-                        <span className="font-semibold text-foreground">Nutričné hodnoty:</span>
+                        <span className="font-semibold text-foreground">{localeData.labels.nutritionalInfo || "Nutričné hodnoty"}:</span>
                         <a
                           href={product.WineDetails.nutritionalInfoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-accent hover:text-accent-dark ml-2 underline"
                         >
-                          Zobraziť nutričné hodnoty
+                          {localeData.labels.viewNutritionalInfo || "Zobraziť nutričné hodnoty"}
                         </a>
                       </div>
                     )}
@@ -405,7 +412,7 @@ export default async function ProductPage({
           {/* LONG DESCRIPTION */}
           <div className="mt-10">
             <h2 className="text-2xl font-semibold text-foreground">
-              {isDegustation ? "O degustácii" : (localeData.labels.productDetails || "Product Details")}
+              {isDegustation ? (localeData.labels.aboutDegustation || "O degustácii") : (localeData.labels.productDetails || "Product Details")}
             </h2>
             {product.ProductType === 'wine-set' ? (
               <div className="text-foreground-muted mt-4 whitespace-pre-line space-y-2">

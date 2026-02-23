@@ -4,12 +4,13 @@ import { useFormStatus } from "react-dom";
 import { useActionState } from "react";
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { Mail, Phone, Users, Calendar, MessageSquare } from "lucide-react";
+import { Mail, Phone, Users } from "lucide-react";
 import { sendInquiry } from "@/app/actions/inquiry";
 import { Container } from "../ui/container";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { getMediaUrl } from "../../utils/media";
+import { useLocalization } from "@/app/context/LocalizationContext";
 
 function SubmitButton({ buttonText }: { buttonText: string }) {
     const { pending } = useFormStatus();
@@ -27,6 +28,8 @@ function SubmitButton({ buttonText }: { buttonText: string }) {
 }
 
 export default function InquiryForm() {
+    const { labels, locale } = useLocalization();
+    const l = labels.inquiry;
     const [state, formAction] = useActionState(sendInquiry, null);
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -45,9 +48,9 @@ export default function InquiryForm() {
 
                         {/* Left side: Content */}
                         <div className="p-8 lg:p-12 bg-accent text-white">
-                            <h2 className="text-3xl font-bold mb-6">Plánujete teambuilding alebo oslavu?</h2>
+                            <h2 className="text-3xl font-bold mb-6">{l.title}</h2>
                             <p className="text-white/80 text-lg mb-8 leading-relaxed">
-                                Radi pre Vás pripravíme ponuku na mieru. Či už ide o firemnú akciu, rodinnú oslavu alebo súkromnú degustáciu so skupinovým ubytovaním.
+                                {l.description}
                             </p>
 
                             <div className="space-y-6">
@@ -56,8 +59,8 @@ export default function InquiryForm() {
                                         <Users className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold">Kapacita ubytovania</h4>
-                                        <p className="text-white/70">Až 15 osôb v 6 komfortných izbách.</p>
+                                        <h4 className="font-semibold">{l.capacityTitle}</h4>
+                                        <p className="text-white/70">{l.capacityDetail}</p>
                                     </div>
                                 </div>
 
@@ -66,8 +69,8 @@ export default function InquiryForm() {
                                         <Users className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold">Degustácie</h4>
-                                        <p className="text-white/70">Pripravíme riadenú ochutnávku našich vín.</p>
+                                        <h4 className="font-semibold">{l.tastingsTitle}</h4>
+                                        <p className="text-white/70">{l.tastingsDetail}</p>
                                     </div>
                                 </div>
 
@@ -76,7 +79,7 @@ export default function InquiryForm() {
                                         <Mail className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold">Kontaktujte nás</h4>
+                                        <h4 className="font-semibold">{l.contactUs}</h4>
                                         <p className="text-white/70">obchod@vinoputec.sk</p>
                                     </div>
                                 </div>
@@ -93,7 +96,7 @@ export default function InquiryForm() {
                                     />
                                     <div>
                                         <p className="font-bold">Víno Pútec</p>
-                                        <p className="text-sm text-white/60">Tradičné vinárstvo Vinosady</p>
+                                        <p className="text-sm text-white/60">{l.traditionalWinery}</p>
                                     </div>
                                 </div>
                             </div>
@@ -102,13 +105,14 @@ export default function InquiryForm() {
                         {/* Right side: Form */}
                         <div className="p-8 lg:p-12">
                             <form ref={formRef} action={formAction} className="space-y-5">
+                                <input type="hidden" name="locale" value={locale} />
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <Input
                                         type="text"
                                         id="name"
                                         name="name"
-                                        label="Meno a priezvisko"
-                                        placeholder="Jozef Mrkva"
+                                        label={l.nameLabel}
+                                        placeholder={l.namePlaceholder}
                                         error={state?.errors?.name?.[0]}
                                         required
                                     />
@@ -116,8 +120,8 @@ export default function InquiryForm() {
                                         type="email"
                                         id="email"
                                         name="email"
-                                        label="E-mail"
-                                        placeholder="jozef@firma.sk"
+                                        label={l.emailLabel}
+                                        placeholder={l.emailPlaceholder}
                                         error={state?.errors?.email?.[0]}
                                         required
                                     />
@@ -128,8 +132,8 @@ export default function InquiryForm() {
                                         type="text"
                                         id="phone"
                                         name="phone"
-                                        label="Telefón"
-                                        placeholder="+421 9xx xxx xxx"
+                                        label={l.phoneLabel}
+                                        placeholder={l.phonePlaceholder}
                                         error={state?.errors?.phone?.[0]}
                                         required
                                     />
@@ -137,8 +141,8 @@ export default function InquiryForm() {
                                         type="text"
                                         id="peopleCount"
                                         name="peopleCount"
-                                        label="Počet osôb (cca)"
-                                        placeholder="napr. 12"
+                                        label={l.peopleCountLabel}
+                                        placeholder={l.peopleCountPlaceholder}
                                         error={state?.errors?.peopleCount?.[0]}
                                     />
                                 </div>
@@ -147,14 +151,14 @@ export default function InquiryForm() {
                                     type="text"
                                     id="date"
                                     name="date"
-                                    label="Predbežný termín"
-                                    placeholder="napr. máj 2026"
+                                    label={l.dateLabel}
+                                    placeholder={l.datePlaceholder}
                                     error={state?.errors?.date?.[0]}
                                 />
 
                                 <div>
                                     <label htmlFor="message" className="block text-sm font-bold text-foreground mb-1.5 uppercase tracking-wider">
-                                        Vaša predstava o akcii
+                                        {l.messageLabel}
                                     </label>
                                     <textarea
                                         id="message"
@@ -162,7 +166,7 @@ export default function InquiryForm() {
                                         rows={4}
                                         required
                                         className="flex w-full rounded-xl border-2 border-gray-100 bg-gray-50 px-4 py-3 text-base transition-colors focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent/20 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
-                                        placeholder="Napíšte nám stručne, o čo máte záujem..."
+                                        placeholder={l.messagePlaceholder}
                                     />
                                     {state?.errors?.message && (
                                         <p className="mt-1.5 text-sm text-red-600">{state.errors.message[0]}</p>
@@ -170,7 +174,7 @@ export default function InquiryForm() {
                                 </div>
 
                                 <div className="pt-4">
-                                    <SubmitButton buttonText="Odoslať nezáväzný dopyt" />
+                                    <SubmitButton buttonText={l.submitButton} />
                                 </div>
 
                                 {/* Status Messages */}

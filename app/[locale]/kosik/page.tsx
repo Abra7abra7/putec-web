@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 
 function CartContent() {
   const { labels } = useLocalization();
+  const c = labels.cartLabels;
   const dispatch = useAppDispatch();
   const router = useRouter();
   const items = useAppSelector((state) => state.cart.items);
@@ -52,7 +53,7 @@ function CartContent() {
           <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          <span className="font-medium">Späť na nákup</span>
+          <span className="font-medium">{c.backToShopping}</span>
         </Link>
 
         {/* Logo Section */}
@@ -65,11 +66,11 @@ function CartContent() {
             sizes="(max-width: 768px) 80px, 100px"
             className="mx-auto rounded-full shadow-2xl border-4 border-accent mb-6"
           />
-          <h1 className="text-3xl font-bold text-foreground">Váš košík</h1>
+          <h1 className="text-3xl font-bold text-foreground">{c.cartTitle}</h1>
         </div>
 
         {!isMounted || items.length === 0 ? (
-          <p className="text-gray-600 mt-10 mb-30 text-center">{labels.cartEmpty || "Your cart is empty."}</p>
+          <p className="text-gray-600 mt-10 mb-30 text-center">{c.emptyCart}</p>
         ) : (
           <>
             <div className="space-y-6">
@@ -97,7 +98,7 @@ function CartContent() {
                         {item.Title}
                       </Link>
                       <p className="text-sm text-gray-600">
-                        {labels.price || "Cena"}: €{price.toFixed(2)}
+                        {c.price}: €{price.toFixed(2)}
                       </p>
                       <div className="flex items-center mt-2 gap-2">
                         <button
@@ -115,7 +116,7 @@ function CartContent() {
                         </button>
                       </div>
                       <p className="text-sm text-gray-800 mt-1">
-                        {labels.total || "Celkom"}: €{itemTotal.toFixed(2)}
+                        {c.total}: €{itemTotal.toFixed(2)}
                       </p>
                     </div>
                     <button
@@ -134,7 +135,7 @@ function CartContent() {
 
             <div className="mt-8 text-right space-y-4">
               <p className="text-xl font-semibold text-gray-800">
-                {labels.total || "Celkom"}: €{total.toFixed(2)}
+                {c.total}: €{total.toFixed(2)}
               </p>
 
               {/* Checkout Button Below */}
@@ -145,7 +146,7 @@ function CartContent() {
                 }}
                 className="inline-block bg-accent hover:bg-accent-dark text-foreground px-6 py-3 rounded-md text-sm font-semibold transition"
               >
-                {labels.proceedToCheckout || "Pokračovať k objednávke"}
+                {c.proceedToCheckout}
               </button>
             </div>
 
@@ -153,7 +154,7 @@ function CartContent() {
             <div className="md:hidden fixed left-0 right-0 bottom-0 bg-background/95 backdrop-blur border-t border-gray-200 px-4 py-3">
               <div className="flex items-center justify-between gap-3">
                 <p className="text-base font-semibold">
-                  {labels.total || "Celkom"}: €{total.toFixed(2)}
+                  {c.total}: €{total.toFixed(2)}
                 </p>
                 <button
                   onClick={() => {
@@ -162,7 +163,7 @@ function CartContent() {
                   }}
                   className="bg-accent hover:bg-accent-dark text-foreground px-4 py-2 rounded-md text-sm font-semibold transition"
                 >
-                  {labels.proceedToCheckout || "Pokračovať"}
+                  {c.proceedToCheckout}
                 </button>
               </div>
             </div>

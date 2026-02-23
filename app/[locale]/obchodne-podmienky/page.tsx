@@ -1,19 +1,26 @@
+import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Obchodné podmienky | Putec Vinosady | E-shop vína",
-  description: "Obchodné podmienky pre nákup vína v e-shope rodinného vinárstva Putec vo Vinosadoch. Dodacie podmienky, reklamácie, vrátenie tovaru.",
-  keywords: "obchodné podmienky, Putec, Vinosady, e-shop, víno, dodacie podmienky, reklamácie",
-  openGraph: {
-    title: "Obchodné podmienky | Putec Vinosady",
-    description: "Obchodné podmienky pre nákup vína v e-shope",
-    type: "website",
-    locale: "sk_SK",
-  },
-  alternates: {
-    canonical: "https://vinoputec.sk/obchodne-podmienky",
-  },
-};
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.terms" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "https://vinoputec.sk/obchodne-podmienky",
+      languages: {
+        "sk-SK": "/obchodne-podmienky",
+        "en-US": "/en/obchodne-podmienky",
+      },
+    },
+  };
+}
 
 export default function TermsConditionsPage() {
   return (

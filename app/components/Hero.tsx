@@ -9,6 +9,7 @@ interface HeroProps {
   title: string;
   subtitle?: string;
   backgroundImageUrl: string;
+  backgroundVideoUrl?: string;
   mobileBackgroundImageUrl?: string; // New prop for Art Direction
   focalPoint?: string; // e.g. "center 25%" or "50% 30%"
   heightClass?: string;
@@ -21,6 +22,7 @@ export default function Hero({
   title,
   subtitle,
   backgroundImageUrl,
+  backgroundVideoUrl,
   mobileBackgroundImageUrl,
   focalPoint = "center 25%", // Default focal point
   heightClass = "h-[60vh]",
@@ -39,12 +41,15 @@ export default function Hero({
 
   const desktopBg = getMediaUrl(backgroundImageUrl);
   const mobileBg = getMediaUrl(mobileBackgroundImageUrl);
+  const videoUrl = backgroundVideoUrl ? getMediaUrl(backgroundVideoUrl) : null;
+
+  // No logs needed in production
 
   return (
     <section ref={containerRef} className={`relative ${heightClass} bg-background overflow-hidden`}>
       <motion.div className="absolute inset-0" style={{ y }}>
-        {/* Desktop Image (Hidden on mobile if mobile image exists) */}
-        <div className={`relative w-full h-[120%] -top-[10%] ${mobileBg ? 'hidden md:block' : ''}`}>
+        {/* Always render the image as a base layer / fallback */}
+        <div className={`absolute inset-0 w-full h-[120%] -top-[10%] z-0 ${mobileBg ? 'hidden md:block' : ''}`}>
           <Image
             src={desktopBg}
             alt={title}
@@ -58,7 +63,7 @@ export default function Hero({
 
         {/* Mobile Image (Only if provided) */}
         {mobileBg && (
-          <div className="relative w-full h-[120%] -top-[10%] md:hidden">
+          <div className="absolute inset-0 w-full h-[120%] -top-[10%] md:hidden z-0">
             <Image
               src={mobileBg}
               alt={title}
@@ -71,7 +76,26 @@ export default function Hero({
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80" />
+        {/* Background Video (if provided) - Rendered on top of the image */}
+        {videoUrl && (
+          <div className="absolute inset-0 w-full h-[120%] -top-[10%] z-10">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover"
+              style={{ objectPosition: focalPoint }}
+            >
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
+
+        {/* Gradient Overlay (should be on top) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80 z-20" />
       </motion.div>
 
       <div className="relative z-10 h-full">

@@ -67,7 +67,10 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
   const handleNavigation = (path: string) => {
     console.log(`Navigating to: ${path}`);
     setIsVisible(false); // Close immediately
-    router.push(path);
+    // Get current locale from pathname or next-intl
+    const localePrefix = window.location.pathname.startsWith('/en') ? '/en' : '';
+    const localizedPath = path.startsWith('/en') || path.startsWith('http') ? path : `${localePrefix}${path}`;
+    router.push(localizedPath);
   };
 
   const toggleCart = () => {
@@ -144,7 +147,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
               <button
                 onClick={closeCart}
                 className="text-foreground/50 hover:text-accent transition-colors"
-                aria-label="Zavrieť košík"
+                aria-label={labels.closeCart || "Zavrieť košík"}
               >
                 <IconWrapper size="sm">
                   <X size={18} strokeWidth={1.5} />
@@ -215,7 +218,7 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
 
                 {/* Upselling Section */}
                 <div className="mt-6 pt-4 border-t border-gray-100">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Mohlo by sa vám hodiť</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">{labels.upsellTitle || "Mohlo by sa vám hodiť"}</h3>
                   <div className="grid grid-cols-2 gap-3">
                     <div
                       key="upsell-set-parizske"

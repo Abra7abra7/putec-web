@@ -38,7 +38,7 @@ export default function PrevioBookingClient() {
           height={800}
           name="previo-booking-iframe"
           id="previo-booking-iframe"
-          allowTransparency={true}
+          {...({ allowtransparency: "true" } as any)}
           className="w-full border-0 rounded-lg"
           title="Rezervácia ubytovania"
         />

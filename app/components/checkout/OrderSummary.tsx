@@ -16,6 +16,7 @@ export default function OrderSummary() {
   const { shippingMethodId, shippingForm, billingForm, differentBilling } = useAppSelector((state) => state.checkout);
   const { shippingMethods, shippingCountries } = useCheckoutSettings();
   const { labels } = useLocalization();
+  const l = labels.checkout;
 
   const shipping = shippingMethods.find((s) => s.id === shippingMethodId);
 
@@ -33,6 +34,12 @@ export default function OrderSummary() {
   // Get country name from code
   const getCountryName = (code: string) => {
     return shippingCountries.find(c => c.code === code)?.name || code;
+  };
+
+  const getLocalizedShippingName = (id: string, name: string) => {
+    if (id === "courier") return l.shippingCourier;
+    if (id === "pickup") return l.shippingPickup;
+    return name;
   };
 
   return (
@@ -69,7 +76,11 @@ export default function OrderSummary() {
 
         <div className="flex justify-between text-sm">
           <span>{labels.shipping || "Doprava"}:</span>
-          <span>{shipping ? `${shipping.name} ${getCurrencySymbol(shipping.currency)}${shipping.price.toFixed(2)}` : labels.noShippingSelected || "Nevybrané"}</span>
+          <span>
+            {shipping
+              ? `${getLocalizedShippingName(shipping.id, shipping.name)} ${getCurrencySymbol(shipping.currency)}${shipping.price.toFixed(2)}`
+              : labels.noShippingSelected || "Nevybrané"}
+          </span>
         </div>
 
         <hr className="my-4" />
@@ -84,7 +95,7 @@ export default function OrderSummary() {
           <>
             <hr className="my-4" />
             <div className="space-y-2">
-              <h3 className="font-semibold text-sm text-foreground">Dodacie údaje</h3>
+              <h3 className="font-semibold text-sm text-foreground">{l.deliveryData}</h3>
               <div className="text-sm text-gray-800 space-y-1">
                 <p className="font-medium">{shippingForm.firstName} {shippingForm.lastName}</p>
                 {shippingForm.companyName && <p className="text-xs">{shippingForm.companyName}</p>}
@@ -93,7 +104,7 @@ export default function OrderSummary() {
                 <p>{shippingForm.postalCode} {shippingForm.city}</p>
                 <p>{getCountryName(shippingForm.country)}</p>
                 <p className="pt-2"><strong>Email:</strong> {shippingForm.email}</p>
-                {shippingForm.phone && <p><strong>Telefón:</strong> {shippingForm.phone}</p>}
+                {shippingForm.phone && <p><strong>{labels.phone}:</strong> {shippingForm.phone}</p>}
               </div>
             </div>
           </>
@@ -104,7 +115,7 @@ export default function OrderSummary() {
           <>
             <hr className="my-4" />
             <div className="space-y-2">
-              <h3 className="font-semibold text-sm text-foreground">Fakturačné údaje</h3>
+              <h3 className="font-semibold text-sm text-foreground">{l.billingData}</h3>
               <div className="text-sm text-gray-800 space-y-1">
                 <p className="font-medium">{billingForm.firstName} {billingForm.lastName}</p>
                 {billingForm.companyName && <p className="text-xs">{billingForm.companyName}</p>}
@@ -112,9 +123,9 @@ export default function OrderSummary() {
                 {billingForm.address2 && <p>{billingForm.address2}</p>}
                 <p>{billingForm.postalCode} {billingForm.city}</p>
                 <p>{getCountryName(billingForm.country)}</p>
-                {billingForm.companyICO && <p><strong>IČO:</strong> {billingForm.companyICO}</p>}
-                {billingForm.companyDIC && <p><strong>DIČ:</strong> {billingForm.companyDIC}</p>}
-                {billingForm.companyICDPH && <p><strong>IČ DPH:</strong> {billingForm.companyICDPH}</p>}
+                {billingForm.companyICO && <p><strong>{labels.companyICO}:</strong> {billingForm.companyICO}</p>}
+                {billingForm.companyDIC && <p><strong>{labels.companyDIC}:</strong> {billingForm.companyDIC}</p>}
+                {billingForm.companyICDPH && <p><strong>{labels.companyICDPH}:</strong> {billingForm.companyICDPH}</p>}
               </div>
             </div>
           </>
@@ -126,19 +137,19 @@ export default function OrderSummary() {
             <IconWrapper size="sm">
               <ShieldCheck className="w-4 h-4" strokeWidth={1.5} />
             </IconWrapper>
-            <span>Bezpečná platba cez Stripe</span>
+            <span>{l.paymentSecured}</span>
           </div>
           <div className="flex items-center gap-3 text-sm text-gray-800 font-bold group">
             <IconWrapper size="sm">
               <Zap className="w-4 h-4" strokeWidth={1.5} />
             </IconWrapper>
-            <span>Rýchle doručenie (SR a ČR)</span>
+            <span>{l.fastDelivery}</span>
           </div>
           <div className="flex items-center gap-3 text-sm text-gray-800 font-bold group">
             <IconWrapper size="sm">
               <Wine className="w-4 h-4" strokeWidth={1.5} />
             </IconWrapper>
-            <span>Prémiove slovenské vína</span>
+            <span>{l.premiumWines}</span>
           </div>
         </div>
       </div>

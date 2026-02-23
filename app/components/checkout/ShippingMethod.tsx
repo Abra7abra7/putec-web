@@ -8,12 +8,19 @@ import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 
 export default function ShippingMethod() {
   const { labels } = useLocalization();
+  const l = labels.checkout;
   const { shippingMethods } = useCheckoutSettings();
   const dispatch = useAppDispatch();
   const selectedMethodId = useAppSelector((state) => state.checkout.shippingMethodId);
 
   const handleChange = (id: string) => {
     dispatch(setShippingMethod(id));
+  };
+
+  const getLocalizedName = (id: string, name: string) => {
+    if (id === "courier") return l.shippingCourier;
+    if (id === "pickup") return l.shippingPickup;
+    return name;
   };
 
   return (
@@ -37,7 +44,9 @@ export default function ShippingMethod() {
                 onChange={() => handleChange(method.id)}
                 className="accent-wine-red"
               />
-              <span className="text-sm font-medium text-foreground">{method.name}</span>
+              <span className="text-sm font-medium text-foreground">
+                {getLocalizedName(method.id, method.name)}
+              </span>
             </div>
             <span className="text-sm text-gray-700">
               {getCurrencySymbol(method.currency)}

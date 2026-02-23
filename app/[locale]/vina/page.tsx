@@ -12,17 +12,33 @@ import { getWines } from "../../utils/getProducts"; // Updated import
 import { getMediaUrl } from "../../utils/media";
 
 // Generate metadata dynamically
-export async function generateMetadata(): Promise<Metadata> {
-  const localeData = await getLocalization();
+import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.wines" });
 
   return {
-    title: `${localeData.siteName} - Vína`,
-    description: "Prémiové vína z rodinného vinárstva Putec vo Vinosadoch pri Pezinku. Biele, červené a ružové vína najvyššej kvality.",
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "https://vinoputec.sk/vina",
+      languages: {
+        "sk-SK": "/vina",
+        "en-US": "/en/vina",
+      },
+    },
   };
 }
 
-export default async function VinaPage() {
-  const [wines, googleRating] = await Promise.all([getWines(), getGoogleRating()]);
+export default async function VinaPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const [wines, googleRating, t, common] = await Promise.all([
+    getWines(locale),
+    getGoogleRating(),
+    getTranslations({ locale, namespace: "pages.wines" }),
+    getTranslations({ locale, namespace: "pages.common" }),
+  ]);
 
   const schemaProducts = wines.map((wine, index) => ({
     "@type": "ListItem",
@@ -32,43 +48,49 @@ export default async function VinaPage() {
       "name": wine.Title,
       "description": wine.ShortDescription || wine.Title,
       "image": wine.FeatureImageURL,
-      "url": `https://vinoputec.sk/vina/${wine.Slug || wine.ID}`,
+      "url": `https://vinoputec.sk/${locale === "en" ? "en/" : ""}vina/${wine.Slug || wine.ID}`,
       "offers": {
         "@type": "Offer",
         "priceCurrency": wine.Currency || "EUR",
         "price": wine.RegularPrice,
-        "availability": "https://schema.org/InStock"
-      }
-    }
+        "availability": "https://schema.org/InStock",
+      },
+    },
   }));
 
   return (
     <>
-      <Script id="ld-json-breadcrumbs-vina" type="application/ld+json"
+      <Script
+        id="ld-json-breadcrumbs-vina"
+        type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Domov", "item": "https://vinoputec.sk/" },
-              { "@type": "ListItem", "position": 2, "name": "Vína", "item": "https://vinoputec.sk/vina" }
-            ]
-          })
-        }} />
-      <Script id="ld-json-itemlist-vina" type="application/ld+json"
+              { "@type": "ListItem", "position": 1, "name": common("home"), "item": `https://vinoputec.sk/${locale === "en" ? "en" : ""}` },
+              { "@type": "ListItem", "position": 2, "name": t("title"), "item": `https://vinoputec.sk/${locale === "en" ? "en/" : ""}vina` },
+            ],
+          }),
+        }}
+      />
+      <Script
+        id="ld-json-itemlist-vina"
+        type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "itemListElement": schemaProducts
-          })
-        }} />
+            "itemListElement": schemaProducts,
+          }),
+        }}
+      />
       <AgeVerification />
       <Hero
-        title="Naše vína"
-        subtitle="Prémiové vína z rodinného vinárstva Putec"
+        title={t("title")}
+        subtitle={t("subtitle")}
         backgroundImageUrl={getMediaUrl("/vineyard-banner.webp")}
-        secondaryCta={{ label: "Zobraziť všetky", href: "#vsetky-vina" }}
+        secondaryCta={{ label: t("cta"), href: "#vsetky-vina" }}
         heightClass="h-[50vh]"
       />
       <div className="container mx-auto px-4 -mt-10">

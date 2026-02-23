@@ -26,7 +26,8 @@ export function getMediaUrl(path: string | undefined | null): string {
         const isExcluded = localExclusions.some(exclusion => cleanPath.includes(exclusion));
 
         if (!isExcluded) {
-            return `${r2Url}/${cleanPath}`;
+            // Encode URI to handle spaces and special characters
+            return `${r2Url}/${encodeURI(cleanPath)}`;
         }
     }
 

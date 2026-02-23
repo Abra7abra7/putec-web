@@ -2,19 +2,10 @@
 
 import { z } from "zod";
 import { Resend } from "resend";
+import { getTranslations } from "next-intl/server";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const fromEmail = process.env.RESEND_FROM_EMAIL || "Dopyt <onboarding@resend.dev>";
-
-// Validation schema for Inquiries
-const InquirySchema = z.object({
-    name: z.string().min(2, "Meno musí mať aspoň 2 znaky"),
-    email: z.string().email("Neplatná emailová adresa"),
-    phone: z.string().min(6, "Neplatné telefónne číslo"),
-    peopleCount: z.string().optional(),
-    date: z.string().optional(),
-    message: z.string().min(5, "Správa musí mať aspoň 5 znakov"),
-});
 
 export type InquiryState = {
     success: boolean;
@@ -36,6 +27,19 @@ export async function sendInquiry(
     prevState: InquiryState | null,
     formData: FormData
 ): Promise<InquiryState> {
+    const locale = (formData.get("locale") as string) || "sk";
+    const t = await getTranslations({ locale, namespace: "labels.inquiry" });
+
+    // Validation schema for Inquiries
+    const InquirySchema = z.object({
+        name: z.string().min(2, "Meno musí mať aspoň 2 znaky"),
+        email: z.string().email("Neplatná emailová adresa"),
+        phone: z.string().min(6, "Neplatné telefónne číslo"),
+        peopleCount: z.string().optional(),
+        date: z.string().optional(),
+        message: z.string().min(5, "Správa musí mať aspoň 5 znakov"),
+    });
+
     try {
         // Extract data
         const name = formData.get("name") as string;
@@ -50,7 +54,7 @@ export async function sendInquiry(
         if (!validationResult.success) {
             return {
                 success: false,
-                message: "Prosím, skontrolujte formulár",
+                message: t("validationError"),
                 errors: validationResult.error.flatten().fieldErrors,
             };
         }
@@ -69,7 +73,7 @@ export async function sendInquiry(
             console.error("[Inquiry] RESEND_API_KEY not configured");
             return {
                 success: false,
-                message: "Systém dopytov nie je momentálne dostupný (chýba API kľúč)",
+                message: t("errorMessage"),
             };
         }
 
@@ -79,8 +83,8 @@ export async function sendInquiry(
                 from: fromEmail,
                 to: process.env.ADMIN_EMAIL || "info@vinoputec.sk",
                 replyTo: vEmail,
-                subject: `🏨 Nový dopyt na ubytovanie/teambuilding: ${vName}`,
-                text: `Nový dopyt z webu:\n\n` +
+                subject: `🏨 Nový dopyt (${locale.toUpperCase()}): ${vName}`,
+                text: `Nový dopyt z webu (${locale}):\n\n` +
                     `Meno: ${vName}\n` +
                     `Email: ${vEmail}\n` +
                     `Telefón: ${vPhone}\n` +
@@ -94,20 +98,20 @@ export async function sendInquiry(
 
             return {
                 success: true,
-                message: "Váš dopyt bol úspešne odoslaný. Budeme Vás čoskoro kontaktovať.",
+                message: t("successMessage"),
             };
         } catch (error) {
             console.error("[Inquiry] Failed to send email:", error);
             return {
                 success: false,
-                message: "Chyba pri odosielaní dopytu. Skúste to prosím neskôr.",
+                message: t("errorMessage"),
             };
         }
     } catch (error) {
         console.error("[Inquiry] Unexpected error:", error);
         return {
             success: false,
-            message: "Neočakávaná chyba. Skúste to prosím neskôr.",
+            message: t("errorMessage"),
         };
     }
 }

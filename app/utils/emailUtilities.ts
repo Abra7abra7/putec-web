@@ -145,7 +145,11 @@ export async function sendAdminEmail(body: OrderBody, locale: string = 'sk') {
   const total = subtotal + shippingCost;
 
   const localization = await getLocalization(locale);
-  const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
+  const paymentMethodName = body.paymentMethodId === 'cod'
+    ? localization.labels.checkout.paymentCod
+    : body.paymentMethodId === 'stripe'
+      ? localization.labels.checkout.paymentStripe
+      : body.paymentMethodId;
 
   // Render React Email component to HTML
   const html = await render(
@@ -194,7 +198,11 @@ export async function sendCustomerEmail(body: OrderBody, invoiceId?: string, loc
   const total = subtotal + shippingCost;
 
   const localization = await getLocalization(locale);
-  const paymentMethodName = localization.labels[body.paymentMethodId as keyof typeof localization.labels] || body.paymentMethodId;
+  const paymentMethodName = body.paymentMethodId === 'cod'
+    ? localization.labels.checkout.paymentCod
+    : body.paymentMethodId === 'stripe'
+      ? localization.labels.checkout.paymentStripe
+      : body.paymentMethodId;
 
   // Render React Email component to HTML
   const html = await render(

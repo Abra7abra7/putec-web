@@ -9,8 +9,16 @@ import { SectionHeader } from "../business/SectionHeader";
 import { FeatureIcon } from "../business/FeatureIcon";
 import AccommodationSliderClient from "./AccommodationSliderClient";
 import { getMediaUrl } from "@/app/utils/media";
+import { useLocalization } from "../../context/LocalizationContext";
+import { usePathname } from "next/navigation";
 
 export default function AccommodationPreview() {
+  const { homepage } = useLocalization();
+
+  if (!homepage?.accommodationPreview) return null;
+
+  const { title, description, features: localizedFeatures, ctaReserve, ctaDetails } = homepage.accommodationPreview;
+
   const slides = [
     { src: getMediaUrl("galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"), alt: "Výhľad na vinohrad" },
     { src: getMediaUrl("galeria/ubytovanie/dvor-s-kostolom-x.jpg"), alt: "Dvor s kostolom" },
@@ -20,12 +28,12 @@ export default function AccommodationPreview() {
     { src: getMediaUrl("galeria/ubytovanie/kupelna-2-x.jpg"), alt: "Kúpeľňa" },
   ];
 
-  const features = [
-    { icon: <Bed className="w-5 h-5" />, label: "Komfortné izby" },
-    { icon: <Wine className="w-5 h-5" />, label: "Degustácie vína" },
-    { icon: <Sunrise className="w-5 h-5" />, label: "Krásne výhľady" },
-    { icon: <Coffee className="w-5 h-5" />, label: "Raňajky" },
-  ];
+  const icons = [<Bed className="w-5 h-5" />, <Wine className="w-5 h-5" />, <Sunrise className="w-5 h-5" />, <Coffee className="w-5 h-5" />];
+
+  const pathname = usePathname();
+  const localePrefix = pathname.startsWith('/en') ? '/en' : '';
+  const getLocalizedLink = (path: string) =>
+    path.startsWith('/en') || path.startsWith('http') ? path : `${localePrefix}${path}`;
 
   return (
     <Section>
@@ -34,17 +42,17 @@ export default function AccommodationPreview() {
           {/* Content - Text HORE na mobile, vpravo na desktop */}
           <div className="flex flex-col justify-center order-1 md:order-2">
             <SectionHeader
-              title="Ubytovanie v srdci Malých Karpát"
-              description="Prežite nezabudnuteľné chvíle v našom ubytovaní obklopenom vinohradmi a prírodou. Ideálne miesto pre relaxáciu a degustácie našich prémiových vín."
+              title={title}
+              description={description}
               showLogo
             />
 
             {/* Features */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-              {features.map((feature) => (
-                <div key={feature.label} className="flex items-center gap-3">
-                  <FeatureIcon icon={feature.icon} />
-                  <span className="text-foreground">{feature.label}</span>
+              {localizedFeatures.map((feature: string, index: number) => (
+                <div key={feature} className="flex items-center gap-3">
+                  <FeatureIcon icon={icons[index % icons.length]} />
+                  <span className="text-foreground">{feature}</span>
                 </div>
               ))}
             </div>
@@ -52,10 +60,10 @@ export default function AccommodationPreview() {
             {/* CTA Buttons */}
             <div className="flex flex-col md:flex-row gap-4">
               <Button asChild>
-                <Link href="/ubytovanie">Rezervovať ubytovanie</Link>
+                <Link href={getLocalizedLink("/ubytovanie")}>{ctaReserve}</Link>
               </Button>
               <Button asChild variant="outline">
-                <Link href="/ubytovanie">Zobraziť detaily</Link>
+                <Link href={getLocalizedLink("/ubytovanie")}>{ctaDetails}</Link>
               </Button>
             </div>
           </div>

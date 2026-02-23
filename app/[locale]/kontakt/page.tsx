@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import ContactUsForm from "../../components/ContactUsForm";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
@@ -11,37 +12,39 @@ const GoogleMaps = dynamic(() => import("../../components/GoogleMaps"), {
   ),
 });
 
-export const metadata: Metadata = {
-  title: "Kontakt | Putec Vinosady | Kontaktné údaje vinárstva",
-  description: "Kontakt na rodinné vinárstvo Putec vo Vinosadoch pri Pezinku. Adresa, telefón, email. Kontaktujte nás pre vína, ubytovanie a degustácie. Bratislava, Senec, Trnava.",
-  keywords: "kontakt, Putec, Vinosady, Pezinok, adresa, telefón, email, vinárstvo, Bratislava, Senec, Trnava",
-  openGraph: {
-    title: "Kontakt | Putec Vinosady",
-    description: "Kontaktné údaje rodinného vinárstva Putec vo Vinosadoch",
-    type: "website",
-    locale: "sk_SK",
-  },
-  alternates: {
-    canonical: "https://vinoputec.sk/kontakt",
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.contact" });
 
-export default function ContactPage() {
-    return (
-      <main>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
-          <div className="flex flex-col gap-12">
-            {/* Contact Form */}
-            <div>
-              <ContactUsForm />
-            </div>
-            
-            {/* Google Maps */}
-            <div>
-              <GoogleMaps />
-            </div>
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "https://vinoputec.sk/kontakt",
+      languages: {
+        "sk-SK": "/kontakt",
+        "en-US": "/en/kontakt",
+      },
+    },
+  };
+}
+
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+  return (
+    <main>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
+        <div className="flex flex-col gap-12">
+          {/* Contact Form */}
+          <div>
+            <ContactUsForm />
+          </div>
+
+          {/* Google Maps */}
+          <div>
+            <GoogleMaps />
           </div>
         </div>
-      </main>
-    );
-  }
+      </div>
+    </main>
+  );
+}

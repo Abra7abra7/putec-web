@@ -16,9 +16,12 @@ export default function proxy(request: NextRequest) {
     // 1. Multi-domain Routing (Feature Flag)
     // Ak pristupujeme cez subdoménu ubytovania, "podstrčíme" mu obsah sekcie ubytovanie
     if (host.includes('ubytovanie.vinoputec.sk') || host.includes('ubytovanie.localhost')) {
-        // Ak je na roote, zobrazíme mu ubytovanie v slovenčine (default)
+        // Handle both /sk and /en prefixes (or bare root which defaults to /sk)
         if (pathname === '/' || pathname === '/sk' || pathname === '/sk/') {
             return NextResponse.rewrite(new URL('/sk/ubytovanie', request.url));
+        }
+        if (pathname === '/en' || pathname === '/en/') {
+            return NextResponse.rewrite(new URL('/en/ubytovanie', request.url));
         }
     }
 

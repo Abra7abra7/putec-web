@@ -4,36 +4,41 @@ import PrevioBookingClient from "../../components/PrevioBookingClient";
 import InquiryForm from "../../components/ubytovanie/InquiryForm";
 import { Slider } from "../../components/business/Slider";
 import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Ubytovanie Vinosady | Penzión Malé Karpaty | Firemné akcie Teambuildingy | Víno Pútec",
-  description: "Ubytovanie vo vinárstve Vinosady - 15 osôb, 6 izieb s vlastnou kúpeľňou. Firemné akcie, teambuildingy, ochutnávky vína v srdci Malých Karpát. Rezervácia ubytovania Pezinok, Bratislava.",
-  keywords: "ubytovanie Vinosady, ubytovanie Malé Karpaty, penzión Vinosady, firemné akcie, teambuildingy, ochutnávky vína, ubytovanie Pezinok, ubytovanie Bratislava, ubytovanie vinárstvo, skupinové ubytovanie, catering Vinosady, degustácie vína, rodinné oslavy",
-  openGraph: {
-    title: "Ubytovanie vo vinárstve Vinosady | Firemné akcie a Teambuildingy",
-    description: "Jedinečné ubytovanie priamo vo vinárstve - 15 osôb, firemné akcie, teambuildingy, ochutnávky vína v srdci Malých Karpát",
-    type: "website",
-    locale: "sk_SK",
-    images: [
-      {
-        url: getMediaUrl("galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"),
-        width: 1200,
-        height: 630,
-        alt: "Ubytovanie vo vinárstve Vinosady - výhľad na vinohrady",
-      },
-    ],
-  },
-  alternates: {
-    canonical: "https://vinoputec.sk/ubytovanie",
-  },
-};
-
+import { getTranslations } from "next-intl/server";
 import { getMediaUrl } from "../../utils/media";
 
-export default function AccommodationPage() {
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.accommodation" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "https://vinoputec.sk/ubytovanie",
+      languages: {
+        "sk-SK": "/ubytovanie",
+        "en-US": "/en/ubytovanie",
+      },
+    },
+  };
+}
+
+export default async function AccommodationPage({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pages.accommodation" });
+
   // Slider slides - fotky z ubytovania
   const accommodationSlides = [
-    { src: getMediaUrl("galeria/ubytovanie/izba-interier-x.jpg"), alt: "Interiér ubytovania vo vinárstve Vinosady" },
+    { src: getMediaUrl("galeria/ubytovanie/izba-interier-x.jpg"), alt: t("facilities.kitchen.items.0") }, // fallback or specific alt
     { src: getMediaUrl("galeria/ubytovanie/altanok-krb-x.jpg"), alt: "Altánok s krbom" },
     { src: getMediaUrl("galeria/ubytovanie/altanok-x.jpg"), alt: "Altánok" },
     { src: getMediaUrl("galeria/ubytovanie/kuchyna-x.jpg"), alt: "Kuchyňa" },
@@ -46,11 +51,12 @@ export default function AccommodationPage() {
   return (
     <div className="min-h-screen bg-background selection:bg-accent/30">
       <Hero
-        title="Ubytovanie vo vinárstve"
-        subtitle="Jedinečné ubytovanie priamo vo vinárstve s neopakovateľnými vínnymi a gastronomickými zážitkami v srdci Malých Karpát"
+        title={t("hero.title")}
+        subtitle={t("hero.subtitle")}
         backgroundImageUrl="galeria/ubytovanie/vyhlad-na-vinohrad-x.jpg"
-        primaryCta={{ label: "Rezervovať ubytovanie", href: "#rezervacia" }}
-        secondaryCta={{ label: "Galéria", href: "/galeria/ubytovanie" }}
+        backgroundVideoUrl="Ubytovanie Video.mp4"
+        primaryCta={{ label: t("hero.cta"), href: "#rezervacia" }}
+        secondaryCta={{ label: t("hero.gallery"), href: "/galeria/ubytovanie" }}
         heightClass="h-[80vh]"
       />
 
@@ -60,16 +66,16 @@ export default function AccommodationPage() {
 
           {/* Introduction */}
           <div className="text-center mb-24 max-w-4xl mx-auto">
-            <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-4 block">Vitajte u nás</span>
+            <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-4 block">{t("welcome.badge")}</span>
             <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-10 leading-tight">
-              Ubytovanie vo vinárstve Vinosady
+              {t("welcome.title")}
             </h2>
             <p className="text-xl md:text-2xl text-foreground-muted leading-relaxed mb-8">
-              Víno Pútec ponúka jedinečné ubytovanie priamo vo vinárstve, kde spájajú pohodlie s neopakovateľnými vínnymi a gastronomickými zážitkami v srdci Malých Karpát.
+              {t("welcome.p1")}
             </p>
             <div className="w-24 h-1 bg-accent mx-auto mb-8 opacity-50"></div>
             <p className="text-lg text-foreground-muted leading-relaxed">
-              Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty s možnosťou ochutnávok vína a catering služieb.
+              {t("welcome.p2")}
             </p>
           </div>
 
@@ -83,8 +89,8 @@ export default function AccommodationPage() {
             </div>
 
             <div>
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Parametre</span>
-              <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-10">Kapacita a komfort</h3>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">{t("capacity.badge")}</span>
+              <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-10">{t("capacity.title")}</h3>
 
               <div className="space-y-8">
                 <div className="bg-white border border-gray-100 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
@@ -93,8 +99,8 @@ export default function AccommodationPage() {
                       <span className="font-bold text-2xl">15</span>
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold text-foreground">Celková kapacita</h4>
-                      <p className="text-accent text-sm font-medium">Rodinný dom pri vinárstve</p>
+                      <h4 className="text-xl font-bold text-foreground">{t("capacity.total")}</h4>
+                      <p className="text-accent text-sm font-medium">{t("capacity.sub")}</p>
                     </div>
                   </div>
 
@@ -102,15 +108,15 @@ export default function AccommodationPage() {
                     <div className="flex items-center gap-4">
                       <div className="text-3xl">🛏️</div>
                       <div>
-                        <p className="font-bold text-foreground">3 izby</p>
-                        <p className="text-xs text-foreground-muted uppercase tracking-tighter">Trojlôžkové</p>
+                        <p className="font-bold text-foreground">{t("capacity.rooms3")}</p>
+                        <p className="text-xs text-foreground-muted uppercase tracking-tighter">{t("capacity.triple")}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="text-3xl">🛏️</div>
                       <div>
-                        <p className="font-bold text-foreground">3 izby</p>
-                        <p className="text-xs text-foreground-muted uppercase tracking-tighter">Dvojlôžkové</p>
+                        <p className="font-bold text-foreground">{t("capacity.rooms2")}</p>
+                        <p className="text-xs text-foreground-muted uppercase tracking-tighter">{t("capacity.double")}</p>
                       </div>
                     </div>
                   </div>
@@ -121,13 +127,13 @@ export default function AccommodationPage() {
                     <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-4 group-hover:bg-accent transition-colors">
                       <span className="text-accent group-hover:text-white transition-colors">✓</span>
                     </div>
-                    <span className="text-foreground text-lg font-medium group-hover:text-accent transition-colors">Každá izba disponuje vlastnou kúpeľňou</span>
+                    <span className="text-foreground text-lg font-medium group-hover:text-accent transition-colors">{t("capacity.enSuite")}</span>
                   </div>
                   <div className="flex items-center group">
                     <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center mr-4 group-hover:bg-accent transition-colors">
                       <span className="text-accent group-hover:text-white transition-colors">✓</span>
                     </div>
-                    <span className="text-foreground text-lg font-medium group-hover:text-accent transition-colors">Maximálny komfort a osobný priestor</span>
+                    <span className="text-foreground text-lg font-medium group-hover:text-accent transition-colors">{t("capacity.comfortZone")}</span>
                   </div>
                 </div>
               </div>
@@ -137,8 +143,8 @@ export default function AccommodationPage() {
           {/* Equipment and Facilities */}
           <div className="mb-32">
             <div className="text-center mb-16">
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Čo ponúkame</span>
-              <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">Vybavenie a priestory</h3>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">{t("facilities.badge")}</span>
+              <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">{t("facilities.title")}</h3>
               <div className="w-20 h-1 bg-accent/30 mx-auto"></div>
             </div>
 
@@ -148,13 +154,13 @@ export default function AccommodationPage() {
                   <div className="w-20 h-20 bg-accent/10 text-accent rounded-2xl flex items-center justify-center mr-6 group-hover:bg-accent group-hover:text-white transition-all transform group-hover:rotate-6">
                     <span className="text-4xl">🍳</span>
                   </div>
-                  <h4 className="text-2xl md:text-3xl font-bold text-foreground">Spoločná Kuchyňa</h4>
+                  <h4 className="text-2xl md:text-3xl font-bold text-foreground">{t("facilities.kitchen.title")}</h4>
                 </div>
                 <div className="space-y-4">
-                  {['Plne vybavená pre všetkých hostí', 'Všetko potrebné pre gastro zážitky', 'Možnosť vlastnej prípravy jedla', 'Coworking priestor na oddych'].map((text) => (
-                    <div key={text} className="flex items-start">
+                  {[0, 1, 2, 3].map((i) => (
+                    <div key={i} className="flex items-start">
                       <span className="text-accent mr-3 mt-1 font-bold">→</span>
-                      <span className="text-foreground-muted text-lg">{text}</span>
+                      <span className="text-foreground-muted text-lg">{t(`facilities.kitchen.items.${i}`)}</span>
                     </div>
                   ))}
                 </div>
@@ -165,24 +171,24 @@ export default function AccommodationPage() {
                   <div className="w-20 h-20 bg-accent/10 text-accent rounded-2xl flex items-center justify-center mr-6 group-hover:bg-accent group-hover:text-white transition-all transform group-hover:-rotate-6">
                     <span className="text-4xl">📍</span>
                   </div>
-                  <h4 className="text-2xl md:text-3xl font-bold text-foreground">Lokácia & Okolie</h4>
+                  <h4 className="text-2xl md:text-3xl font-bold text-foreground">{t("facilities.location.title")}</h4>
                 </div>
                 <div className="space-y-4 text-lg">
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">📍</span>
-                    <span className="text-foreground-muted underline decoration-accent/30">Pezinská 154, Vinosady</span>
+                    <span className="text-foreground-muted underline decoration-accent/30">{t("facilities.location.address")}</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">🏔️</span>
-                    <span className="text-foreground-muted">V srdci Malých Karpát</span>
+                    <span className="text-foreground-muted">{t("facilities.location.region")}</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">🍇</span>
-                    <span className="text-foreground-muted">Priamo medzi vinohradmi</span>
+                    <span className="text-foreground-muted">{t("facilities.location.vineyards")}</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-accent mr-3 mt-1">🏠</span>
-                    <span className="text-foreground-muted">Autentický rodinný dom</span>
+                    <span className="text-foreground-muted">{t("facilities.location.authentic")}</span>
                   </div>
                 </div>
               </div>
@@ -192,10 +198,10 @@ export default function AccommodationPage() {
           {/* Services */}
           <div className="mb-32">
             <div className="text-center mb-16">
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Boutique Služby</span>
-              <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">Služby s ubytovaním</h3>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">{t("services.badge")}</span>
+              <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">{t("services.title")}</h3>
               <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
-                Kompletné zabezpečenie pre firemné akcie, teambuildingy a rodinné oslavy
+                {t("services.subtitle")}
               </p>
             </div>
 
@@ -206,19 +212,13 @@ export default function AccommodationPage() {
                   <div className="w-16 h-16 bg-accent/5 text-accent rounded-full flex items-center justify-center mr-5 group-hover:bg-accent group-hover:text-white transition-all">
                     <span className="text-3xl">🍽️</span>
                   </div>
-                  <h4 className="text-2xl font-bold text-foreground">Catering a stravovanie</h4>
+                  <h4 className="text-2xl font-bold text-foreground">{t("services.catering.title")}</h4>
                 </div>
                 <div className="space-y-4">
-                  {[
-                    'Raňajky dostupné pre firemné akcie a skupiny',
-                    'Catering služby pre teambuildingy',
-                    'Rodinné oslavy a špeciálne príležitosti',
-                    'Kompletné zabezpečenie menu',
-                    'Prispôsobenie podľa vašich požiadaviek'
-                  ].map((text) => (
-                    <div key={text} className="flex items-center group/item">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <div key={i} className="flex items-center group/item">
                       <span className="w-2 h-2 rounded-full bg-accent/30 mr-4 group-hover/item:scale-150 group-hover/item:bg-accent transition-all"></span>
-                      <span className="text-foreground-muted text-lg">{text}</span>
+                      <span className="text-foreground-muted text-lg">{t(`services.catering.items.${i}`)}</span>
                     </div>
                   ))}
                 </div>
@@ -230,19 +230,13 @@ export default function AccommodationPage() {
                   <div className="w-16 h-16 bg-accent/5 text-accent rounded-full flex items-center justify-center mr-5 group-hover:bg-accent group-hover:text-white transition-all">
                     <span className="text-3xl">🏢</span>
                   </div>
-                  <h4 className="text-2xl font-bold text-foreground">Firmy a teambuilding</h4>
+                  <h4 className="text-2xl font-bold text-foreground">{t("services.corporate.title")}</h4>
                 </div>
                 <div className="space-y-4">
-                  {[
-                    'Exkluzívny priestor v srdci Malých Karpát',
-                    'Kapacita až 17 osôb pre odborné degustácie',
-                    'Kombinácia vínovej kultúry s prácou',
-                    'Profesionálny prístup k organizácii',
-                    'Nezabudnuteľné zážitky v prírode'
-                  ].map((text) => (
-                    <div key={text} className="flex items-center group/item">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <div key={i} className="flex items-center group/item">
                       <span className="w-2 h-2 rounded-full bg-accent/30 mr-4 group-hover/item:scale-150 group-hover/item:bg-accent transition-all"></span>
-                      <span className="text-foreground-muted text-lg">{text}</span>
+                      <span className="text-foreground-muted text-lg">{t(`services.corporate.items.${i}`)}</span>
                     </div>
                   ))}
                 </div>
@@ -263,23 +257,23 @@ export default function AccommodationPage() {
             ></div>
             <div className="relative z-10">
               <h3 className="text-3xl md:text-5xl font-bold mb-8">
-                Rezervujte si ubytovanie vo vinárstve
+                {t("cta.title")}
               </h3>
               <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto opacity-90">
-                Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty s ochutnávkami vína
+                {t("cta.subtitle")}
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <a
                   href="#rezervacia"
                   className="bg-white text-accent hover:bg-gray-100 px-10 py-5 rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-xl"
                 >
-                  Rezervovať ubytovanie
+                  {t("cta.reserve")}
                 </a>
                 <Link
                   href="/galeria/ubytovanie"
                   className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all"
                 >
-                  Pozrieť galériu
+                  {t("cta.gallery")}
                 </Link>
               </div>
             </div>
@@ -292,9 +286,9 @@ export default function AccommodationPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Rezervácia ubytovania</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">{t("reservation.title")}</h2>
               <p className="text-lg text-foreground-muted">
-                Vyplňte formulár nižšie pre rezerváciu ubytovania vo vinárstve
+                {t("reservation.subtitle")}
               </p>
             </div>
 
@@ -308,20 +302,14 @@ export default function AccommodationPage() {
       {/* FAQ */}
       <section className="py-12 bg-background">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-foreground mb-6">Často kladené otázky (FAQ)</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-6">{t("faq.title")}</h2>
           <div className="space-y-4">
-            <details className="bg-background border border-gray-200 rounded-lg p-4">
-              <summary className="font-semibold text-foreground">Koľko osôb môžeme ubytovať?</summary>
-              <p className="text-foreground-muted mt-2">Závisí od obsadenosti – napíšte nám a preveríme dostupnosť.</p>
-            </details>
-            <details className="bg-background border border-gray-200 rounded-lg p-4">
-              <summary className="font-semibold text-foreground">Sú k dispozícii raňajky?</summary>
-              <p className="text-foreground-muted mt-2">Áno, po dohode vieme zabezpečiť raňajky aj občerstvenie.</p>
-            </details>
-            <details className="bg-background border border-gray-200 rounded-lg p-4">
-              <summary className="font-semibold text-foreground">Je možné spojiť pobyt s degustáciou?</summary>
-              <p className="text-foreground-muted mt-2">Samozrejme – odporúčame rezervovať degustáciu vopred.</p>
-            </details>
+            {[0, 1, 2].map((i) => (
+              <details key={i} className="bg-background border border-gray-200 rounded-lg p-4">
+                <summary className="font-semibold text-foreground">{t(`faq.items.${i}.q`)}</summary>
+                <p className="text-foreground-muted mt-2">{t(`faq.items.${i}.a`)}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

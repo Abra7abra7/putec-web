@@ -21,52 +21,588 @@
         "productDetails": "Detaily vína",
         "products": "Vína",
         "recentProducts": "Najnovšie vína",
-        "addToCart": "Pridať do košíka",
-        "viewProduct": "Zobraziť produkt",
+        "orderConfirmationTitle": "Potvrdenie objednávky",
+        "orderConfirmationMessage": "Vaša objednávka bola úspešne odoslaná. Oznámime vám, keď ju spracujeme.",
+        "legal": "Právne informácie",
+        "cart": "Váš košík",
+        "closeCart": "Zavrieť košík",
         "cartEmpty": "Váš košík je prázdny.",
-        "viewCart": "Zobraziť košík",
+        "upsellTitle": "Mohlo by sa vám hodiť",
         "total": "Celkom",
-        "quantity": "Množstvo",
+        "viewCart": "Zobraziť košík",
         "proceedToCheckout": "Pokračovať k objednávke",
-        "remove": "Odstrániť",
-        "unitPrice": "Jednotková cena",
-        "productTotal": "Celková cena",
-        "cartTitle": "Váš nákupný košík",
-        "orderSummary": "Súhrn objednávky",
-        "subtotal": "Medzisúčet",
-        "shipping": "Doprava",
-        "noShippingSelected": "Nie je vybrané",
+        "openMenu": "Otvoriť menu",
+        "closeMenu": "Zatvoriť menu",
+        "price": "Cena",
+        "differentBilling": "Dodacie údaje sú iné ako fakturačné",
+        "billingInformation": "Fakturačné údaje",
+        "sameAsShipping": "Rovnaké ako dodacie údaje",
+        "shippingInformation": "Dodacie údaje",
         "firstName": "Meno",
         "lastName": "Priezvisko",
-        "country": "Krajina",
-        "state": "Kraj",
         "city": "Mesto",
-        "address1": "Adresa 1",
-        "address2": "Adresa 2",
+        "address1": "Ulica a číslo domu",
+        "address2": "Apartmán, poschodie atď. (voliteľné)",
         "postalCode": "PSČ",
-        "shippingInformation": "Dodacie údaje",
-        "billingInformation": "Fakturačné údaje",
-        "shippingMethod": "Spôsob doručenia",
-        "paymentMethod": "Spôsob platby",
-        "placeOrder": "Objednať",
-        "placingOrder": "Objednávam...",
-        "checkoutValidationError": "Prosím vyplňte všetky povinné polia.",
-        "orderPlacedSuccess": "Vaša objednávka bola úspešne odoslaná!",
-        "orderFailed": "Objednávku sa nepodarilo odoslať. Skúste to znovu.",
-        "sameAsShipping": "Rovnaké ako dodacie údaje",
-        "orderConfirmationMessage": "Vaša objednávka bola úspešne odoslaná. Oznámime vám, keď ju spracujeme.",
-        "orderDetails": "Detaily objednávky",
-        "orderId": "Číslo objednávky",
-        "orderDate": "Dátum objednávky",
-        "completeBeforePayment": "Prosím vyplňte všetky dodacie a fakturačné polia pred výberom spôsobu platby.",
-        "payNow": "Zaplatiť teraz",
-        "orderConfirmationTitle": "Potvrdenie objednávky",
         "isCompany": "Nákup ako firma",
         "companyName": "Názov firmy",
         "companyICO": "IČO",
         "companyDIC": "DIČ",
         "companyICDPH": "IČ DPH",
-        "differentBilling": "Dodacie údaje sú iné ako fakturačné"
+        "orderSummary": "Súhrn objednávky",
+        "orderId": "Číslo objednávky",
+        "orderDate": "Dátum objednávky",
+        "orderDetails": "Detaily objednávky",
+        "subtotal": "Medzisúčet",
+        "shipping": "Doprava",
+        "shippingMethod": "Spôsob doručenia",
+        "paymentMethod": "Spôsob platby",
+        "accommodation": "Ubytovanie",
+        "tastings": "Degustácie",
+        "placingOrder": "Objednávam...",
+        "placeOrder": "Objednať",
+        "payNow": "Zaplatiť teraz",
+        "addToCart": "Pridať do košíka",
+        "quantity": "Množstvo",
+        "noShippingSelected": "Nie je vybrané",
+        "remove": "Odstrániť",
+        "unitPrice": "Jednotková cena",
+        "productTotal": "Celková cena",
+        "cartTitle": "Váš nákupný košík",
+        "searchTitle": "Filtrovanie a vyhľadávanie",
+        "clearFilters": "Zrušiť filtre",
+        "searchLabel": "Vyhľadať",
+        "searchPlaceholderLong": "Názov, odroda, popis...",
+        "categoryLabel": "Kategória",
+        "colorLabel": "Farba vína",
+        "allColors": "Všetky farby",
+        "whiteWine": "Biele",
+        "redWine": "Červené",
+        "roseWine": "Ružové",
+        "priceRangeLabel": "Cenové rozpätie",
+        "sortByLabel": "Zoradiť podľa",
+        "nameAZ": "Názov (A-Z)",
+        "priceLowHigh": "Cena (od najnižšej)",
+        "priceHighLow": "Cena (od najvyššej)",
+        "vintageNewest": "Ročník (najnovší)",
+        "showingWines": "Zobrazených",
+        "noWinesFound": "Žiadne vína nezodpovedajú vašim filtrom",
+        "tryChangingFilters": "Skúste zmeniť kritériá vyhľadávania",
+        "backToWines": "Späť na vína",
+        "aboutWine": "O víne",
+        "vintage": "Ročník",
+        "wineType": "Typ vína",
+        "quality": "Akostná klasifikácia",
+        "region": "Vinohradnícka oblasť",
+        "characteristics": "Charakteristika",
+        "color": "Farba",
+        "aroma": "Vôňa",
+        "taste": "Chuť",
+        "technicalData": "Technické údaje",
+        "alcoholContent": "Obsah alkoholu",
+        "residualSugar": "Zbytkový cukor",
+        "sugar": "Cukor",
+        "bottleVolume": "Objem fľaše",
+        "storageTemp": "Teplota skladovania",
+        "servingTemp": "Teplota podávania",
+        "batchNumber": "Číslo šarže",
+        "gtin": "GTIN",
+        "producer": "Výrobca",
+        "inquiry": {
+            "title": "Plánujete teambuilding alebo oslavu?",
+            "description": "Radi pre Vás pripravíme ponuku na mieru. Či už ide o firemnú akciu, rodinnú oslavu alebo súkromnú degustáciu so skupinovým ubytovaním.",
+            "capacityTitle": "Kapacita ubytovania",
+            "capacityDetail": "Až 15 osôb v 6 komfortných izbách.",
+            "tastingsTitle": "Degustácie",
+            "tastingsDetail": "Pripravíme riadenú ochutnávku našich vín.",
+            "contactUs": "Kontaktujte nás",
+            "traditionalWinery": "Tradičné vinárstvo Vinosady",
+            "nameLabel": "Meno a priezvisko",
+            "namePlaceholder": "Jozef Mrkva",
+            "emailLabel": "E-mail",
+            "emailPlaceholder": "jozef@firma.sk",
+            "phoneLabel": "Telefón",
+            "phonePlaceholder": "+421 9xx xxx xxx",
+            "peopleCountLabel": "Počet osôb (cca)",
+            "peopleCountPlaceholder": "napr. 12",
+            "dateLabel": "Predbežný termín",
+            "datePlaceholder": "napr. máj 2026",
+            "messageLabel": "Vaša predstava o akcii",
+            "messagePlaceholder": "Napíšte nám stručne, o čo máte záujem...",
+            "submitButton": "Odoslať nezáväzný dopyt",
+            "successMessage": "Váš dopyt bol úspešne odoslaný. Budeme Vás čoskoro kontaktovať.",
+            "errorMessage": "Chyba pri odosielaní dopytu. Skúste to prosím neskôr.",
+            "validationError": "Prosím, skontrolujte formulár"
+        },
+        "producedBy": "Vyrobil",
+        "bottledBy": "Plnil",
+        "countryOfOrigin": "Krajina pôvodu",
+        "additionalInfo": "Dodatočné informácie",
+        "warnings": "Upozornenia",
+        "nutritionalInfo": "Nutričné informácie",
+        "viewNutritionalInfo": "Zobraziť výživové údaje",
+        "aboutDegustation": "O degustácii",
+        "capacity": "Kapacita",
+        "duration": "Trvanie",
+        "refundableDeposit": "Vratná záloha",
+        "includedInPackage": "Zahrnuté v balíku",
+        "accommodationSection": {
+            "whatWeOffer": "Čo ponúkame",
+            "facilitiesAndSpaces": "Vybavenie a priestory"
+        },
+        "contactHeading": "Máte otázky? Napíšte nám!",
+        "contactDirectly": "Alebo nás kontaktujte priamo:",
+        "courier": "Kurier (2-3 pracovné dni)",
+        "personalPickup": "Osobne na prevádzke (Vinosady)",
+        "checkout": {
+            "fillRequiredFields": "Prosím vyplňte všetky povinné údaje vyššie predtým, ako si vyberiete spôsob platby",
+            "shippingCourier": "Kurier (2-3 pracovné dni)",
+            "shippingPickup": "Osobne na prevádzke (Vinosady)",
+            "paymentCod": "Dobierka",
+            "paymentStripe": "Stripe (Platobná karta)",
+            "fieldFirstName": "Meno",
+            "fieldLastName": "Priezvisko",
+            "fieldCountry": "Krajina",
+            "fieldCity": "Mesto",
+            "fieldAddress": "Adresa",
+            "fieldPostalCode": "PSČ",
+            "fieldEmail": "Email",
+            "fieldShippingMethod": "Spôsob dopravy",
+            "fieldBillingFirstName": "Fakturačné meno",
+            "fieldBillingLastName": "Fakturačné priezvisko",
+            "fieldBillingCountry": "Fakturačná krajina",
+            "fieldBillingCity": "Fakturačné mesto",
+            "fieldBillingAddress": "Fakturačná adresa",
+            "fieldBillingPostalCode": "Fakturačné PSČ",
+            "fieldBillingEmail": "Fakturačný email",
+            "validationRequired": "Toto pole je povinné",
+            "validationEmail": "Neplatný formát emailu",
+            "validationPSC": "Neplatné PSČ",
+            "companyDetails": "Firemné údaje",
+            "optional": "voliteľné",
+            "deliveryData": "Dodacie údaje",
+            "billingData": "Fakturačné údaje",
+            "shippingMethodName": "Spôsob dopravy",
+            "paymentSecured": "Bezpečná platba cez Stripe",
+            "fastDelivery": "Rýchle doručenie (SR a ČR)",
+            "premiumWines": "Prémiove slovenské vína"
+        },
+        "cartLabels": {
+            "backToShopping": "Späť na nákup",
+            "cartTitle": "Váš košík",
+            "emptyCart": "Váš košík je prázdny",
+            "price": "Cena",
+            "total": "Celkom",
+            "proceedToCheckout": "Pokračovať k objednávke",
+            "quantity": "Množstvo"
+        }
+    },
+    "metadata": {
+        "title": "Vino Putec - Rodinné vinárstvo Pezinok, Vinosady",
+        "description": "Rodinné vinárstvo v srdci Malokarpatskej oblasti. Ponúkame degustácie vína, ubytovanie vo Vinosadoch a predaj kvalitných odrodových vín.",
+        "keywords": "víno, vinárstvo, Pezinok, Vinosady, degustácia, ubytovanie, Malokarpatská oblasť, slovenské víno",
+        "ogTitle": "Vino Putec - Rodinné vinárstvo",
+        "ogDescription": "Tradičné rodinné vinárstvo z Vinosád. Objavte naše vína, rezervujte si degustáciu alebo ubytovanie.",
+        "twitterTitle": "Vino Putec",
+        "twitterDescription": "Rodinné vinárstvo Pezinok - Vinosady",
+        "home": {
+            "title": "Vino Putec - Rodinné vinárstvo Pezinok | Ubytovanie Vinosady | Degustácie vína",
+            "description": "Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku. Rodinné vinárstvo s tradíciou pre Bratislavu, Senec, Trnavu a okolie.",
+            "keywords": "víno, vinárstvo, Putec, Vinosady, Pezinok, ubytovanie, degustácie vína",
+            "ogTitle": "Vino Putec - Rodinné vinárstvo Vinosady",
+            "ogDescription": "Tradičné rodinné vinárstvo z Vinosád. Objavte naše vína, rezervujte degustáciu alebo ubytovanie."
+        },
+        "wines": {
+            "title": "Naše vína",
+            "description": "Prémiové vína z rodinného vinárstva Putec vo Vinosadoch pri Pezinku. Biele, červené a ružové vína najvyššej kvality."
+        },
+        "tastings": {
+            "title": "Degustácie vína",
+            "description": "Zažite nezabudnuteľnú degustáciu vína v našom rodinnom vinárstve vo Vinosadoch. Ponúkame rôzne degustačné balíčky."
+        },
+        "about": {
+            "title": "O nás",
+            "description": "Spoznajte príbeh nášho rodinného vinárstva Putec. Tradícia, vášeň a láska k vínu už po generácie."
+        },
+        "contact": {
+            "title": "Kontakt",
+            "description": "Kontaktujte nás pre rezerváciu degustácie, ubytovania alebo informácie o našich vínach."
+        },
+        "gallery": {
+            "title": "Galéria",
+            "description": "Fotogaléria nášho vinárstva, vinohradov a podujatí, ktoré organizujeme."
+        },
+        "accommodation": {
+            "title": "Ubytovanie Vinosady | Penzión Malé Karpaty",
+            "description": "Ubytovanie vo vinárstve Vinosady - 15 osôb, firemné akcie, teambuildingy v srdci Malých Karpát."
+        },
+        "privacy": {
+            "title": "Zásady ochrany osobných údajov | Vino Putec",
+            "description": "Zásady ochrany osobných údajov pre rodinné vinárstvo Putec vo Vinosadoch. Informácie o spracovaní osobných údajov podľa GDPR."
+        },
+        "terms": {
+            "title": "Obchodné podmienky | Vino Putec",
+            "description": "Obchodné podmienky pre nákup vína v e-shope rodinného vinárstva Putec vo Vinosadoch."
+        },
+        "complaints": {
+            "title": "Reklamačný poriadok | Vino Putec",
+            "description": "Reklamačný poriadok a postup pri reklamácii tovaru v rodinnom vinárstve Putec."
+        },
+        "privacyTools": {
+            "title": "Nástroje na ochranu súkromia | Vino Putec",
+            "description": "Správa vašich preferencií ochrany súkromia a nastavenia cookies."
+        }
+    },
+    "pages": {
+        "home": {
+            "hero": {
+                "title": "Víno, ktoré píše príbeh",
+                "subtitle": "Tradičné rodinné vinárstvo z Vinosád"
+            }
+        },
+        "wines": {
+            "title": "Naše vína",
+            "subtitle": "Prémiové vína z rodinného vinárstva Putec",
+            "cta": "Zobraziť všetky"
+        },
+        "tastings": {
+            "title": "Degustácie vína",
+            "subtitle": "Nezabudnuteľné zážitky s našimi prémiovými vínami v srdci Malých Karpát",
+            "breadcrumb": "Degustácie",
+            "reservation": {
+                "badge": "⚡ Rýchla rezervácia",
+                "title": "Rezervujte si degustáciu vína",
+                "subtitle": "Vyberte si degustačný balík a rezervujte termín. Odpovieme vám do 24 hodín.",
+                "cta": "Rezervovať teraz"
+            },
+            "whyUs": {
+                "title": "Prečo si vybrať naše degustácie?",
+                "awards": {
+                    "title": "Ocenené vína",
+                    "desc": "Prémiová kvalita potvrdená medzinárodnými oceneniami"
+                },
+                "guide": {
+                    "title": "Profesionálny výklad",
+                    "desc": "Odborný sprievodca s letitými skúsenosťami"
+                },
+                "catering": {
+                    "title": "Catering na mieru",
+                    "desc": "Občerstvenie prispôsobené vašim požiadavkám"
+                },
+                "capacity": {
+                    "title": "Kapacita až 17 osôb",
+                    "desc": "Ideálne pre firemné akcie, teambuildingy a skupinové pobyty"
+                },
+                "corporate": {
+                    "title": "Firemné akcie",
+                    "desc": "Profesionálne zorganizované pre firmy"
+                },
+                "teambuildings": {
+                    "title": "Teambuildingy",
+                    "desc": "Kombinácia vínovej kultúry s tímovou prácou"
+                },
+                "checkpoints": [
+                    "Profesionálny sprievodca degustáciou",
+                    "Catering služby a občerstvenie",
+                    "Degustačná miestnosť priamo vo vinárstve"
+                ]
+            },
+            "intro": {
+                "title": "Degustácie vína vo Vinosadoch",
+                "p1": "Ponúkame jedinečné degustácie vína priamo vo vinárstve, kde spájame tradíciu s modernými technológiami. Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty.",
+                "p2": "Naša degustačná miestnosť má kapacitu až 17 osôb a ponúka kompletný zážitok s ochutnávkami vína, catering službami a profesionálnym sprievodcom."
+            },
+            "services": {
+                "title": "Služby a vybavenie",
+                "subtitle": "Kompletné zabezpečenie pre nezabudnuteľné degustačné zážitky",
+                "catering": {
+                    "title": "Catering a občerstvenie",
+                    "items": [
+                        "Profesionálne pripravené občerstvenie k vínu",
+                        "Miestne produkty a špeciality",
+                        "Prispôsobenie podľa požiadaviek klientov",
+                        "Kompletné zabezpečenie stravovania"
+                    ]
+                },
+                "guide": {
+                    "title": "Profesionálny sprievodca",
+                    "items": [
+                        "Odborné vedenie degustácie",
+                        "Vysvetlenie techniky degustácie",
+                        "História a tradície vinárstva",
+                        "Odpovede na otázky o víne"
+                    ]
+                }
+            },
+            "cta": {
+                "title": "Máte záujem o degustáciu?",
+                "subtitle": "Ideálne pre firemné akcie, teambuildingy, rodinné oslavy a skupinové pobyty s ochutnávkami vína",
+                "back": "Späť na rezerváciu",
+                "gallery": "Pozrieť galériu"
+            },
+            "faq": {
+                "title": "Často kladené otázky (FAQ)",
+                "q1": "Koľko ľudí môžeme priniesť?",
+                "a1": "Od 2 do približne 17 osôb podľa balíka a priestorov.",
+                "q2": "Je možné zabezpečiť občerstvenie?",
+                "a2": "Áno, zabezpečíme studenú misu či catering podľa dohody.",
+                "q3": "Kde sa nachádzame?",
+                "a3": "Pezinská 154, 902 01 Vinosady – pár minút od Pezinku."
+            },
+            "loading": "Načítavam degustácie...",
+            "packages": {
+                "title": "Naše degustačné balíky",
+                "subtitle": "Vyberte si z našich špeciálne pripravených degustačných balíkov, ktoré sú navrhnuté pre rôzne veľkosti skupín a príležitosti.",
+                "includedLabel": "Zahrnuté v balíku",
+                "depositLabel": "Vratná záloha",
+                "reserveButton": "Rezervovať"
+            }
+        },
+        "about": {
+            "title": "Rodinné vinárstvo Putec Vinosady | O nás",
+            "subtitle": "Rodinné vinárstvo s tradíciou už niekoľko generácií vo Vinosadoch na úpätí Malých Karpát",
+            "breadcrumb": "O nás",
+            "intro": {
+                "title": "Víno Pútec - Tradícia a kvalita",
+                "p1": "Víno Pútec je malé rodinné vinárstvo vo Vinosadoch na úpätí Malých Karpát. Výrobe vín sa s láskou venujeme už niekoľko generácií a sme hrdí na svetové úspechy našich vín.",
+                "p2": "Sme malé rodinné vinárstvo vo Vinosadoch – naša rodina sa výrobe vína venuje už niekoľko generácií. Žijeme vínom a chceme vám priniesť skvelý pôžitok z tohto unikátneho umenia, ktorým víno je."
+            },
+            "history": {
+                "title": "História a založenie",
+                "p1": "Vinárstvo Branislav Pútec – Natali bolo oficiálne založené v roku 2012, avšak rodinná tradícia siaha oveľa ďalerio do minulosti. Rodina sa výrobe vína venuje už niekoľko generácií, pričom pestovanie hrozna a výroba vína je hlboko zakorenená v rodinnej tradícii.",
+                "p2": "Po nadobudnutí skúseností pri pestovaní hrozna a výrobe vína sme založili vinárstvo. Po šetrnom spracovaní hrozna mušty prechádzajú riadeným spôsobom fermentácie. Vyrábame vína, ktoré dozrievajú v kvalitných francúzskych drevených sudoch a nerezových cisternách.",
+                "p3": "Víno tak získava špecifickú arómu a chuť. Modernizáciou technologických zariadení a ekologickými postupmi vyrábame kvalitné víno."
+            },
+            "philosophy": {
+                "title": "Rodinná filozofia a hodnoty",
+                "subtitle": "O víno sa staráme ako o ďalšieho člena rodiny, spájame rodinné postupy s modernými technológiami, čím tvoríme kvalitné, remeselné víno, na ktoré sme hrdí.",
+                "item1": {
+                    "title": "\"Žijeme vínom\"",
+                    "desc": "Víno je pre rodinu nielen profesiou, ale spôsobom života"
+                },
+                "item2": {
+                    "title": "Rodinný prístup",
+                    "desc": "Osobný, láskavý prístup k výrobe vína"
+                },
+                "item3": {
+                    "title": "Moderné technológie",
+                    "desc": "Kombinujeme rodinné postupy s modernými technológiami"
+                },
+                "item4": {
+                    "title": "Remeselné víno",
+                    "desc": "Vytvárajú kvalitné, remeselné víno, na ktoré sú hrdí"
+                }
+            },
+            "technology": {
+                "title": "Technológie a výrobné postupy",
+                "subtitle": "Moderné zariadenia a postupy zaručujú najvyššiu kvalitu našich vín",
+                "cta": "Ubytovanie Vinosady",
+                "items": [
+                    {
+                        "title": "Najmodernejšia technológia",
+                        "desc": "Používame najmodernejšiu vinohradnícku technológiu pre optimálnu kvalitu"
+                    },
+                    {
+                        "title": "Šetrné spracovanie",
+                        "desc": "Šetrné spracovanie hrozna s dôrazom na zachovanie kvality"
+                    },
+                    {
+                        "title": "Riadená fermentácia",
+                        "desc": "Kontrolovaný proces fermentácie pre konzistentnú kvalitu"
+                    },
+                    {
+                        "title": "Francúzske sudy",
+                        "desc": "Kvalitné francúzske drevené sudy pre dozrievanie vín"
+                    },
+                    {
+                        "title": "Nerezové cisterny",
+                        "desc": "Nerezové cisterny pre optimálne uskladnenie"
+                    },
+                    {
+                        "title": "Enologické postupy",
+                        "desc": "Profesionálne enologické postupy aplikované pri výrobe"
+                    }
+                ]
+            },
+            "vision": {
+                "title": "Vízia a misia",
+                "subtitle": "Našimi produktmi a aktivitami chceme ochrániť budúcnosť vinohradov a prilákať nových turistov do Malých Karpát",
+                "items": [
+                    {
+                        "title": "Ochrániť budúcnosť vinohradov",
+                        "desc": "Vinohrady sú neustále zmršťované, my ich chceme zachovať pre budúce generácie"
+                    },
+                    {
+                        "title": "Prilákať turistov do Malých Karpát",
+                        "desc": "Chceme prilákať nových turistov do krásneho prostredia Malých Karpát"
+                    },
+                    {
+                        "title": "Priniesť zážitok zo skvelého vína",
+                        "desc": "Chceme vám priniesť nezabudnuteľný zážitok z kvalitného vína"
+                    },
+                    {
+                        "title": "Zachovať vinohradnícku tradíciu",
+                        "desc": "Tradícia, ktorá formuje región už tisícročia, musí pokračovať"
+                    },
+                    {
+                        "title": "Zvýrazniť Slovensko na svetovej mape",
+                        "desc": "Prostredníctvom kvalitných vín chceme reprezentovať Slovensko vo svete"
+                    },
+                    {
+                        "title": "Podporovať malých slovenských vinárov",
+                        "desc": "Ďakujeme všetkým partnerom, ktorí podporujú malých slovenských vinárov"
+                    }
+                ],
+                "partners": {
+                    "title": "Ďakujeme našim partnerom",
+                    "p": "Všetkým našim partnerom a podnikom, ktoré ponúkajú naše vína srdečne ďakujeme za to, že sa rozhodli podporovať malých slovenských vinárov."
+                }
+            },
+            "family": {
+                "title": "Naša rodina",
+                "subtitle": "Pozrite si fotky našej rodiny, ktorá už generácie buduje tradíciu vo vinohradníctve",
+                "card1": {
+                    "title": "Naša rodina",
+                    "desc": "Tradícia a vášeň pre víno"
+                },
+                "card2": {
+                    "title": "Rodinná tradícia",
+                    "desc": "Dedičstvo a láska k vinohradníctvu"
+                }
+            },
+            "imagePath": "/o-nas/rodina1.JPG",
+            "content": "Putec s.r.o. je rodinné vinárstvo s dlhoročnou tradíciou vo Vinosadoch pri Pezinku, ktoré sa špecializuje na výrobu prémiových vín a ponúka ubytovanie a degustácie vína.\n\nNaša história sa začala s láskou k vinohradníctvu a túžbou vytvoriť niečo jedinečné. Dnes sme známi svojím starostlivým prístupom k výrobe vína a osobným vzťahom k zákazníkom z Bratislavy, Senca, Trnavy a celého regiónu.\n\nVeríme v silu tradície, hodnotu kvalitných surovín a radosť z delenia sa o skvelé vína s komunitou. Každá fľaša vína je vybraná s láskou - a každý zákazník sa stáva súčasťou našej rozšírenej rodiny. Ponúkame ubytovanie a degustácie vína v krásnom prostredí Vinosád."
+        },
+        "contact": {
+            "title": "Kontaktujte nás",
+            "subtitle": "Sme tu pre vás",
+            "breadcrumb": "Kontakt"
+        },
+        "gallery": {
+            "title": "Fotogaléria",
+            "subtitle": "Nahliadnite do života nášho vinárstva",
+            "breadcrumb": "Galéria",
+            "categories": {
+                "degustacie": {
+                    "title": "Degustácie",
+                    "desc": "Ochutnajte naše prémiové vína"
+                },
+                "ubytovanie": {
+                    "title": "Ubytovanie",
+                    "desc": "Pohodlie v srdci viníc"
+                },
+                "rodina": {
+                    "title": "Rodina",
+                    "desc": "Rodinná tradícia"
+                }
+            },
+            "back": "Späť na galériu",
+            "notFound": "Galéria sa nenašla",
+            "noImages": "Žiadne fotografie v tejto kategórii.",
+            "titleDetail": "Galéria – {category}"
+        },
+        "common": {
+            "home": "Domov",
+            "backToHome": "Späť na domov"
+        },
+        "accommodation": {
+            "hero": {
+                "title": "Ubytovanie vo vinárstve",
+                "subtitle": "Autentický pobyt v srdci Malých Karpát — pre rodiny, firemné akcie aj teambuildingy",
+                "cta": "Rezervovať pobyt",
+                "gallery": "Zobraziť galériu"
+            },
+            "welcome": {
+                "badge": "Vitajte",
+                "title": "Váš domov vo Vinosadoch",
+                "p1": "Prenajmite si celú vilu uprostred viníc a vychutnajte si súkromný pobyt so všetkým pohodlím.",
+                "p2": "Ideálne pre firemné teambuildingy, rodinné oslavy, svadobné víkendy alebo len pokojný oddych v prírode."
+            },
+            "capacity": {
+                "badge": "Kapacita",
+                "title": "Priestor pre vás a vašich hostí",
+                "total": "Kapacita až 15 osôb",
+                "sub": "Celková ubytovacia kapacita",
+                "rooms3": "2× trojlôžková izba",
+                "rooms2": "3× dvojlôžková izba",
+                "triple": "Trojlôžková izba",
+                "double": "Dvojlôžková izba",
+                "enSuite": "Každá izba s vlastnou kúpeľňou",
+                "comfortZone": "Plne vybavené pre pohodlný pobyt"
+            },
+            "facilities": {
+                "badge": "Vybavenie",
+                "title": "Komfort, ktorý si zamilujete",
+                "kitchen": {
+                    "title": "Kuchyňa a jedáleň",
+                    "items": [
+                        "Plne vybavená kuchyňa",
+                        "Veľká jedáleň pre všetkých hostí",
+                        "Gril a záhradný nábytok",
+                        "Chladnička, rúra, práčka"
+                    ]
+                },
+                "location": {
+                    "title": "Poloha",
+                    "address": "Pezinská 154, 902 01 Vinosady",
+                    "region": "Srdce malokarpatského vinárskeho regiónu",
+                    "vineyards": "Priamo medzi vinicami Putec",
+                    "authentic": "Autentické vidiecke prostredie"
+                }
+            },
+            "services": {
+                "badge": "Služby",
+                "title": "Čo pre vás pripravíme",
+                "subtitle": "Okrem ubytovania vieme zariadiť kompletný program vášho pobytu.",
+                "catering": {
+                    "title": "Stravovanie a catering",
+                    "items": [
+                        "Raňajky alebo polpenzie na požiadanie",
+                        "Catering pre firemné akcie",
+                        "Grilové večery s miestnymi produktmi",
+                        "Degustačné večere s vínami Putec",
+                        "Tematické stolovanie"
+                    ]
+                },
+                "corporate": {
+                    "title": "Firemné akcie",
+                    "items": [
+                        "Teambuildingy a workshopy",
+                        "Priestor na konferencie",
+                        "Svadobné víkendy",
+                        "Oslavy a súkromné akcie",
+                        "Vinárske degustácie pre firemných klientov"
+                    ]
+                }
+            },
+            "cta": {
+                "title": "Rezervujte si pobyt",
+                "subtitle": "Napíšte nám alebo overte dostupnosť priamo online.",
+                "reserve": "Rezervovať teraz",
+                "gallery": "Galéria ubytovania"
+            },
+            "reservation": {
+                "title": "Online rezervácia",
+                "subtitle": "Overte dostupnosť a zarezervujte priamo cez náš rezervačný systém."
+            },
+            "faq": {
+                "title": "Časté otázky",
+                "items": [
+                    {
+                        "q": "Je možné prenajať celú vilu?",
+                        "a": "Áno, celá vila je k dispozícii na exkluzívny prenájom pre skupiny do 15 osôb."
+                    },
+                    {
+                        "q": "Sú povolené spoločenské akcie?",
+                        "a": "Áno, organizujeme firemné teambuildingy, rodinné oslavy a svadobné víkendy."
+                    },
+                    {
+                        "q": "Aká je minimálna dĺžka pobytu?",
+                        "a": "Minimálny pobyt sú 2 noci. Pre firemné akcie odporúčame kontaktovať nás priamo."
+                    }
+                ]
+            }
+        }
     },
     "menu": [
         {
@@ -183,17 +719,11 @@
     ],
     "homepage": {
         "banner": {
-            "title": "Rodinné vinárstvo Putec Pezinok | Ubytovanie Vinosady | Degustácie vína",
-            "subtitle": "Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku. Rodinné vinárstvo s tradíciou pre Bratislavu, Senec, Trnavu a okolie.",
+            "title": "Rodinné vinárstvo Putec",
+            "subtitle": "Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku",
             "buttonText": "Pozrite naše vína",
             "imagePath": "/vineyard-banner.webp",
             "ctaLink": "/vina"
-        },
-        "brandStory": {
-            "title": "Rodinné vinárstvo Putec - Tradícia vo Vinosadoch",
-            "description": "Putec s.r.o. je rodinné vinárstvo s dlhoročnou tradíciou vo Vinosadoch pri Pezinku. Naše prémiové vína sú výsledkom starostlivého prístupu k vinohradníctvu a lásky k vínu. Každá fľaša nesie v sebe jedinečnú chuť našej krajiny a rodinnej tradície. Ponúkame ubytovanie a degustácie vína pre návštevníkov z Bratislavy, Senca, Trnavy a celého regiónu.",
-            "buttonText": "Dozvedieť sa viac",
-            "ctaLink": "/o-nas"
         },
         "testimonialsTitle": "Čo hovoria naši zákazníci",
         "testimonials": [
@@ -247,12 +777,359 @@
                 "name": "Dessert vína",
                 "logo": "/brands/brand5.svg"
             }
-        ]
-    },
-    "about": {
-        "title": "Rodinné vinárstvo Putec Vinosady | O nás",
-        "imagePath": "/o-nas/rodina1.JPG",
-        "content": "Putec s.r.o. je rodinné vinárstvo s dlhoročnou tradíciou vo Vinosadoch pri Pezinku, ktoré sa špecializuje na výrobu prémiových vín a ponúka ubytovanie a degustácie vína.\n\nNaša história sa začala s láskou k vinohradníctvu a túžbou vytvoriť niečo jedinečné. Dnes sme známi svojím starostlivým prístupom k výrobe vína a osobným vzťahom k zákazníkom z Bratislavy, Senca, Trnavy a celého regiónu.\n\nVeríme v silu tradície, hodnotu kvalitných surovín a radosť z delenia sa o skvelé vína s komunitou. Každá fľaša vína je vybraná s láskou - a každý zákazník sa stáva súčasťou našej rozšírenej rodiny. Ponúkame ubytovanie a degustácie vína v krásnom prostredí Vinosád."
+        ],
+        "achievements": {
+            "title": "Naše úspechy a ocenenia",
+            "description": "Naša vášeň pre vinárstvo ocenená na medzinárodných súťažiach.",
+            "tabs": {
+                "diplomy": "Diplomy",
+                "ocenenia": "Ocenenia"
+            },
+            "diplomy": [
+                {
+                    "id": 1,
+                    "title": "Zlatá medaila Paris Vinalies 2025",
+                    "subtitle": "Cabernet Sauvignon Rosé 2024",
+                    "image": "/uspechy/diplomy/vi-2025-cabernet-rose.jpg"
+                },
+                {
+                    "id": 2,
+                    "title": "Zlatá medaila Paris Vinalies 2024",
+                    "subtitle": "Chardonnay 2023",
+                    "image": "/uspechy/diplomy/vi-2024-chardonnay.jpg"
+                },
+                {
+                    "id": 3,
+                    "title": "Linčanský džbánek zlatá medaila 2024",
+                    "subtitle": "Cabernet Sauvignon 2018",
+                    "image": "/uspechy/diplomy/lincansky-dzbanek-2024.jpg"
+                },
+                {
+                    "id": 4,
+                    "title": "Strieborná medaila Paris Vinalies 2020",
+                    "subtitle": "Muller Thurgau 2019",
+                    "image": "/uspechy/diplomy/vi-2020-muller.jpg"
+                },
+                {
+                    "id": 5,
+                    "title": "Strieborná medaila Paris Vinalies 2020",
+                    "subtitle": "Rizling Vlašský 2019",
+                    "image": "/uspechy/diplomy/vi-2020-rizling.jpg"
+                },
+                {
+                    "id": 6,
+                    "title": "Zlatá medaila Paris Vinalies 2018",
+                    "subtitle": "Tramín Červený 2018",
+                    "image": "/uspechy/diplomy/vi-2018-tramin.jpg"
+                },
+                {
+                    "id": 7,
+                    "title": "Strieborná medaila Paris Vinalies 2018",
+                    "subtitle": "Muller Thurgau 2017",
+                    "image": "/uspechy/diplomy/vi-2018-muller.jpg"
+                },
+                {
+                    "id": 8,
+                    "title": "Strieborná medaila Paris Vinalies 2017",
+                    "subtitle": "Rizling Vlašský 2016",
+                    "image": "/uspechy/diplomy/vi-2017-rizling-vlassky.jpg"
+                }
+            ],
+            "ocenenia": [
+                {
+                    "id": 1,
+                    "title": "Ocenenie 2025",
+                    "subtitle": "Víno Inak",
+                    "image": "/uspechy/ocenenia/VI-2025_page-0001.jpg"
+                },
+                {
+                    "id": 2,
+                    "title": "Ocenenie 2024",
+                    "subtitle": "Víno Inak",
+                    "image": "/uspechy/ocenenia/VI-2024_page-0001.jpg"
+                },
+                {
+                    "id": 3,
+                    "title": "Ocenenie 2020",
+                    "subtitle": "Víno Inak",
+                    "image": "/uspechy/ocenenia/VI-2020_page-0001.jpg"
+                }
+            ],
+            "showMore": "Zobraziť všetky",
+            "showLess": "Zobraziť menej",
+            "ctaText": "Chcete sa dozvedieť viac o našich vínoch?",
+            "ctaWines": "Pozrieť naše vína",
+            "ctaReserve": "Rezervovať degustáciu"
+        },
+        "degustaciePreview": {
+            "title": "Degustácie vína",
+            "description": "Objavte svet našich prémiových vín prostredníctvom nezabudnuteľných degustačných zážitkov. Vyberte si z našich špeciálne pripravených balíkov pre rôzne veľkosti skupín.",
+            "whatToExpect": "Čo vás čaká:",
+            "features": [
+                "Ochutnávka prémiových vín",
+                "Vedúci degustácie",
+                "Prehliadka vinárstva",
+                "Studená misa"
+            ],
+            "ctaReserve": "Rezervovať degustáciu",
+            "ctaViewAll": "Zobraziť všetky balíky"
+        },
+        "accommodationPreview": {
+            "title": "Ubytovanie v srdci Malých Karpát",
+            "description": "Prežite nezabudnuteľné chvíle v našom ubytovaní obklopenom vinohradmi a prírodou. Ideálne miesto pre relaxáciu a degustácie našich prémiových vín.",
+            "features": [
+                "Komfortné izby",
+                "Degustácie vína",
+                "Krásne výhľady",
+                "Raňajky"
+            ],
+            "ctaReserve": "Rezervovať ubytovanie",
+            "ctaDetails": "Zobraziť detaily"
+        },
+        "brandStory": {
+            "title": "Víno Pútec",
+            "subtitle": "Tradícia a kvalita vína",
+            "p1": "Víno Pútec je malé rodinné vinárstvo vo Vinosadoch na úpätí Malých Karpát. Výrobe vín sa s láskou venujeme už niekoľko generácií a sme hrdí na svetové úspechy našich vín.",
+            "p2": "Sme malé rodinné vinárstvo vo Vinosadoch – naša rodina sa výrobe vína venuje už niekoľko generácií. Žijeme vínom a chceme vám priniesť skvelý pôžitok z tohto unikátneho umenia, ktorým víno je.",
+            "keyFeatures": [
+                {
+                    "title": "\"Žijeme vínom\"",
+                    "description": "Víno je pre rodinu spôsobom života"
+                },
+                {
+                    "title": "Moderné technológie",
+                    "description": "Kombinujeme tradíciu s inováciami"
+                },
+                {
+                    "title": "Remeselné víno",
+                    "description": "Kvalitné víno, na ktoré sme hrdí"
+                },
+                {
+                    "title": "Francúzske sudy",
+                    "description": "Dozrievanie v kvalitných sudoch"
+                }
+            ],
+            "stat1Value": "2012",
+            "stat1Label": "Založenie vinárstva",
+            "stat2Value": "Generácie",
+            "stat2Label": "Rodinná tradícia",
+            "ctaLearnMore": "Dozvedieť sa viac",
+            "ctaOurWines": "Naše vína"
+        },
+        "accommodation": {
+            "hero": {
+                "title": "Ubytovanie vo vinárstve",
+                "subtitle": "Autentický pobyt v srdci Malých Karpát — pre rodiny, firemné akcie aj teambuildingy",
+                "cta": "Rezervovať pobyt",
+                "gallery": "Zobraziť galériu"
+            },
+            "welcome": {
+                "badge": "Vitajte",
+                "title": "Váš domov vo Vinosadoch",
+                "p1": "Prenajmite si celú vilu uprostred viníc a vychutnajte si súkromný pobyt so všetkým pohodlím.",
+                "p2": "Ideálne pre firemné teambuildingy, rodinné oslavy, svadobné víkendy alebo len pokojný oddych v prírode."
+            },
+            "capacity": {
+                "badge": "Kapacita",
+                "title": "Priestor pre vás a vašich hostí",
+                "total": "Kapacita do 15 osôb",
+                "sub": "Celková kapacita ubytovne",
+                "rooms3": "2× trojlôžková izba",
+                "rooms2": "3× dvojlôžková izba",
+                "triple": "Trojlôžková",
+                "double": "Dvojlôžková",
+                "enSuite": "Každá izba s vlastnou kúpeľňou",
+                "comfortZone": "Plné vybavenie pre pohodlný pobyt"
+            },
+            "facilities": {
+                "badge": "Čo ponúkame",
+                "title": "Vybavenie a priestory",
+                "kitchen": {
+                    "title": "Kuchyňa a jedáleň",
+                    "items": [
+                        "Plne vybavená kuchyňa",
+                        "Veľká jedáleň pre všetkých hostí",
+                        "Grilovisko a záhradné vybavenie",
+                        "Chladnička, rúra, práčka"
+                    ]
+                },
+                "location": {
+                    "title": "Poloha",
+                    "address": "Pezinská 154, 902 01 Vinosady",
+                    "region": "Srdce Malokarpatskej vinárskej oblasti",
+                    "vineyards": "Priamo medzi vinicami Putec",
+                    "authentic": "Autentické vidiecke prostredie"
+                }
+            },
+            "services": {
+                "badge": "Služby",
+                "title": "Čo pre vás pripravíme",
+                "subtitle": "Okrem ubytovania vám vieme zabezpečiť komplexný program pre váš pobyt.",
+                "catering": {
+                    "title": "Catering a stravovanie",
+                    "items": [
+                        "Raňajky alebo polpenzia na vyžiadanie",
+                        "Catering pre firemné podujatia",
+                        "Grilovacie večery s lokálnymi produktmi",
+                        "Degustačné večere s vínami Putec",
+                        "Príprava tematických stolov"
+                    ]
+                },
+                "corporate": {
+                    "title": "Firemné podujatia",
+                    "items": [
+                        "Teambuildingy a workshopy",
+                        "Konferenčné priestory",
+                        "Svadobné víkendy",
+                        "Oslavy a súkromné akcie",
+                        "Degustácie vína pre firemných klientov"
+                    ]
+                }
+            },
+            "cta": {
+                "title": "Rezervujte si termín",
+                "subtitle": "Napíšte nám alebo si overte voľné termíny priamo online.",
+                "reserve": "Rezervovať pobyt",
+                "gallery": "Galéria ubytovania"
+            },
+            "reservation": {
+                "title": "Online rezervácia",
+                "subtitle": "Skontrolujte dostupnosť a rezervujte priamo cez náš rezervačný systém."
+            },
+            "faq": {
+                "title": "Časté otázky",
+                "items": [
+                    {
+                        "q": "Je možny prenaj celej vily?",
+                        "a": "Áno, celá vila je k dispozícii na exkluzívny prenájom pre skupiny do 15 osôb."
+                    },
+                    {
+                        "q": "Sú povolené spoločenské akcie?",
+                        "a": "Áno, organizujeme firemné teambuildingy, rodinné oslavy aj svadobné víkendy."
+                    },
+                    {
+                        "q": "Aká je minimálna dĺžka pobytu?",
+                        "a": "Minimálna dĺžka pobytu sú 2 noci. Pre firemné akcie odporúčame kontaktovať nás priamo."
+                    }
+                ]
+            }
+        },
+        "about": {
+            "title": "O nás",
+            "subtitle": "Rodinné vinárstvo s tradíciou",
+            "breadcrumb": "Zoznámte sa s nami",
+            "intro": {
+                "title": "Naša história a vízia",
+                "p1": "Sme rodinné vinárstvo z Vinosád.",
+                "p2": "Každá fľaša nesie príbeh vášne pre víno."
+            },
+            "history": {
+                "title": "Naša história",
+                "p1": "Putec má korene v Malokarpatskej oblasti.",
+                "p2": "Tradícia sa prenáša z generácie na generáciu.",
+                "p3": "Dnes ponúkame vína, degustácie aj ubytovanie."
+            },
+            "philosophy": {
+                "title": "Naša filozofia",
+                "subtitle": "Štyri piliere nášho vinárstva",
+                "item1": {
+                    "title": "Vášeň",
+                    "desc": "Víno robíme so srdcom."
+                },
+                "item2": {
+                    "title": "Rodina",
+                    "desc": "Rodinné hodnoty sú základom."
+                },
+                "item3": {
+                    "title": "Remeslo",
+                    "desc": "Kvalita bez kompromisov."
+                },
+                "item4": {
+                    "title": "Excelentnosť",
+                    "desc": "Neustále sa zlepšujeme."
+                }
+            },
+            "technology": {
+                "title": "Moderné vinárstvo",
+                "subtitle": "Tradičné metódy aj moderná technológia.",
+                "items": [
+                    {
+                        "title": "Výber hrozna",
+                        "desc": "Ručný zber v optimálnom čase."
+                    },
+                    {
+                        "title": "Spracovanie",
+                        "desc": "Šetrné lisovanie."
+                    },
+                    {
+                        "title": "Kvasenie",
+                        "desc": "Kontrolované podmienky."
+                    },
+                    {
+                        "title": "Zrenie",
+                        "desc": "V odkalitroch alebo dubových sudoch."
+                    },
+                    {
+                        "title": "Fľašovanie",
+                        "desc": "Minimálny záhyb kyslíka."
+                    },
+                    {
+                        "title": "Kontrola kvality",
+                        "desc": "Dôkladná senzorická analýza."
+                    }
+                ]
+            },
+            "vision": {
+                "title": "Vízia a poslanie",
+                "subtitle": "Ambasádori slovenského vína.",
+                "items": [
+                    {
+                        "title": "Udržateľnosť",
+                        "desc": "Šetrné hospodárenie s prírodou."
+                    },
+                    {
+                        "title": "Terroir",
+                        "desc": "Charakter Malých Karpát v každom dúšku."
+                    },
+                    {
+                        "title": "Vínová kultúra",
+                        "desc": "Šírenie radosti z vína."
+                    },
+                    {
+                        "title": "Tradícia",
+                        "desc": "Zachovanie receptúr pre ďalšie generácie."
+                    },
+                    {
+                        "title": "Svetový dosah",
+                        "desc": "Slovenské víno svetu."
+                    },
+                    {
+                        "title": "Partnerstvá",
+                        "desc": "Spolupráca s reštauráciami a hotelmi."
+                    }
+                ],
+                "partners": {
+                    "title": "Ďakujeme vám",
+                    "p": "Naši zákazníci sú zdrojom našej motivácie."
+                }
+            },
+            "family": {
+                "title": "Naša rodina",
+                "subtitle": "Tím ľudí, ktorí milujú víno.",
+                "card1": {
+                    "title": "Rodina Putec",
+                    "desc": "Tri generácie vinárskej tradície"
+                },
+                "card2": {
+                    "title": "Vinohrady",
+                    "desc": "Srdce nášho vinárstva"
+                }
+            }
+        },
+        "contact": {
+            "title": "Kontakt",
+            "subtitle": "Sme tu pre vás"
+        }
     },
     "contactForm": {
         "title": "Kontaktujte nás",

@@ -5,6 +5,7 @@ import { Product } from "../../../types/Product";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
+import { useLocalization } from "../../context/LocalizationContext";
 
 interface WineFiltersProps {
   wines: Product[];
@@ -12,6 +13,7 @@ interface WineFiltersProps {
 }
 
 export default function WineFilters({ wines, onFilterChange }: WineFiltersProps) {
+  const { labels } = useLocalization();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedColor, setSelectedColor] = useState<string>("all");
@@ -29,12 +31,12 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
 
   const wineColors = useMemo(() => {
     // Mapovanie kategórií na jednoduché názvy farieb
-    const colorMap: {[key: string]: string} = {
-      "Biele vína": "Biele",
-      "Červené vína": "Červené",
-      "Ružové vína": "Ružové"
+    const colorMap: { [key: string]: string } = {
+      "Biele vína": labels.whiteWine || "Biele",
+      "Červené vína": labels.redWine || "Červené",
+      "Ružové vína": labels.roseWine || "Ružové"
     };
-    
+
     const colors = new Set<string>();
     wines.forEach(wine => {
       wine.ProductCategories?.forEach(cat => {
@@ -42,7 +44,7 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
       });
     });
     return Array.from(colors).sort();
-  }, [wines]);
+  }, [wines, labels]);
 
   // Max price for range slider
   const maxPrice = useMemo(() => {
@@ -54,24 +56,24 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
     const filtered = wines.filter(wine => {
       // Search filter
       const matchesSearch = wine.Title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           wine.ShortDescription?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           wine.WineDetails?.wineType?.toLowerCase().includes(searchTerm.toLowerCase());
-      
+        wine.ShortDescription?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        wine.WineDetails?.wineType?.toLowerCase().includes(searchTerm.toLowerCase());
+
       // Category filter
-      const matchesCategory = selectedCategory === "all" || 
-                              wine.ProductCategories?.includes(selectedCategory);
-      
+      const matchesCategory = selectedCategory === "all" ||
+        wine.ProductCategories?.includes(selectedCategory);
+
       // Color filter - hľadáme podľa kategórie vína
       const matchesColor = selectedColor === "all" || (() => {
-        const colorMap: {[key: string]: string} = {
-          "Biele": "Biele vína",
-          "Červené": "Červené vína",
-          "Ružové": "Ružové vína"
+        const colorMap: { [key: string]: string } = {
+          [labels.whiteWine || "Biele"]: "Biele vína",
+          [labels.redWine || "Červené"]: "Červené vína",
+          [labels.roseWine || "Ružové"]: "Ružové vína"
         };
         const categoryToMatch = colorMap[selectedColor];
         return categoryToMatch && wine.ProductCategories?.includes(categoryToMatch);
       })();
-      
+
       // Price filter
       const price = parseFloat(wine.SalePrice || "0");
       const matchesPrice = price >= priceRange[0] && price <= priceRange[1];
@@ -98,7 +100,7 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
     });
 
     return sorted;
-  }, [wines, searchTerm, selectedCategory, selectedColor, priceRange, sortBy]);
+  }, [wines, searchTerm, selectedCategory, selectedColor, priceRange, sortBy, labels]);
 
   // Trigger parent callback when filters change
   useEffect(() => {
@@ -113,7 +115,7 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
     setSortBy("name");
   };
 
-  const activeFiltersCount = 
+  const activeFiltersCount =
     (searchTerm ? 1 : 0) +
     (selectedCategory !== "all" ? 1 : 0) +
     (selectedColor !== "all" ? 1 : 0) +
@@ -124,27 +126,27 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
       <CardContent className="p-4 md:p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <span>🔍</span> Filtrovanie a vyhľadávanie
+            <span>🔍</span> {labels.searchTitle || "Filtrovanie a vyhľadávanie"}
           </h3>
           {activeFiltersCount > 0 && (
             <Button variant="ghost" size="sm" onClick={handleReset}>
-              ✕ Zrušiť filtre
+              ✕ {labels.clearFilters || "Zrušiť filtre"}
               <Badge variant="secondary" className="ml-2">{activeFiltersCount}</Badge>
             </Button>
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
           {/* Search */}
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-foreground mb-2">
-              Vyhľadať
+              {labels.searchLabel || "Vyhľadať"}
             </label>
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Názov, odroda, popis..."
+              placeholder={labels.searchPlaceholderLong || "Názov, odroda, popis..."}
               className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
             />
           </div>
@@ -152,14 +154,14 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
           {/* Category */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              Kategória
+              {labels.categoryLabel || "Kategória"}
             </label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
             >
-              <option value="all">Všetky kategórie</option>
+              <option value="all">{labels.allCategories || "Všetky kategórie"}</option>
               {categories.map(cat => (
                 <option key={cat} value={cat}>{cat}</option>
               ))}
@@ -169,14 +171,14 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
           {/* Color */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              Farba vína
+              {labels.colorLabel || "Farba vína"}
             </label>
             <select
               value={selectedColor}
               onChange={(e) => setSelectedColor(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
             >
-              <option value="all">Všetky farby</option>
+              <option value="all">{labels.allColors || "Všetky farby"}</option>
               {wineColors.map(color => (
                 <option key={color} value={color}>{color}</option>
               ))}
@@ -188,7 +190,7 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
           {/* Price Range */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              Cenové rozpätie: {priceRange[0]}€ - {priceRange[1]}€
+              {labels.priceRangeLabel || "Cenové rozpätie"}: {priceRange[0]}€ - {priceRange[1]}€
             </label>
             <div className="flex items-center gap-3">
               <input
@@ -213,17 +215,17 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
           {/* Sort */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              Zoradiť podľa
+              {labels.sortByLabel || "Zoradiť podľa"}
             </label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
             >
-              <option value="name">Názov (A-Z)</option>
-              <option value="price-asc">Cena (od najnižšej)</option>
-              <option value="price-desc">Cena (od najvyššej)</option>
-              <option value="vintage">Ročník (najnovší)</option>
+              <option value="name">{labels.nameAZ || "Názov (A-Z)"}</option>
+              <option value="price-asc">{labels.priceLowHigh || "Cena (od najnižšej)"}</option>
+              <option value="price-desc">{labels.priceHighLow || "Cena (od najvyššej)"}</option>
+              <option value="vintage">{labels.vintageNewest || "Ročník (najnovší)"}</option>
             </select>
           </div>
         </div>
@@ -231,7 +233,7 @@ export default function WineFilters({ wines, onFilterChange }: WineFiltersProps)
         {/* Results count */}
         <div className="mt-4 pt-4 border-t border-gray-200">
           <p className="text-sm text-foreground-muted">
-            Zobrazených <span className="font-semibold text-accent">{filteredWines.length}</span> z {wines.length} vín
+            {labels.showingWines || "Zobrazených"} <span className="font-semibold text-accent">{filteredWines.length}</span> z {wines.length} {labels.products || "vín"}
           </p>
         </div>
       </CardContent>

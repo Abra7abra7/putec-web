@@ -1,19 +1,26 @@
+import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Zásady ochrany osobných údajov | Putec Vinosady | GDPR",
-  description: "Zásady ochrany osobných údajov pre rodinné vinárstvo Putec vo Vinosadoch. Informácie o spracovaní osobných údajov podľa GDPR.",
-  keywords: "zásady ochrany osobných údajov, GDPR, Putec, Vinosady, súkromie, cookies",
-  openGraph: {
-    title: "Zásady ochrany osobných údajov | Putec Vinosady",
-    description: "Zásady ochrany osobných údajov pre rodinné vinárstvo Putec",
-    type: "website",
-    locale: "sk_SK",
-  },
-  alternates: {
-    canonical: "https://vinoputec.sk/zasady-ochrany-osobnych-udajov",
-  },
-};
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.privacy" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "https://vinoputec.sk/zasady-ochrany-osobnych-udajov",
+      languages: {
+        "sk-SK": "/zasady-ochrany-osobnych-udajov",
+        "en-US": "/en/zasady-ochrany-osobnych-udajov",
+      },
+    },
+  };
+}
 
 export default function PrivacyPolicyPage() {
   return (

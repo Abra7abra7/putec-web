@@ -1,0 +1,134 @@
+[
+    {
+        "ID": "degustation-001",
+        "Title": "Small Wine Moment",
+        "Slug": "mala-vinna-chvilka",
+        "Enabled": true,
+        "CatalogVisible": true,
+        "ProductCategories": [
+            "Wine Tastings"
+        ],
+        "FeatureImageURL": "/degustacie/degustacia-x.jpg",
+        "ProductImageGallery": [
+            "/degustacie/degustacia-x.jpg",
+            "/degustacie/IMG_6015-2.jpg",
+            "/degustacie/IMG_6063-2.jpg"
+        ],
+        "ShortDescription": "Wine tasting of 4 carefully selected samples of our most popular wines, accompanied by a small cold platter.",
+        "LongDescription": "Ideal for those who want to get to know our production, or are interested in a tasting for two. The tasting lasts 1-1.5 hours for 2-5 people.",
+        "RegularPrice": "119.00",
+        "SalePrice": "119.00",
+        "Currency": "EUR",
+        "SubscriptionEnabled": false,
+        "SubscriptionType": "",
+        "ProductType": "degustation",
+        "Capacity": "2-5 people",
+        "Duration": "1-1.5 hours",
+        "Features": [
+            "4 types of wine",
+            "Small cold platter",
+            "Tasting guide",
+            "Basic wine information"
+        ]
+    },
+    {
+        "ID": "degustation-002",
+        "Title": "Wine a Bit Differently",
+        "Slug": "vino-trochu-inak",
+        "Enabled": true,
+        "CatalogVisible": true,
+        "ProductCategories": [
+            "Wine Tastings"
+        ],
+        "FeatureImageURL": "/degustacie/degustacia-brano-x.jpg",
+        "ProductImageGallery": [
+            "/degustacie/degustacia-brano-x.jpg",
+            "/degustacie/brano-degustacia-x.jpg",
+            "/degustacie/sudy-x.jpg"
+        ],
+        "ShortDescription": "Tasting of 8 types of carefully selected wines with the winery owner, who will guide you through the world of our wines and the secrets of their production.",
+        "LongDescription": "A pleasant experience is complemented by a small cold platter. The tasting lasts 2.5-3 hours for 6-9 people with a tour of the production area.",
+        "RegularPrice": "295.90",
+        "SalePrice": "295.90",
+        "Currency": "EUR",
+        "SubscriptionEnabled": false,
+        "SubscriptionType": "",
+        "ProductType": "degustation",
+        "Capacity": "6-9 people",
+        "Duration": "2.5-3 hours",
+        "Features": [
+            "8 types of wine",
+            "Winery owner",
+            "Production tour",
+            "Cold platter",
+            "Detailed explanation"
+        ]
+    },
+    {
+        "ID": "degustation-003",
+        "Title": "Wine a Bit Differently Vol.2",
+        "Slug": "vino-trochu-inak-vol2",
+        "Enabled": true,
+        "CatalogVisible": true,
+        "ProductCategories": [
+            "Wine Tastings"
+        ],
+        "FeatureImageURL": "/degustacie/degustacia-skupina.jpg",
+        "ProductImageGallery": [
+            "/degustacie/degustacia-skupina.jpg",
+            "/degustacie/jama-x.jpg",
+            "/degustacie/ruky-x.jpg"
+        ],
+        "ShortDescription": "Tasting of 8 types of carefully selected wines, for larger groups, with the winery owner.",
+        "LongDescription": "A pleasant experience is complemented by a small cold platter. The tasting lasts 2.5-3 hours for 10-15 people with a group atmosphere.",
+        "RegularPrice": "490.00",
+        "SalePrice": "490.00",
+        "Currency": "EUR",
+        "SubscriptionEnabled": false,
+        "SubscriptionType": "",
+        "ProductType": "degustation",
+        "Capacity": "10-15 people",
+        "Duration": "2.5-3 hours",
+        "Features": [
+            "8 types of wine",
+            "Winery owner",
+            "Production tour",
+            "Cold platter",
+            "Group atmosphere"
+        ]
+    },
+    {
+        "ID": "degustation-004",
+        "Title": "Romance on a Blanket",
+        "Slug": "romantika-na-deke",
+        "Enabled": true,
+        "CatalogVisible": true,
+        "ProductCategories": [
+            "Wine Tastings"
+        ],
+        "FeatureImageURL": "/degustacie/bozk-2.jpg",
+        "ProductImageGallery": [
+            "/degustacie/bozk-2.jpg",
+            "/degustacie/misa-x.jpg"
+        ],
+        "ShortDescription": "Picnic basket for 2 people with richly filled baguettes, a sweet treat, nuts, mineral water, a bottle of wine of your choice and necessary small items.",
+        "LongDescription": "A romantic picnic experience for a couple with a wine of your choice. Duration by agreement, ideal for romantic moments in the vineyard.",
+        "RegularPrice": "59.90",
+        "SalePrice": "59.90",
+        "Currency": "EUR",
+        "SubscriptionEnabled": false,
+        "SubscriptionType": "",
+        "ProductType": "degustation",
+        "Capacity": "2 people",
+        "Duration": "By agreement",
+        "Features": [
+            "Picnic basket",
+            "Richly filled baguettes",
+            "Sweet treat",
+            "Nuts and mineral water",
+            "Bottle of wine of choice",
+            "Picnic blanket"
+        ],
+        "Deposit": 20
+    }
+]

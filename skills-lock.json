@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "i18n-localization": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "1f1913ad27b3a7f31e141f79633389f55715ab8763364b48cd135d82f591b5de"
+    }
+  }
+}

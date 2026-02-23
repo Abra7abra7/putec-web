@@ -21,57 +21,593 @@
         "productDetails": "Wine Details",
         "products": "Wines",
         "recentProducts": "Latest Wines",
-        "addToCart": "Add to Cart",
-        "viewProduct": "View Product",
+        "orderConfirmationTitle": "Order Confirmation",
+        "orderConfirmationMessage": "Your order has been successfully sent. We will notify you when we process it.",
+        "legal": "Legal Information",
+        "cart": "Your Cart",
+        "closeCart": "Close Cart",
         "cartEmpty": "Your cart is empty.",
-        "viewCart": "View Cart",
+        "upsellTitle": "You might also like",
         "total": "Total",
-        "quantity": "Quantity",
+        "viewCart": "View Cart",
         "proceedToCheckout": "Proceed to Checkout",
-        "remove": "Remove",
-        "unitPrice": "Unit Price",
-        "productTotal": "Total Price",
-        "cartTitle": "Your Shopping Cart",
-        "orderSummary": "Order Summary",
-        "subtotal": "Subtotal",
-        "shipping": "Shipping",
-        "noShippingSelected": "Not selected",
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu",
+        "price": "Price",
+        "differentBilling": "Billing address is different from shipping address",
+        "billingInformation": "Billing Information",
+        "sameAsShipping": "Same as shipping address",
+        "shippingInformation": "Shipping Information",
         "firstName": "First Name",
         "lastName": "Last Name",
-        "country": "Country",
-        "state": "State/Region",
         "city": "City",
         "address1": "Address Line 1",
-        "address2": "Address Line 2",
+        "address2": "Address Line 2 (optional)",
         "postalCode": "Postal Code",
-        "shippingInformation": "Shipping Information",
-        "billingInformation": "Billing Information",
-        "shippingMethod": "Shipping Method",
-        "paymentMethod": "Payment Method",
-        "placeOrder": "Place Order",
-        "placingOrder": "Placing order...",
-        "checkoutValidationError": "Please fill in all required fields.",
-        "orderPlacedSuccess": "Your order has been successfully placed!",
-        "orderFailed": "Failed to place order. Please try again.",
-        "sameAsShipping": "Same as shipping address",
-        "orderConfirmationMessage": "Your order has been successfully sent. We will notify you when we process it.",
-        "orderDetails": "Order Details",
-        "orderId": "Order Number",
-        "orderDate": "Order Date",
-        "completeBeforePayment": "Please complete all shipping and billing details before selecting a payment method.",
-        "payNow": "Pay Now",
-        "orderConfirmationTitle": "Order Confirmation",
         "isCompany": "Purchase as Company",
         "companyName": "Company Name",
         "companyICO": "Company ID (IČO)",
         "companyDIC": "Tax ID (DIČ)",
         "companyICDPH": "VAT ID (IČ DPH)",
-        "differentBilling": "Billing address is different from shipping address"
+        "orderSummary": "Order Summary",
+        "orderId": "Order Number",
+        "orderDate": "Order Date",
+        "orderDetails": "Order Details",
+        "subtotal": "Subtotal",
+        "shipping": "Shipping",
+        "shippingMethod": "Shipping Method",
+        "paymentMethod": "Payment Method",
+        "accommodation": "Accommodation",
+        "tastings": "Winetastings",
+        "placingOrder": "Placing order...",
+        "placeOrder": "Place Order",
+        "payNow": "Pay Now",
+        "addToCart": "Add to Cart",
+        "quantity": "Quantity",
+        "noShippingSelected": "Not selected",
+        "remove": "Remove",
+        "unitPrice": "Unit Price",
+        "productTotal": "Total Price",
+        "cartTitle": "Your Shopping Cart",
+        "searchTitle": "Filtering and Search",
+        "clearFilters": "Clear Filters",
+        "searchLabel": "Search",
+        "searchPlaceholderLong": "Name, variety, description...",
+        "categoryLabel": "Category",
+        "colorLabel": "Wine Color",
+        "allColors": "All Colors",
+        "whiteWine": "White",
+        "redWine": "Red",
+        "roseWine": "Rosé",
+        "priceRangeLabel": "Price Range",
+        "sortByLabel": "Sort By",
+        "nameAZ": "Name (A-Z)",
+        "priceLowHigh": "Price (low to high)",
+        "priceHighLow": "Price (high to low)",
+        "vintageNewest": "Vintage (newest)",
+        "showingWines": "Showing",
+        "noWinesFound": "No wines match your filters",
+        "tryChangingFilters": "Try changing your search criteria",
+        "backToWines": "Back to wines",
+        "aboutWine": "About Wine",
+        "vintage": "Vintage",
+        "wineType": "Wine Type",
+        "quality": "Quality Classification",
+        "region": "Wine Region",
+        "characteristics": "Characteristics",
+        "color": "Color",
+        "aroma": "Aroma",
+        "taste": "Taste",
+        "technicalData": "Technical Data",
+        "alcoholContent": "Alcohol Content",
+        "residualSugar": "Residual Sugar",
+        "sugar": "Sugar",
+        "bottleVolume": "Bottle Volume",
+        "storageTemp": "Storage Temperature",
+        "servingTemp": "Serving Temperature",
+        "batchNumber": "Batch Number",
+        "gtin": "GTIN",
+        "producer": "Producer",
+        "inquiry": {
+            "title": "Planning a teambuilding or celebration?",
+            "description": "We will be happy to prepare a tailor-made offer for you. Whether it is a corporate event, a family celebration or a private tasting with group accommodation.",
+            "capacityTitle": "Accommodation Capacity",
+            "capacityDetail": "Up to 15 people in 6 comfortable rooms.",
+            "tastingsTitle": "Wine Tastings",
+            "tastingsDetail": "We will prepare a guided tasting of our wines.",
+            "contactUs": "Contact Us",
+            "traditionalWinery": "Traditional Vinosady Winery",
+            "nameLabel": "Name and Surname",
+            "namePlaceholder": "John Doe",
+            "emailLabel": "E-mail",
+            "emailPlaceholder": "john@company.com",
+            "phoneLabel": "Phone",
+            "phonePlaceholder": "+421 9xx xxx xxx",
+            "peopleCountLabel": "Number of people (approx.)",
+            "peopleCountPlaceholder": "e.g. 12",
+            "dateLabel": "Tentative date",
+            "datePlaceholder": "e.g. May 2026",
+            "messageLabel": "Your vision of the event",
+            "messagePlaceholder": "Write us briefly what you are interested in...",
+            "submitButton": "Send inquiry",
+            "successMessage": "Your inquiry has been successfully sent. We will contact you soon.",
+            "errorMessage": "Error sending inquiry. Please try again later.",
+            "validationError": "Please check the form"
+        },
+        "producedBy": "Produced by",
+        "bottledBy": "Bottled by",
+        "countryOfOrigin": "Country of Origin",
+        "additionalInfo": "Additional Information",
+        "warnings": "Warnings",
+        "nutritionalInfo": "Nutritional Information",
+        "viewNutritionalInfo": "View nutritional data",
+        "aboutDegustation": "About Tasting",
+        "capacity": "Capacity",
+        "duration": "Duration",
+        "refundableDeposit": "Refundable Deposit",
+        "includedInPackage": "Included in the package",
+        "accommodationSection": {
+            "whatWeOffer": "What we offer",
+            "facilitiesAndSpaces": "Facilities and Spaces"
+        },
+        "checkout": {
+            "fillRequiredFields": "Please fill in all required information above before selecting a payment method",
+            "shippingCourier": "Courier (2-3 working days)",
+            "shippingPickup": "Personal pickup (Vinosady)",
+            "paymentCod": "Cash on Delivery",
+            "paymentStripe": "Stripe (Credit / Debit card)",
+            "fieldFirstName": "First Name",
+            "fieldLastName": "Last Name",
+            "fieldCountry": "Country",
+            "fieldCity": "City",
+            "fieldAddress": "Address",
+            "fieldPostalCode": "Postal Code",
+            "fieldEmail": "Email",
+            "fieldShippingMethod": "Shipping Method",
+            "fieldBillingFirstName": "Billing First Name",
+            "fieldBillingLastName": "Billing Last Name",
+            "fieldBillingCountry": "Billing Country",
+            "fieldBillingCity": "Billing City",
+            "fieldBillingAddress": "Billing Address",
+            "fieldBillingPostalCode": "Billing Postal Code",
+            "fieldBillingEmail": "Billing Email",
+            "validationRequired": "This field is required",
+            "validationEmail": "Invalid email format",
+            "validationPSC": "Invalid postal code",
+            "companyDetails": "Company Information",
+            "optional": "optional",
+            "deliveryData": "Delivery Information",
+            "billingData": "Billing Information",
+            "shippingMethodName": "Shipping Method",
+            "paymentSecured": "Secure payment via Stripe",
+            "fastDelivery": "Fast delivery (SK and CZ)",
+            "premiumWines": "Premium Slovak wines"
+        },
+        "cartLabels": {
+            "backToShopping": "Back to shopping",
+            "cartTitle": "Your Cart",
+            "emptyCart": "Your cart is empty.",
+            "price": "Price",
+            "total": "Total",
+            "proceedToCheckout": "Proceed to Checkout",
+            "quantity": "Quantity"
+        },
+        "contactHeading": "Do you have questions? Write to us!",
+        "contactDirectly": "Or contact us directly:",
+        "courier": "Courier (2-3 working days)",
+        "personalPickup": "In person at the winery (Vinosady)"
+    },
+    "metadata": {
+        "title": "Vino Putec - Family Winery Pezinok, Vinosady",
+        "description": "Family winery in the heart of the Small Carpathian region. We offer wine tastings, accommodation in Vinosady and sale of quality varietal wines.",
+        "keywords": "wine, winery, Pezinok, Vinosady, tasting, accommodation, Small Carpathian region, Slovak wine",
+        "ogTitle": "Vino Putec - Family Winery",
+        "ogDescription": "Traditional family winery from Vinosady. Discover our wines, book a tasting or accommodation.",
+        "twitterTitle": "Vino Putec",
+        "twitterDescription": "Family winery Pezinok - Vinosady",
+        "home": {
+            "title": "Vino Putec - Family Winery Pezinok | Accommodation Vinosady | Wine Tastings",
+            "description": "Premium wines from Vinosady, accommodation and wine tastings in Pezinok. Family winery with tradition for Bratislava, Senec, Trnava and surroundings.",
+            "keywords": "wine, winery, Putec, Vinosady, Pezinok, accommodation, wine tastings",
+            "ogTitle": "Vino Putec - Family Winery Vinosady",
+            "ogDescription": "Traditional family winery from Vinosady. Discover our wines, book a tasting or accommodation."
+        },
+        "wines": {
+            "title": "Our Wines",
+            "description": "Premium wines from family winery Putec in Vinosady near Pezinok. White, red and rosé wines of the highest quality."
+        },
+        "tastings": {
+            "title": "Wine Tastings",
+            "description": "Experience an unforgettable wine tasting in our family winery in Vinosady. We offer various tasting packages."
+        },
+        "about": {
+            "title": "About Us",
+            "description": "Get to know the story of our family winery Putec. Tradition, passion and love for wine for generations."
+        },
+        "contact": {
+            "title": "Contact",
+            "description": "Contact us for booking a tasting, accommodation or information about our wines."
+        },
+        "gallery": {
+            "title": "Gallery",
+            "description": "Photo gallery of our winery, vineyards and events we organize."
+        },
+        "accommodation": {
+            "title": "Accommodation Vinosady | Guesthouse Small Carpathians",
+            "description": "Accommodation in the winery Vinosady - 15 people, corporate events, teambuildings in the heart of the Small Carpathians."
+        },
+        "privacy": {
+            "title": "Privacy Policy | Vino Putec",
+            "description": "Privacy policy for the Putec family winery in Vinosady. Information about personal data processing according to GDPR."
+        },
+        "terms": {
+            "title": "Terms and Conditions | Vino Putec",
+            "description": "Terms and conditions for purchasing wine in the Putec family winery e-shop."
+        },
+        "complaints": {
+            "title": "Complaints Procedure | Vino Putec",
+            "description": "Complaints procedure and process for returning goods at the Putec family winery."
+        },
+        "privacyTools": {
+            "title": "Privacy Protection Tools | Vino Putec",
+            "description": "Manage your privacy preferences and cookie settings."
+        }
+    },
+    "pages": {
+        "home": {
+            "hero": {
+                "title": "Wine that writes a story",
+                "subtitle": "Traditional family winery from Vinosady"
+            }
+        },
+        "wines": {
+            "title": "Our Wines",
+            "subtitle": "Premium wines from family winery Putec",
+            "cta": "View all"
+        },
+        "tastings": {
+            "title": "Wine Tastings",
+            "subtitle": "Unforgettable experiences with our premium wines in the heart of the Little Carpathians",
+            "breadcrumb": "Tastings",
+            "reservation": {
+                "badge": "⚡ Quick Reservation",
+                "title": "Book a Wine Tasting",
+                "subtitle": "Select a tasting package and book a date. We will respond within 24 hours.",
+                "cta": "Book Now"
+            },
+            "whyUs": {
+                "title": "Why Choose Our Tastings?",
+                "awards": {
+                    "title": "Award-winning Wines",
+                    "desc": "Premium quality confirmed by international awards"
+                },
+                "guide": {
+                    "title": "Professional Commentary",
+                    "desc": "Expert guide with years of experience"
+                },
+                "catering": {
+                    "title": "Tailored Catering",
+                    "desc": "Refreshments adapted to your requirements"
+                },
+                "capacity": {
+                    "title": "Capacity up to 17 people",
+                    "desc": "Ideal for corporate events, teambuildings and group stays"
+                },
+                "corporate": {
+                    "title": "Corporate Events",
+                    "desc": "Professionally organized for companies"
+                },
+                "teambuildings": {
+                    "title": "Teambuildings",
+                    "desc": "Combination of wine culture with teamwork"
+                },
+                "checkpoints": [
+                    "Professional tasting guide",
+                    "Catering services and refreshments",
+                    "Tasting room directly in the winery"
+                ]
+            },
+            "intro": {
+                "title": "Wine Tastings in Vinosady",
+                "p1": "We offer unique wine tastings directly in the winery, where we combine tradition with modern technologies. Ideal for corporate events, teambuildings, family celebrations and group stays.",
+                "p2": "Our tasting room has a capacity of up to 17 people and offers a complete experience with wine tastings, catering services and a professional guide."
+            },
+            "services": {
+                "title": "Services and Equipment",
+                "subtitle": "Complete provision for unforgettable tasting experiences",
+                "catering": {
+                    "title": "Catering and Refreshments",
+                    "items": [
+                        "Professionally prepared wine refreshments",
+                        "Local products and specialties",
+                        "Adaptation according to client requirements",
+                        "Complete catering provision"
+                    ]
+                },
+                "guide": {
+                    "title": "Professional Guide",
+                    "items": [
+                        "Expert tasting guidance",
+                        "Explanation of tasting techniques",
+                        "History and traditions of the winery",
+                        "Answers to questions about wine"
+                    ]
+                }
+            },
+            "cta": {
+                "title": "Interested in a tasting?",
+                "subtitle": "Ideal for corporate events, teambuildings, family celebrations and group stays with wine tastings",
+                "back": "Back to reservation",
+                "gallery": "View gallery"
+            },
+            "faq": {
+                "title": "Frequently Asked Questions (FAQ)",
+                "q1": "How many people can we bring?",
+                "a1": "From 2 to approximately 17 people depending on the package and space.",
+                "q2": "Is it possible to provide refreshments?",
+                "a2": "Yes, we can provide a cold platter or catering as agreed.",
+                "q3": "Where are we located?",
+                "a3": "Pezinská 154, 902 01 Vinosady – a few minutes from Pezinok."
+            },
+            "loading": "Loading tastings...",
+            "packages": {
+                "title": "Our Tasting Packages",
+                "subtitle": "Choose from our specially prepared tasting packages, designed for different group sizes and occasions.",
+                "includedLabel": "Included in package",
+                "depositLabel": "Refundable deposit",
+                "reserveButton": "Book Now"
+            }
+        },
+        "about": {
+            "title": "Family Winery Putec Vinosady | About Us",
+            "subtitle": "Family winery with a tradition of several generations in Vinosady at the foot of the Little Carpathians",
+            "breadcrumb": "About Us",
+            "intro": {
+                "title": "Vino Pútec - Tradition and Quality",
+                "p1": "Vino Pútec is a small family winery in Vinosady at the foot of the Little Carpathians. We have been lovingly dedicated to winemaking for several generations and are proud of the global success of our wines.",
+                "p2": "We are a small family winery in Vinosady – our family has been dedicated to winemaking for several generations. We live for wine and want to bring you great pleasure from this unique art that wine is."
+            },
+            "history": {
+                "title": "History and Foundation",
+                "p1": "The Branislav Pútec – Natali winery was officially founded in 2012, but family tradition reaches much further into the past. The family has been dedicated to winemaking for several generations, with grape growing and winemaking deeply rooted in family tradition.",
+                "p2": "After gaining experience in grape growing and winemaking, we founded the winery. After gentle processing of the grapes, the musts undergo a controlled fermentation process. We produce wines that mature in high-quality French wooden barrels and stainless steel tanks.",
+                "p3": "The wine thus acquires a specific aroma and taste. By modernizing technological equipment and using ecological procedures, we produce high-quality wine."
+            },
+            "philosophy": {
+                "title": "Family Philosophy and Values",
+                "subtitle": "We care for wine like another family member, combining family procedures with modern technologies to create high-quality, craft wine we are proud of.",
+                "item1": {
+                    "title": "\"We live for wine\"",
+                    "desc": "Wine is not just a profession for the family, but a way of life"
+                },
+                "item2": {
+                    "title": "Family Approach",
+                    "desc": "Personal, loving approach to winemaking"
+                },
+                "item3": {
+                    "title": "Modern Technologies",
+                    "desc": "We combine family procedures with modern technologies"
+                },
+                "item4": {
+                    "title": "Craft Wine",
+                    "desc": "Creating high-quality, craft wine they are proud of"
+                }
+            },
+            "technology": {
+                "title": "Technologies and Production Processes",
+                "subtitle": "Modern equipment and processes guarantee the highest quality of our wines",
+                "cta": "Accommodation Vinosady",
+                "items": [
+                    {
+                        "title": "State-of-the-art Technology",
+                        "desc": "We use the latest viticultural technology for optimal quality"
+                    },
+                    {
+                        "title": "Gentle Processing",
+                        "desc": "Gentle processing of grapes with an emphasis on quality preservation"
+                    },
+                    {
+                        "title": "Controlled Fermentation",
+                        "desc": "Controlled fermentation process for consistent quality"
+                    },
+                    {
+                        "title": "French Barrels",
+                        "desc": "High-quality French wooden barrels for maturing wines"
+                    },
+                    {
+                        "title": "Stainless Steel Tanks",
+                        "desc": "Stainless steel tanks for optimal storage"
+                    },
+                    {
+                        "title": "Enological Procedures",
+                        "desc": "Professional enological procedures applied during production"
+                    }
+                ]
+            },
+            "vision": {
+                "title": "Vision and Mission",
+                "subtitle": "Through our products and activities, we want to protect the future of vineyards and attract new tourists to the Little Carpathians",
+                "items": [
+                    {
+                        "title": "Protect the Future of Vineyards",
+                        "desc": "Vineyards are constantly shrinking, we want to preserve them for future generations"
+                    },
+                    {
+                        "title": "Attract Tourists to the Little Carpathians",
+                        "desc": "We want to attract new tourists to the beautiful environment of the Little Carpathians"
+                    },
+                    {
+                        "title": "Bring the Experience of Great Wine",
+                        "desc": "We want to bring you an unforgettable experience of quality wine"
+                    },
+                    {
+                        "title": "Preserve Viticultural Tradition",
+                        "desc": "The tradition that has shaped the region for millennia must continue"
+                    },
+                    {
+                        "title": "Highlight Slovakia on the World Map",
+                        "desc": "Through quality wines, we want to represent Slovakia in the world"
+                    },
+                    {
+                        "title": "Support Small Slovak Winemakers",
+                        "desc": "We thank all partners who support small Slovak winemakers"
+                    }
+                ],
+                "partners": {
+                    "title": "Thank You to Our Partners",
+                    "p": "We cordially thank all our partners and businesses that offer our wines for deciding to support small Slovak winemakers."
+                }
+            },
+            "family": {
+                "title": "Our Family",
+                "subtitle": "View photos of our family, who have been building the viticultural tradition for generations",
+                "card1": {
+                    "title": "Our Family",
+                    "desc": "Tradition and passion for wine"
+                },
+                "card2": {
+                    "title": "Family Tradition",
+                    "desc": "Heritage and love for viticulture"
+                }
+            },
+            "imagePath": "/o-nas/rodina1.JPG",
+            "content": "Putec s.r.o. is a family winery with a long-standing tradition in Vinosady near Pezinok, specializing in the production of premium wines and offering accommodation and wine tastings.\n\nOur history began with a passion for viticulture and a desire to create something unique. Today, we are known for our meticulous approach to winemaking and our personal relationship with customers from Bratislava, Senec, Trnava, and the entire region.\n\nWe believe in the power of tradition, the value of quality ingredients, and the joy of sharing great wines with the community. Every bottle is chosen with love - and every customer becomes part of our extended family. We offer accommodation and wine tastings in the beautiful surroundings of Vinosady."
+        },
+        "contact": {
+            "title": "Contact Us",
+            "subtitle": "We are here for you",
+            "breadcrumb": "Contact"
+        },
+        "gallery": {
+            "title": "Photo Gallery",
+            "subtitle": "A glimpse into the life of our winery",
+            "breadcrumb": "Gallery",
+            "categories": {
+                "degustacie": {
+                    "title": "Tastings",
+                    "desc": "Taste our premium wines"
+                },
+                "ubytovanie": {
+                    "title": "Accommodation",
+                    "desc": "Comfort in the heart of vineyards"
+                },
+                "rodina": {
+                    "title": "Family",
+                    "desc": "Family tradition"
+                }
+            },
+            "back": "Back to gallery",
+            "notFound": "Gallery not found",
+            "noImages": "No photos in this category.",
+            "titleDetail": "Gallery – {category}"
+        },
+        "common": {
+            "home": "Home",
+            "backToHome": "Back to Home"
+        },
+        "accommodation": {
+            "hero": {
+                "title": "Accommodation in the Winery",
+                "subtitle": "An authentic stay in the heart of the Small Carpathians — for families, corporate events and team buildings",
+                "cta": "Book a Stay",
+                "gallery": "View Gallery"
+            },
+            "welcome": {
+                "badge": "Welcome",
+                "title": "Your Home in Vinosady",
+                "p1": "Rent the entire villa surrounded by vineyards and enjoy a private stay with all the comforts.",
+                "p2": "Ideal for corporate team buildings, family celebrations, wedding weekends or just a peaceful retreat in nature."
+            },
+            "capacity": {
+                "badge": "Capacity",
+                "title": "Space for You and Your Guests",
+                "total": "Capacity up to 15 people",
+                "sub": "Total accommodation capacity",
+                "rooms3": "2× triple room",
+                "rooms2": "3× double room",
+                "triple": "Triple room",
+                "double": "Double room",
+                "enSuite": "Each room with en-suite bathroom",
+                "comfortZone": "Fully equipped for a comfortable stay"
+            },
+            "facilities": {
+                "badge": "Facilities",
+                "title": "Comfort You Will Love",
+                "kitchen": {
+                    "title": "Kitchen & Dining",
+                    "items": [
+                        "Fully equipped kitchen",
+                        "Large dining room for all guests",
+                        "BBQ and garden furniture",
+                        "Fridge, oven, washing machine"
+                    ]
+                },
+                "location": {
+                    "title": "Location",
+                    "address": "Pezinská 154, 902 01 Vinosady",
+                    "region": "Heart of the Small Carpathian wine region",
+                    "vineyards": "Directly among Putec vineyards",
+                    "authentic": "Authentic rural setting"
+                }
+            },
+            "services": {
+                "badge": "Services",
+                "title": "What We Prepare for You",
+                "subtitle": "In addition to accommodation, we can arrange a complete programme for your stay.",
+                "catering": {
+                    "title": "Catering & Dining",
+                    "items": [
+                        "Breakfast or half-board on request",
+                        "Catering for corporate events",
+                        "BBQ evenings with local products",
+                        "Tasting dinners with Putec wines",
+                        "Themed table settings"
+                    ]
+                },
+                "corporate": {
+                    "title": "Corporate Events",
+                    "items": [
+                        "Team buildings and workshops",
+                        "Conference facilities",
+                        "Wedding weekends",
+                        "Celebrations and private events",
+                        "Wine tastings for corporate clients"
+                    ]
+                }
+            },
+            "cta": {
+                "title": "Book Your Stay",
+                "subtitle": "Write to us or check availability directly online.",
+                "reserve": "Book Now",
+                "gallery": "Accommodation Gallery"
+            },
+            "reservation": {
+                "title": "Online Reservation",
+                "subtitle": "Check availability and book directly through our reservation system."
+            },
+            "faq": {
+                "title": "Frequently Asked Questions",
+                "items": [
+                    {
+                        "q": "Is it possible to rent the entire villa?",
+                        "a": "Yes, the entire villa is available for exclusive rental for groups of up to 15 people."
+                    },
+                    {
+                        "q": "Are social events allowed?",
+                        "a": "Yes, we organize corporate team buildings, family celebrations and wedding weekends."
+                    },
+                    {
+                        "q": "What is the minimum length of stay?",
+                        "a": "The minimum stay is 2 nights. For corporate events, we recommend contacting us directly."
+                    }
+                ]
+            }
+        }
     },
     "menu": [
         {
             "label": "Home",
-            "href": "/"
+            "href": "/en"
         },
         {
             "label": "Wines",
@@ -101,19 +637,19 @@
     "ubytovanieMenu": [
         {
             "label": "Accommodation",
-            "href": "/"
+            "href": "/en"
         },
         {
             "label": "Teambuilding",
-            "href": "/#teambuilding"
+            "href": "/en#teambuilding"
         },
         {
             "label": "Booking",
-            "href": "/#rezervacia"
+            "href": "/en#rezervacia"
         },
         {
             "label": "Gallery",
-            "href": "/galeria/ubytovanie"
+            "href": "/en/galeria/ubytovanie"
         },
         {
             "label": "Winery & Wines",
@@ -123,45 +659,45 @@
     "footerLinks": [
         {
             "label": "Home",
-            "href": "/"
+            "href": "/en"
         },
         {
             "label": "Wines",
-            "href": "/vina"
+            "href": "/en/vina"
         },
         {
             "label": "Wine Tastings",
-            "href": "/degustacie"
+            "href": "/en/degustacie"
         },
         {
             "label": "Accommodation",
-            "href": "/ubytovanie"
+            "href": "/en/ubytovanie"
         },
         {
             "label": "About Us",
-            "href": "/o-nas"
+            "href": "/en/o-nas"
         },
         {
             "label": "Contact",
-            "href": "/kontakt"
+            "href": "/en/kontakt"
         }
     ],
     "legalLinks": [
         {
             "label": "Privacy Policy",
-            "href": "/zasady-ochrany-osobnych-udajov"
+            "href": "/en/zasady-ochrany-osobnych-udajov"
         },
         {
             "label": "Terms & Conditions",
-            "href": "/obchodne-podmienky"
+            "href": "/en/obchodne-podmienky"
         },
         {
             "label": "Complaint Procedure",
-            "href": "/reklamacny-poriadok"
+            "href": "/en/reklamacny-poriadok"
         },
         {
             "label": "Privacy Tools",
-            "href": "/nastroje-ochrany-sukromia"
+            "href": "/en/nastroje-ochrany-sukromia"
         }
     ],
     "socialLinks": [
@@ -183,17 +719,41 @@
     ],
     "homepage": {
         "banner": {
-            "title": "Family Winery Putec Pezinok | Accommodation Vinosady | Wine Tastings",
-            "subtitle": "Premium wines from Vinosady, accommodation, and wine tastings near Pezinok. A family winery with tradition serving Bratislava, Senec, Trnava, and the region.",
+            "title": "Family Winery Putec",
+            "subtitle": "Premium wines from Vinosady, accommodation, and wine tastings",
             "buttonText": "View Our Wines",
             "imagePath": "/vineyard-banner.webp",
             "ctaLink": "/vina"
         },
         "brandStory": {
-            "title": "Family Winery Putec - Tradition in Vinosady",
-            "description": "Putec s.r.o. is a family winery with a long tradition in Vinosady near Pezinok. Our premium wines are the result of a careful approach to viticulture and love for wine. Every bottle carries the unique taste of our land and family heritage. We offer accommodation and wine tastings for visitors from Bratislava, Senec, Trnava, and the entire region.",
-            "buttonText": "Learn More",
-            "ctaLink": "/o-nas"
+            "title": "Family Winery Putec – Tradition in Vinosady",
+            "subtitle": "Tradition and quality of wine",
+            "p1": "Putec s.r.o. is a family winery with a long-standing tradition in Vinosady near Pezinok, specializing in the production of premium wines and offering accommodation and wine tastings.",
+            "p2": "We believe in the power of tradition, the value of quality ingredients, and the joy of sharing great wines. Every bottle is chosen with love.",
+            "keyFeatures": [
+                {
+                    "title": "\"We Live Wine\"",
+                    "description": "Wine is a way of life for our family"
+                },
+                {
+                    "title": "Modern Technology",
+                    "description": "We combine tradition with innovation"
+                },
+                {
+                    "title": "Craft Wine",
+                    "description": "Quality wine we are proud of"
+                },
+                {
+                    "title": "French Barrels",
+                    "description": "Ageing in quality oak barrels"
+                }
+            ],
+            "stat1Value": "2012",
+            "stat1Label": "Winery founded",
+            "stat2Value": "Generations",
+            "stat2Label": "Family tradition",
+            "ctaLearnMore": "Learn More",
+            "ctaOurWines": "Our Wines"
         },
         "testimonialsTitle": "What Our Customers Say",
         "testimonials": [
@@ -247,12 +807,329 @@
                 "name": "Dessert Wines",
                 "logo": "/brands/brand5.svg"
             }
-        ]
-    },
-    "about": {
-        "title": "Family Winery Putec Vinosady | About Us",
-        "imagePath": "/o-nas/rodina1.JPG",
-        "content": "Putec s.r.o. is a family winery with a long-standing tradition in Vinosady near Pezinok, specializing in the production of premium wines and offering accommodation and wine tastings.\n\nOur history began with a passion for viticulture and a desire to create something unique. Today, we are known for our meticulous approach to winemaking and our personal relationship with customers from Bratislava, Senec, Trnava, and the entire region.\n\nWe believe in the power of tradition, the value of quality ingredients, and the joy of sharing great wines with the community. Every bottle is chosen with love - and every customer becomes part of our extended family. We offer accommodation and wine tastings in the beautiful surroundings of Vinosady."
+        ],
+        "achievements": {
+            "title": "Our Achievements & Awards",
+            "description": "Our passion for winemaking recognized at international competitions.",
+            "tabs": {
+                "diplomy": "Diplomas",
+                "ocenenia": "Awards"
+            },
+            "diplomy": [
+                {
+                    "id": 1,
+                    "title": "Gold Medal Paris Vinalies 2025",
+                    "subtitle": "Cabernet Sauvignon Rosé 2024",
+                    "image": "/uspechy/diplomy/vi-2025-cabernet-rose.jpg"
+                },
+                {
+                    "id": 2,
+                    "title": "Gold Medal Paris Vinalies 2024",
+                    "subtitle": "Chardonnay 2023",
+                    "image": "/uspechy/diplomy/vi-2024-chardonnay.jpg"
+                },
+                {
+                    "id": 3,
+                    "title": "Linčanský džbánek Gold Medal 2024",
+                    "subtitle": "Cabernet Sauvignon 2018",
+                    "image": "/uspechy/diplomy/lincansky-dzbanek-2024.jpg"
+                },
+                {
+                    "id": 4,
+                    "title": "Silver Medal Paris Vinalies 2020",
+                    "subtitle": "Muller Thurgau 2019",
+                    "image": "/uspechy/diplomy/vi-2020-muller.jpg"
+                },
+                {
+                    "id": 5,
+                    "title": "Silver Medal Paris Vinalies 2020",
+                    "subtitle": "Rizling Vlašský 2019",
+                    "image": "/uspechy/diplomy/vi-2020-rizling.jpg"
+                },
+                {
+                    "id": 6,
+                    "title": "Gold Medal Paris Vinalies 2018",
+                    "subtitle": "Tramín Červený 2018",
+                    "image": "/uspechy/diplomy/vi-2018-mincer.jpg"
+                },
+                {
+                    "id": 7,
+                    "title": "Silver Medal Paris Vinalies 2018",
+                    "subtitle": "Muller Thurgau 2017",
+                    "image": "/uspechy/diplomy/vi-2018-muller.jpg"
+                },
+                {
+                    "id": 8,
+                    "title": "Silver Medal Paris Vinalies 2017",
+                    "subtitle": "Rizling Vlašský 2016",
+                    "image": "/uspechy/diplomy/vi-2017-rizling-vlassky.jpg"
+                }
+            ],
+            "ocenenia": [
+                {
+                    "id": 1,
+                    "title": "Award 2025",
+                    "subtitle": "Víno Inak",
+                    "image": "/uspechy/ocenenia/VI-2025_page-0001.jpg"
+                },
+                {
+                    "id": 2,
+                    "title": "Award 2024",
+                    "subtitle": "Víno Inak",
+                    "image": "/uspechy/ocenenia/VI-2024_page-0001.jpg"
+                },
+                {
+                    "id": 3,
+                    "title": "Award 2020",
+                    "subtitle": "Víno Inak",
+                    "image": "/uspechy/ocenenia/VI-2020_page-0001.jpg"
+                }
+            ],
+            "showMore": "Show all",
+            "showLess": "Show less",
+            "ctaText": "Want to learn more about our wines?",
+            "ctaWines": "View our wines",
+            "ctaReserve": "Book a tasting"
+        },
+        "degustaciePreview": {
+            "title": "Wine Tastings",
+            "description": "Discover the world of our premium wines through unforgettable tasting experiences. Choose from our specially prepared packages for different group sizes.",
+            "whatToExpect": "What to expect:",
+            "features": [
+                "Premium wine tasting",
+                "Tasting guide",
+                "Winery tour",
+                "Cold platter"
+            ],
+            "ctaReserve": "Book a tasting",
+            "ctaViewAll": "View all packages"
+        },
+        "accommodationPreview": {
+            "title": "Accommodation in the heart of the Little Carpathians",
+            "description": "Experience unforgettable moments in our accommodation surrounded by vineyards and nature. An ideal place for relaxation and tastings of our premium wines.",
+            "features": [
+                "Comfortable rooms",
+                "Wine tastings",
+                "Beautiful views",
+                "Breakfast"
+            ],
+            "ctaReserve": "Book accommodation",
+            "ctaDetails": "View details"
+        },
+        "accommodation": {
+            "hero": {
+                "title": "Accommodation in the Winery",
+                "subtitle": "An authentic stay in the heart of the Small Carpathians — for families, corporate events and team buildings",
+                "cta": "Book a Stay",
+                "gallery": "View Gallery"
+            },
+            "welcome": {
+                "badge": "Welcome",
+                "title": "Your Home in Vinosady",
+                "p1": "Rent the entire villa surrounded by vineyards and enjoy a private stay with all the comforts.",
+                "p2": "Ideal for corporate team buildings, family celebrations, wedding weekends or just a peaceful retreat in nature."
+            },
+            "capacity": {
+                "badge": "Capacity",
+                "title": "Space for You and Your Guests",
+                "total": "Capacity up to 15 people",
+                "sub": "Total accommodation capacity",
+                "rooms3": "2× triple room",
+                "rooms2": "3× double room",
+                "triple": "Triple room",
+                "double": "Double room",
+                "enSuite": "Each room with en-suite bathroom",
+                "comfortZone": "Fully equipped for a comfortable stay"
+            },
+            "facilities": {
+                "badge": "What We Offer",
+                "title": "Equipment and Spaces",
+                "kitchen": {
+                    "title": "Kitchen & Dining",
+                    "items": [
+                        "Fully equipped kitchen",
+                        "Large dining room for all guests",
+                        "BBQ and garden furniture",
+                        "Fridge, oven, washing machine"
+                    ]
+                },
+                "location": {
+                    "title": "Location",
+                    "address": "Pezinská 154, 902 01 Vinosady",
+                    "region": "Heart of the Small Carpathian wine region",
+                    "vineyards": "Directly among Putec vineyards",
+                    "authentic": "Authentic rural setting"
+                }
+            },
+            "services": {
+                "badge": "Services",
+                "title": "What We Prepare for You",
+                "subtitle": "In addition to accommodation, we can arrange a complete programme for your stay.",
+                "catering": {
+                    "title": "Catering & Dining",
+                    "items": [
+                        "Breakfast or half-board on request",
+                        "Catering for corporate events",
+                        "BBQ evenings with local products",
+                        "Tasting dinners with Putec wines",
+                        "Themed table settings"
+                    ]
+                },
+                "corporate": {
+                    "title": "Corporate Events",
+                    "items": [
+                        "Team buildings and workshops",
+                        "Conference facilities",
+                        "Wedding weekends",
+                        "Celebrations and private events",
+                        "Wine tastings for corporate clients"
+                    ]
+                }
+            },
+            "cta": {
+                "title": "Book Your Stay",
+                "subtitle": "Write to us or check availability directly online.",
+                "reserve": "Book Now",
+                "gallery": "Accommodation Gallery"
+            },
+            "reservation": {
+                "title": "Online Reservation",
+                "subtitle": "Check availability and book directly through our reservation system."
+            },
+            "faq": {
+                "title": "Frequently Asked Questions",
+                "items": [
+                    {
+                        "q": "Is it possible to rent the entire villa?",
+                        "a": "Yes, the entire villa is available for exclusive rental for groups of up to 15 people."
+                    },
+                    {
+                        "q": "Are social events allowed?",
+                        "a": "Yes, we organize corporate team buildings, family celebrations and wedding weekends."
+                    },
+                    {
+                        "q": "What is the minimum length of stay?",
+                        "a": "The minimum stay is 2 nights. For corporate events, we recommend contacting us directly."
+                    }
+                ]
+            }
+        },
+        "about": {
+            "title": "About Us",
+            "subtitle": "Family winery with tradition",
+            "breadcrumb": "Meet us",
+            "intro": {
+                "title": "Our History and Vision",
+                "p1": "We are a family winery from Vinosady.",
+                "p2": "Every bottle carries a passion for wine."
+            },
+            "history": {
+                "title": "Our History",
+                "p1": "Putec has roots in the Small Carpathian region.",
+                "p2": "The tradition is passed from generation to generation.",
+                "p3": "Today we offer wines, tastings and accommodation."
+            },
+            "philosophy": {
+                "title": "Our Philosophy",
+                "subtitle": "Four pillars of our winery",
+                "item1": {
+                    "title": "Passion",
+                    "desc": "We make wine with heart."
+                },
+                "item2": {
+                    "title": "Family",
+                    "desc": "Family values are the foundation."
+                },
+                "item3": {
+                    "title": "Craft",
+                    "desc": "Quality without compromise."
+                },
+                "item4": {
+                    "title": "Excellence",
+                    "desc": "We continuously improve."
+                }
+            },
+            "technology": {
+                "title": "Modern Winery",
+                "subtitle": "Traditional methods meet modern technology.",
+                "items": [
+                    {
+                        "title": "Grape Selection",
+                        "desc": "Hand-harvesting at optimal ripeness."
+                    },
+                    {
+                        "title": "Processing",
+                        "desc": "Gentle pressing."
+                    },
+                    {
+                        "title": "Fermentation",
+                        "desc": "Controlled conditions."
+                    },
+                    {
+                        "title": "Ageing",
+                        "desc": "In stainless steel or oak barrels."
+                    },
+                    {
+                        "title": "Bottling",
+                        "desc": "Minimal oxygen pickup."
+                    },
+                    {
+                        "title": "Quality Control",
+                        "desc": "Thorough sensory analysis."
+                    }
+                ]
+            },
+            "vision": {
+                "title": "Vision and Mission",
+                "subtitle": "Ambassadors of Slovak wine.",
+                "items": [
+                    {
+                        "title": "Sustainability",
+                        "desc": "Responsible stewardship."
+                    },
+                    {
+                        "title": "Terroir",
+                        "desc": "Small Carpathian character in every sip."
+                    },
+                    {
+                        "title": "Wine Culture",
+                        "desc": "Spreading the joy of wine."
+                    },
+                    {
+                        "title": "Tradition",
+                        "desc": "Preserving knowledge for future generations."
+                    },
+                    {
+                        "title": "Global Reach",
+                        "desc": "Introducing Slovak wine to the world."
+                    },
+                    {
+                        "title": "Partnerships",
+                        "desc": "Collaborating with restaurants and hotels."
+                    }
+                ],
+                "partners": {
+                    "title": "Thank You",
+                    "p": "Our customers are the source of our motivation."
+                }
+            },
+            "family": {
+                "title": "Our Family",
+                "subtitle": "A team of people who love wine.",
+                "card1": {
+                    "title": "The Putec Family",
+                    "desc": "Three generations of winemaking tradition"
+                },
+                "card2": {
+                    "title": "Vineyards",
+                    "desc": "The heart of our winery"
+                }
+            }
+        },
+        "contact": {
+            "title": "Contact",
+            "subtitle": "We are here for you"
+        }
     },
     "contactForm": {
         "title": "Contact Us",

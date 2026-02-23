@@ -6,6 +6,7 @@ import { useLocalization } from "../../context/LocalizationContext";
 import RatingBadge from "../RatingBadge";
 import { Button } from "../ui/button";
 import { getMediaUrl } from "../../utils/media";
+import { usePathname } from "next/navigation";
 
 interface HomepageBannerProps {
   ratingValue?: number;
@@ -13,14 +14,19 @@ interface HomepageBannerProps {
 }
 
 export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: HomepageBannerProps) {
-  const { homepage } = useLocalization();
+  const { homepage, labels } = useLocalization();
 
   if (!homepage?.banner) {
     return null;
   }
 
-  const { buttonText, ctaLink, imagePath } = homepage.banner;
+  const { title, subtitle, buttonText, ctaLink, imagePath } = homepage.banner;
   const mediaUrl = getMediaUrl(imagePath);
+
+  const pathname = usePathname();
+  const localePrefix = pathname.startsWith('/en') ? '/en' : '';
+  const getLocalizedLink = (path: string) =>
+    path.startsWith('/en') || path.startsWith('http') ? path : `${localePrefix}${path}`;
 
   return (
     <section
@@ -30,7 +36,7 @@ export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: Ho
       {/* LCP image as Next/Image with priority to improve LCP */}
       <Image
         src={mediaUrl}
-        alt="Vinohrad Putec – úvodný banner"
+        alt={title}
         fill
         priority
         loading="eager"
@@ -48,30 +54,30 @@ export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: Ho
         <RatingBadge ratingValue={ratingValue} reviewCount={reviewCount} className="mb-4" />
 
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 drop-shadow-2xl !text-white tracking-tight">
-          Rodinné vinárstvo Putec
+          {title}
         </h1>
 
         <p className="text-lg md:text-xl lg:text-2xl mb-10 max-w-2xl drop-shadow-xl !text-white font-medium text-white/90">
-          Prémiové vína z Vinosád, ubytovanie a degustácie vína v Pezinku
+          {subtitle}
         </p>
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 items-center w-full sm:w-auto">
           <Button asChild variant="primary" size="lg" className="w-full sm:w-auto min-w-[200px] shadow-lg hover:shadow-xl">
-            <Link href={ctaLink}>
+            <Link href={getLocalizedLink(ctaLink)}>
               {buttonText}
             </Link>
           </Button>
 
           <Button asChild variant="outline" size="lg" className="w-full sm:w-auto min-w-[200px] bg-white/10 backdrop-blur-sm border-white hover:bg-white hover:text-foreground shadow-lg hover:shadow-xl">
-            <Link href="/ubytovanie">
-              Ubytovanie
+            <Link href={getLocalizedLink("/ubytovanie")}>
+              {labels.accommodation || "Ubytovanie"}
             </Link>
           </Button>
 
           <Button asChild variant="outline" size="lg" className="w-full sm:w-auto min-w-[200px] bg-white/10 backdrop-blur-sm border-white hover:bg-white hover:text-foreground shadow-lg hover:shadow-xl">
-            <Link href="/degustacie">
-              Degustácie
+            <Link href={getLocalizedLink("/degustacie")}>
+              {labels.tastings || "Degustácie"}
             </Link>
           </Button>
         </div>

@@ -223,13 +223,19 @@ Všetky texty pre ubytovacie menu sa nachádzajú v `messages/sk.json` pod kľú
 - **React 19 & Next.js 16.1.6 Optimalizácie (Feb 19, 2026)**:
   - **Server-side Fetching**: Migrácia z `useEffect` fetchingu na Server Components (Vína, Degustácie, Pokladňa). Dáta sú v HTML, čo zlepšuje SEO and LCP.
   - **Async Params Compliance**: Povinné `await params` a `await searchParams` v Server komponentoch podľa štandardu Next.js 16.
-  - **Context Injection**: `CheckoutContext` a `ProductContext` podporujú `initialData` injekciu zo servera, čo eliminuje loading stavy pri prechode na pokladňu.
+  - **Context Injection**: `CheckoutContext` and `ProductContext` podporujú `initialData` injekciu zo servera, čo eliminuje loading stavy pri prechode na pokladňu.
   - **Stabilitá kľúčov**: Odstránené nestabilné `key={index}` v Achievements a MiniCart, nahradené unikátnymi ID pre spoľahlivejší rendering.
   - **Suspense**: Implementované Suspense boundary pre OrderSummary and dynamické parametre.
 
----
+- **Localization & Subdomain Fixes (Feb 23, 2026)**:
+  - **Subdomain i18n**: Upravený `proxy.ts` tak, aby správne spracovával `/en` prefix na doméne `ubytovanie.vinoputec.sk` (prepísanie na `/en/ubytovanie`).
+  - **Locale Synchronization**: Vyriešený problém so "zaseknutým" jazykom na subdoméne. 
+    1. **Server-side**: `locale` je explicitne predávaný z layoutu do `getLocalization` a `Header` komponentu.
+    2. **Client-side**: `LocalizationProvider` bol upravený tak, aby synchronizoval svoj stav s props (`initialData`), čo zabezpečuje okamžitú aktualizáciu klientskych komponentov (napr. `InquiryForm`) pri zmene jazyka.
+  - **JSON Parity**: Vytvorený skript `scripts/check-localization.mjs` na automatickú kontrolu chýbajúcich kľúčov medzi `sk.json` a `en.json`. Dosiahnutá 100% zhoda kľúčov.
 
-_Posledná aktualizácia: 19. 2. 2026 (React 19 & Next.js 16 Optimizations)_
+---
+*Posledná aktualizácia: 23. 2. 2026 (Localization & Subdomain Fixes, Hero Video Optimization)*
 
 > [!IMPORTANT]
 > **PLÁN KROKOV PRE OSTRÝ ŠTART (cca 26. 2. 2026)**

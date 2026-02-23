@@ -127,8 +127,8 @@ export default function ContactUsForm() {
                 <Phone className="w-5 h-5 text-accent flex-shrink-0" />
                 <div className="text-left">
                   <p className="text-sm text-gray-600">Telefón</p>
-                  <a href="tel:+421905123456" className="text-foreground font-medium hover:text-accent transition-colors">
-                    +421 905 123 456
+                  <a href="tel:+421 911 250 400" className="text-foreground font-medium hover:text-accent transition-colors">
+                    +421 911 250 400
                   </a>
                 </div>
               </div>

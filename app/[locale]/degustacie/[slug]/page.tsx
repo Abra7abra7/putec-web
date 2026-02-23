@@ -9,38 +9,56 @@ import BackButton from "../../../components/BackButton";
 import DegustationGallery from "../../../components/degustacie/DegustationGallery";
 import { getGoogleRating } from "../../../utils/getGoogleRating";
 
+// Define a type for route params as a Promise
+type AsyncParams = Promise<{ slug?: string; locale: string }>;
+
 // Generate metadata for each degustation
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const product = await getProductBySlug(slug);
+export async function generateMetadata({
+  params
+}: {
+  params: AsyncParams
+}): Promise<Metadata> {
+  const { slug, locale } = await params;
+  if (!slug) return { title: "Not Found" };
+  const product = await getProductBySlug(slug, locale);
 
   if (!product || product.ProductType !== 'degustation') {
     return {
-      title: "Degustácia nenájdená | Putec Vinosady",
-      description: "Požadovaná degustácia nebola nájdená.",
+      title: locale === 'en' ? "Degustation Not Found | Putec Vinosady" : "Degustácia nenájdená | Putec Vinosady",
+      description: locale === 'en' ? "The requested degustation was not found." : "Požadovaná degustácia nebola nájdená.",
     };
   }
 
   return {
-    title: `${product.Title} | Putec Vinosady | Degustácie vína`,
+    title: `${product.Title} | ${locale === 'en' ? "Putec Vinosady | Wine Tastings" : "Putec Vinosady | Degustácie vína"}`,
     description: product.ShortDescription,
-    keywords: "degustácie vína, ochutnávky vína, Putec, Vinosady, Pezinok, Bratislava, Senec, Trnava",
+    keywords: "degustácie vína, ochutnávky vína, Putec, Vinosady, Pezinok, Bratislava, Senec, Trnava, wine tastings, winery, Slovakia",
     openGraph: {
       title: `${product.Title} | Putec Vinosady`,
       description: product.ShortDescription,
       type: "website",
-      locale: "sk_SK",
+      locale: locale === 'en' ? 'en_US' : 'sk_SK',
     },
     alternates: {
       canonical: `https://vinoputec.sk/degustacie/${product.Slug}`,
+      languages: {
+        "sk-SK": `/degustacie/${product.Slug}`,
+        "en-US": `/en/degustacie/${product.Slug}`,
+      },
     },
   };
 }
 
-export default async function DegustationPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function DegustationPage({
+  params
+}: {
+  params: AsyncParams
+}) {
+  const { slug, locale } = await params;
+  if (!slug) notFound();
+
   const [product, googleRating] = await Promise.all([
-    getProductBySlug(slug),
+    getProductBySlug(slug, locale),
     getGoogleRating(),
   ]);
 

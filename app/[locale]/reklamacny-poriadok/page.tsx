@@ -1,19 +1,26 @@
+import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Reklamačný poriadok | Putec Vinosady | Reklamácie vína",
-  description: "Reklamačný poriadok pre vína z rodinného vinárstva Putec vo Vinosadoch. Postup pri reklamácii vín, záručné podmienky, vrátenie tovaru.",
-  keywords: "reklamačný poriadok, reklamácie vína, Putec, Vinosady, záruka, vrátenie tovaru",
-  openGraph: {
-    title: "Reklamačný poriadok | Putec Vinosady",
-    description: "Reklamačný poriadok pre vína z vinárstva Putec",
-    type: "website",
-    locale: "sk_SK",
-  },
-  alternates: {
-    canonical: "https://vinoputec.sk/reklamacny-poriadok",
-  },
-};
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.complaints" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "https://vinoputec.sk/reklamacny-poriadok",
+      languages: {
+        "sk-SK": "/reklamacny-poriadok",
+        "en-US": "/en/reklamacny-poriadok",
+      },
+    },
+  };
+}
 
 export default function ComplaintProcedurePage() {
   return (
@@ -22,7 +29,7 @@ export default function ComplaintProcedurePage() {
         <h1 className="text-4xl font-bold text-foreground mb-8">
           Reklamačný poriadok
         </h1>
-        
+
         <div className="prose prose-lg max-w-none text-foreground">
           <p className="text-foreground-muted mb-6">
             <strong>Účinnosť od:</strong> 1. januára 2025<br />
@@ -32,7 +39,7 @@ export default function ComplaintProcedurePage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">1. Základné informácie</h2>
             <p className="mb-4">
-              Tento reklamačný poriadok upravuje postup pri reklamácii tovaru predávaného spoločnosťou 
+              Tento reklamačný poriadok upravuje postup pri reklamácii tovaru predávaného spoločnosťou
               <strong> Putec s.r.o.</strong> prostredníctvom internetového obchodu.
             </p>
             <p className="mb-4">
@@ -49,7 +56,7 @@ export default function ComplaintProcedurePage() {
               <strong>Záručná doba:</strong> 24 mesiacov od dodania tovaru kupujúcemu.
             </p>
             <p className="mb-4">
-              <strong>Predmet záruky:</strong> Záruka sa vzťahuje na vady tovaru, ktoré sa prejavia v záručnej dobe 
+              <strong>Predmet záruky:</strong> Záruka sa vzťahuje na vady tovaru, ktoré sa prejavia v záručnej dobe
               a ktoré súvisia s kvalitou alebo funkčnosťou tovaru.
             </p>
             <p className="mb-4">
@@ -67,7 +74,7 @@ export default function ComplaintProcedurePage() {
             <h2 className="text-2xl font-semibold text-foreground mb-4">3. Postup pri reklamácii</h2>
             <p className="mb-4">
               <strong>Krok 1: Kontaktovanie predávajúceho</strong><br />
-              Reklamáciu je potrebné podať do 2 rokov od dodania tovaru na email info@vinoputec.sk 
+              Reklamáciu je potrebné podať do 2 rokov od dodania tovaru na email info@vinoputec.sk
               alebo telefonicky na +421 903465666.
             </p>
             <p className="mb-4">
@@ -118,11 +125,11 @@ export default function ComplaintProcedurePage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">6. Špeciálne podmienky pre vína</h2>
             <p className="mb-4">
-              <strong>Alkoholické nápoje:</strong> Reklamácia vína je možná len v prípade, že fľaša nie je otvorená 
+              <strong>Alkoholické nápoje:</strong> Reklamácia vína je možná len v prípade, že fľaša nie je otvorená
               a vada je viditeľná z vonku.
             </p>
             <p className="mb-4">
-              <strong>Chuťové vady:</strong> Chuťové vady vína nie sú predmetom reklamácie, pokiaľ nie sú spôsobené 
+              <strong>Chuťové vady:</strong> Chuťové vady vína nie sú predmetom reklamácie, pokiaľ nie sú spôsobené
               vadou tovaru.
             </p>
             <p className="mb-4">
@@ -149,11 +156,11 @@ export default function ComplaintProcedurePage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-foreground mb-4">8. Práva spotrebiteľa</h2>
             <p className="mb-4">
-              <strong>Právo na reklamáciu:</strong> Spotrebiteľ má právo na reklamáciu vady tovaru do 2 rokov 
+              <strong>Právo na reklamáciu:</strong> Spotrebiteľ má právo na reklamáciu vady tovaru do 2 rokov
               od dodania tovaru.
             </p>
             <p className="mb-4">
-              <strong>Právo na informácie:</strong> Spotrebiteľ má právo na informácie o postupe reklamácie 
+              <strong>Právo na informácie:</strong> Spotrebiteľ má právo na informácie o postupe reklamácie
               a jej vyriešení.
             </p>
             <p className="mb-4">

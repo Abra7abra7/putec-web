@@ -72,7 +72,7 @@ export default async function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="text-xl font-semibold mb-4 text-foreground">Právne informácie</h3>
+            <h3 className="text-xl font-semibold mb-4 text-foreground">{content.labels.legal}</h3>
             <ul className="space-y-2">
               {content.legalLinks.map((link) => (
                 <li key={link.label}>

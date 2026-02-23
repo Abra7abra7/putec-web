@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Users, Clock, Check } from "lucide-react";
 import { Product } from "@/types/Product";
 import { getMediaUrl } from "@/app/utils/media";
+import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 interface DegustationProductsProps {
   initialProducts?: Product[];
@@ -14,6 +16,9 @@ interface DegustationProductsProps {
 export default function DegustationProducts({ initialProducts = [] }: DegustationProductsProps) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [loading, setLoading] = useState(initialProducts.length === 0);
+  const t = useTranslations("pages.tastings");
+  const params = useParams();
+  const locale = params?.locale as string || "sk";
 
   useEffect(() => {
     if (initialProducts.length > 0) {
@@ -27,7 +32,7 @@ export default function DegustationProducts({ initialProducts = [] }: Degustatio
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
-          <p className="text-foreground">Načítavam degustácie...</p>
+          <p className="text-foreground">{t("loading")}</p>
         </div>
       </div>
     );
@@ -40,11 +45,10 @@ export default function DegustationProducts({ initialProducts = [] }: Degustatio
         <div className="container mx-auto px-3 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              Naše degustačné balíky
+              {t("packages.title")}
             </h2>
             <p className="text-foreground-muted text-lg max-w-2xl mx-auto">
-              Vyberte si z našich špeciálne pripravených degustačných balíkov,
-              ktoré sú navrhnuté pre rôzne veľkosti skupín a príležitosti.
+              {t("packages.subtitle")}
             </p>
           </div>
 
@@ -61,7 +65,7 @@ export default function DegustationProducts({ initialProducts = [] }: Degustatio
                   priority
                 />
 
-                {/* Gradient overlay - jemnejší, obrázok viditeľný navrch */}
+                {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/40" />
 
                 {/* Content overlay */}
@@ -91,7 +95,7 @@ export default function DegustationProducts({ initialProducts = [] }: Degustatio
                     {/* Features */}
                     {product.Features && (
                       <div className="bg-black/60 backdrop-blur-md rounded-lg p-3 md:p-4 border border-white/10 shadow-lg">
-                        <h5 className="font-semibold !text-white mb-2 text-xs md:text-sm">Zahrnuté v balíku:</h5>
+                        <h5 className="font-semibold !text-white mb-2 text-xs md:text-sm">{t("packages.includedLabel")}:</h5>
                         <ul className="space-y-1">
                           {product.Features.map((feature, index) => (
                             <li key={index} className="flex items-center space-x-2 text-xs md:text-sm">
@@ -111,15 +115,15 @@ export default function DegustationProducts({ initialProducts = [] }: Degustatio
                         </div>
                         {product.Deposit && (
                           <p className="text-xs text-white/90">
-                            Vratná záloha: {product.Deposit}€
+                            {t("packages.depositLabel")}: {product.Deposit}€
                           </p>
                         )}
                       </div>
                       <Link
-                        href={`/degustacie/${product.Slug}`}
+                        href={`/${locale}/degustacie/${product.Slug}`}
                         className="bg-accent hover:bg-accent-dark text-foreground px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold transition-colors text-center whitespace-nowrap w-full sm:w-auto text-sm md:text-base"
                       >
-                        Rezervovať
+                        {t("packages.reserveButton")}
                       </Link>
                     </div>
                   </div>

@@ -12,10 +12,10 @@ function SubmitButton({ buttonText }: { buttonText: string }) {
   const { pending } = useFormStatus();
 
   return (
-    <Button 
-      type="submit" 
-      disabled={pending} 
-      loading={pending} 
+    <Button
+      type="submit"
+      disabled={pending}
+      loading={pending}
       variant="primary"
       size="lg"
       className="w-full sm:w-auto sm:min-w-[180px] whitespace-nowrap"
@@ -45,6 +45,7 @@ export default function NewsletterSignup() {
               className="px-5 py-3 flex-1 border-2 border-gray-300 bg-background rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all duration-200 text-base shadow-sm hover:shadow-md"
               aria-label="Email pre newsletter"
             />
+            <input type="hidden" name="locale" value={useLocalization().locale || 'sk'} />
             <SubmitButton buttonText={newsletter.buttonText} />
           </form>
 

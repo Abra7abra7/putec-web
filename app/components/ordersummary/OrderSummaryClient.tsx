@@ -144,10 +144,10 @@ export default function OrderSummaryClient() {
       <p className="text-sm text-gray-700">{data.firstName} {data.lastName}</p>
       {data.isCompany && (
         <div className="mt-1 text-sm text-gray-700">
-          <p><strong>Firma:</strong> {data.companyName}</p>
-          {data.companyICO && <p><strong>IČO:</strong> {data.companyICO}</p>}
-          {data.companyDIC && <p><strong>DIČ:</strong> {data.companyDIC}</p>}
-          {data.companyICDPH && <p><strong>IČ DPH:</strong> {data.companyICDPH}</p>}
+          <p><strong>{labels.companyName}:</strong> {data.companyName}</p>
+          {data.companyICO && <p><strong>{labels.companyICO}:</strong> {data.companyICO}</p>}
+          {data.companyDIC && <p><strong>{labels.companyDIC}:</strong> {data.companyDIC}</p>}
+          {data.companyICDPH && <p><strong>{labels.companyICDPH}:</strong> {data.companyICDPH}</p>}
         </div>
       )}
       <p className="text-sm text-gray-700">{data.address1}</p>
@@ -157,6 +157,18 @@ export default function OrderSummaryClient() {
       <p className="text-sm text-gray-700">{data.email}</p>
     </div>
   );
+
+  const getLocalizedPaymentMethodName = (id: string) => {
+    if (id === "cod") return labels.checkout.paymentCod;
+    if (id === "stripe") return labels.checkout.paymentStripe;
+    return id;
+  };
+
+  const getLocalizedShippingName = (id: string, name: string) => {
+    if (id === "courier") return labels.checkout.shippingCourier;
+    if (id === "pickup") return labels.checkout.shippingPickup;
+    return name;
+  };
 
   return (
     <section className="max-w-4xl mx-auto py-10 px-6">
@@ -217,7 +229,7 @@ export default function OrderSummaryClient() {
             <span>€{total.toFixed(2)}</span>
           </div>
           <div className="flex justify-between">
-            <span>{labels.shipping || "Shipping"}: {order.shippingMethod?.name}</span>
+            <span>{labels.shipping || "Shipping"}: {getLocalizedShippingName(order.shippingMethod?.id, order.shippingMethod?.name)}</span>
             <span>€{shippingCost.toFixed(2)}</span>
           </div>
           <div className="flex justify-between font-semibold text-foreground border-t pt-2">
@@ -228,15 +240,11 @@ export default function OrderSummaryClient() {
 
         <div className="mt-6 text-sm text-gray-700 space-y-1">
           <p>
-            {labels.shippingMethod || "Shipping Method"}: {order.shippingMethod?.name}
+            {labels.shippingMethod || "Shipping Method"}: {getLocalizedShippingName(order.shippingMethod?.id, order.shippingMethod?.name)}
           </p>
           <p>
             {labels.paymentMethod || "Payment Method"}:{" "}
-            {order.paymentMethodId === "cod"
-              ? "Cash on Delivery"
-              : order.paymentMethodId === "stripe"
-                ? "Credit Card (Stripe)"
-                : order.paymentMethodId}
+            {getLocalizedPaymentMethodName(order.paymentMethodId)}
           </p>
         </div>
 

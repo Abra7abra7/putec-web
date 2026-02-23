@@ -26,15 +26,34 @@ export async function subscribeToNewsletter(
   prevState: NewsletterState | null,
   formData: FormData
 ): Promise<NewsletterState> {
+  const locale = (formData.get("locale") as string) || "sk";
+  const isEn = locale === "en";
+
+  const messages = {
+    invalidEmail: isEn ? "Invalid email address" : "Neplatný email",
+    notConfigured: isEn ? "Newsletter system is not configured" : "Newsletter systém nie je nakonfigurovaný",
+    adminSubject: isEn ? "📧 New newsletter registration" : "📧 Nová registrácia do newslettera",
+    adminText: isEn ? "New newsletter registration" : "Nová registrácia do newslettera",
+    success: isEn ? "Thank you for subscribing to our newsletter!" : "Ďakujeme za prihlásenie do newslettera!",
+    sendError: isEn ? "Error sending. Please try again later." : "Chyba pri odosielaní. Skúste to prosím neskôr.",
+    unexpectedError: isEn ? "Unexpected error. Please try again later." : "Neočakávaná chyba. Skúste to prosím neskôr.",
+  };
+
   try {
     // Validate input
     const email = formData.get("email");
-    const validationResult = NewsletterSchema.safeParse({ email });
+
+    // Dynamic schema for localized error messages
+    const schema = z.object({
+      email: z.string().email(messages.invalidEmail),
+    });
+
+    const validationResult = schema.safeParse({ email });
 
     if (!validationResult.success) {
       return {
         success: false,
-        message: "Neplatný email",
+        message: messages.invalidEmail,
         errors: validationResult.error.flatten().fieldErrors,
       };
     }
@@ -46,7 +65,7 @@ export async function subscribeToNewsletter(
       console.error("[Newsletter] RESEND_API_KEY not configured");
       return {
         success: false,
-        message: "Newsletter systém nie je nakonfigurovaný",
+        message: messages.notConfigured,
       };
     }
 
@@ -55,28 +74,28 @@ export async function subscribeToNewsletter(
       await resend.emails.send({
         from: fromEmail,
         to: process.env.ADMIN_EMAIL || "info@vinoputec.sk",
-        subject: "📧 Nová registrácia do newslettera",
-        text: `Nová registrácia do newslettera:\n\nEmail: ${validatedEmail}\n\nDátum: ${new Date().toLocaleString("sk-SK")}`,
+        subject: messages.adminSubject,
+        text: `${messages.adminText}:\n\nEmail: ${validatedEmail}\n\nDate: ${new Date().toLocaleString(locale === 'sk' ? "sk-SK" : "en-US")}`,
       });
 
-      console.log("✅ Newsletter subscription:", validatedEmail);
+      console.log(`✅ Newsletter subscription (${locale}):`, validatedEmail);
 
       return {
         success: true,
-        message: "Ďakujeme za prihlásenie do newslettera!",
+        message: messages.success,
       };
     } catch (error) {
       console.error("[Newsletter] Failed to send email:", error);
       return {
         success: false,
-        message: "Chyba pri odosielaní. Skúste to prosím neskôr.",
+        message: messages.sendError,
       };
     }
   } catch (error) {
     console.error("[Newsletter] Unexpected error:", error);
     return {
       success: false,
-      message: "Neočakávaná chyba. Skúste to prosím neskôr.",
+      message: messages.unexpectedError,
     };
   }
 }

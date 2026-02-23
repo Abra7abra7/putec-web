@@ -9,8 +9,16 @@ import { SectionHeader } from "../business/SectionHeader";
 import { FeatureIcon } from "../business/FeatureIcon";
 import DegustationSliderClient from "./DegustationSliderClient";
 import { getMediaUrl } from "../../utils/media";
+import { useLocalization } from "../../context/LocalizationContext";
+import { usePathname } from "next/navigation";
 
 export default function DegustaciePreview() {
+  const { homepage } = useLocalization();
+
+  if (!homepage?.degustaciePreview) return null;
+
+  const { title, description, whatToExpect, features: localizedFeatures, ctaReserve, ctaViewAll } = homepage.degustaciePreview;
+
   const slides = [
     { src: getMediaUrl("degustacie/brano-degustacia-x.jpg"), alt: "Degustácia s majiteľom", position: "top" },
     { src: getMediaUrl("degustacie/degustacia-skupina.jpg"), alt: "Degustácia so skupinou", position: "center" },
@@ -19,6 +27,7 @@ export default function DegustaciePreview() {
     { src: getMediaUrl("degustacie/degustacia-brano-x.jpg"), alt: "Degustácia vo vinárstva", position: "top" },
   ];
 
+  // For simplicity, keeping packages as is for now or could move to JSON later
   const packages = [
     { icon: <Wine className="w-5 h-5" />, title: "Malá vínna chvíľka", people: "2-5 osôb", price: "119€" },
     { icon: <Wine className="w-5 h-5" />, title: "Víno trochu inak", people: "6-9 osôb", price: "295,90€" },
@@ -26,12 +35,12 @@ export default function DegustaciePreview() {
     { icon: <Wine className="w-5 h-5" />, title: "Romantika na deke", people: "2 osoby", price: "59,90€" },
   ];
 
-  const features = [
-    { icon: <Wine className="w-5 h-5" />, label: "Ochutnávka prémiových vín" },
-    { icon: <Users className="w-5 h-5" />, label: "Vedúci degustácie" },
-    { icon: <MapPin className="w-5 h-5" />, label: "Prehliadka vinárstva" },
-    { icon: <ChefHat className="w-5 h-5" />, label: "Studená misa" },
-  ];
+  const icons = [<Wine className="w-5 h-5" />, <Users className="w-5 h-5" />, <MapPin className="w-5 h-5" />, <ChefHat className="w-5 h-5" />];
+
+  const pathname = usePathname();
+  const localePrefix = pathname.startsWith('/en') ? '/en' : '';
+  const getLocalizedLink = (path: string) =>
+    path.startsWith('/en') || path.startsWith('http') ? path : `${localePrefix}${path}`;
 
   return (
     <Section>
@@ -40,8 +49,8 @@ export default function DegustaciePreview() {
           {/* Content - Text HORE na mobile, vľavo na desktop */}
           <div className="flex flex-col justify-center order-1 md:order-1">
             <SectionHeader
-              title="Degustácie vína"
-              description="Objavte svet našich prémiových vín prostredníctvom nezabudnuteľných degustačných zážitkov. Vyberte si z našich špeciálne pripravených balíkov pre rôzne veľkosti skupín."
+              title={title}
+              description={description}
               showLogo
             />
 
@@ -60,12 +69,12 @@ export default function DegustaciePreview() {
 
             {/* Features */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Čo vás čaká:</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">{whatToExpect}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {features.map((feature, index) => (
+                {localizedFeatures.map((feature: string, index: number) => (
                   <div key={index} className="flex items-center gap-2">
                     <span className="text-foreground font-bold">✓</span>
-                    <span className="text-foreground">{feature.label}</span>
+                    <span className="text-foreground">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -74,10 +83,10 @@ export default function DegustaciePreview() {
             {/* CTA Buttons */}
             <div className="flex flex-col md:flex-row gap-4">
               <Button asChild>
-                <Link href="/degustacie">Rezervovať degustáciu</Link>
+                <Link href={getLocalizedLink("/degustacie")}>{ctaReserve}</Link>
               </Button>
               <Button asChild variant="outline">
-                <Link href="/degustacie">Zobraziť všetky balíky</Link>
+                <Link href={getLocalizedLink("/degustacie")}>{ctaViewAll}</Link>
               </Button>
             </div>
           </div>

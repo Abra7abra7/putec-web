@@ -13,6 +13,7 @@ import { getMediaUrl } from "../../utils/media";
 
 export default function PaymentMethods() {
   const { labels } = useLocalization();
+  const l = labels.checkout;
   const { paymentMethods } = useCheckoutSettings();
   const dispatch = useAppDispatch();
   const selectedMethodId = useAppSelector((state) => state.checkout.paymentMethodId);
@@ -27,23 +28,23 @@ export default function PaymentMethods() {
   const getMissingFields = (): string[] => {
     const missing: string[] = [];
 
-    if (!shippingForm.firstName?.trim()) missing.push("Meno");
-    if (!shippingForm.lastName?.trim()) missing.push("Priezvisko");
-    if (!shippingForm.country?.trim()) missing.push("Krajina");
-    if (!shippingForm.city?.trim()) missing.push("Mesto");
-    if (!shippingForm.address1?.trim()) missing.push("Adresa");
-    if (!shippingForm.postalCode?.trim()) missing.push("PSČ");
-    if (!shippingForm.email?.trim()) missing.push("Email");
-    if (!shippingMethodId) missing.push("Spôsob dopravy");
+    if (!shippingForm.firstName?.trim()) missing.push(l.fieldFirstName);
+    if (!shippingForm.lastName?.trim()) missing.push(l.fieldLastName);
+    if (!shippingForm.country?.trim()) missing.push(l.fieldCountry);
+    if (!shippingForm.city?.trim()) missing.push(l.fieldCity);
+    if (!shippingForm.address1?.trim()) missing.push(l.fieldAddress);
+    if (!shippingForm.postalCode?.trim()) missing.push(l.fieldPostalCode);
+    if (!shippingForm.email?.trim()) missing.push(l.fieldEmail);
+    if (!shippingMethodId) missing.push(l.fieldShippingMethod);
 
     if (differentBilling) {
-      if (!billingForm.firstName?.trim()) missing.push("Fakturačné meno");
-      if (!billingForm.lastName?.trim()) missing.push("Fakturačné priezvisko");
-      if (!billingForm.country?.trim()) missing.push("Fakturačná krajina");
-      if (!billingForm.city?.trim()) missing.push("Fakturačné mesto");
-      if (!billingForm.address1?.trim()) missing.push("Fakturačná adresa");
-      if (!billingForm.postalCode?.trim()) missing.push("Fakturačné PSČ");
-      if (!billingForm.email?.trim()) missing.push("Fakturačný email");
+      if (!billingForm.firstName?.trim()) missing.push(l.fieldBillingFirstName);
+      if (!billingForm.lastName?.trim()) missing.push(l.fieldBillingLastName);
+      if (!billingForm.country?.trim()) missing.push(l.fieldBillingCountry);
+      if (!billingForm.city?.trim()) missing.push(l.fieldBillingCity);
+      if (!billingForm.address1?.trim()) missing.push(l.fieldBillingAddress);
+      if (!billingForm.postalCode?.trim()) missing.push(l.fieldBillingPostalCode);
+      if (!billingForm.email?.trim()) missing.push(l.fieldBillingEmail);
     }
 
     return missing;
@@ -92,6 +93,12 @@ export default function PaymentMethods() {
 
   const missingFields = getMissingFields();
 
+  const getLocalizedName = (id: string, name: string) => {
+    if (id === "cod") return l.paymentCod;
+    if (id === "stripe") return l.paymentStripe;
+    return name;
+  };
+
   return (
     <div className="mt-8">
       <h2 className="text-2xl font-bold text-foreground mb-6">
@@ -111,7 +118,7 @@ export default function PaymentMethods() {
             <svg className="h-5 w-5 mr-2 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Prosím vyplňte všetky povinné údaje vyššie pred výberom platby
+            {l.fillRequiredFields}
           </p>
         </div>
       )}
@@ -134,7 +141,9 @@ export default function PaymentMethods() {
                     onChange={() => handleChange(method.id)}
                     className="accent-wine-red"
                   />
-                  <span className="text-sm font-medium text-foreground">{method.name}</span>
+                  <span className="text-sm font-medium text-foreground">
+                    {getLocalizedName(method.id, method.name)}
+                  </span>
                   {method.icon && (
                     <Image
                       src={getMediaUrl(method.icon)}
