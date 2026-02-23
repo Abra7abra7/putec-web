@@ -19,10 +19,10 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: "https://vinoputec.sk/ubytovanie",
+      canonical: locale === "en" ? "https://ubytovanie.vinoputec.sk/en" : "https://ubytovanie.vinoputec.sk/",
       languages: {
-        "sk-SK": "/ubytovanie",
-        "en-US": "/en/ubytovanie",
+        "sk-SK": "https://ubytovanie.vinoputec.sk/",
+        "en-US": "https://ubytovanie.vinoputec.sk/en",
       },
     },
   };

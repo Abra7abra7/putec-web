@@ -23,6 +23,15 @@ export default function proxy(request: NextRequest) {
         if (pathname === '/en' || pathname === '/en/') {
             return NextResponse.rewrite(new URL('/en/ubytovanie', request.url));
         }
+    } else {
+        // 1b. SEO: Ak pristupujeme cez hlavnú doménu na /ubytovanie, presmerujeme na subdoménu
+        // Zabraňuje to duplicite obsahu (Duplicate Content)
+        if (pathname === '/ubytovanie' || pathname === '/sk/ubytovanie' || pathname === '/sk/ubytovanie/') {
+            return NextResponse.redirect(new URL('https://ubytovanie.vinoputec.sk/', request.url), { status: 308 });
+        }
+        if (pathname === '/en/ubytovanie' || pathname === '/en/ubytovanie/') {
+            return NextResponse.redirect(new URL('https://ubytovanie.vinoputec.sk/en', request.url), { status: 308 });
+        }
     }
 
     // 2. Centralizované presmerovania (zlúčené z proxy.ts a next.config.ts)
