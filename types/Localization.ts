@@ -145,6 +145,7 @@ export interface LocalizationData {
             fieldAddress: string;
             fieldPostalCode: string;
             fieldEmail: string;
+            fieldPhone: string;
             fieldShippingMethod: string;
             fieldBillingFirstName: string;
             fieldBillingLastName: string;
@@ -153,6 +154,7 @@ export interface LocalizationData {
             fieldBillingAddress: string;
             fieldBillingPostalCode: string;
             fieldBillingEmail: string;
+            fieldBillingPhone: string;
             validationRequired: string;
             validationEmail: string;
             validationPSC: string;
@@ -164,6 +166,7 @@ export interface LocalizationData {
             paymentSecured: string;
             fastDelivery: string;
             premiumWines: string;
+            validationCompleteFields: string;
         };
         // Contact
         contactHeading: string;

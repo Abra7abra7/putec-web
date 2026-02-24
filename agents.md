@@ -234,8 +234,14 @@ Všetky texty pre ubytovacie menu sa nachádzajú v `messages/sk.json` pod kľú
     2. **Client-side**: `LocalizationProvider` bol upravený tak, aby synchronizoval svoj stav s props (`initialData`), čo zabezpečuje okamžitú aktualizáciu klientskych komponentov (napr. `InquiryForm`) pri zmene jazyka.
   - **JSON Parity**: Vytvorený skript `scripts/check-localization.mjs` na automatickú kontrolu chýbajúcich kľúčov medzi `sk.json` a `en.json`. Dosiahnutá 100% zhoda kľúčov.
 
+- **Email, Invoice & Checkout Optimization (Feb 24, 2026)**:
+  - **Unified SuperFaktúra API**: Konsolidácia logiky do [superFakturaApi.ts](file:///c:/Users/mstancik/Desktop/putec-web/app/utils/superFakturaApi.ts). Používa **direct creation** (klient + faktúra v jednom volaní) pre vyššiu spoľahlivosť. Podporuje `codFee` ako samostatnú položku.
+  - **Email Infrastructure**: [emailUtilities.tsx](file:///c:/Users/mstancik/Desktop/putec-web/app/utils/emailUtilities.tsx) plne migrovaný na JSX render. Logá sú dynamicky sťahované z **Cloudflare R2** CDN (`putec-logo.jpg`) namiesto hardkódovaných placeholderov. Produkčné linky v emailoch smerujú na `vinoputec.sk`.
+  - **Type Safety**: Centralizovaný [Localization.ts](file:///c:/Users/mstancik/Desktop/putec-web/types/Localization.ts) pre unifikáciu klientskeho a serverového kontextu. Pridaný [Order.ts](file:///c:/Users/mstancik/Desktop/putec-web/types/Order.ts) na odstránenie cirkulárnych závislostí.
+  - **Cart & UX**: Opravené načítanie obrázkov v košíku (`getMediaUrl`). Checkout validácia je plne lokalizovaná (`labels.checkout`) a už nepoužíva hardkódované anglické reťazce.
+
 ---
-*Posledná aktualizácia: 23. 2. 2026 (Localization & Subdomain Fixes, Hero Video Optimization)*
+*Posledná aktualizácia: 24. 2. 2026 (Email, Invoice & Checkout Optimization)*
 
 > [!IMPORTANT]
 > **PLÁN KROKOV PRE OSTRÝ ŠTART (cca 26. 2. 2026)**

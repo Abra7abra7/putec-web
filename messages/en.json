@@ -167,6 +167,7 @@
             "fieldAddress": "Address",
             "fieldPostalCode": "Postal Code",
             "fieldEmail": "Email",
+            "fieldPhone": "Phone",
             "fieldShippingMethod": "Shipping Method",
             "fieldBillingFirstName": "Billing First Name",
             "fieldBillingLastName": "Billing Last Name",
@@ -175,6 +176,7 @@
             "fieldBillingAddress": "Billing Address",
             "fieldBillingPostalCode": "Billing Postal Code",
             "fieldBillingEmail": "Billing Email",
+            "fieldBillingPhone": "Billing Phone",
             "validationRequired": "This field is required",
             "validationEmail": "Invalid email format",
             "validationPSC": "Invalid postal code",
@@ -185,7 +187,8 @@
             "shippingMethodName": "Shipping Method",
             "paymentSecured": "Secure payment via Stripe",
             "fastDelivery": "Fast delivery (SK and CZ)",
-            "premiumWines": "Premium Slovak wines"
+            "premiumWines": "Premium Slovak wines",
+            "validationCompleteFields": "Please complete the following fields"
         },
         "cartLabels": {
             "backToShopping": "Back to shopping",

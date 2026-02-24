@@ -171,6 +171,7 @@
             "fieldAddress": "Adresa",
             "fieldPostalCode": "PSČ",
             "fieldEmail": "Email",
+            "fieldPhone": "Telefón",
             "fieldShippingMethod": "Spôsob dopravy",
             "fieldBillingFirstName": "Fakturačné meno",
             "fieldBillingLastName": "Fakturačné priezvisko",
@@ -179,6 +180,7 @@
             "fieldBillingAddress": "Fakturačná adresa",
             "fieldBillingPostalCode": "Fakturačné PSČ",
             "fieldBillingEmail": "Fakturačný email",
+            "fieldBillingPhone": "Fakturačný telefón",
             "validationRequired": "Toto pole je povinné",
             "validationEmail": "Neplatný formát emailu",
             "validationPSC": "Neplatné PSČ",
@@ -189,7 +191,8 @@
             "shippingMethodName": "Spôsob dopravy",
             "paymentSecured": "Bezpečná platba cez Stripe",
             "fastDelivery": "Rýchle doručenie (SR a ČR)",
-            "premiumWines": "Prémiove slovenské vína"
+            "premiumWines": "Prémiove slovenské vína",
+            "validationCompleteFields": "Prosím doplňte nasledujúce polia"
         },
         "cartLabels": {
             "backToShopping": "Späť na nákup",

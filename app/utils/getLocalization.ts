@@ -187,6 +187,7 @@ const defaultLocalization: LocalizationData = {
       fieldAddress: "Adresa",
       fieldPostalCode: "PSČ",
       fieldEmail: "Email",
+      fieldPhone: "Telefón",
       fieldShippingMethod: "Spôsob dopravy",
       fieldBillingFirstName: "Fakturačné meno",
       fieldBillingLastName: "Fakturačné priezvisko",
@@ -195,6 +196,7 @@ const defaultLocalization: LocalizationData = {
       fieldBillingAddress: "Fakturačná adresa",
       fieldBillingPostalCode: "Fakturačné PSČ",
       fieldBillingEmail: "Fakturačný email",
+      fieldBillingPhone: "Fakturačný telefón",
       validationRequired: "Toto pole je povinné",
       validationEmail: "Neplatný formát emailu",
       validationPSC: "Neplatné PSČ",
@@ -206,6 +208,7 @@ const defaultLocalization: LocalizationData = {
       paymentSecured: "Bezpečná platba cez Stripe",
       fastDelivery: "Rýchle doručenie (SR a ČR)",
       premiumWines: "Prémiove slovenské vína",
+      validationCompleteFields: "Prosím doplňte nasledujúce polia",
       codFeeLabel: "Poplatok za dobierku"
     },
     // Contact

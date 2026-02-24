@@ -81,7 +81,7 @@ function CartContent() {
                 return (
                   <div key={item.ID} className="flex gap-4 items-center border-b pb-4">
                     <Image
-                      src={item.FeatureImageURL}
+                      src={getMediaUrl(item.FeatureImageURL)}
                       alt={item.Title}
                       width={80}
                       height={100}

@@ -26,28 +26,29 @@ export default function PlaceOrderButton() {
 
   const validate = () => {
     const missingFields: string[] = [];
+    const c = labels.checkout;
 
-    if (!shippingForm.firstName?.trim()) missingFields.push("Shipping First Name");
-    if (!shippingForm.lastName?.trim()) missingFields.push("Shipping Last Name");
-    if (!shippingForm.country?.trim()) missingFields.push("Shipping Country");
-    if (!shippingForm.address1?.trim()) missingFields.push("Shipping Address");
-    if (!shippingForm.postalCode?.trim()) missingFields.push("Shipping Postal Code");
-    if (!shippingForm.phone?.trim()) missingFields.push("Shipping Phone");
-    if (!shippingForm.email?.trim()) missingFields.push("Shipping Email");
+    if (!shippingForm.firstName?.trim()) missingFields.push(c.fieldFirstName);
+    if (!shippingForm.lastName?.trim()) missingFields.push(c.fieldLastName);
+    if (!shippingForm.country?.trim()) missingFields.push(c.fieldCountry);
+    if (!shippingForm.address1?.trim()) missingFields.push(c.fieldAddress);
+    if (!shippingForm.postalCode?.trim()) missingFields.push(c.fieldPostalCode);
+    if (!shippingForm.phone?.trim()) missingFields.push(c.fieldPhone);
+    if (!shippingForm.email?.trim()) missingFields.push(c.fieldEmail);
 
-    if (!billingForm.firstName?.trim()) missingFields.push("Billing First Name");
-    if (!billingForm.lastName?.trim()) missingFields.push("Billing Last Name");
-    if (!billingForm.country?.trim()) missingFields.push("Billing Country");
-    if (!billingForm.address1?.trim()) missingFields.push("Billing Address");
-    if (!billingForm.postalCode?.trim()) missingFields.push("Billing Postal Code");
-    if (!billingForm.phone?.trim()) missingFields.push("Billing Phone");
-    if (!billingForm.email?.trim()) missingFields.push("Billing Email");
+    if (!billingForm.firstName?.trim()) missingFields.push(c.fieldBillingFirstName);
+    if (!billingForm.lastName?.trim()) missingFields.push(c.fieldBillingLastName);
+    if (!billingForm.country?.trim()) missingFields.push(c.fieldBillingCountry);
+    if (!billingForm.address1?.trim()) missingFields.push(c.fieldBillingAddress);
+    if (!billingForm.postalCode?.trim()) missingFields.push(c.fieldBillingPostalCode);
+    if (!billingForm.phone?.trim()) missingFields.push(c.fieldBillingPhone);
+    if (!billingForm.email?.trim()) missingFields.push(c.fieldBillingEmail);
 
-    if (!shippingMethodId?.trim()) missingFields.push("Shipping Method");
-    if (!paymentMethodId?.trim()) missingFields.push("Payment Method");
+    if (!shippingMethodId?.trim()) missingFields.push(c.fieldShippingMethod);
+    if (!paymentMethodId?.trim()) missingFields.push(labels.paymentMethod);
 
     if (missingFields.length > 0) {
-      setErrorMsg(`Please complete the following fields: ${missingFields.join(", ")}`);
+      setErrorMsg(`${c.validationCompleteFields}: ${missingFields.join(", ")}`);
       return false;
     }
 
