@@ -6,7 +6,8 @@ import { locales, localePrefix } from './i18n.config';
 const handleI18n = createMiddleware({
     defaultLocale: 'sk',
     locales,
-    localePrefix
+    localePrefix,
+    localeDetection: false
 });
 
 export default function proxy(request: NextRequest) {
