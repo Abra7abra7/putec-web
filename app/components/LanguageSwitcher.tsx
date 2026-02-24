@@ -35,9 +35,10 @@ export default function LanguageSwitcher({ currentLocale, className = "" }: Lang
     return (
         <div className={`flex items-center gap-1 ${className}`} aria-label="Language switcher">
             {LOCALES.map(({ code, label }) => {
-                // Always build the full /{locale}{bare} path for every locale
-                // bare is "/" for the root, otherwise e.g. "/kontakt"
-                const href = `/${code}${bare === "/" ? "" : bare}`;
+                // next-intl with localePrefix: 'as-needed' omits the prefix for the default locale (sk)
+                const href = code === "sk"
+                    ? (bare === "/" ? "/" : bare)
+                    : `/${code}${bare === "/" ? "" : bare}`;
                 const isActive = currentLocale === code;
 
                 return (

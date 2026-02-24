@@ -15,7 +15,7 @@ export default async function Header({ locale }: { locale?: string }) {
   const content = await getLocalization(locale);
   const headersList = await headers();
   const host = headersList.get("host") || "";
-  const pathname = headersList.get("x-pathname") || headersList.get("x-forwarded-for") || "";
+  const pathname = headersList.get("x-pathname") || "";
 
   const isUbytovanieDomain = host.includes("ubytovanie.vinoputec.sk") || host.includes("ubytovanie.localhost");
   const menuItems = isUbytovanieDomain ? content.ubytovanieMenu : content.menu;

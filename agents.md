@@ -239,9 +239,10 @@ Všetky texty pre ubytovacie menu sa nachádzajú v `messages/sk.json` pod kľú
   - **Email Infrastructure**: [emailUtilities.tsx](file:///c:/Users/mstancik/Desktop/putec-web/app/utils/emailUtilities.tsx) plne migrovaný na JSX render. Logá sú dynamicky sťahované z **Cloudflare R2** CDN (`putec-logo.jpg`) namiesto hardkódovaných placeholderov. Produkčné linky v emailoch smerujú na `vinoputec.sk`.
   - **Type Safety**: Centralizovaný [Localization.ts](file:///c:/Users/mstancik/Desktop/putec-web/types/Localization.ts) pre unifikáciu klientskeho a serverového kontextu. Pridaný [Order.ts](file:///c:/Users/mstancik/Desktop/putec-web/types/Order.ts) na odstránenie cirkulárnych závislostí.
   - **Cart & UX**: Opravené načítanie obrázkov v košíku (`getMediaUrl`). Checkout validácia je plne lokalizovaná (`labels.checkout`) a už nepoužíva hardkódované anglické reťazce.
+  - **Language Switcher Fix**: Opravené prepínanie jazykov v klientskom komponente `LanguageSwitcher.tsx`. URL pre slovenčinu už neobsahujú duplicitný/nefunkčný prefix `/sk`, čo je v súlade s konfiguráciou `localePrefix: 'as-needed'`.
 
 ---
-*Posledná aktualizácia: 24. 2. 2026 (Email, Invoice & Checkout Optimization)*
+*Posledná aktualizácia: 24. 2. 2026 (Language Switcher Fix & Optimization)*
 
 > [!IMPORTANT]
 > **PLÁN KROKOV PRE OSTRÝ ŠTART (cca 26. 2. 2026)**
