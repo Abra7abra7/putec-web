@@ -13,10 +13,9 @@ export default function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const host = request.headers.get('host') || '';
 
-    // 1. Multi-domain Routing (Feature Flag)
-    // Ak pristupujeme cez subdoménu ubytovania, "podstrčíme" mu obsah sekcie ubytovanie
+    // 1. Multi-domain Routing (Feature Flag) - TEMPORARILY DISABLED AS PER USER REQUEST
+    /*
     if (host.includes('ubytovanie.vinoputec.sk') || host.includes('ubytovanie.localhost')) {
-        // Handle both /sk and /en prefixes (or bare root which defaults to /sk)
         if (pathname === '/' || pathname === '/sk' || pathname === '/sk/') {
             return NextResponse.rewrite(new URL('/sk/ubytovanie', request.url));
         }
@@ -24,8 +23,6 @@ export default function proxy(request: NextRequest) {
             return NextResponse.rewrite(new URL('/en/ubytovanie', request.url));
         }
     } else {
-        // 1b. SEO: Ak pristupujeme cez hlavnú doménu na /ubytovanie, presmerujeme na subdoménu
-        // Zabraňuje to duplicite obsahu (Duplicate Content)
         if (pathname === '/ubytovanie' || pathname === '/sk/ubytovanie' || pathname === '/sk/ubytovanie/') {
             return NextResponse.redirect(new URL('https://ubytovanie.vinoputec.sk/', request.url), { status: 308 });
         }
@@ -33,6 +30,7 @@ export default function proxy(request: NextRequest) {
             return NextResponse.redirect(new URL('https://ubytovanie.vinoputec.sk/en', request.url), { status: 308 });
         }
     }
+    */
 
     // 2. Centralizované presmerovania (zlúčené z proxy.ts a next.config.ts)
     const redirects: Record<string, string> = {

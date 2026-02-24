@@ -10,6 +10,8 @@ interface CheckoutSettings {
     price: number;
     currency: string;
   }[];
+  freeShippingThreshold: number;
+  codFee: number;
   shippingCountries: {
     code: string;
     name: string;

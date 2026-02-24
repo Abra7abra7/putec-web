@@ -81,7 +81,7 @@ export default async function LocaleLayout({
     "@context": "https://schema.org",
     "@type": "Winery",
     "name": "Vino Putec",
-    "image": "https://vinoputec.sk/putec-logo.jpg",
+    "image": "https://pub-049b5673c21f4cc291802dc6fc171c6c.r2.dev/putec-logo.jpg",
     "url": "https://vinoputec.sk",
     "telephone": localizationData.phone,
     "address": {

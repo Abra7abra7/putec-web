@@ -3,7 +3,7 @@
     {
       "id": "courier",
       "name": "Kurier (2-3 pracovné dni)",
-      "price": 3.00,
+      "price": 4.90,
       "currency": "EUR"
     },
     {
@@ -13,6 +13,8 @@
       "currency": "EUR"
     }
   ],
+  "freeShippingThreshold": 50.00,
+  "codFee": 1.50,
   "shippingCountries": [
     {
       "code": "SK",
@@ -139,6 +141,12 @@
       "name": "Stripe (kreditná / debetná karta)",
       "enabled": true,
       "icon": "/payments/stripe.png"
+    },
+    {
+      "id": "pickup",
+      "name": "Platba pri osobnom odbere",
+      "enabled": true,
+      "icon": "/payments/cash.png"
     }
   ]
 }

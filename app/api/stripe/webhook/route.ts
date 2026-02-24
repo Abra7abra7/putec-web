@@ -1,7 +1,8 @@
 import Stripe from "stripe";
 import { NextRequest } from "next/server";
 import { createSuperFakturaInvoice } from "../../../actions/superfaktura";
-import { sendAdminEmail, sendCustomerEmail, OrderBody, OrderCartItem } from "../../../utils/emailUtilities";
+import { sendAdminEmail, sendCustomerEmail } from "../../../utils/emailUtilities";
+import { OrderBody, OrderCartItem } from "../../../../types/Order";
 
 /**
  * Webhook configuration

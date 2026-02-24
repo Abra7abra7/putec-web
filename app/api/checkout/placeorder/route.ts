@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendAdminEmail, sendCustomerEmail, OrderBody } from "../../../utils/emailUtilities";
+import { sendAdminEmail, sendCustomerEmail } from "../../../utils/emailUtilities";
+import { OrderBody } from "../../../../types/Order";
 import getProducts from "../../../utils/getProducts";
 import { getCheckoutSettings } from "../../../utils/getCheckout";
 import { z } from "zod";
@@ -11,6 +12,7 @@ const CartItemSchema = z.object({
   RegularPrice: z.string(),
   SalePrice: z.string().optional(),
   quantity: z.number().positive(),
+  Slug: z.string().optional(),
 });
 
 const AddressSchema = z.object({
@@ -28,6 +30,7 @@ const AddressSchema = z.object({
   companyICO: z.string().optional(),
   companyDIC: z.string().optional(),
   companyICDPH: z.string().optional(),
+  isCompany: z.boolean().optional(),
 });
 
 const OrderSchema = z.object({
@@ -43,6 +46,8 @@ const OrderSchema = z.object({
   }),
   paymentMethodId: z.string(),
   differentBilling: z.boolean().optional(),
+  codFee: z.number().optional(),
+  locale: z.string().optional(),
 });
 
 /**
@@ -167,12 +172,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // COD: No SuperFaktura invoice — physical invoice delivered by courier with the wine
-    console.log("📦 COD order - physical invoice will be delivered by courier");
+    // COD/Pickup: Create SuperFaktura invoice
+    let invoiceId: string | undefined;
+    try {
+      const { createSuperFakturaInvoice } = await import("../../../utils/superFakturaApi");
+      console.log("🧾 Creating SuperFaktura invoice for COD/Pickup order:", orderData.orderId);
+
+      invoiceId = await createSuperFakturaInvoice(orderData);
+      console.log("✅ SuperFaktúra invoice created successfully:", invoiceId);
+    } catch (error) {
+      console.error("❌ Failed to create SuperFaktura invoice for COD/Pickup:", error);
+      // We continue with order placement even if invoice fails
+    }
 
     // Send admin notification email
     try {
-      await sendAdminEmail(orderData);
+      await sendAdminEmail(orderData, orderData.locale);
       emailResults.admin = true;
       console.log("✅ Admin email sent successfully");
       // Add small delay to avoid rate limiting
@@ -181,11 +196,11 @@ export async function POST(request: NextRequest) {
       console.error("❌ Failed to send admin email:", error);
     }
 
-    // Send customer confirmation email (no invoice attachment for COD)
+    // Send customer confirmation email
     try {
-      await sendCustomerEmail(orderData);
+      await sendCustomerEmail(orderData, invoiceId, orderData.locale);
       emailResults.customer = true;
-      console.log("✅ Customer email sent successfully (COD)");
+      console.log("✅ Customer email sent successfully (with invoice if created)");
     } catch (error) {
       console.error("❌ Failed to send customer email:", error);
     }

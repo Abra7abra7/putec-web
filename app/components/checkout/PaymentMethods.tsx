@@ -96,6 +96,7 @@ export default function PaymentMethods() {
   const getLocalizedName = (id: string, name: string) => {
     if (id === "cod") return l.paymentCod;
     if (id === "stripe") return l.paymentStripe;
+    if (id === "pickup") return l.paymentPickup;
     return name;
   };
 
@@ -124,14 +125,21 @@ export default function PaymentMethods() {
       )}
 
       <div
-        className={`space-y-4 bg-background rounded p-5 transition-all duration-300 ${formReady ? "" : "opacity-80 blur-[1px] pointer-events-none"
+        className={`space-y-4 bg-background rounded p-5 transition-all duration-300 ${formReady ? "" : "opacity-90"
           }`}
       >
         {paymentMethods
-          .filter((method) => method.enabled)
+          .filter((method) => {
+            if (!method.enabled) return false;
+            // Ak je osobný odber, nezobrazuj dobierku
+            if (shippingMethodId === "pickup" && method.id === "cod") return false;
+            // Ak je kuriér, nezobrazuj platbu pri osobnom odbere
+            if (shippingMethodId === "courier" && method.id === "pickup") return false;
+            return true;
+          })
           .map((method) => (
-            <div key={method.id}>
-              <label className="flex items-center justify-between p-1 cursor-pointer transition">
+            <div key={method.id} className="border border-gray-100 rounded-lg p-3 hover:border-accent transition-colors">
+              <label className="flex items-center justify-between cursor-pointer">
                 <div className="flex items-center gap-4">
                   <input
                     type="radio"
@@ -139,32 +147,38 @@ export default function PaymentMethods() {
                     value={method.id}
                     checked={selectedMethodId === method.id}
                     onChange={() => handleChange(method.id)}
-                    className="accent-wine-red"
+                    className="accent-wine-red h-5 w-5"
                   />
-                  <span className="text-sm font-medium text-foreground">
-                    {getLocalizedName(method.id, method.name)}
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-foreground">
+                      {getLocalizedName(method.id, method.name)}
+                    </span>
+                    {method.id === "cod" && (
+                      <span className="text-xs text-accent font-medium">
+                        (+ €1.50)
+                      </span>
+                    )}
+                  </div>
                   {method.icon && (
                     <Image
                       src={getMediaUrl(method.icon)}
                       alt={method.name}
                       width={40}
                       height={24}
-                      className="object-contain"
+                      className="object-contain ml-auto md:ml-2"
                     />
                   )}
                 </div>
               </label>
 
-
-              {method.id === "cod" && selectedMethodId === "cod" && (
-                <div className="mt-4 ml-6">
+              {(method.id === "cod" || method.id === "pickup") && selectedMethodId === method.id && (
+                <div className="mt-4 pt-4 border-t border-gray-100">
                   <PlaceOrderButton />
                 </div>
               )}
 
               {method.id === "stripe" && selectedMethodId === "stripe" && formReady && (
-                <div className="mt-4 ml-6">
+                <div className="mt-4 pt-4 border-t border-gray-100">
                   <StripeClientSecretLoader />
                 </div>
               )}

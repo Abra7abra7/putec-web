@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 export default function PlaceOrderButton() {
   const dispatch = useAppDispatch();
   const { labels } = useLocalization();
-  const { shippingMethods } = useCheckoutSettings();
+  const { shippingMethods, codFee } = useCheckoutSettings();
   const router = useRouter();
 
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -56,9 +56,9 @@ export default function PlaceOrderButton() {
   };
 
   const handlePlaceOrder = async () => {
-    // Note: Only Cash on Delivery should trigger this button
-    if (paymentMethodId !== "cod") {
-      setErrorMsg("Please select Cash on Delivery to place the order here.");
+    // Note: Only Cash on Delivery and Personal Pickup should trigger this button
+    if (paymentMethodId !== "cod" && paymentMethodId !== "pickup") {
+      setErrorMsg("Please select Cash on Delivery or Personal Pickup to place the order here.");
       return;
     }
 
@@ -75,6 +75,7 @@ export default function PlaceOrderButton() {
       billingForm,
       shippingMethod,
       paymentMethodId,
+      codFee: paymentMethodId === "cod" ? codFee : 0,
     };
 
     try {

@@ -105,7 +105,7 @@ export const OrderConfirmationCustomer = ({
                   <Row key={index} style={productRow}>
                     <Column style={{ width: '60%' }}>
                       <Link
-                        href={`https://vino-putec.vercel.app/vina/${item.Slug}`}
+                        href={`https://vinoputec.sk/vina/${item.Slug}`}
                         style={productLink}
                       >
                         {item.Title} × {item.quantity}

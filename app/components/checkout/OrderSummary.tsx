@@ -19,14 +19,21 @@ export default function OrderSummary() {
   const l = labels.checkout;
 
   const shipping = shippingMethods.find((s) => s.id === shippingMethodId);
+  const { freeShippingThreshold, codFee } = useCheckoutSettings();
+  const paymentMethodId = useAppSelector((state) => state.checkout.paymentMethodId);
 
   const cartTotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * parseFloat(item.SalePrice || item.RegularPrice),
     0
   );
 
-  const shippingCost = shipping?.price || 0;
-  const totalAmount = cartTotal + shippingCost;
+  // Free shipping threshold (only for courier, not pickup)
+  const actualShippingCost = (shipping?.id === "courier" && cartTotal >= freeShippingThreshold)
+    ? 0
+    : (shipping?.price || 0);
+
+  const codCost = paymentMethodId === "cod" ? codFee : 0;
+  const totalAmount = cartTotal + actualShippingCost + codCost;
 
   // Get currency symbol from first cart item or default to EUR
   const currencySymbol = cartItems.length > 0 ? getCurrencySymbol(cartItems[0].Currency) : "€";
@@ -78,10 +85,17 @@ export default function OrderSummary() {
           <span>{labels.shipping || "Doprava"}:</span>
           <span>
             {shipping
-              ? `${getLocalizedShippingName(shipping.id, shipping.name)} ${getCurrencySymbol(shipping.currency)}${shipping.price.toFixed(2)}`
+              ? `${getLocalizedShippingName(shipping.id, shipping.name)} ${actualShippingCost === 0 ? l.shippingFree || "Zadarmo" : `${currencySymbol}${actualShippingCost.toFixed(2)}`}`
               : labels.noShippingSelected || "Nevybrané"}
           </span>
         </div>
+
+        {paymentMethodId === "cod" && (
+          <div className="flex justify-between text-sm">
+            <span>{l.codFeeLabel || "Poplatok za dobierku"}:</span>
+            <span>{currencySymbol}{codFee.toFixed(2)}</span>
+          </div>
+        )}
 
         <hr className="my-4" />
 
