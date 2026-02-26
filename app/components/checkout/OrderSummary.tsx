@@ -80,6 +80,10 @@ export default function OrderSummary() {
           <span>{labels.subtotal || "Medzisúčet"}:</span>
           <span>{currencySymbol}{cartTotal.toFixed(2)}</span>
         </div>
+        <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <span>{l.vatIncluded || "z toho DPH (23%)"}:</span>
+          <span>{currencySymbol}{(cartTotal - (cartTotal / 1.23)).toFixed(2)}</span>
+        </div>
 
         <div className="flex justify-between text-sm">
           <span>{labels.shipping || "Doprava"}:</span>

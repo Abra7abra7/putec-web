@@ -60,7 +60,7 @@ export default function AccommodationPreview() {
             {/* CTA Buttons */}
             <div className="flex flex-col md:flex-row gap-4">
               <Button asChild>
-                <Link href={getLocalizedLink("/ubytovanie#rezervacia")}>{ctaReserve}</Link>
+                <a href={getLocalizedLink("/ubytovanie#rezervacia")}>{ctaReserve}</a>
               </Button>
               <Button asChild variant="outline">
                 <Link href={getLocalizedLink("/ubytovanie")}>{ctaDetails}</Link>

@@ -126,20 +126,38 @@ export default function Hero({
               className="flex flex-col sm:flex-row items-center gap-4 relative z-40 pointer-events-auto"
             >
               {primaryCta && (
-                <Link
-                  href={primaryCta.href}
-                  className="bg-accent hover:bg-accent-dark text-foreground px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-accent/20"
-                >
-                  {primaryCta.label}
-                </Link>
+                primaryCta.href.startsWith('#') ? (
+                  <a
+                    href={primaryCta.href}
+                    className="bg-accent hover:bg-accent-dark text-foreground px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-accent/20"
+                  >
+                    {primaryCta.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={primaryCta.href}
+                    className="bg-accent hover:bg-accent-dark text-foreground px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-accent/20"
+                  >
+                    {primaryCta.label}
+                  </Link>
+                )
               )}
               {secondaryCta && (
-                <Link
-                  href={secondaryCta.href}
-                  className="border-2 border-accent text-white hover:bg-accent hover:text-foreground px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-black/20"
-                >
-                  {secondaryCta.label}
-                </Link>
+                secondaryCta.href.startsWith('#') ? (
+                  <a
+                    href={secondaryCta.href}
+                    className="border-2 border-accent text-white hover:bg-accent hover:text-foreground px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-black/20"
+                  >
+                    {secondaryCta.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={secondaryCta.href}
+                    className="border-2 border-accent text-white hover:bg-accent hover:text-foreground px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-black/20"
+                  >
+                    {secondaryCta.label}
+                  </Link>
+                )
               )}
             </motion.div>
           )}

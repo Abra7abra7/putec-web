@@ -192,7 +192,8 @@
             "paymentSecured": "Bezpečná platba cez Stripe",
             "fastDelivery": "Rýchle doručenie (SR a ČR)",
             "premiumWines": "Prémiove slovenské vína",
-            "validationCompleteFields": "Prosím doplňte nasledujúce polia"
+            "validationCompleteFields": "Prosím doplňte nasledujúce polia",
+            "vatIncluded": "z toho DPH 23%"
         },
         "cartLabels": {
             "backToShopping": "Späť na nákup",

@@ -167,6 +167,7 @@ export interface LocalizationData {
             fastDelivery: string;
             premiumWines: string;
             validationCompleteFields: string;
+            vatIncluded: string;
         };
         // Contact
         contactHeading: string;
