@@ -79,6 +79,19 @@ export default async function AccommodationPage({
             </p>
           </div>
 
+          {/* Reservation Section */}
+          <div id="rezervacia" className="max-w-4xl mx-auto mb-32">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-foreground mb-4">{t("reservation.title")}</h2>
+              <p className="text-lg text-foreground-muted">
+                {t("reservation.subtitle")}
+              </p>
+            </div>
+            <div className="bg-background rounded-2xl shadow-xl border border-accent/10 p-4 md:p-8">
+              <PrevioBookingClient />
+            </div>
+          </div>
+
           {/* Capacity and Rooms */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-32">
             <div className="relative group">
@@ -281,30 +294,14 @@ export default async function AccommodationPage({
         </div>
       </section>
 
-      {/* Reservation Section */}
-      <section id="rezervacia" className="py-16 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-foreground mb-4">{t("reservation.title")}</h2>
-              <p className="text-lg text-foreground-muted">
-                {t("reservation.subtitle")}
-              </p>
-            </div>
 
-            <div className="bg-background rounded-lg shadow-lg p-8">
-              <PrevioBookingClient />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* FAQ */}
       <section className="py-12 bg-background">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-foreground mb-6">{t("faq.title")}</h2>
           <div className="space-y-4">
-            {[0, 1, 2].map((i) => (
+            {[0, 1, 2, 3].map((i) => (
               <details key={i} className="bg-background border border-gray-200 rounded-lg p-4">
                 <summary className="font-semibold text-foreground">{t(`faq.items.${i}.q`)}</summary>
                 <p className="text-foreground-muted mt-2">{t(`faq.items.${i}.a`)}</p>

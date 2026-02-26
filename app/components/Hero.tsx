@@ -47,7 +47,7 @@ export default function Hero({
 
   return (
     <section ref={containerRef} className={`relative ${heightClass} bg-background overflow-hidden`}>
-      <motion.div className="absolute inset-0" style={{ y }}>
+      <motion.div className="absolute inset-0 pointer-events-none" style={{ y }}>
         {/* Always render the image as a base layer / fallback */}
         <div className={`absolute inset-0 w-full h-[120%] -top-[10%] z-0 ${mobileBg ? 'hidden md:block' : ''}`}>
           <Image
@@ -123,7 +123,7 @@ export default function Hero({
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row items-center gap-4"
+              className="flex flex-col sm:flex-row items-center gap-4 relative z-40 pointer-events-auto"
             >
               {primaryCta && (
                 <Link

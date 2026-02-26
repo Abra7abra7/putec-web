@@ -242,6 +242,12 @@ Všetky texty pre ubytovacie menu sa nachádzajú v `messages/sk.json` pod kľú
   - **Language Switcher Fix**: Opravené prepínanie jazykov v klientskom komponente `LanguageSwitcher.tsx`. URL pre slovenčinu už neobsahujú prefix `/sk` (v súlade s `localePrefix: 'as-needed'`). Taktiež bola vypnutá automatická detekcia jazyka (`localeDetection: false` v `proxy.ts`), aby systém nepretláčal EN verziu užívateľom s EN prehliadačom pri manuálnej voľbe SK.
   - **SVG Path Fix**: Opravený poškodený SVG path v logu Google v komponente `Testimonials.tsx`, ktorý spôsoboval chybu "Expected number" v konzole.
 
+- **Client Feedback Fixes (Feb 26, 2026)**:
+  - **Accommodation UI**: Presunutý rezervačný formulár Previo vyššie na stránke ubytovania (hneď pod úvod). Pridaná presná adresa "Pezinská 75, 902 01 Vinosady" do lokalizačných súborov (`sk.json`, `en.json`).
+  - **Checkout Validation**: Odstránená povinná validácia telefónneho čísla pri odosielaní objednávky, keďže pole je v UI označené ako voliteľné. Toto spôsobovalo konfúzne chybové hlášky pre užívateľov s dobierkou, ktorí nezadali telefónne číslo.
+  - **Product Images**: Analyzovaný problém s nezobrazujúcimi "dolnými obrázkami" na produktových stránkach. Tieto obrázky sú súčasťou galérie a zobrazujú sa len pri vínach, ktoré majú vyplnené pole `ProductImageGallery` v systéme. 
+  - **Unclickable Elements**: Opravený prekrývajúci `motion.div` v Hero komponente, ktorý blokoval klikanie na subpages pri scrollovaní. Pridané `pointer-events-none`.
+
 ---
 *Posledná aktualizácia: 24. 2. 2026 (Language Switcher & SVG Path Fixes)*
 

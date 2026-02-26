@@ -551,7 +551,7 @@
                 },
                 "location": {
                     "title": "Poloha",
-                    "address": "Pezinská 154, 902 01 Vinosady",
+                    "address": "Pezinská 75, 902 01 Vinosady",
                     "region": "Srdce malokarpatského vinárskeho regiónu",
                     "vineyards": "Priamo medzi vinicami Putec",
                     "authentic": "Autentické vidiecke prostredie"
@@ -606,6 +606,10 @@
                     {
                         "q": "Aká je minimálna dĺžka pobytu?",
                         "a": "Minimálny pobyt sú 2 noci. Pre firemné akcie odporúčame kontaktovať nás priamo."
+                    },
+                    {
+                        "q": "Kde sa ubytovanie nachádza?",
+                        "a": "Rodinný dom s ubytovaním sa nachádza na adrese Pezinská 75, 902 01 Vinosady."
                     }
                 ]
             }
@@ -962,7 +966,7 @@
                 },
                 "location": {
                     "title": "Poloha",
-                    "address": "Pezinská 154, 902 01 Vinosady",
+                    "address": "Pezinská 75, 902 01 Vinosady",
                     "region": "Srdce Malokarpatskej vinárskej oblasti",
                     "vineyards": "Priamo medzi vinicami Putec",
                     "authentic": "Autentické vidiecke prostredie"
@@ -1017,6 +1021,10 @@
                     {
                         "q": "Aká je minimálna dĺžka pobytu?",
                         "a": "Minimálna dĺžka pobytu sú 2 noci. Pre firemné akcie odporúčame kontaktovať nás priamo."
+                    },
+                    {
+                        "q": "Kde sa ubytovanie nachádza?",
+                        "a": "rodinny dom z ubytovaním sa nachádza na 75 Pezinská, Vinosady 90201"
                     }
                 ]
             }

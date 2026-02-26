@@ -56,7 +56,10 @@ export async function POST(req: NextRequest) {
     console.log("✅ Admin email sent:", adminResult);
 
     // Send customer email
-    const customerEmailHTML = await render(DegustationReservationCustomer(body));
+    const customerEmailHTML = await render(DegustationReservationCustomer({
+      ...body,
+      logoSrc: "https://pub-049b5673c21f4cc291802dc6fc171c6c.r2.dev/putec-logo.jpg"
+    }));
 
     console.log("📧 Sending customer email to:", body.email);
 

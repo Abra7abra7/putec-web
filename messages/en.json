@@ -551,7 +551,7 @@
                 },
                 "location": {
                     "title": "Location",
-                    "address": "Pezinská 154, 902 01 Vinosady",
+                    "address": "Pezinská 75, 902 01 Vinosady",
                     "region": "Heart of the Small Carpathian wine region",
                     "vineyards": "Directly among Putec vineyards",
                     "authentic": "Authentic rural setting"
@@ -606,6 +606,10 @@
                     {
                         "q": "What is the minimum length of stay?",
                         "a": "The minimum stay is 2 nights. For corporate events, we recommend contacting us directly."
+                    },
+                    {
+                        "q": "Where is the accommodation located?",
+                        "a": "The guest house is located at Pezinská 75, 902 01 Vinosady."
                     }
                 ]
             }
@@ -962,7 +966,7 @@
                 },
                 "location": {
                     "title": "Location",
-                    "address": "Pezinská 154, 902 01 Vinosady",
+                    "address": "Pezinská 75, 902 01 Vinosady",
                     "region": "Heart of the Small Carpathian wine region",
                     "vineyards": "Directly among Putec vineyards",
                     "authentic": "Authentic rural setting"
@@ -1017,6 +1021,10 @@
                     {
                         "q": "What is the minimum length of stay?",
                         "a": "The minimum stay is 2 nights. For corporate events, we recommend contacting us directly."
+                    },
+                    {
+                        "q": "Where is the accommodation located?",
+                        "a": "The family house with accommodation is located at: Pezinská 75, Vinosady 902 01."
                     }
                 ]
             }

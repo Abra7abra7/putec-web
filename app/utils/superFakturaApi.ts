@@ -96,36 +96,51 @@ export async function createSuperFakturaInvoice(orderData: OrderBody): Promise<s
     console.log("📄 SuperFaktúra API URL:", SUPERFAKTURA_API_URL);
 
     // Priprav položky faktúry
-    const invoiceItems: SuperFakturaInvoiceItem[] = orderData.cartItems.map((item: OrderCartItem) => ({
-      name: item.Title,
-      description: item.ShortDescription || `ID: ${item.ID}`,
-      quantity: item.quantity,
-      unit: "ks",
-      unit_price: parseFloat(item.SalePrice || item.RegularPrice),
-      tax: 20, // DPH 20%
-    }));
+    // Ceny v e-shope sú s DPH (Gross), SuperFaktúra API očakáva ceny bez DPH (Net) s definovanou sadzbou
+    const VAT_RATE = 23;
+    const VAT_DIVISOR = 1 + (VAT_RATE / 100);
+
+    const invoiceItems: SuperFakturaInvoiceItem[] = orderData.cartItems.map((item: OrderCartItem) => {
+      const grossPrice = parseFloat(item.SalePrice || item.RegularPrice);
+      const netPrice = parseFloat((grossPrice / VAT_DIVISOR).toFixed(4));
+
+      return {
+        name: item.Title,
+        description: item.ShortDescription || `ID: ${item.ID}`,
+        quantity: item.quantity,
+        unit: "ks",
+        unit_price: netPrice,
+        tax: VAT_RATE,
+      };
+    });
 
     // Pridaj dopravu ako položku
     if (orderData.shippingMethod.price > 0) {
+      const grossShipping = orderData.shippingMethod.price;
+      const netShipping = parseFloat((grossShipping / VAT_DIVISOR).toFixed(4));
+
       invoiceItems.push({
         name: orderData.shippingMethod.name,
         description: "Doprava",
         quantity: 1,
         unit: "ks",
-        unit_price: orderData.shippingMethod.price,
-        tax: 20,
+        unit_price: netShipping,
+        tax: VAT_RATE,
       });
     }
 
     // Pridaj poplatok za dobierku
     if (orderData.paymentMethodId === "cod" && (orderData.codFee || 0) > 0) {
+      const grossCodFee = orderData.codFee || 0;
+      const netCodFee = parseFloat((grossCodFee / VAT_DIVISOR).toFixed(4));
+
       invoiceItems.push({
         name: "Poplatok za dobierku",
         description: "Dobierka",
         quantity: 1,
         unit: "ks",
-        unit_price: orderData.codFee || 0,
-        tax: 20,
+        unit_price: netCodFee,
+        tax: VAT_RATE,
       });
     }
 

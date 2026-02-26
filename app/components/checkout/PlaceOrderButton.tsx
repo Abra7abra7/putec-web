@@ -19,6 +19,7 @@ export default function PlaceOrderButton() {
   const shippingMethodId = useAppSelector((state) => state.checkout.shippingMethodId);
   const paymentMethodId = useAppSelector((state) => state.checkout.paymentMethodId);
   const orderId = useAppSelector((state) => state.checkout.orderId);
+  const differentBilling = useAppSelector((state) => state.checkout.differentBilling);
   const orderDate = useAppSelector((state) => state.checkout.orderDate);
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -33,16 +34,16 @@ export default function PlaceOrderButton() {
     if (!shippingForm.country?.trim()) missingFields.push(c.fieldCountry);
     if (!shippingForm.address1?.trim()) missingFields.push(c.fieldAddress);
     if (!shippingForm.postalCode?.trim()) missingFields.push(c.fieldPostalCode);
-    if (!shippingForm.phone?.trim()) missingFields.push(c.fieldPhone);
     if (!shippingForm.email?.trim()) missingFields.push(c.fieldEmail);
 
-    if (!billingForm.firstName?.trim()) missingFields.push(c.fieldBillingFirstName);
-    if (!billingForm.lastName?.trim()) missingFields.push(c.fieldBillingLastName);
-    if (!billingForm.country?.trim()) missingFields.push(c.fieldBillingCountry);
-    if (!billingForm.address1?.trim()) missingFields.push(c.fieldBillingAddress);
-    if (!billingForm.postalCode?.trim()) missingFields.push(c.fieldBillingPostalCode);
-    if (!billingForm.phone?.trim()) missingFields.push(c.fieldBillingPhone);
-    if (!billingForm.email?.trim()) missingFields.push(c.fieldBillingEmail);
+    if (differentBilling) {
+      if (!billingForm.firstName?.trim()) missingFields.push(c.fieldBillingFirstName);
+      if (!billingForm.lastName?.trim()) missingFields.push(c.fieldBillingLastName);
+      if (!billingForm.country?.trim()) missingFields.push(c.fieldBillingCountry);
+      if (!billingForm.address1?.trim()) missingFields.push(c.fieldBillingAddress);
+      if (!billingForm.postalCode?.trim()) missingFields.push(c.fieldBillingPostalCode);
+      if (!billingForm.email?.trim()) missingFields.push(c.fieldBillingEmail);
+    }
 
     if (!shippingMethodId?.trim()) missingFields.push(c.fieldShippingMethod);
     if (!paymentMethodId?.trim()) missingFields.push(labels.paymentMethod);
