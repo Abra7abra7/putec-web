@@ -209,6 +209,7 @@ const defaultLocalization: LocalizationData = {
       fastDelivery: "Rýchle doručenie (SR a ČR)",
       premiumWines: "Prémiove slovenské vína",
       validationCompleteFields: "Prosím doplňte nasledujúce polia",
+      vatIncluded: "z toho DPH 20%",
       codFeeLabel: "Poplatok za dobierku"
     },
     // Contact
