@@ -112,8 +112,6 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${inter.variable} ${poppins.variable}`}>
       <head>
-        <link rel="preconnect" href="https://pub-049b5673c21f4cc291802dc6fc171c6c.r2.dev" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://pub-049b5673c21f4cc291802dc6fc171c6c.r2.dev" />
 
         {/* Google Consent Mode v2 Default State - MUST BE BEFORE GTM */}
         <script

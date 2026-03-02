@@ -32,7 +32,6 @@ export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: Ho
     <section
       className="w-full relative overflow-hidden text-white flex justify-center items-center text-center min-h-[100svh] lg:min-h-[700px]"
     >
-      {/* LCP image as Next/Image with priority to improve LCP */}
       <Image
         src={mediaUrl}
         alt={title}
@@ -40,9 +39,9 @@ export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: Ho
         priority
         loading="eager"
         fetchPriority="high"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1200px, 1920px"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
         placeholder="empty"
-        quality={60}
+        quality={50}
         style={{ objectFit: "cover", objectPosition: "center" }}
         className="z-0"
       />
