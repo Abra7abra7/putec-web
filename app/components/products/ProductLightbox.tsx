@@ -41,27 +41,7 @@ export default function ProductLightbox({ images }: ProductLightboxProps) {
         />
       </div>
 
-      {/* IMAGE GALLERY (Below Main Image) */}
-      <div className="flex gap-2 mt-4 flex-wrap">
-        {images.slice(1).map((image, index) => (
-          <div
-            key={index}
-            className="relative w-24 h-24 cursor-pointer border rounded-md overflow-hidden"
-            onClick={() => {
-              setLightboxIndex(index + 1);
-              setLightboxOpen(true);
-            }}
-          >
-            <Image
-              src={getMediaUrl(image)}
-              alt={`Galéria – obrázok ${index + 1}`}
-              width={96}
-              height={96}
-              className="object-contain w-full h-full"
-            />
-          </div>
-        ))}
-      </div>
+      {/* IMAGE GALLERY REMOVED PER CLIENT REQUEST */}
 
       {/* LIGHTBOX MODAL */}
       {lightboxOpen && (

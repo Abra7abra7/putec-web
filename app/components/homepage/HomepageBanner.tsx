@@ -30,8 +30,7 @@ export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: Ho
 
   return (
     <section
-      className="w-full relative overflow-hidden text-white flex justify-center items-center text-center"
-      style={{ minHeight: "500px" }}
+      className="w-full relative overflow-hidden text-white flex justify-center items-center text-center min-h-[100svh] lg:min-h-[700px]"
     >
       {/* LCP image as Next/Image with priority to improve LCP */}
       <Image
@@ -50,14 +49,14 @@ export default function HomepageBanner({ ratingValue = 5, reviewCount = 35 }: Ho
       {/* Stronger gradient overlay for better text contrast on mobile */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-10" aria-hidden />
 
-      <div className="relative z-20 max-w-4xl mx-auto px-6 py-32 md:py-48 flex flex-col items-center text-center">
+      <div className="relative z-20 max-w-4xl mx-auto px-6 py-20 sm:py-24 lg:py-48 flex flex-col items-center text-center">
         <RatingBadge ratingValue={ratingValue} reviewCount={reviewCount} className="mb-4" />
 
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 drop-shadow-2xl !text-white tracking-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 drop-shadow-2xl !text-white tracking-tight">
           {title}
         </h1>
 
-        <p className="text-lg md:text-xl lg:text-2xl mb-10 max-w-2xl drop-shadow-xl !text-white font-medium text-white/90">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 max-w-2xl drop-shadow-xl !text-white font-medium text-white/90">
           {subtitle}
         </p>
 

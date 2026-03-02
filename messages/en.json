@@ -606,7 +606,7 @@
                     },
                     {
                         "q": "What is the minimum length of stay?",
-                        "a": "The minimum stay is 2 nights. For corporate events, we recommend contacting us directly."
+                        "a": "The minimum stay is 1 night. For corporate events, we recommend contacting us directly."
                     },
                     {
                         "q": "Where is the accommodation located?",
@@ -1021,7 +1021,7 @@
                     },
                     {
                         "q": "What is the minimum length of stay?",
-                        "a": "The minimum stay is 2 nights. For corporate events, we recommend contacting us directly."
+                        "a": "The minimum stay is 1 night. For corporate events, we recommend contacting us directly."
                     },
                     {
                         "q": "Where is the accommodation located?",

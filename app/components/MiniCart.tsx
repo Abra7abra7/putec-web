@@ -12,6 +12,7 @@ import { removeFromCart, updateQuantity, addToCart } from "../store/slices/cartS
 import { registerMiniCartTrigger } from "../utils/MiniCartController";
 import IconWrapper from "./ui/IconWrapper";
 import { getMediaUrl } from "../utils/media";
+import winesData from "../../configs/wines.json";
 
 interface MiniCartProps {
   disableHover?: boolean;
@@ -31,12 +32,22 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
 
   const [isVisible, setIsVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [recommendedWines, setRecommendedWines] = useState<any[]>([]);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const cartContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
+    // Select 2 random visible wines for upselling
+    try {
+      const visibleWines = winesData.filter((w: any) => w.CatalogVisible);
+      const shuffled = [...visibleWines].sort(() => 0.5 - Math.random());
+      setRecommendedWines(shuffled.slice(0, 2));
+    } catch (e) {
+      console.error(e);
+    }
+
     registerMiniCartTrigger(() => {
       setIsVisible(true);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -222,56 +233,33 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                   <div className="mt-8 pt-4 border-t border-gray-100 mb-4">
                     <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">{labels.upsellTitle || "Mohlo by sa vám hodiť"}</h3>
                     <div className="grid grid-cols-2 gap-3">
-                      <div
-                        key="upsell-set-parizske"
-                        className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer bg-white"
-                        onClick={() => {
-                          dispatch(addToCart({
-                            ID: "wine-032",
-                            Title: "Parížske Zlato - Vinný set",
-                            Slug: "parizske-zlato-set",
-                            RegularPrice: "23.90",
-                            SalePrice: "23.90",
-                            FeatureImageURL: getMediaUrl("vina/set-parizske-zlato.jpg"),
-                            Enabled: true,
-                            CatalogVisible: true,
-                            ProductCategories: ["Sety vín", "Ocenené vína"],
-                            ProductType: "wine-set",
-                            Currency: "EUR"
-                          } as any)); // Type assertion for brevity in hardcoded item
-                        }}
-                      >
-                        <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
-                          <Image src={getMediaUrl("vina/set-parizske-zlato.jpg")} alt="Parížske Zlato - Vinný set" fill className="object-cover group-hover:scale-105 transition-transform" />
+                      {recommendedWines.map((wine) => (
+                        <div
+                          key={`upsell-${wine.ID}`}
+                          className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer bg-white"
+                          onClick={() => {
+                            dispatch(addToCart({
+                              ID: wine.ID,
+                              Title: wine.Title,
+                              Slug: wine.Slug,
+                              RegularPrice: wine.RegularPrice,
+                              SalePrice: wine.SalePrice || wine.RegularPrice,
+                              FeatureImageURL: getMediaUrl(wine.FeatureImageURL),
+                              Enabled: true,
+                              CatalogVisible: true,
+                              ProductCategories: wine.ProductCategories || [],
+                              ProductType: wine.ProductType || "wine",
+                              Currency: wine.Currency || "EUR"
+                            } as any));
+                          }}
+                        >
+                          <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
+                            <Image src={getMediaUrl(wine.FeatureImageURL)} alt={wine.Title} fill className="object-cover group-hover:scale-105 transition-transform" />
+                          </div>
+                          <p className="text-[10px] font-bold text-foreground truncate">{wine.Title}</p>
+                          <p className="text-[10px] text-accent font-bold">€{parseFloat(wine.SalePrice || wine.RegularPrice).toFixed(2)}</p>
                         </div>
-                        <p className="text-[10px] font-bold text-foreground truncate">Parížske Zlato - Vinný set</p>
-                        <p className="text-[10px] text-accent font-bold">€23.90</p>
-                      </div>
-                      <div
-                        key="upsell-cabernet-rose"
-                        className="p-2 border border-gray-100 rounded-lg hover:border-accent transition-colors group cursor-pointer bg-white"
-                        onClick={() => {
-                          dispatch(addToCart({
-                            ID: "wine-018",
-                            Title: "Cabernet Sauvignon Rosé 2024",
-                            Slug: "cabernet-sauvignon-rose-2024",
-                            RegularPrice: "11.90",
-                            SalePrice: "11.90",
-                            FeatureImageURL: getMediaUrl("vina/cabernet-sauvignon-rose-2024.jpg"),
-                            Enabled: true,
-                            CatalogVisible: true,
-                            ProductCategories: ["Ružové vína", "Polosuché vína"],
-                            ProductType: "wine",
-                            Currency: "EUR"
-                          } as any));
-                        }}
-                      >
-                        <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
-                          <Image src={getMediaUrl("vina/cabernet-sauvignon-rose-2024.jpg")} alt="Cabernet Sauvignon Rosé 2024" fill className="object-cover group-hover:scale-105 transition-transform" />
-                        </div>
-                        <p className="text-[10px] font-bold text-foreground truncate">Cabernet Sauvignon Rosé 2024</p>
-                        <p className="text-[10px] text-accent font-bold">€11.90</p>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </>
