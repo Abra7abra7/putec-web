@@ -1,134 +1,134 @@
 [
-    {
-       "ID":"degustation-001",
-       "Title":"Malá vínna chvíľka",
-       "Slug":"mala-vinna-chvilka",
-       "Enabled":true,
-       "CatalogVisible":true,
-       "ProductCategories":[
-          "Degustácie vína"
-       ],
-       "FeatureImageURL":"/degustacie/degustacia-x.jpg",
-       "ProductImageGallery":[
-          "/degustacie/degustacia-x.jpg",
-          "/degustacie/IMG_6015-2.jpg",
-          "/degustacie/IMG_6063-2.jpg"
-       ],
-       "ShortDescription":"Ochutnávka 4 starostlivo vybraných vzoriek našich najobľúbenejších vín, doplnených o malú studenú misu.",
-       "LongDescription":"Ideálne pre tých, ktorí sa chcú zoznámiť s našou produkciou, alebo majú záujem o degustáciu vo dvojici. Degustácia trvá 1-1,5 hodiny pre 2-5 osôb.",
-       "RegularPrice":"119.00",
-       "SalePrice":"119.00",
-       "Currency": "EUR",
-       "SubscriptionEnabled":false,
-       "SubscriptionType":"",
-       "ProductType": "degustation",
-       "Capacity": "2-5 osôb",
-       "Duration": "1-1,5 hodiny",
-       "Features": [
-          "4 druhy vín",
-          "Malá studená misa",
-          "Vedúci degustácie",
-          "Základné informácie o víne"
-       ]
-    },
-    {
-       "ID":"degustation-002",
-       "Title":"Víno trochu inak",
-       "Slug":"vino-trochu-inak",
-       "Enabled":true,
-       "CatalogVisible":true,
-       "ProductCategories":[
-          "Degustácie vína"
-       ],
-       "FeatureImageURL":"/degustacie/degustacia-brano-x.jpg",
-       "ProductImageGallery":[
-          "/degustacie/degustacia-brano-x.jpg",
-          "/degustacie/brano-degustacia-x.jpg",
-          "/degustacie/sudy-x.jpg"
-       ],
-       "ShortDescription":"Degustácia 8 druhov starostlivo vybraných vín s majiteľom vinárstva, ktorý vás prevedie svetom našich vín a tajomstvami ich výroby.",
-       "LongDescription":"Príjemný zážitok je doplnený malou studenou misou. Degustácia trvá 2,5-3 hodiny pre 6-9 osôb s prehliadkou výrobnej časti.",
-       "RegularPrice":"295.90",
-       "SalePrice":"295.90",
-       "Currency": "EUR",
-       "SubscriptionEnabled":false,
-       "SubscriptionType":"",
-       "ProductType": "degustation",
-       "Capacity": "6-9 osôb",
-       "Duration": "2,5-3 hodiny",
-       "Features": [
-          "8 druhov vín",
-          "Majiteľ vinárstva",
-          "Prehliadka výrobnej časti",
-          "Studená misa",
-          "Podrobné vysvetlenie"
-       ]
-    },
-    {
-       "ID":"degustation-003",
-       "Title":"Víno trochu inak Vol.2",
-       "Slug":"vino-trochu-inak-vol2",
-       "Enabled":true,
-       "CatalogVisible":true,
-       "ProductCategories":[
-          "Degustácie vína"
-       ],
-       "FeatureImageURL":"/degustacie/degustacia-skupina.jpg",
-       "ProductImageGallery":[
-          "/degustacie/degustacia-skupina.jpg",
-          "/degustacie/jama-x.jpg",
-          "/degustacie/ruky-x.jpg"
-       ],
-       "ShortDescription":"Degustácia 8 druhov starostlivo vybraných vín, pre väčšie skupinky, s majiteľom vinárstva.",
-       "LongDescription":"Príjemný zážitok je doplnený malou studenou misou. Degustácia trvá 2,5-3 hodiny pre 10-15 osôb s skupinovou atmosférou.",
-       "RegularPrice":"490.00",
-       "SalePrice":"490.00",
-       "Currency": "EUR",
-       "SubscriptionEnabled":false,
-       "SubscriptionType":"",
-       "ProductType": "degustation",
-       "Capacity": "10-15 osôb",
-       "Duration": "2,5-3 hodiny",
-       "Features": [
-          "8 druhov vín",
-          "Majiteľ vinárstva",
-          "Prehliadka výrobnej časti",
-          "Studená misa",
-          "Skupinová atmosféra"
-       ]
-    },
-    {
-       "ID":"degustation-004",
-       "Title":"Romantika na deke",
-       "Slug":"romantika-na-deke",
-       "Enabled":true,
-       "CatalogVisible":true,
-       "ProductCategories":[
-          "Degustácie vína"
-       ],
-       "FeatureImageURL":"/degustacie/bozk-2.jpg",
-       "ProductImageGallery":[
-          "/degustacie/bozk-2.jpg",
-          "/degustacie/misa-x.jpg"
-       ],
-       "ShortDescription":"Piknikový košík pre 2 osoby s bohato obloženými bagetami, sladkou pochúťkou, orieškami, minerálkou, fľašou vína podľa vlastného výberu a potrebnými drobnosťami.",
-       "LongDescription":"Romantický piknikový zážitok pre dvojicu s víno podľa vlastného výberu. Trvanie podľa dohody, ideálne pre romantické chvíle vo vinohrade.",
-       "RegularPrice":"59.90",
-       "SalePrice":"59.90",
-       "Currency": "EUR",
-       "SubscriptionEnabled":false,
-       "SubscriptionType":"",
-       "ProductType": "degustation",
-       "Capacity": "2 osoby",
-       "Duration": "Podľa dohody",
-       "Features": [
-          "Piknikový košík",
-          "Bohato obložené bagety",
-          "Sladká pochúťka",
-          "Oriešky a minerálka",
-          "Fľaša vína na výber",
-          "Pikniková deka"
-       ],
-       "Deposit": 20
-    }
+   {
+      "ID": "degustation-001",
+      "Title": "Malá vínna chvíľka",
+      "Slug": "mala-vinna-chvilka",
+      "Enabled": true,
+      "CatalogVisible": true,
+      "ProductCategories": [
+         "Degustácie vína"
+      ],
+      "FeatureImageURL": "/degustacie/degustacia-x.jpg",
+      "ProductImageGallery": [
+         "/degustacie/degustacia-x.jpg",
+         "/degustacie/IMG_6015-2.jpg",
+         "/degustacie/IMG_6063-2.jpg"
+      ],
+      "ShortDescription": "Ochutnávka 4 starostlivo vybraných vzoriek našich najobľúbenejších vín, doplnených o malú studenú misu.",
+      "LongDescription": "Ideálne pre tých, ktorí sa chcú zoznámiť s našou produkciou, alebo majú záujem o degustáciu vo dvojici. Degustácia trvá 1-1,5 hodiny pre 2-5 osôb.",
+      "RegularPrice": "119.00",
+      "SalePrice": "119.00",
+      "Currency": "EUR",
+      "SubscriptionEnabled": false,
+      "SubscriptionType": "",
+      "ProductType": "degustation",
+      "Capacity": "2-5 osôb",
+      "Duration": "1-1,5 hodiny",
+      "Features": [
+         "4 druhy vín",
+         "Malá studená misa",
+         "Vedúci degustácie",
+         "Základné informácie o víne"
+      ]
+   },
+   {
+      "ID": "degustation-002",
+      "Title": "Víno trochu inak",
+      "Slug": "vino-trochu-inak",
+      "Enabled": true,
+      "CatalogVisible": true,
+      "ProductCategories": [
+         "Degustácie vína"
+      ],
+      "FeatureImageURL": "/degustacie/degustacia-brano-x.jpg",
+      "ProductImageGallery": [
+         "/degustacie/degustacia-brano-x.jpg",
+         "/degustacie/brano-degustacia-x.jpg",
+         "/degustacie/sudy-x.jpg"
+      ],
+      "ShortDescription": "Degustácia 8 druhov starostlivo vybraných vín s majiteľom vinárstva, ktorý vás prevedie svetom našich vín a tajomstvami ich výroby.",
+      "LongDescription": "Príjemný zážitok je doplnený malou studenou misou. Degustácia trvá 2,5-3 hodiny pre 6-9 osôb s prehliadkou výrobnej časti.",
+      "RegularPrice": "295.90",
+      "SalePrice": "295.90",
+      "Currency": "EUR",
+      "SubscriptionEnabled": false,
+      "SubscriptionType": "",
+      "ProductType": "degustation",
+      "Capacity": "6-9 osôb",
+      "Duration": "2,5-3 hodiny",
+      "Features": [
+         "8 druhov vín",
+         "Majiteľ vinárstva",
+         "Prehliadka výrobnej časti",
+         "Studená misa",
+         "Podrobné vysvetlenie"
+      ]
+   },
+   {
+      "ID": "degustation-003",
+      "Title": "Víno trochu inak Vol.2",
+      "Slug": "vino-trochu-inak-vol2",
+      "Enabled": true,
+      "CatalogVisible": true,
+      "ProductCategories": [
+         "Degustácie vína"
+      ],
+      "FeatureImageURL": "/galeria/degustacie/degustacia-skupina.jpg",
+      "ProductImageGallery": [
+         "/galeria/degustacie/degustacia-skupina.jpg",
+         "/degustacie/jama-x.jpg",
+         "/degustacie/ruky-x.jpg"
+      ],
+      "ShortDescription": "Degustácia 8 druhov starostlivo vybraných vín, pre väčšie skupinky, s majiteľom vinárstva.",
+      "LongDescription": "Príjemný zážitok je doplnený malou studenou misou. Degustácia trvá 2,5-3 hodiny pre 10-15 osôb s skupinovou atmosférou.",
+      "RegularPrice": "490.00",
+      "SalePrice": "490.00",
+      "Currency": "EUR",
+      "SubscriptionEnabled": false,
+      "SubscriptionType": "",
+      "ProductType": "degustation",
+      "Capacity": "10-15 osôb",
+      "Duration": "2,5-3 hodiny",
+      "Features": [
+         "8 druhov vín",
+         "Majiteľ vinárstva",
+         "Prehliadka výrobnej časti",
+         "Studená misa",
+         "Skupinová atmosféra"
+      ]
+   },
+   {
+      "ID": "degustation-004",
+      "Title": "Romantika na deke",
+      "Slug": "romantika-na-deke",
+      "Enabled": true,
+      "CatalogVisible": true,
+      "ProductCategories": [
+         "Degustácie vína"
+      ],
+      "FeatureImageURL": "/degustacie/bozk-2.jpg",
+      "ProductImageGallery": [
+         "/degustacie/bozk-2.jpg",
+         "/degustacie/misa-x.jpg"
+      ],
+      "ShortDescription": "Piknikový košík pre 2 osoby s bohato obloženými bagetami, sladkou pochúťkou, orieškami, minerálkou, fľašou vína podľa vlastného výberu a potrebnými drobnosťami.",
+      "LongDescription": "Romantický piknikový zážitok pre dvojicu s víno podľa vlastného výberu. Trvanie podľa dohody, ideálne pre romantické chvíle vo vinohrade.",
+      "RegularPrice": "59.90",
+      "SalePrice": "59.90",
+      "Currency": "EUR",
+      "SubscriptionEnabled": false,
+      "SubscriptionType": "",
+      "ProductType": "degustation",
+      "Capacity": "2 osoby",
+      "Duration": "Podľa dohody",
+      "Features": [
+         "Piknikový košík",
+         "Bohato obložené bagety",
+         "Sladká pochúťka",
+         "Oriešky a minerálka",
+         "Fľaša vína na výber",
+         "Pikniková deka"
+      ],
+      "Deposit": 20
+   }
 ]

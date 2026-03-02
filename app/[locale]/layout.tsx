@@ -11,7 +11,6 @@ import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
 import { getLocalization } from "@/app/utils/getLocalization";
 import Script from 'next/script';
-import ConsentManagerInitializer from "@/app/components/ConsentManagerInitializer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const poppins = Poppins({
@@ -132,9 +131,16 @@ export default async function LocaleLayout({
             `,
           }}
         />
-        <link rel="stylesheet" href="/silktide-consent-manager.css" />
       </head>
       <body>
+        <Script
+          id="Cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          data-cbid="d8d22745-617e-4bf0-8dbc-a6c1ac4a0e46"
+          data-blockingmode="auto"
+          type="text/javascript"
+          strategy="beforeInteractive"
+        />
         <NextIntlClientProvider messages={messages}>
           <LocalizationProvider initialData={localizationData}>
             <Providers>
@@ -145,14 +151,9 @@ export default async function LocaleLayout({
               <Footer />
               <JsonLd data={winerySchema} />
               <Toaster position="top-center" />
-              <ConsentManagerInitializer />
             </Providers>
           </LocalizationProvider>
         </NextIntlClientProvider>
-        <Script
-          src="/silktide-consent-manager.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

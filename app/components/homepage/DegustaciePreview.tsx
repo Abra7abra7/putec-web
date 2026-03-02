@@ -21,7 +21,7 @@ export default function DegustaciePreview() {
 
   const slides = [
     { src: getMediaUrl("degustacie/brano-degustacia-x.jpg"), alt: "Degustácia s majiteľom", position: "top" },
-    { src: getMediaUrl("degustacie/degustacia-skupina.jpg"), alt: "Degustácia so skupinou", position: "center" },
+    { src: getMediaUrl("galeria/degustacie/degustacia-skupina.jpg"), alt: "Degustácia so skupinou", position: "center" },
     { src: getMediaUrl("degustacie/degustacia-x.jpg"), alt: "Degustácia - atmosféra", position: "center" },
     { src: getMediaUrl("degustacie/IMG_6063-2.jpg"), alt: "Ochutnávka vína", position: "top" },
     { src: getMediaUrl("degustacie/degustacia-brano-x.jpg"), alt: "Degustácia vo vinárstva", position: "top" },
