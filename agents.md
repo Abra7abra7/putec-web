@@ -85,3 +85,9 @@ Projek obsahuje prísne estetické a kódovacie pravidlá pre dizajn:
 
 ---
 **Inštrukcia pre AI Agentov pri riešení taskov:** Pred akoukoľvek zmenou štruktúry najprv zváž existujúce postupy. Zvlášť dbaj na to, že obchod nemá SQL/NoSQL databázu pre objednávky a všetko spravuje Stripe vo svojich webhookoch a Superfaktúra v externej správe. Ak pridávaš funkcie upravuj metadata štruktúry prúdiace zo Stripe po dohovore klienta!
+
+## 10. Dôležité informácie z predchádzajúcich optimalizácií
+*   **Cookies a GDPR (Cookiebot):** Používa sa Cookiebot načítaný v `layout.tsx` pomocou komponentu `<Script>` so stratégiou `afterInteractive`, aby neblokoval prvé vykreslenie a nevyvolával render-blocking warning v Lighthouse. Pôvodné riešenie (Silktide) vo forme natívneho `<script>` bolo odstránené z dôvodu vzniku Hydration Errorov medzi Serverovým a Klientským React stromom.
+*   **LCP a Optimalizácia obrázkov:** Pre asety ovplyvňujúce "Largest Contentful Paint" (napríklad úvodný banner) je kritické mať korektne nastavené `priority`, `loading="eager"`, fetchPriority `high`, nižšiu kompresiu (`quality=50`) a exaktnejšie hodnoty v `sizes` (`100vw` pre mobily). V snahe zrýchliť počiatočný load **nie je dobré** pridávať `<link rel="preconnect">` na R2 úložisko natvrdo, keďže to Next.js pri `next/image` rieši interne a zbytočne sa tak prečerpáva DNS latencia.
+*   **MiniCart a Upsell:** Namiesto hrubo kódovaných odporúčaní v košíku sa upselling produkty vyberajú dynamicky z `wines.json` pomocou náhodného rollu nad viditeľnými produktami (`CatalogVisible: true`).
+*   **Zobrazenie na tabletoch / Landscape telefónoch:** Vždy je nutné verifikovať responzivitu v móde na šírku (`landscape`), napríklad upravovaním `min-h-[100svh]` oproti pevným pixelovým výškam, inak sa zvykne pretekať content mimo obrazovku (`overflow`).
