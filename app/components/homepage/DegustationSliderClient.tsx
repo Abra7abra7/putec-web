@@ -16,6 +16,17 @@ interface Slide {
 export default function DegustationSliderClient({ slides }: { slides: Slide[] }) {
   const [current, setCurrent] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [visited, setVisited] = useState<number[]>([0]);
+
+  useEffect(() => {
+    setVisited((prev) => {
+      const nextId = (current + 1) % slides.length;
+      if (!prev.includes(current) || !prev.includes(nextId)) {
+        return Array.from(new Set([...prev, current, nextId]));
+      }
+      return prev;
+    });
+  }, [current, slides.length]);
 
   useEffect(() => {
     if (!slides || slides.length === 0) return;
@@ -45,19 +56,24 @@ export default function DegustationSliderClient({ slides }: { slides: Slide[] })
           className="relative w-full aspect-[4/5] md:aspect-auto md:h-full md:min-h-[600px] rounded-xl overflow-hidden shadow-2xl cursor-zoom-in"
           onClick={() => setIsOpen(true)}
         >
-          {slides.map((slide, index) => (
-            <div key={slide.src} className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0'}`}>
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
-                style={{ objectPosition: slide.position || 'center' }}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                quality={60}
-              />
-            </div>
-          ))}
+          {slides.map((slide, index) => {
+            const isMounted = visited.includes(index);
+            return (
+              <div key={slide.src} className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100' : 'opacity-0 z-[-1]'}`}>
+                {isMounted && (
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    style={{ objectPosition: slide.position || 'center' }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                    quality={60}
+                  />
+                )}
+              </div>
+            );
+          })}
 
           {/* Navigation Overlay */}
           <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors pointer-events-none" />

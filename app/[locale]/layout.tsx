@@ -140,7 +140,7 @@ export default async function LocaleLayout({
           data-cbid="d8d22745-617e-4bf0-8dbc-a6c1ac4a0e46"
           data-blockingmode="auto"
           type="text/javascript"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <NextIntlClientProvider messages={messages}>
           <LocalizationProvider initialData={localizationData}>
