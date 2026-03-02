@@ -82,6 +82,42 @@ export default async function DegustaciePage({ params }: { params: Promise<{ loc
           }),
         }}
       />
+      <Script
+        id="ld-json-faq-degust"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": t("faq.q1"),
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": t("faq.a1")
+                }
+              },
+              {
+                "@type": "Question",
+                "name": t("faq.q2"),
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": t("faq.a2")
+                }
+              },
+              {
+                "@type": "Question",
+                "name": t("faq.q3"),
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": t("faq.a3")
+                }
+              }
+            ]
+          }),
+        }}
+      />
       <Hero
         title={t("title")}
         subtitle={t("subtitle")}
