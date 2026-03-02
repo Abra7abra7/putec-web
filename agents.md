@@ -1,261 +1,87 @@
-# AGENTS.md - Prehľad projektu Vino Pútec
+# Project Context & AI Agent System Prompt (agents.md)
 
-Tento dokument slúži ako hlavný zdroj informácií pre AI agentov pracujúcich na projekte.
+Tento dokument slúži ako primárny kontextový súbor a "System Prompt" pre všetkých AI agentov pracujúcich v tomto repozitári. Jeho dodržiavanie je **kritické** pre zachovanie konzistencie architektúry a zamedzenie halucináciám (napríklad použitiu zastaraného Pages Routera alebo neexistujúcich knižníc). Očakáva sa prísne dodržiavanie týchto konvencií.
 
-## 🚀 Technologický Stack
+## 1. Tech Stack a kľúčové knižnice
+Tento projekt je postavený na modernom stacku. Nepridávaj nové závislosti, pokiaľ to nie je absolútne nevyhnutné, a vždy používaj verzie kompatibilné s tými, ktoré sú uvedené v `package.json`.
 
-- **Framework**: Next.js 16.1.6 (App Router, Turbopack)
-- **Lokalizácia**: `next-intl` (Routing: `app/[locale]/`, Middleware: `proxy.ts`)
-- **Frontend**: React 19.2.3, Tailwind CSS 4
-- **State Management**: Redux Toolkit (@reduxjs/toolkit)
-- **Animácie**: Framer Motion
-- **Ikony**: Lucide React, React Icons, Custom `IconWrapper`
-- **Emaily**: Resend API, @react-email (komponenty a render)
-- **Platby**: Stripe (React Stripe JS)
-- **Validácia**: Zod
-- **Spracovanie obrázkov**: Sharp
-- **CDN & Storage**: Cloudflare R2 (Bucket: `putec-media`)
+*   **Framework:** Next.js 16.1.6
+*   **Architektúra:** App Router (žiadny Pages Router!)
+*   **React:** 19.2.3
+*   **Jazyk:** TypeScript 5.9.3 (prísne typovanie)
+*   **Styling a UI:** Tailwind CSS v4, Framer Motion (v12), Radix UI komponenty, `lucide-react`, `react-icons`, `yet-another-react-lightbox`, `sonner` (na notifikácie).
+*   **Správa stavu:** Redux Toolkit 2.8.2 (`@reduxjs/toolkit`, `react-redux`).
+*   **Spracovanie platieb:** Stripe (`stripe` 18.4.0, `@stripe/stripe-js`, `@stripe/react-stripe-js`).
+*   **E-mailové notifikácie:** Resend 6.0.1, React Email (`@react-email/components`, `@react-email/render`).
+*   **Lokalizácia (i18n):** `next-intl` 4.8.2.
+*   **Validácia a Utility:** Zod (validácia dát), Axios, `clsx`, `tailwind-merge`, `uuid`.
+*   **Iné:** `sharp` pre optimalizáciu obrázkov.
+*   **Vývoj a build:** Turbopack podporovaný v dev prostredí, ESLint 9, knip.
 
-## 🎨 Design a Vizuálny Štýl
+## 2. Architektúra a Routing
+Projekt striktne využíva **Next.js App Router**:
 
-Projekt používa moderný, luxusný a čistý vizuál zameraný na segment vinárstva.
+*   **Štruktúra zložiek:** Všetky routy sa nachádzajú v adresári `app/[locale]/`, pretože aplikácia je plne lokalizovaná cez `next-intl`. Zložka `src` neobsahuje root aplikácie.
+*   **Konfigurácia a Layouts:** Koreňový layout poskytuje kontext a tému, zatiaľ čo vnorené layouty sa starajú o špecifiká domén (napr. navigácia, footer).
+*   **Route Handlers (API):** Všetky backendové API endpointy sú v zložke `app/api/` (napr. webhooky pre Stripe v `app/api/stripe/webhook/route.ts`).
+*   **Dáta a Mutácie (Server Actions):** Zložka `app/actions/` obsahuje server-side logiku spúšťanú z klientských alebo serverových komponentov (napríklad spájanie so SuperFaktúrou, kontaktné formuláre).
+*   **Utility a Služby:** Sú v zložke `app/utils/` a obsahujú logiku pre e-maily, SuperFaktúru, Stripe integráciu atď.
 
-- **Farebná Paleta**:
-  - **Hlavná akcentná**: Modern Luxury Gold (`#D6AD60` / `--accent`)
-  - **Hover akcent**: Darker Gold (`#B58E3E` / `--accent-dark`)
-  - **Pozadie**: Čistá biela (`#ffffff`) a jemná béžová (`--accent-subtle`)
-  - **Text**: Zinc 900 (`#18181b`) pre nadpisy, Zinc 700 pre telo textu.
-- **Typografia**:
-  - **Nadpisy**: `Poppins` (moderný, elegantný sans-serif)
-  - **Telo textu**: `Inter` (vysoko čitateľný geometrický sans-serif)
-- **Ikonografia**:
-  - **Knižnice**: `lucide-react` (UI), `react-icons/si` (Brand/Social)
-  - **Systém**: Centralizovaný cez `IconWrapper.tsx`.
-  - **Štýl**: Duo-tone zlaté ikony s jemným pozadím (`bg-accent/5`) a mikro-animáciami.
+## 3. Konvencie komponentov
+*   **Komponenty sú implicitne Server Components.** Ak komponent potrebuje React hooks (`useState`, `useEffect`, `useRef`), event listenery (onClick), alebo Redux integráciu, musí na samom vrchu obsahovať direktívu `"use client"`. Snaž sa logiku a state pushovať čo najnižšie do stromu (tzv. "leaves"), aby zostala väčšina aplikácie server-rendered.
+*   **Zložka komponentov (`app/components/`):**
+    *   Sú zoradené podľa kontextu alebo featur (napr. `checkout/`, `homepage/`, `products/`, `ui/`, `ordersummary/`).
+    *   UI knižnica (Radix / shadcn-like) má svoje striktné zložky, väčšinou pod `app/components/ui/`.
+*   **Redux Store (`app/store/`):** Obsahuje globálny stav pre veci ako je košík (MiniCart). Redux je udržiavaný v `slices` na klientskej strane.
+*   **Typy (`types/`):** Všetky globálne modely dát (Order, CartItem, atď.) sú definované tu. Striktne ich používaj pri vývoji pre zabezpečenie typovej bezpečnosti.
 
-## 🛠️ Funkcie a Integrácie
+## 4. Získavanie údajov a mutácie
+*   **Absencia dedikovanej vlastnej databázy pre objednávky:** Aplikácia **nepoužíva** žiadne tradičné ORM ako Prisma alebo Drizzle na ukladanie e-shopových dát. Žiadna definícia Schémy.
+*   **Stripe ako "Source of Truth":** Objednávky sú viazané a uložené priamo v Stripes cez `PaymentIntent` objekty a ich `metadata`.
+*   **Server Actions:** Mutácie (odosielanie formulárov, fakturácia) sú implementované ako asymptotické funkcie v `app/actions/`. Tieto formy poskytujú prísnu typovú kontrolu, a lepšie UX pre užívateľov (neukazujú priamu API cestu).
+*   **Client Fetching:** Axios sa používa z redusových thunkov, resp. z explicitných klientských operácií pre integráciu externých dát. Nie je použitý React Query.
 
-### 1. Lokalizácia & Routing (New 2026)
+## 5. Spracovanie platieb a objednávok
+Flow spracovania objednávok je úzko prepojený s webhookmi (Stripe):
 
-- **Štruktúra**: Všetky stránky sú v `app/[locale]/`. Default locale: `sk`.
-- **Middleware/Proxy**: Používame `proxy.ts` (Next.js 16 entry point). Rieši lokalizáciu a 308 redirecty.
-- **Provider**: `LocalizationProvider` v `layout.tsx` zabezpečuje kontext pre klientske komponenty.
-- **Redirects**: Staré WordPress URL (napr. `/produkt/...`) sú trvalo (308) presmerované v `proxy.ts`.
+1.  **Checkout Front-End:** Klient vyplní košík, fakturačné a dodacie údaje na strane klienta.
+2.  **Payment Intent:** Vytvorí sa Stripe PaymentIntent. Komplexné dáta (JSON s položkami v košíku, shipping/billing adresa) sú uložené do `metadata` tohto PaymentIntentu kvôli absencii inej backend databázy.
+3.  **Webhook (`app/api/stripe/webhook/route.ts`):** 
+    *   Počúva udalosť `payment_intent.succeeded`.
+    *   Je "chrbticou" e-shopu po zaplatení. Pri zachytení udalosti prečíta uložené `metadata`, z ktorých vybuduje lokálny `OrderBody` objekt.
+    *   *Idempotencia* je kritická: Webhook spracováva requesty asynchrónne a je robustne napísaný tak, že pri pochybnosti nevytvára duplicitné faktúry.
+4.  Následne triggeruje tvorbu faktúry a zasielanie e-mailov priamo zo Server prostredia aplikácie.
 
-### 2. Google Reviews Integration (Feb 2026)
+## 6. Generovanie faktúr
+Fakturácia funguje výlučne cez slovenskú integráciu **SuperFaktúra**:
 
-- **Utility**: `app/utils/getGoogleRating.ts` s ISR 1 hodina.
-- **API**: `/api/google-reviews` pre klientske CMS komponenty.
-- **Components**: `Testimonials.tsx` a dynamický rating badge na všetkých dôležitých stránkach (Home, Vína, Degustácie).
+*   **Logika:** Keď prejde platba, webhook zavolá akciu `createSuperFakturaInvoice` umiestnenú v `app/actions/superfaktura.ts`.
+*   Tá transformuje Stripe metadata do zrozumiteľných dátových štruktúr a pošle ich do API SuperFaktúry cez utilitu `app/utils/superFakturaApi.ts`.
+*   SuperFaktúra vráti `invoiceId` a samotné PDF, ktoré sa následne použije v sekcii e-mailov a stiahne do buffera pre priloženie do mailu pomocou funkcie `downloadInvoicePDF`.
+*   PDF generovanie frontendovými knižnicami ako puppeteer/react-pdf **nie je** prítomné. Fakturácia je delegovaná na SaaS.
 
-### 2. Nákupný proces a Košík
+## 7. E-mailové notifikácie
+Komunikácia je realizovaná pomocou **Resend** a **React Email**:
 
-- **Košík**: Redux store zabezpečuje perzistenciu produktov.
-- **Pokladňa**: `/pokladna` s formulármi pre dodacie a fakturačné údaje.
+*   **Logika a Odoslanie:** Centrálny bod je v `app/utils/emailUtilities.tsx` (obsahuje `sendAdminEmail` a `sendCustomerEmail`). Odosiela sa cez React Email objekt transformovaný do HTML.
+*   **Šablóny:** E-mailové šablóny sú plnohodnotné React komponenty uložené v zložke `app/emails/` (napr. `OrderConfirmationCustomer`, `OrderConfirmationAdmin`). Sú štylizované tak, aby podporovali R2 (Cloudflare) storage pre obrázky loga.
+*   **Proces (Triggers):** Akonáhle webhook overí úspešnú platbu v Stripe a zavolá sa vytvorenie faktúry, e-mailový systém sa natriggeruje. Aj v prípade, že faktúra sa zlyhá vytvoriť na strane SaaS služby, systém je dizajnovaný ako "best-effort failover", čiže samotný potvrdzovací e-mail musí zákazníkovi vždy spoľahlivo prísť. Vygenerovaná faktúra je pripojená ako `.pdf` príloha (ak sa úspešne stiahne do `pdfBuffer`).
 
-### 3. Externé Služby a API
+## 8. Styling a UI
+Projek obsahuje prísne estetické a kódovacie pravidlá pre dizajn:
 
-- **Stripe (Platby)**: Generuje `PaymentIntent`, webhook na spracovanie objednávky.
-- **SuperFaktúra**: Automatická fakturácia pri platbe.
-- **Resend**: Transakčné emaily (Objednávka, Rezervácia).
-- **Previo**: Rezervačný systém pre ubytovanie (iframe).
-- **Cloudflare R2**: Centralizované úložisko pre obrázky produktov, galériu a branding. Spravované cez `app/utils/media.ts`.
+*   **Tailwind CSS:** Používa sa verzia v4 zadefinovaná predovšetkým prostredníctvom pomocných tried v tsx komponentoch.
+*   **Zlučovač tried `cn()`:** Každý komponent vyžadujúci zlučovanie CSS class by mal importovať funkciu `cn()` z `app/utils/utils.ts`. Toto spája funkcionalitu knižníc `clsx` a `tailwind-merge` predovšetkým na predchádzanie konfliktov vlastností (napr. pri prepise paddingov).
+*   **Motion:** Mikroanimácie (napr. modálne okná, plynulé načítavanie obrázkov, posuvy v galériách) implementuj výhradne pomocou `framer-motion`.
 
-## 📍 Hlavné body implementácie
-
-- **Proxy Middleware**: `proxy.ts` rieši:
-  1. Presmerovania starých URL (SEO continuity).
-  2. `next-intl` lokalizáciu.
-  3. Ignorovanie statických assetov (`matcher` exclues `.*\\..*`).
-- **Emaily**: Logá vkladané ako Base64 (pozri `fs.readFileSync`), šablóny v `app/emails`.
-- **Images & Media**: Všetky produkčné obrázky sú uložené v **Cloudflare R2** a servované cez CDN. Lokálny priečinok `public/` obsahuje len systémové súbory (favicons, scripts). Optimalizácia prebieha cez Next.js Image Optimization.
-- **PWA**: `manifest.ts` generuje `manifest.webmanifest`.
-- **Hosting**: Projekt je nasadený v regióne **Frankfurt, EU (fra1)** pre nízku latenciu na Slovensku.
-
-## 📄 Projektová Dokumentácia
-
-## 📄 Projektová Dokumentácia
-
-V koreňovom priečinku sú dostupné tieto návody pre klienta:
-
-- **[MIGRATION_GUIDE.md](file:///Users/abra/putec-web/MIGRATION_GUIDE.md)**: Postup pre DNS a migráciu z Websupportu.
-- **[SEO_SPEED_AI_CHECKLIST.md](file:///Users/abra/putec-web/SEO_SPEED_AI_CHECKLIST.md)**: Kroky pre vyhľadávače a AI agentov.
-- **[FINAL_PROJECT_REPORT.md](file:///Users/abra/putec-web/FINAL_PROJECT_REPORT.md)**: Záverečná správa a cenový návrh.
-
-V priečinku `docs/` sú dostupné tieto technické návody:
-
-- **[OPERATIONS.md](file:///Users/abra/putec-web/docs/OPERATIONS.md)**: Správa Stripe platieb, webhook a SEO checklist.
-- **[SUPERFAKTURA_INTEGRATION.md](file:///Users/abra/putec-web/docs/SUPERFAKTURA_INTEGRATION.md)**: Automatizovaná fakturácia a SuperFaktúra API.
-- **[Implementácia Silktide v Next.js.md](file:///Users/abra/putec-web/docs/Implement%C3%A1cia%20Silktide%20v%20Next.js.md)**: GDPR, Consent Mode v2 a Silktide banner.
-- **[GDPR_AND_NEXTJS_COMPLIANCE.md](file:///Users/abra/putec-web/docs/GDPR_AND_NEXTJS_COMPLIANCE.md)**: Analýza GDPR riešení pre Next.js 16.
-- **[SEO_AI_INDEXING_PLAN.md](file:///Users/abra/putec-web/docs/SEO_AI_INDEXING_PLAN.md)**: Postup indexácie pre Google, Bing a AI botov.
-- **[CHECKOUT_FLOW.md](file:///Users/abra/putec-web/docs/CHECKOUT_FLOW.md)**: Detailný popis nákupného procesu a integrácií.
-- **[COOLIFY_GUIDE.md](file:///Users/abra/putec-web/docs/COOLIFY_GUIDE.md)**: Sprievodca nasadením na Coolify (Hetzner).
+## 9. Kódovací štýl a TypeScript
+*   **Strict Mode:** TypeScript je silne obmedzený pre presnosť. Vyhýbaj sa typu `any` na úplné minimum. Využívaj interfaces špecifikované v `types/`.
+*   **Error Handling:** Rieši sa najmä v backendových Actions/Routach zachytávaním `try/catch`. Ak chyba nastane, na klienta sa musí vrátiť objekt typu `{ error: "User friendly znenie chýbajúce logiky" }` a nesmie dochádzať k padnutiu frontendu. Konzola pre detailné chybové hlášky, klienti pre pekné Toast notifikácie (`sonner`).
+*   **Naming Conventions:**
+    *   **Komponenty:** `PascalCase` (`AgeVerification.tsx`, `MiniCart.tsx`).
+    *   **Akcie / Utility:** `camelCase` (`createSuperFakturaInvoice`, `emailUtilities.tsx`).
+    *   **Typy / Interface:** Prefixovanie písmenom `I` sa tu nepoužíva (`OrderBody`, nie `IOrderBody`).
+*   **Žiadne placeholdery:** Nepoužívaj všeobecné názvy vo farbách dizajn systému a nerob zjednodušené verzie. Každý kód od AI by mal prinášať final-ready, produkčnú kvalitu.
 
 ---
-
-## 🛡️ Kvalita a Opravy
-
-- **Hydratačné chyby**: Vyriešené odstránením duplicitných `<html>` a `<body>` tagov v pod-layoutoch (napr. `kontakt/layout.tsx`).
-- **Výkon**: Zapnutá natívna optimalizácia obrázkov (Next.js Image), čo znižuje LCP pod 1s.
-
----
-
-## 5. SEO & GEO Stratégia
-
-### 🧠 Generative Engine Optimization (GEO)
-
-Projekt implementuje metódy na zvýšenie viditeľnosti v AI modeloch:
-
-- **AI Context Page**: `/ai-context` (Knowledge Base).
-- **Robots.txt**: Explicitne povolené AI boty (`GPTBot`, `ClaudeBot`).
-- **Metadata**: Rich metadata v `layout.tsx` (OpenGraph, Keywords).
-
-### 🌍 Lokálne SEO & Schema.org
-
-Cielime na: **Bratislava, Pezinok, Trnava, Senec**.
-
-- **JSON-LD Schema**:
-  - **Winery (LocalBusiness)**: V `layout.tsx`. Obsahuje adresu, otváracie hodiny, geo súradnice.
-  - **Product**: V `page.tsx` produktu. Obsahuje cenu, dostupnosť, popis.
-- **Sitemap**: Dynamicky generovaná v `app/sitemap.ts`.
-
-### 🛡️ Migračné Safeguards
-
-1. **Redirects (308 Permanent)**: Všetky staré WordPress URL sú pokryté v `proxy.ts`.
-2. **Linkjuice**: Používame 308 redirecty pre prenos rankingu zo starých adries.
-3. **Sitemap**: Dynamická sitemap (`/sitemap.xml`) musí obsahovať len nové URL.
-
-### 🔍 GSC & Bing Webmaster Checklist
-
-- **Sitemap**: Skontrolovať, či je `https://vinoputec.sk/sitemap.xml` úspešne načítaná.
-- **URL Inspection**: Pri dôležitých produktoch vyvolať "Request Indexing" na novej URL.
-- **Bing**: Použiť "IndexNow" alebo nahrať sitemapu manuálne.
-
-## 6. Migrácia a Produkčné Nastavenia (Coolify, Hetzner, Integrácie)
-
-### 🏗️ Coolify & Docker
-
-- **Server**: Hetzner Cloud (CX22/31), Ubuntu 24.04, Coolify v4.
-- **Build Pack**: **Dockerfile** (nie Nixpacks!).
-- **Node.js**: Verzia 20 (Alpine), `npm install`, `npm run build` (standalone).
-- **Port**: `3000` (Exposed), `0.0.0.0` host.
-- **Domains**: `https://vinoputec.sk` (Direction: Allow www & non-www).
-
-### 🌐 DNS (WebSupport)
-
-- **A Záznamy**:
-  - `@` -> IP Hetzner Servera (`46.225.136.48`)
-  - `www` -> IP Hetzner Servera (`46.225.136.48`)
-  - `ubytovanie` -> IP Websupport Hostingu (`37.9.175.187`) - _Pôvodný web ubytovania_
-  - `*` -> IP Hetzner Servera (Wildcard pre ostatné subdomény)
-- **MX Záznamy**:
-  - Hlavná doména: Ponechané WebSupport MX (`mailin1.vinoputec.sk`, ...)
-  - Subdoména `send`: `feedback-smtp.eu-west-1.amazonses.com` (Priorita 10)
-
-### 📧 Resend (Transakčné Emaily)
-
-- **Domain**: `vinoputec.sk` (Region: EU - Ireland).
-- **DNS Nastavenia**:
-  - **DKIM**: `resend._domainkey` (TXT)
-  - **SPF (send)**: `send` (TXT) -> `v=spf1 include:amazonses.com ~all`
-- **Odosielateľ**: `RESEND_FROM_EMAIL="Vino Putec <objednavky@vinoputec.sk>"`
-
-### 💳 Stripe (Platby)
-
-- **Mode**: Live (Production).
-- **Webhooks**:
-  - **Endpoint**: `https://vinoputec.sk/api/stripe/webhook`
-  - **Events**: `payment_intent.succeeded` (Kľúčový pre faktúry), `payment_intent.payment_failed`, `payment_intent.canceled`, `charge.failed`.
-  - **Secret**: `STRIPE_WEBHOOK_SECRET` (začína `whsec_`).
-
-### 🧾 SuperFaktúra
-
-- **Mode**: Produkcia (`SUPERFAKTURA_SANDBOX=0`).
-- **Email**: `brano.putec@gmail.com`
-- **Nastavenia**: `SUPERFAKTURA_SEND_EMAILS=1`.
-
----
-
-### 7. Aktuálne Vylepšenia a Opravy (Feb 18, 2026)
-
-- **GDPR & Compliance**:
-  - **Silktide Consent Manager**: Kompletná implementácia open-source banneru s podporou **Google Consent Mode v2**.
-  - **Lokalizácia**: Banner a nastavenia sú plne preložené do slovenčiny (vrátane patchu pre Zap/Vyp prepínače).
-  - **Vizuál**: Prispôsobený brandu (Gold/Dark Gray) s glassmorphism efektom (Backdrop Blur).
-  - **Technické**: Pridaný retry-mechanizmus pre inicializáciu a debug režim pre vývoj.
-- **Výkon & SEO**:
-  - **Mobilný výkon (LCP/TBT)**: Optimalizované načítanie obrázkov (quality, fetchPriority, lazy-loading) a zmenšený veľkosť JS bundle (odstránené nepoužívané Framer Motion importy).
-  - **Next.js Config**: Pridaná podpora pre špecifické kvality obrázkov (60, 70, 75, 80) pre zníženie varovaní a lepšiu kompresiu.
-  - **SEO Recovery**: Opravená 404 chyba na `/en` a nastavený správny `proxy.ts` pre Next.js 16 kompatibilitu. Skóre obnovené na 100.
-- **Business Logic & Platby**:
-  - **Stripe Metadata**: Konsolidácia dát do JSON stringov kvôli limitu 50 kľúčov.
-  - **SuperFaktúra**: Opravený parsing dát v webhooku a akcii. Faktúry sa priraďujú k správnym objednávkam a adresám.
-  - **Email Flow**: Odosielanie emailov (Resend) je teraz nezávislé od vytvorenia faktúry, čím sa zvýšila spoľahlivosť doručenia.
-- **UI/UX**:
-  - **Gallery & Achievements**: Opravené názvy diplomov (URL-safe), vylepšený layout gridu (4x2) a pridaný Lightbox.
-- **Ubytovanie Multi-domain & Lead Gen (Feb 19, 2026)**:
-  - **Dopytový formulár**: Implementovaný `InquiryForm` so serverovou akciou `sendInquiry` (Resend).
-  - **Domain Routing**: `proxy.ts` deteguje host `ubytovanie.*` and prepisuje root na ubytovanie sekciu.
-  - **Dynamic Navbar**: Header/Footer menia položky podľa domény pre zachovanie "standalone" dojmu.
-
----
-
-## 8. Multi-domain & Aktivácia Ubytovania
-
-### 🔗 Princíp fungovania
-
-Jedna Next.js aplikácia obsluhuje obe domény. `proxy.ts` (middleware) kontroluje hlavičku `Host`:
-
-- **Host**: `vinoputec.sk` -> Štandardný web vinárstva.
-- **Host**: `ubytovanie.vinoputec.sk` -> Rewrite na `/sk/ubytovanie`. Užívateľ vidí ubytovanie ako hlavnú stránku.
-
-### 🛠️ Postup aktivácie (WebSupport)
-
-1. **A Záznam**: Pre subdoménu `ubytovanie` nastaviť A záznam na IP servera (`46.225.136.48`).
-2. **A Záznam**: Pre subdoménu `www.ubytovanie` taktiež nastaviť A záznam na tú istú IP.
-3. **Coolify**: V nastaveniach aplikácie (Domains) pridať doménu `https://ubytovanie.vinoputec.sk`.
-
-### 📉 Údržba
-
-Všetky texty pre ubytovacie menu sa nachádzajú v `messages/sk.json` pod kľúčom `ubytovanieMenu`.
-
-- **React 19 & Next.js 16.1.6 Optimalizácie (Feb 19, 2026)**:
-  - **Server-side Fetching**: Migrácia z `useEffect` fetchingu na Server Components (Vína, Degustácie, Pokladňa). Dáta sú v HTML, čo zlepšuje SEO and LCP.
-  - **Async Params Compliance**: Povinné `await params` a `await searchParams` v Server komponentoch podľa štandardu Next.js 16.
-  - **Context Injection**: `CheckoutContext` and `ProductContext` podporujú `initialData` injekciu zo servera, čo eliminuje loading stavy pri prechode na pokladňu.
-  - **Stabilitá kľúčov**: Odstránené nestabilné `key={index}` v Achievements a MiniCart, nahradené unikátnymi ID pre spoľahlivejší rendering.
-  - **Suspense**: Implementované Suspense boundary pre OrderSummary and dynamické parametre.
-
-- **Localization & Subdomain Fixes (Feb 23, 2026)**:
-  - **Subdomain i18n**: Upravený `proxy.ts` tak, aby správne spracovával `/en` prefix na doméne `ubytovanie.vinoputec.sk` (prepísanie na `/en/ubytovanie`).
-  - **Locale Synchronization**: Vyriešený problém so "zaseknutým" jazykom na subdoméne. 
-    1. **Server-side**: `locale` je explicitne predávaný z layoutu do `getLocalization` a `Header` komponentu.
-    2. **Client-side**: `LocalizationProvider` bol upravený tak, aby synchronizoval svoj stav s props (`initialData`), čo zabezpečuje okamžitú aktualizáciu klientskych komponentov (napr. `InquiryForm`) pri zmene jazyka.
-  - **JSON Parity**: Vytvorený skript `scripts/check-localization.mjs` na automatickú kontrolu chýbajúcich kľúčov medzi `sk.json` a `en.json`. Dosiahnutá 100% zhoda kľúčov.
-
-- **Email, Invoice & Checkout Optimization (Feb 24, 2026)**:
-  - **Unified SuperFaktúra API**: Konsolidácia logiky do [superFakturaApi.ts](file:///c:/Users/mstancik/Desktop/putec-web/app/utils/superFakturaApi.ts). Používa **direct creation** (klient + faktúra v jednom volaní) pre vyššiu spoľahlivosť. Podporuje `codFee` ako samostatnú položku.
-  - **Email Infrastructure**: [emailUtilities.tsx](file:///c:/Users/mstancik/Desktop/putec-web/app/utils/emailUtilities.tsx) plne migrovaný na JSX render. Logá sú dynamicky sťahované z **Cloudflare R2** CDN (`putec-logo.jpg`) namiesto hardkódovaných placeholderov. Produkčné linky v emailoch smerujú na `vinoputec.sk`.
-  - **Type Safety**: Centralizovaný [Localization.ts](file:///c:/Users/mstancik/Desktop/putec-web/types/Localization.ts) pre unifikáciu klientskeho a serverového kontextu. Pridaný [Order.ts](file:///c:/Users/mstancik/Desktop/putec-web/types/Order.ts) na odstránenie cirkulárnych závislostí.
-  - **Cart & UX**: Opravené načítanie obrázkov v košíku (`getMediaUrl`). Checkout validácia je plne lokalizovaná (`labels.checkout`) a už nepoužíva hardkódované anglické reťazce.
-  - **Language Switcher Fix**: Opravené prepínanie jazykov v klientskom komponente `LanguageSwitcher.tsx`. URL pre slovenčinu už neobsahujú prefix `/sk` (v súlade s `localePrefix: 'as-needed'`). Taktiež bola vypnutá automatická detekcia jazyka (`localeDetection: false` v `proxy.ts`), aby systém nepretláčal EN verziu užívateľom s EN prehliadačom pri manuálnej voľbe SK.
-  - **SVG Path Fix**: Opravený poškodený SVG path v logu Google v komponente `Testimonials.tsx`, ktorý spôsoboval chybu "Expected number" v konzole.
-
-- **Client Feedback Fixes (Feb 26, 2026)**:
-  - **Accommodation UI**: Presunutý rezervačný formulár Previo vyššie na stránke ubytovania (hneď pod úvod). Pridaná presná adresa "Pezinská 75, 902 01 Vinosady" do lokalizačných súborov (`sk.json`, `en.json`).
-  - **Checkout Validation**: Odstránená povinná validácia telefónneho čísla pri odosielaní objednávky, keďže pole je v UI označené ako voliteľné. Toto spôsobovalo konfúzne chybové hlášky pre užívateľov s dobierkou, ktorí nezadali telefónne číslo.
-  - **Product Images**: Analyzovaný problém s nezobrazujúcimi "dolnými obrázkami" na produktových stránkach. Tieto obrázky sú súčasťou galérie a zobrazujú sa len pri vínach, ktoré majú vyplnené pole `ProductImageGallery` v systéme. 
-  - **Unclickable Elements**: Opravený prekrývajúci `motion.div` v Hero komponente, ktorý blokoval klikanie na subpages pri scrollovaní. Pridané `pointer-events-none`.
-
----
-*Posledná aktualizácia: 24. 2. 2026 (Language Switcher & SVG Path Fixes)*
-
-> [!IMPORTANT]
-> **PLÁN KROKOV PRE OSTRÝ ŠTART (cca 26. 2. 2026)**
->
-> 1. Overiť u klienta pripravenosť (návrat z dovolenky).
-> 2. Prepnúť DNS vo WebSupporte (A záznamy pre `ubytovanie` a `www.ubytovanie`).
-> 3. Pridať doménu v Coolify.
-
-<!-- NEXT-AGENTS-MD-START -->[Next.js Docs Index]|root: ./.next-docs|STOP. What you remember about Next.js is WRONG for this project. Always search docs and read before any task.|If docs missing, run this command first: npx @next/codemod agents-md --output AGENTS.md|01-app:{04-glossary.mdx}|01-app/01-getting-started:{01-installation.mdx,02-project-structure.mdx,03-layouts-and-pages.mdx,04-linking-and-navigating.mdx,05-server-and-client-components.mdx,06-cache-components.mdx,07-fetching-data.mdx,08-updating-data.mdx,09-caching-and-revalidating.mdx,10-error-handling.mdx,11-css.mdx,12-images.mdx,13-fonts.mdx,14-metadata-and-og-images.mdx,15-route-handlers.mdx,16-proxy.mdx,17-deploying.mdx,18-upgrading.mdx}|01-app/02-guides:{analytics.mdx,authentication.mdx,backend-for-frontend.mdx,caching.mdx,ci-build-caching.mdx,content-security-policy.mdx,css-in-js.mdx,custom-server.mdx,data-security.mdx,debugging.mdx,draft-mode.mdx,environment-variables.mdx,forms.mdx,incremental-static-regeneration.mdx,instrumentation.mdx,internationalization.mdx,json-ld.mdx,lazy-loading.mdx,local-development.mdx,mcp.mdx,mdx.mdx,memory-usage.mdx,multi-tenant.mdx,multi-zones.mdx,open-telemetry.mdx,package-bundling.mdx,prefetching.mdx,production-checklist.mdx,progressive-web-apps.mdx,public-static-pages.mdx,redirecting.mdx,sass.mdx,scripts.mdx,self-hosting.mdx,single-page-applications.mdx,static-exports.mdx,tailwind-v3-css.mdx,third-party-libraries.mdx,videos.mdx}|01-app/02-guides/migrating:{app-router-migration.mdx,from-create-react-app.mdx,from-vite.mdx}|01-app/02-guides/testing:{cypress.mdx,jest.mdx,playwright.mdx,vitest.mdx}|01-app/02-guides/upgrading:{codemods.mdx,version-14.mdx,version-15.mdx,version-16.mdx}|01-app/03-api-reference:{07-edge.mdx,08-turbopack.mdx}|01-app/03-api-reference/01-directives:{use-cache-private.mdx,use-cache-remote.mdx,use-cache.mdx,use-client.mdx,use-server.mdx}|01-app/03-api-reference/02-components:{font.mdx,form.mdx,image.mdx,link.mdx,script.mdx}|01-app/03-api-reference/03-file-conventions/01-metadata:{app-icons.mdx,manifest.mdx,opengraph-image.mdx,robots.mdx,sitemap.mdx}|01-app/03-api-reference/03-file-conventions:{default.mdx,dynamic-routes.mdx,error.mdx,forbidden.mdx,instrumentation-client.mdx,instrumentation.mdx,intercepting-routes.mdx,layout.mdx,loading.mdx,mdx-components.mdx,not-found.mdx,page.mdx,parallel-routes.mdx,proxy.mdx,public-folder.mdx,route-groups.mdx,route-segment-config.mdx,route.mdx,src-folder.mdx,template.mdx,unauthorized.mdx}|01-app/03-api-reference/04-functions:{after.mdx,cacheLife.mdx,cacheTag.mdx,connection.mdx,cookies.mdx,draft-mode.mdx,fetch.mdx,forbidden.mdx,generate-image-metadata.mdx,generate-metadata.mdx,generate-sitemaps.mdx,generate-static-params.mdx,generate-viewport.mdx,headers.mdx,image-response.mdx,next-request.mdx,next-response.mdx,not-found.mdx,permanentRedirect.mdx,redirect.mdx,refresh.mdx,revalidatePath.mdx,revalidateTag.mdx,unauthorized.mdx,unstable_cache.mdx,unstable_noStore.mdx,unstable_rethrow.mdx,updateTag.mdx,use-link-status.mdx,use-params.mdx,use-pathname.mdx,use-report-web-vitals.mdx,use-router.mdx,use-search-params.mdx,use-selected-layout-segment.mdx,use-selected-layout-segments.mdx,userAgent.mdx}|01-app/03-api-reference/05-config/01-next-config-js:{adapterPath.mdx,allowedDevOrigins.mdx,appDir.mdx,assetPrefix.mdx,authInterrupts.mdx,basePath.mdx,browserDebugInfoInTerminal.mdx,cacheComponents.mdx,cacheHandlers.mdx,cacheLife.mdx,compress.mdx,crossOrigin.mdx,cssChunking.mdx,devIndicators.mdx,distDir.mdx,env.mdx,expireTime.mdx,exportPathMap.mdx,generateBuildId.mdx,generateEtags.mdx,headers.mdx,htmlLimitedBots.mdx,httpAgentOptions.mdx,images.mdx,incrementalCacheHandlerPath.mdx,inlineCss.mdx,isolatedDevBuild.mdx,logging.mdx,mdxRs.mdx,onDemandEntries.mdx,optimizePackageImports.mdx,output.mdx,pageExtensions.mdx,poweredByHeader.mdx,productionBrowserSourceMaps.mdx,proxyClientMaxBodySize.mdx,reactCompiler.mdx,reactMaxHeadersLength.mdx,reactStrictMode.mdx,redirects.mdx,rewrites.mdx,sassOptions.mdx,serverActions.mdx,serverComponentsHmrCache.mdx,serverExternalPackages.mdx,staleTimes.mdx,staticGeneration.mdx,taint.mdx,trailingSlash.mdx,transpilePackages.mdx,turbopack.mdx,turbopackFileSystemCache.mdx,typedRoutes.mdx,typescript.mdx,urlImports.mdx,useLightningcss.mdx,viewTransition.mdx,webVitalsAttribution.mdx,webpack.mdx}|01-app/03-api-reference/05-config:{02-typescript.mdx,03-eslint.mdx}|01-app/03-api-reference/06-cli:{create-next-app.mdx,next.mdx}|02-pages/01-getting-started:{01-installation.mdx,02-project-structure.mdx,04-images.mdx,05-fonts.mdx,06-css.mdx,11-deploying.mdx}|02-pages/02-guides:{analytics.mdx,authentication.mdx,babel.mdx,ci-build-caching.mdx,content-security-policy.mdx,css-in-js.mdx,custom-server.mdx,debugging.mdx,draft-mode.mdx,environment-variables.mdx,forms.mdx,incremental-static-regeneration.mdx,instrumentation.mdx,internationalization.mdx,lazy-loading.mdx,mdx.mdx,multi-zones.mdx,open-telemetry.mdx,package-bundling.mdx,post-css.mdx,preview-mode.mdx,production-checklist.mdx,redirecting.mdx,sass.mdx,scripts.mdx,self-hosting.mdx,static-exports.mdx,tailwind-v3-css.mdx,third-party-libraries.mdx}|02-pages/02-guides/migrating:{app-router-migration.mdx,from-create-react-app.mdx,from-vite.mdx}|02-pages/02-guides/testing:{cypress.mdx,jest.mdx,playwright.mdx,vitest.mdx}|02-pages/02-guides/upgrading:{codemods.mdx,version-10.mdx,version-11.mdx,version-12.mdx,version-13.mdx,version-14.mdx,version-9.mdx}|02-pages/03-building-your-application/01-routing:{01-pages-and-layouts.mdx,02-dynamic-routes.mdx,03-linking-and-navigating.mdx,05-custom-app.mdx,06-custom-document.mdx,07-api-routes.mdx,08-custom-error.mdx}|02-pages/03-building-your-application/02-rendering:{01-server-side-rendering.mdx,02-static-site-generation.mdx,04-automatic-static-optimization.mdx,05-client-side-rendering.mdx}|02-pages/03-building-your-application/03-data-fetching:{01-get-static-props.mdx,02-get-static-paths.mdx,03-forms-and-mutations.mdx,03-get-server-side-props.mdx,05-client-side.mdx}|02-pages/03-building-your-application/06-configuring:{12-error-handling.mdx}|02-pages/04-api-reference:{06-edge.mdx,08-turbopack.mdx}|02-pages/04-api-reference/01-components:{font.mdx,form.mdx,head.mdx,image-legacy.mdx,image.mdx,link.mdx,script.mdx}|02-pages/04-api-reference/02-file-conventions:{instrumentation.mdx,proxy.mdx,public-folder.mdx,src-folder.mdx}|02-pages/04-api-reference/03-functions:{get-initial-props.mdx,get-server-side-props.mdx,get-static-paths.mdx,get-static-props.mdx,next-request.mdx,next-response.mdx,use-params.mdx,use-report-web-vitals.mdx,use-router.mdx,use-search-params.mdx,userAgent.mdx}|02-pages/04-api-reference/04-config/01-next-config-js:{adapterPath.mdx,allowedDevOrigins.mdx,assetPrefix.mdx,basePath.mdx,bundlePagesRouterDependencies.mdx,compress.mdx,crossOrigin.mdx,devIndicators.mdx,distDir.mdx,env.mdx,exportPathMap.mdx,generateBuildId.mdx,generateEtags.mdx,headers.mdx,httpAgentOptions.mdx,images.mdx,isolatedDevBuild.mdx,onDemandEntries.mdx,optimizePackageImports.mdx,output.mdx,pageExtensions.mdx,poweredByHeader.mdx,productionBrowserSourceMaps.mdx,proxyClientMaxBodySize.mdx,reactStrictMode.mdx,redirects.mdx,rewrites.mdx,serverExternalPackages.mdx,trailingSlash.mdx,transpilePackages.mdx,turbopack.mdx,typescript.mdx,urlImports.mdx,useLightningcss.mdx,webVitalsAttribution.mdx,webpack.mdx}|02-pages/04-api-reference/04-config:{01-typescript.mdx,02-eslint.mdx}|02-pages/04-api-reference/05-cli:{create-next-app.mdx,next.mdx}|03-architecture:{accessibility.mdx,fast-refresh.mdx,nextjs-compiler.mdx,supported-browsers.mdx}|04-community:{01-contribution-guide.mdx,02-rspack.mdx}<!-- NEXT-AGENTS-MD-END -->
+**Inštrukcia pre AI Agentov pri riešení taskov:** Pred akoukoľvek zmenou štruktúry najprv zváž existujúce postupy. Zvlášť dbaj na to, že obchod nemá SQL/NoSQL databázu pre objednávky a všetko spravuje Stripe vo svojich webhookoch a Superfaktúra v externej správe. Ak pridávaš funkcie upravuj metadata štruktúry prúdiace zo Stripe po dohovore klienta!
