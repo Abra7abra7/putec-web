@@ -62,7 +62,7 @@ export default function DegustationProducts({ initialProducts = [] }: Degustatio
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority
+                  priority={product.ID === products[0].ID}
                 />
 
                 {/* Gradient overlay */}
