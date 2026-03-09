@@ -8,11 +8,9 @@
       "ProductCategories": [
          "Degustácie vína"
       ],
-      "FeatureImageURL": "/degustacie/degustacia-x.jpg",
+      "FeatureImageURL": "/degustacie/Malá vínna chvíľka.jpg",
       "ProductImageGallery": [
-         "/degustacie/degustacia-x.jpg",
-         "/degustacie/IMG_6015-2.jpg",
-         "/degustacie/IMG_6063-2.jpg"
+         "/degustacie/Malá vínna chvíľka.jpg"
       ],
       "ShortDescription": "Ochutnávka 4 starostlivo vybraných vzoriek našich najobľúbenejších vín, doplnených o malú studenú misu.",
       "LongDescription": "Ideálne pre tých, ktorí sa chcú zoznámiť s našou produkciou, alebo majú záujem o degustáciu vo dvojici. Degustácia trvá 1-1,5 hodiny pre 2-5 osôb.",
@@ -40,11 +38,9 @@
       "ProductCategories": [
          "Degustácie vína"
       ],
-      "FeatureImageURL": "/degustacie/degustacia-brano-x.jpg",
+      "FeatureImageURL": "/degustacie/Víno trochu inak.jpg",
       "ProductImageGallery": [
-         "/degustacie/degustacia-brano-x.jpg",
-         "/degustacie/brano-degustacia-x.jpg",
-         "/degustacie/sudy-x.jpg"
+         "/degustacie/Víno trochu inak.jpg"
       ],
       "ShortDescription": "Degustácia 8 druhov starostlivo vybraných vín s majiteľom vinárstva, ktorý vás prevedie svetom našich vín a tajomstvami ich výroby.",
       "LongDescription": "Príjemný zážitok je doplnený malou studenou misou. Degustácia trvá 2,5-3 hodiny pre 6-9 osôb s prehliadkou výrobnej časti.",
@@ -73,11 +69,9 @@
       "ProductCategories": [
          "Degustácie vína"
       ],
-      "FeatureImageURL": "/galeria/degustacie/degustacia-skupina.jpg",
+      "FeatureImageURL": "/degustacie/Víno trochu inak Vol.2.jpg",
       "ProductImageGallery": [
-         "/galeria/degustacie/degustacia-skupina.jpg",
-         "/degustacie/jama-x.jpg",
-         "/degustacie/ruky-x.jpg"
+         "/degustacie/Víno trochu inak Vol.2.jpg"
       ],
       "ShortDescription": "Degustácia 8 druhov starostlivo vybraných vín, pre väčšie skupinky, s majiteľom vinárstva.",
       "LongDescription": "Príjemný zážitok je doplnený malou studenou misou. Degustácia trvá 2,5-3 hodiny pre 10-15 osôb s skupinovou atmosférou.",
@@ -106,10 +100,9 @@
       "ProductCategories": [
          "Degustácie vína"
       ],
-      "FeatureImageURL": "/degustacie/bozk-2.jpg",
+      "FeatureImageURL": "/degustacie/Romantika na deke.jpg",
       "ProductImageGallery": [
-         "/degustacie/bozk-2.jpg",
-         "/degustacie/misa-x.jpg"
+         "/degustacie/Romantika na deke.jpg"
       ],
       "ShortDescription": "Piknikový košík pre 2 osoby s bohato obloženými bagetami, sladkou pochúťkou, orieškami, minerálkou, fľašou vína podľa vlastného výberu a potrebnými drobnosťami.",
       "LongDescription": "Romantický piknikový zážitok pre dvojicu s víno podľa vlastného výberu. Trvanie podľa dohody, ideálne pre romantické chvíle vo vinohrade.",
@@ -130,5 +123,66 @@
          "Pikniková deka"
       ],
       "Deposit": 20
+   },
+   {
+      "ID": "degustation-005",
+      "Title": "Vinársky večer vo Víno Pútec",
+      "Slug": "vinarsky-vecer-vo-vino-putec",
+      "Enabled": true,
+      "CatalogVisible": true,
+      "ProductCategories": [
+         "Degustácie vína"
+      ],
+      "FeatureImageURL": "/degustacie/Vinársky večer vo Víno Pútec.jpg",
+      "ProductImageGallery": [
+         "/degustacie/Vinársky večer vo Víno Pútec.jpg"
+      ],
+      "ShortDescription": "Exkluzívny večer v našom vinárstve s prenájmom celého objektu a degustáciou 8 druhov vín.",
+      "LongDescription": "Užite si súkromie a atmosféru nášho vinárstva. Balík zahŕňa uvítací prípitok, prenájom celého objektu a degustáciu 8 druhov vín so studeným záhryzom. Cena 990€ s DPH. Miestny poplatok 0,50€ sa účtuje pri príchode na ubytovanie podľa skutočného počtu hostí.",
+      "RegularPrice": "990.00",
+      "SalePrice": "990.00",
+      "Currency": "EUR",
+      "SubscriptionEnabled": false,
+      "SubscriptionType": "",
+      "ProductType": "degustation",
+      "Capacity": "10-15 ľudí",
+      "Duration": "Celý večer",
+      "Features": [
+         "Uvítací prípitok",
+         "Prenájom celého objektu",
+         "Degustácia 8 druhov vín",
+         "Studený záhryz"
+      ]
+   },
+   {
+      "ID": "degustation-006",
+      "Title": "Vinársky večer vo Víno Pútec s raňajkami",
+      "Slug": "vinarsky-vecer-vo-vino-putec-s-ranajkami",
+      "Enabled": true,
+      "CatalogVisible": true,
+      "ProductCategories": [
+         "Degustácie vína"
+      ],
+      "FeatureImageURL": "/degustacie/Vinársky večer vo Víno Pútec s raňajkami.jpg",
+      "ProductImageGallery": [
+         "/degustacie/Vinársky večer vo Víno Pútec s raňajkami.jpg"
+      ],
+      "ShortDescription": "Kompletný vinársky zážitok s ubytovaním a raňajkami pre vašu skupinu.",
+      "LongDescription": "Balík zahŕňa všetko z Vinárskeho večera (prípitok, prenájom, degustácia 8 vín, studený záhryz) navyše s bohatými raňajkami. Cena 1090€ s DPH. Miestny poplatok 0,50€ sa účtuje pri príchode na ubytovanie podľa skutočného počtu hostí.",
+      "RegularPrice": "1090.00",
+      "SalePrice": "1090.00",
+      "Currency": "EUR",
+      "SubscriptionEnabled": false,
+      "SubscriptionType": "",
+      "ProductType": "degustation",
+      "Capacity": "10-15 ľudí",
+      "Duration": "Večer + noc",
+      "Features": [
+         "Uvítací prípitok",
+         "Prenájom celého objektu",
+         "Degustácia 8 druhov vín",
+         "Studený záhryz",
+         "Raňajky"
+      ]
    }
 ]

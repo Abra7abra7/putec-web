@@ -8,11 +8,9 @@
         "ProductCategories": [
             "Wine Tastings"
         ],
-        "FeatureImageURL": "/degustacie/degustacia-x.jpg",
+        "FeatureImageURL": "/degustacie/Malá vínna chvíľka.jpg",
         "ProductImageGallery": [
-            "/degustacie/degustacia-x.jpg",
-            "/degustacie/IMG_6015-2.jpg",
-            "/degustacie/IMG_6063-2.jpg"
+            "/degustacie/Malá vínna chvíľka.jpg"
         ],
         "ShortDescription": "Wine tasting of 4 carefully selected samples of our most popular wines, accompanied by a small cold platter.",
         "LongDescription": "Ideal for those who want to get to know our production, or are interested in a tasting for two. The tasting lasts 1-1.5 hours for 2-5 people.",
@@ -40,11 +38,9 @@
         "ProductCategories": [
             "Wine Tastings"
         ],
-        "FeatureImageURL": "/degustacie/degustacia-brano-x.jpg",
+        "FeatureImageURL": "/degustacie/Víno trochu inak.jpg",
         "ProductImageGallery": [
-            "/degustacie/degustacia-brano-x.jpg",
-            "/degustacie/brano-degustacia-x.jpg",
-            "/degustacie/sudy-x.jpg"
+            "/degustacie/Víno trochu inak.jpg"
         ],
         "ShortDescription": "Tasting of 8 types of carefully selected wines with the winery owner, who will guide you through the world of our wines and the secrets of their production.",
         "LongDescription": "A pleasant experience is complemented by a small cold platter. The tasting lasts 2.5-3 hours for 6-9 people with a tour of the production area.",
@@ -73,11 +69,9 @@
         "ProductCategories": [
             "Wine Tastings"
         ],
-        "FeatureImageURL": "/galeria/degustacie/degustacia-skupina.jpg",
+        "FeatureImageURL": "/degustacie/Víno trochu inak Vol.2.jpg",
         "ProductImageGallery": [
-            "/galeria/degustacie/degustacia-skupina.jpg",
-            "/degustacie/jama-x.jpg",
-            "/degustacie/ruky-x.jpg"
+            "/degustacie/Víno trochu inak Vol.2.jpg"
         ],
         "ShortDescription": "Tasting of 8 types of carefully selected wines, for larger groups, with the winery owner.",
         "LongDescription": "A pleasant experience is complemented by a small cold platter. The tasting lasts 2.5-3 hours for 10-15 people with a group atmosphere.",
@@ -106,10 +100,9 @@
         "ProductCategories": [
             "Wine Tastings"
         ],
-        "FeatureImageURL": "/degustacie/bozk-2.jpg",
+        "FeatureImageURL": "/degustacie/Romantika na deke.jpg",
         "ProductImageGallery": [
-            "/degustacie/bozk-2.jpg",
-            "/degustacie/misa-x.jpg"
+            "/degustacie/Romantika na deke.jpg"
         ],
         "ShortDescription": "Picnic basket for 2 people with richly filled baguettes, a sweet treat, nuts, mineral water, a bottle of wine of your choice and necessary small items.",
         "LongDescription": "A romantic picnic experience for a couple with a wine of your choice. Duration by agreement, ideal for romantic moments in the vineyard.",
@@ -130,5 +123,66 @@
             "Picnic blanket"
         ],
         "Deposit": 20
+    },
+    {
+        "ID": "degustation-005",
+        "Title": "Winery Evening at Víno Pútec",
+        "Slug": "vinarsky-vecer-vo-vino-putec",
+        "Enabled": true,
+        "CatalogVisible": true,
+        "ProductCategories": [
+            "Wine Tastings"
+        ],
+        "FeatureImageURL": "/degustacie/Vinársky večer vo Víno Pútec.jpg",
+        "ProductImageGallery": [
+            "/degustacie/Vinársky večer vo Víno Pútec.jpg"
+        ],
+        "ShortDescription": "An exclusive evening at our winery with rental of the entire facility and tasting of 8 types of wines.",
+        "LongDescription": "Enjoy the privacy and atmosphere of our winery. The package includes a welcome toast, rental of the entire facility, and a tasting of 8 types of wines with a cold platter. Price 990€ incl. VAT. A local fee of 0.50€ is charged upon arrival at the accommodation based on the actual number of guests.",
+        "RegularPrice": "990.00",
+        "SalePrice": "990.00",
+        "Currency": "EUR",
+        "SubscriptionEnabled": false,
+        "SubscriptionType": "",
+        "ProductType": "degustation",
+        "Capacity": "10-15 people",
+        "Duration": "Entire evening",
+        "Features": [
+            "Welcome toast",
+            "Rental of the entire facility",
+            "Tasting of 8 types of wine",
+            "Cold platter"
+        ]
+    },
+    {
+        "ID": "degustation-006",
+        "Title": "Winery Evening at Víno Pútec with Breakfast",
+        "Slug": "vinarsky-vecer-vo-vino-putec-s-ranajkami",
+        "Enabled": true,
+        "CatalogVisible": true,
+        "ProductCategories": [
+            "Wine Tastings"
+        ],
+        "FeatureImageURL": "/degustacie/Vinársky večer vo Víno Pútec s raňajkami.jpg",
+        "ProductImageGallery": [
+            "/degustacie/Vinársky večer vo Víno Pútec s raňajkami.jpg"
+        ],
+        "ShortDescription": "A complete winery experience with accommodation and breakfast for your group.",
+        "LongDescription": "The package includes everything from the Winery Evening (toast, rental, tasting of 8 wines, cold platter) plus a rich breakfast. Price 1090€ incl. VAT. A local fee of 0.50€ is charged upon arrival at the accommodation based on the actual number of guests.",
+        "RegularPrice": "1090.00",
+        "SalePrice": "1090.00",
+        "Currency": "EUR",
+        "SubscriptionEnabled": false,
+        "SubscriptionType": "",
+        "ProductType": "degustation",
+        "Capacity": "10-15 people",
+        "Duration": "Evening + night",
+        "Features": [
+            "Welcome toast",
+            "Rental of the entire facility",
+            "Tasting of 8 types of wine",
+            "Cold platter",
+            "Breakfast"
+        ]
     }
 ]
