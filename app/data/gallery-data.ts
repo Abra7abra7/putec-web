@@ -18,7 +18,13 @@ export const GALLERY_IMAGES: Record<string, string[]> = {
         "jama-x.jpg",
         "misa-x.jpg",
         "ruky-x.jpg",
-        "sudy-x.jpg"
+        "sudy-x.jpg",
+        "Malá vínna chvíľka.jpg",
+        "Romantika na deke.jpg",
+        "Vinársky večer vo Víno Pútec s raňajkami.jpg",
+        "Vinársky večer vo Víno Pútec.jpg",
+        "Víno trochu inak Vol.2.jpg",
+        "Víno trochu inak.jpg"
     ],
     ubytovanie: [
         "altanok-krb-x.jpg",
