@@ -401,7 +401,7 @@
         "WineDetails": {
             "vintage": "2024",
             "wineType": "sparkling white dry",
-            "quality": "Quality wine",
+            "quality": "",
             "protectedOrigin": "",
             "region": "Small Carpathian wine region",
             "color": "Light yellow color",
@@ -680,7 +680,7 @@
         "WineDetails": {
             "vintage": "2023",
             "wineType": "sparkling rosé off-dry",
-            "quality": "Quality wine",
+            "quality": "",
             "protectedOrigin": "",
             "region": "South Slovak wine region",
             "color": "Pink color with sparkling bubbles",
@@ -1149,7 +1149,7 @@
         "WineDetails": {
             "vintage": "2025",
             "wineType": "sparkling white off-dry",
-            "quality": "Quality wine",
+            "quality": "",
             "protectedOrigin": "",
             "region": "South Slovak wine region",
             "color": "Delicate yellow color",
@@ -1162,7 +1162,7 @@
             "batchNumber": "L.30",
             "fillingDate": "2/2026",
             "warnings": "Contains sulfites",
-            "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR",
+            "producer": "Víno Matyšák s.r.o.",
             "countryOfOrigin": "Slovakia",
             "nutritionalInfoUrl": "https://eanonline.gs1sk.org/01/08588010701008/22/2025"
         }

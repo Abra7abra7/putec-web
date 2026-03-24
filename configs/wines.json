@@ -401,7 +401,7 @@
       "WineDetails": {
          "vintage": "2024",
          "wineType": "perlivé biele suché",
-         "quality": "Akostné víno",
+         "quality": "",
          "protectedOrigin": "",
          "region": "Malokarpatská vinohradnícka oblasť",
          "color": "Svetlo žltá farba",
@@ -680,7 +680,7 @@
       "WineDetails": {
          "vintage": "2023",
          "wineType": "perlivé ružové polosuché",
-         "quality": "Akostné víno",
+         "quality": "",
          "protectedOrigin": "",
          "region": "Južnoslovenská vinohradnícka oblasť",
          "color": "Ružová farba s perlivými bublinkami",
@@ -1149,7 +1149,7 @@
        "WineDetails": {
           "vintage": "2025",
           "wineType": "perlivé biele polosuché",
-          "quality": "Akostné víno",
+          "quality": "",
           "protectedOrigin": "",
           "region": "Južnoslovenská vinohradnícka oblasť",
           "color": "Jemnejšia žltá farba",
@@ -1162,7 +1162,7 @@
           "batchNumber": "L.30",
           "fillingDate": "2/2026",
           "warnings": "Obsahuje siričitany",
-          "producer": "Pútec s.r.o., Pezinská 154, 902 01 Vinosady, SR",
+          "producer": "Víno Matyšák s.r.o.",
           "countryOfOrigin": "Slovensko",
           "nutritionalInfoUrl": "https://eanonline.gs1sk.org/01/08588010701008/22/2025"
        }
