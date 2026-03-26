@@ -123,6 +123,43 @@ export default function OrderSummaryClient() {
     }
   }, [searchParams, router, dispatch]);
 
+  // GA4 Purchase Tracking
+  const trackedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (order && order.orderId && trackedRef.current !== order.orderId) {
+      const orderIdFromQuery = searchParams.get("orderId");
+      
+      // We only track the purchase if it's the "first" view of the summary (e.g. redirected from payment)
+      // or if you want to track every view (less common for purchases).
+      // Here we check if it's potentially a fresh success page visit.
+      if (orderIdFromQuery && order.orderId === orderIdFromQuery) {
+        trackedRef.current = order.orderId;
+
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          const totalValue = order.cartItems.reduce((sum, item) => {
+            const price = parseFloat(item.SalePrice || item.RegularPrice);
+            return sum + (price * item.quantity);
+          }, 0) + (order.shippingMethod?.price || 0);
+
+          (window as any).gtag('event', 'purchase', {
+            transaction_id: order.orderId,
+            value: totalValue,
+            currency: 'EUR',
+            items: order.cartItems.map((item, index) => ({
+              item_id: item.ID,
+              item_name: item.Title,
+              index: index,
+              price: parseFloat(item.SalePrice || item.RegularPrice),
+              quantity: item.quantity,
+              item_category: item.ProductType || 'wine'
+            }))
+          });
+          console.log('📊 GA4 - Purchase tracked:', order.orderId);
+        }
+      }
+    }
+  }, [order, searchParams]);
+
   if (!order) return null;
 
   const total = order.cartItems.reduce((sum, item) => {

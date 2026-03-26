@@ -22,6 +22,21 @@ export default function AddToCartButton({ product }: Props) {
 
   const handleAddToCart = () => {
     dispatch(addToCart(product));
+    
+    // GA4 Tracking
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'add_to_cart', {
+        currency: 'EUR',
+        value: parseFloat(product.SalePrice || product.RegularPrice),
+        items: [{
+          item_id: product.ID,
+          item_name: product.Title,
+          price: parseFloat(product.SalePrice || product.RegularPrice),
+          quantity: 1,
+          item_category: product.ProductType || 'wine'
+        }]
+      });
+    }
 
     // Show mini cart popup
     showMiniCart();

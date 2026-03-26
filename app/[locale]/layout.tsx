@@ -11,6 +11,7 @@ import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
 import { getLocalization } from "@/app/utils/getLocalization";
 import Script from 'next/script';
+import GoogleAnalytics from "@/app/components/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const poppins = Poppins({
@@ -142,6 +143,7 @@ export default async function LocaleLayout({
           type="text/javascript"
           strategy="lazyOnload"
         />
+        <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>
           <LocalizationProvider initialData={localizationData}>
             <Providers>

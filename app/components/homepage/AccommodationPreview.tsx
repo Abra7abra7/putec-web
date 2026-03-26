@@ -11,6 +11,7 @@ import AccommodationSliderClient from "./AccommodationSliderClient";
 import { getMediaUrl } from "@/app/utils/media";
 import { useLocalization } from "../../context/LocalizationContext";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function AccommodationPreview() {
   const { homepage } = useLocalization();
@@ -65,6 +66,24 @@ export default function AccommodationPreview() {
               <Button asChild variant="outline">
                 <Link href={getLocalizedLink("/ubytovanie")}>{ctaDetails}</Link>
               </Button>
+            </div>
+
+            {/* Trust Badge */}
+            <div className="mt-8 flex items-center gap-4">
+              <a 
+                href="https://www.megaubytovanie.sk/vinohradnicky-dom-putec" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:scale-105 transition-transform"
+              >
+                <Image
+                  src={getMediaUrl("mega-ubytovanie.jpeg")}
+                  alt="MegaUbytovanie - Preverené ubytovanie"
+                  width={150}
+                  height={50}
+                  className="rounded-lg shadow-sm border border-accent/10"
+                />
+              </a>
             </div>
           </div>
 

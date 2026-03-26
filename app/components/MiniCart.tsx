@@ -82,6 +82,25 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
     const localePrefix = window.location.pathname.startsWith('/en') ? '/en' : '';
     const localizedPath = path.startsWith('/en') || path.startsWith('http') ? path : `${localePrefix}${path}`;
     router.push(localizedPath);
+
+    // GA4 Tracking
+    if (path === "/pokladna") {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'begin_checkout', {
+          currency: 'EUR',
+          value: totalAmount,
+          items: cartItems.map((item, index) => ({
+            item_id: item.ID,
+            item_name: item.Title,
+            index: index,
+            price: parseFloat(item.SalePrice || item.RegularPrice),
+            quantity: item.quantity,
+            item_category: item.ProductType || 'wine'
+          }))
+        });
+        console.log('📊 GA4 - Begin checkout tracked');
+      }
+    }
   };
 
   const toggleCart = () => {
@@ -248,10 +267,25 @@ export default function MiniCart({ disableHover = false }: MiniCartProps) {
                               Enabled: true,
                               CatalogVisible: true,
                               ProductCategories: wine.ProductCategories || [],
-                              ProductType: wine.ProductType || "wine",
-                              Currency: wine.Currency || "EUR"
-                            } as any));
-                          }}
+                               ProductType: wine.ProductType || "wine",
+                               Currency: wine.Currency || "EUR"
+                             } as any));
+
+                            // GA4 Tracking
+                            if (typeof window !== 'undefined' && (window as any).gtag) {
+                              (window as any).gtag('event', 'add_to_cart', {
+                                currency: 'EUR',
+                                value: parseFloat(wine.SalePrice || wine.RegularPrice),
+                                items: [{
+                                  item_id: wine.ID,
+                                  item_name: wine.Title,
+                                  price: parseFloat(wine.SalePrice || wine.RegularPrice),
+                                  quantity: 1,
+                                  item_category: wine.ProductType || 'wine'
+                                }]
+                              });
+                            }
+                           }}
                         >
                           <div className="aspect-[4/5] relative mb-2 overflow-hidden rounded">
                             <Image src={getMediaUrl(wine.FeatureImageURL)} alt={wine.Title} fill className="object-cover group-hover:scale-105 transition-transform" />

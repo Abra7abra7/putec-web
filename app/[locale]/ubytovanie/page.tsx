@@ -1,5 +1,6 @@
 import Hero from "../../components/Hero";
 import Link from "next/link";
+import Image from "next/image";
 import PrevioBookingClient from "../../components/PrevioBookingClient";
 import InquiryForm from "../../components/ubytovanie/InquiryForm";
 import { Slider } from "../../components/business/Slider";
@@ -77,6 +78,27 @@ export default async function AccommodationPage({
             <p className="text-lg text-foreground-muted leading-relaxed">
               {t("welcome.p2")}
             </p>
+
+            {/* Trust Badge */}
+            <div className="mt-12 flex flex-col items-center">
+              <span className="text-xs text-foreground-muted uppercase tracking-widest mb-3 opacity-70">
+                {locale === 'sk' ? 'Naše overené ubytovanie' : 'Our verified accommodation'}
+              </span>
+              <a 
+                href="https://www.megaubytovanie.sk/vinohradnicky-dom-putec" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:scale-105 transition-transform"
+              >
+                <Image
+                  src={getMediaUrl("mega-ubytovanie.jpeg")}
+                  alt="MegaUbytovanie - Preverené ubytovanie"
+                  width={180}
+                  height={60}
+                  className="rounded-xl shadow-md border border-accent/10"
+                />
+              </a>
+            </div>
           </div>
 
           {/* Reservation Section */}
