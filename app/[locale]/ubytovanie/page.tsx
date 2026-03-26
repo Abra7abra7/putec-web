@@ -85,7 +85,7 @@ export default async function AccommodationPage({
                 {locale === 'sk' ? 'Naše overené ubytovanie' : 'Our verified accommodation'}
               </span>
               <a 
-                href="https://www.megaubytovanie.sk/vinohradnicky-dom-putec" 
+                href="https://www.megaubytovanie.sk/rodinny-dom-vo-vinarstve-putec" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="hover:scale-105 transition-transform"

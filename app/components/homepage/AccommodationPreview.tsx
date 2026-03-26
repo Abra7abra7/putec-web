@@ -71,7 +71,7 @@ export default function AccommodationPreview() {
             {/* Trust Badge */}
             <div className="mt-8 flex items-center gap-4">
               <a 
-                href="https://www.megaubytovanie.sk/vinohradnicky-dom-putec" 
+                href="https://www.megaubytovanie.sk/rodinny-dom-vo-vinarstve-putec" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="hover:scale-105 transition-transform"
