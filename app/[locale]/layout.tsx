@@ -133,6 +133,7 @@ export default async function LocaleLayout({
             `,
           }}
         />
+        <GoogleAnalytics />
       </head>
       <body>
         <Script
@@ -143,7 +144,6 @@ export default async function LocaleLayout({
           type="text/javascript"
           strategy="lazyOnload"
         />
-        <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>
           <LocalizationProvider initialData={localizationData}>
             <Providers>
