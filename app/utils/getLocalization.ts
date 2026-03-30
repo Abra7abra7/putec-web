@@ -210,7 +210,12 @@ const defaultLocalization: LocalizationData = {
       premiumWines: "Prémiove slovenské vína",
       validationCompleteFields: "Prosím doplňte nasledujúce polia",
       vatIncluded: "z toho DPH 20%",
-      codFeeLabel: "Poplatok za dobierku"
+      codFeeLabel: "Poplatok za dobierku",
+      promoCodeLabel: "Máte promo kód?",
+      promoCodePlaceholder: "Zadajte kód",
+      applyBtn: "Aplikovať",
+      invalidPromoCode: "Neplatný promo kód",
+      discountLabel: "Zľava"
     },
     // Contact
     contactHeading: "Máte otázky? Napíšte nám!",
