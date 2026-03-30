@@ -1,17 +1,20 @@
 "use client";
-
-import { useAppSelector } from "../../store/hooks";
+import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { useCheckoutSettings } from "../../context/CheckoutContext";
 import { useLocalization } from "../../context/LocalizationContext";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import Image from "next/image";
 import Link from "next/link";
 import { getMediaUrl } from "../../utils/media";
+import { applyPromoCode, removePromoCode } from "../../store/slices/checkoutSlice";
+import { cn } from "../../utils/utils";
 
 import { ShieldCheck, Zap, Wine } from "lucide-react";
 import IconWrapper from "../ui/IconWrapper";
 
 export default function OrderSummary() {
+  const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
   const { shippingMethodId, shippingForm, billingForm, differentBilling } = useAppSelector((state) => state.checkout);
   const { shippingMethods, shippingCountries } = useCheckoutSettings();
@@ -27,16 +30,43 @@ export default function OrderSummary() {
     0
   );
 
+  const { promoCode, discountPercentage } = useAppSelector((state) => state.checkout);
+  const [promoInput, setPromoInput] = useState("");
+  const [promoError, setPromoError] = useState(false);
+
+  const discountAmount = (cartTotal * discountPercentage) / 100;
+
   // Free shipping threshold (only for courier, not pickup)
-  const actualShippingCost = (shipping?.id === "courier" && cartTotal >= freeShippingThreshold)
+  const actualShippingCost = (shipping?.id === "courier" && (cartTotal - discountAmount) >= freeShippingThreshold)
     ? 0
     : (shipping?.price || 0);
 
   const codCost = paymentMethodId === "cod" ? codFee : 0;
-  const totalAmount = cartTotal + actualShippingCost + codCost;
+  const totalAmount = cartTotal - discountAmount + actualShippingCost + codCost;
 
   // Get currency symbol from first cart item or default to EUR
   const currencySymbol = cartItems.length > 0 ? getCurrencySymbol(cartItems[0].Currency) : "€";
+
+  const handleApplyPromo = () => {
+    const code = promoInput.trim().toUpperCase();
+    if (code === "FINDIGO" || code === "FINGO") {
+      dispatch(applyPromoCode(code));
+      setPromoError(false);
+    } else {
+      setPromoError(true);
+    }
+  };
+
+  const handleRemovePromo = () => {
+    dispatch(removePromoCode());
+    setPromoInput("");
+    setPromoError(false);
+  };
+
+  // Check if cart contains wine/sets
+  const hasWines = cartItems.some(item => 
+    item.ProductType === 'wine' || item.ProductType === 'wine-set' || !item.ProductType
+  );
 
   // Get country name from code
   const getCountryName = (code: string) => {
@@ -76,13 +106,68 @@ export default function OrderSummary() {
 
         <hr className="my-4" />
 
+        {/* Promo Code Input */}
+        {hasWines && (
+          <div className="mb-6">
+            <p className="text-sm font-medium mb-2 text-foreground">{l.promoCodeLabel || "Máte promo kód?"}</p>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={promoInput}
+                onChange={(e) => {
+                  setPromoInput(e.target.value);
+                  setPromoError(false);
+                }}
+                placeholder={l.promoCodePlaceholder || "Zadajte kód"}
+                className={cn(
+                  "flex-1 px-3 py-2 text-sm border rounded bg-white focus:outline-none focus:ring-1 focus:ring-accent",
+                  promoError ? "border-red-500" : "border-gray-200"
+                )}
+                disabled={!!promoCode}
+              />
+              {!promoCode ? (
+                <button
+                  onClick={handleApplyPromo}
+                  className="px-4 py-2 text-sm font-medium bg-accent text-white rounded hover:bg-accent-hover transition-colors"
+                >
+                  {l.applyBtn || "Aplikovať"}
+                </button>
+              ) : (
+                <button
+                  onClick={handleRemovePromo}
+                  className="px-4 py-2 text-sm font-medium bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
+                >
+                  {labels.remove || "Odstrániť"}
+                </button>
+              )}
+            </div>
+            {promoError && (
+              <p className="text-xs text-red-500 mt-1">{l.invalidPromoCode || "Neplatný promo kód"}</p>
+            )}
+            {promoCode && (
+              <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3" />
+                Promo kód <strong>{promoCode}</strong> bol úspešne aplikovaný!
+              </p>
+            )}
+          </div>
+        )}
+
         <div className="flex justify-between text-sm">
           <span>{labels.subtotal || "Medzisúčet"}:</span>
           <span>{currencySymbol}{cartTotal.toFixed(2)}</span>
         </div>
+
+        {discountPercentage > 0 && (
+          <div className="flex justify-between text-sm text-green-600 font-medium">
+            <span>{l.discountLabel || "Zľava"} ({discountPercentage}%):</span>
+            <span>-{currencySymbol}{discountAmount.toFixed(2)}</span>
+          </div>
+        )}
+
         <div className="flex justify-between text-xs text-gray-500 mt-1">
           <span>{l.vatIncluded || "z toho DPH (23%)"}:</span>
-          <span>{currencySymbol}{(cartTotal - (cartTotal / 1.23)).toFixed(2)}</span>
+          <span>{currencySymbol}{((cartTotal - discountAmount) - ((cartTotal - discountAmount) / 1.23)).toFixed(2)}</span>
         </div>
 
         <div className="flex justify-between text-sm">

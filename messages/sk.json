@@ -193,7 +193,12 @@
             "fastDelivery": "Rýchle doručenie (SR a ČR)",
             "premiumWines": "Prémiove slovenské vína",
             "validationCompleteFields": "Prosím doplňte nasledujúce polia",
-            "vatIncluded": "z toho DPH 23%"
+            "vatIncluded": "z toho DPH 23%",
+            "promoCodeLabel": "Máte promo kód?",
+            "promoCodePlaceholder": "Zadajte kód",
+            "applyBtn": "Aplikovať",
+            "invalidPromoCode": "Neplatný promo kód",
+            "discountLabel": "Zľava"
         },
         "cartLabels": {
             "backToShopping": "Späť na nákup",

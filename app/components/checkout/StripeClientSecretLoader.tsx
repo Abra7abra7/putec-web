@@ -20,21 +20,24 @@ export default function StripeClientSecretLoader() {
   const billingForm = useAppSelector((state) => state.checkout.billingForm);
   const paymentMethodId = useAppSelector((state) => state.checkout.paymentMethodId);
   const { shippingMethods } = useCheckoutSettings();
-
+  const { promoCode, discountPercentage } = useAppSelector((state) => state.checkout);
   const shippingMethod = shippingMethods.find((m) => m.id === shippingMethodId);
   const shippingCost = shippingMethod?.price || 0;
   const currency = shippingMethod?.currency || "USD";
 
-  const total =
-    cartItems.reduce(
-      (sum, item) =>
-        sum + item.quantity * parseFloat(item.SalePrice || item.RegularPrice),
-      0
-    ) + shippingCost;
+  const cartTotal = cartItems.reduce(
+    (sum, item) =>
+      sum + item.quantity * parseFloat(item.SalePrice || item.RegularPrice),
+    0
+  );
+
+  const discountAmount = (cartTotal * discountPercentage) / 100;
+  const total = cartTotal - discountAmount + shippingCost;
 
   // Create stable string keys from cart/form objects to avoid infinite re-renders
   // (objects/arrays change reference on every render, causing useEffect to fire in a loop)
   const cartKey = cartItems.map(i => `${i.ID}:${i.quantity}`).join(',');
+  const promoKey = `${promoCode || ''}-${discountPercentage}`;
   const shippingKey = `${shippingForm?.firstName}|${shippingForm?.lastName}|${shippingForm?.email}|${shippingForm?.address1}|${shippingForm?.city}|${shippingForm?.postalCode}|${shippingForm?.country}`;
   const billingKey = `${billingForm?.firstName}|${billingForm?.lastName}|${billingForm?.email}|${billingForm?.address1}|${billingForm?.city}|${billingForm?.postalCode}|${billingForm?.country}`;
 
@@ -65,6 +68,8 @@ export default function StripeClientSecretLoader() {
             paymentMethodId,
             paymentIntentId: paymentIntentId || undefined, // Send existing ID if available
             locale,
+            promoCode,
+            discountAmount: Math.round(discountAmount * 100), // in cents
           }),
         });
 
@@ -111,6 +116,7 @@ export default function StripeClientSecretLoader() {
     total,
     orderId,
     cartKey,       // Stable string key instead of cartItems array reference
+    promoKey,      // Stable string key for promo code
     shippingKey,   // Stable string key instead of shippingForm object reference
     billingKey,    // Stable string key instead of billingForm object reference
     shippingCost,

@@ -65,6 +65,8 @@ const PaymentIntentSchema = z.object({
   paymentMethodId: z.string().optional(),
   paymentIntentId: z.string().optional(), // ID existujúceho intentu pre update
   locale: z.string().optional(),
+  promoCode: z.string().optional(),
+  discountAmount: z.number().nonnegative().int().optional(),
 });
 
 /**
@@ -116,7 +118,10 @@ export async function POST(request: NextRequest) {
       shippingForm,
       billingForm,
       paymentMethodId,
+      paymentIntentId,
       locale = 'sk', // Default to SK if not provided
+      promoCode,
+      discountAmount,
       // customerName is available but not used in PaymentIntent creation
     } = validationResult.data;
 
@@ -137,6 +142,8 @@ export async function POST(request: NextRequest) {
       shippingCurrency: currency,
       paymentMethod: paymentMethodId || "stripe",
       locale,
+      promoCode: promoCode || "",
+      discountAmount: (discountAmount || 0).toString(),
     };
 
     // Store cart items as a single compact JSON string (1 key instead of 5 per item)

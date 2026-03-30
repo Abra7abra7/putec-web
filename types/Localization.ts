@@ -168,6 +168,11 @@ export interface LocalizationData {
             premiumWines: string;
             validationCompleteFields: string;
             vatIncluded: string;
+            promoCodeLabel: string;
+            promoCodePlaceholder: string;
+            applyBtn: string;
+            invalidPromoCode: string;
+            discountLabel: string;
         };
         // Contact
         contactHeading: string;

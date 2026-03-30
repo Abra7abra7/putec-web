@@ -189,7 +189,12 @@
             "fastDelivery": "Fast delivery (SK and CZ)",
             "premiumWines": "Premium Slovak wines",
             "validationCompleteFields": "Please complete the following fields",
-            "vatIncluded": "incl. 23% VAT"
+            "vatIncluded": "incl. 23% VAT",
+            "promoCodeLabel": "Have a promo code?",
+            "promoCodePlaceholder": "Enter code",
+            "applyBtn": "Apply",
+            "invalidPromoCode": "Invalid promo code",
+            "discountLabel": "Discount"
         },
         "cartLabels": {
             "backToShopping": "Back to shopping",

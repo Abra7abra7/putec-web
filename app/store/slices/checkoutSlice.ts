@@ -27,6 +27,8 @@ export interface CheckoutState {
   shippingMethodId: string;
   paymentMethodId: string;
   differentBilling: boolean;
+  promoCode: string | null;
+  discountPercentage: number;
 }
 
 const initialForm: FormData = {
@@ -54,7 +56,9 @@ const initialState: CheckoutState = {
   billingForm: initialForm,
   shippingMethodId: "",
   paymentMethodId: "",
-  differentBilling: false
+  differentBilling: false,
+  promoCode: null,
+  discountPercentage: 0,
 };
 
 const checkoutSlice = createSlice({
@@ -88,6 +92,20 @@ const checkoutSlice = createSlice({
     setDifferentBilling(state, action: PayloadAction<boolean>) {
       state.differentBilling = action.payload;
     },
+    applyPromoCode(state, action: PayloadAction<string>) {
+      const code = action.payload.trim().toUpperCase();
+      if (code === "FINDIGO" || code === "FINGO") {
+        state.promoCode = code;
+        state.discountPercentage = 10;
+      } else {
+        state.promoCode = null;
+        state.discountPercentage = 0;
+      }
+    },
+    removePromoCode(state) {
+      state.promoCode = null;
+      state.discountPercentage = 0;
+    },
   },
 });
 
@@ -98,6 +116,8 @@ export const {
   setShippingMethod,
   setPaymentMethod,
   setDifferentBilling,
+  applyPromoCode,
+  removePromoCode,
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;
