@@ -249,7 +249,7 @@ export async function POST(request: NextRequest) {
           description: `${siteName} Order ${orderId}`,
           metadata,
           payment_method_types: ['card'],
-          receipt_email: customerEmail,
+          receipt_email: customerEmail || undefined,
         });
       }
     } else {
