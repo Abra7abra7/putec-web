@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
       shippingPriceCents: Math.round((shippingCost || 0) * 100).toString(),
       shippingCurrency: currency,
       paymentMethod: paymentMethodId || "stripe",
-      locale,
+      locale: locale || "sk",
       promoCode: promoCode || "",
       discountAmount: (discountAmount || 0).toString(),
     };
