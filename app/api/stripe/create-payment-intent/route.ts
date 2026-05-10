@@ -227,7 +227,7 @@ export async function POST(request: NextRequest) {
             amount,
             currency: currency.toLowerCase(),
             metadata, // Update metadata just in case items changed
-            receipt_email: customerEmail,
+            receipt_email: customerEmail || undefined,
           });
         } else {
           console.log(`⚠️ Existing Intent status is ${existingIntent.status}, creating new one.`);
@@ -238,7 +238,7 @@ export async function POST(request: NextRequest) {
             description: `${siteName} Order ${orderId}`,
             metadata,
             payment_method_types: ['card'],
-            receipt_email: customerEmail,
+            receipt_email: customerEmail || undefined,
           });
         }
       } catch (err) {
@@ -262,7 +262,7 @@ export async function POST(request: NextRequest) {
         metadata,
         payment_method_types: ['card'], // Len karty (+ Google/Apple Pay automaticky)
         // Bez customer a setup_future_usage - nebude Link ani možnosť ukladať karty
-        receipt_email: customerEmail, // Email na potvrdenie
+        receipt_email: customerEmail || undefined, // Email na potvrdenie
       });
     }
 
