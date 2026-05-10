@@ -28,18 +28,18 @@ const BillingAddressSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   country: z.string(),
-  state: z.string().optional(),
+  state: z.string().nullish(),
   city: z.string(),
   address1: z.string(),
-  address2: z.string().optional(),
+  address2: z.string().nullish(),
   postalCode: z.string(),
-  phone: z.string().optional(),
+  phone: z.string().nullish(),
   email: z.string().email(),
-  isCompany: z.boolean().optional(),
-  companyName: z.string().optional(),
-  companyICO: z.string().optional(),
-  companyDIC: z.string().optional(),
-  companyICDPH: z.string().optional(),
+  isCompany: z.boolean().nullish(),
+  companyName: z.string().nullish(),
+  companyICO: z.string().nullish(),
+  companyDIC: z.string().nullish(),
+  companyICDPH: z.string().nullish(),
 });
 
 const CartItemSchema = z.object({
@@ -47,7 +47,7 @@ const CartItemSchema = z.object({
   Title: z.string(),
   Slug: z.string(),
   RegularPrice: z.string(),
-  SalePrice: z.string().optional(),
+  SalePrice: z.string().nullish(),
   quantity: z.number().positive(),
 });
 
@@ -55,18 +55,18 @@ const PaymentIntentSchema = z.object({
   amount: z.number().positive().int(),
   currency: z.string().length(3), // EUR, USD, etc.
   orderId: z.string(),
-  cartItems: z.array(CartItemSchema).optional(),
+  cartItems: z.array(CartItemSchema).nullish(),
   shippingMethodName: z.string(),
   shippingCost: z.number().nonnegative(),
-  customerEmail: z.string().email().optional(),
-  customerName: z.string().optional(),
-  shippingForm: BillingAddressSchema.optional(),
-  billingForm: BillingAddressSchema.optional(),
-  paymentMethodId: z.string().optional(),
-  paymentIntentId: z.string().optional(), // ID existujúceho intentu pre update
-  locale: z.string().optional(),
-  promoCode: z.string().optional(),
-  discountAmount: z.number().nonnegative().int().optional(),
+  customerEmail: z.string().email().nullish(),
+  customerName: z.string().nullish(),
+  shippingForm: BillingAddressSchema.nullish(),
+  billingForm: BillingAddressSchema.nullish(),
+  paymentMethodId: z.string().nullish(),
+  paymentIntentId: z.string().nullish(), // ID existujúceho intentu pre update
+  locale: z.string().nullish(),
+  promoCode: z.string().nullish(),
+  discountAmount: z.number().nonnegative().int().nullish(),
 });
 
 /**

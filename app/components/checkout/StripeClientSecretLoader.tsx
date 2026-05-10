@@ -69,7 +69,7 @@ export default function StripeClientSecretLoader() {
             paymentMethodId,
             paymentIntentId: paymentIntentId || undefined, // Send existing ID if available
             locale,
-            promoCode,
+            promoCode: promoCode || undefined,
             discountAmount: Math.round(discountAmount * 100), // in cents
           }),
         });
@@ -97,7 +97,7 @@ export default function StripeClientSecretLoader() {
           localStorage.setItem("recentOrder", JSON.stringify(orderData));
           localStorage.setItem("stripeOrderData", JSON.stringify(orderData));
         } else if (isMounted) {
-          console.error("❌ Stripe API Error:", data.error || "No clientSecret returned");
+          console.error("❌ Stripe API Error:", data.error || "No clientSecret returned", data.details || "");
         }
       } catch (error) {
         if (isMounted) console.error("❌ Failed to load payment intent:", error);
