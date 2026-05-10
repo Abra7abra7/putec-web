@@ -18,6 +18,7 @@ export default function StripeClientSecretLoader() {
   const orderDate = useAppSelector((state) => state.checkout.orderDate);
   const shippingForm = useAppSelector((state) => state.checkout.shippingForm);
   const billingForm = useAppSelector((state) => state.checkout.billingForm);
+  const differentBilling = useAppSelector((state) => state.checkout.differentBilling);
   const paymentMethodId = useAppSelector((state) => state.checkout.paymentMethodId);
   const { shippingMethods } = useCheckoutSettings();
   const { promoCode, discountPercentage } = useAppSelector((state) => state.checkout);
@@ -39,7 +40,7 @@ export default function StripeClientSecretLoader() {
   const cartKey = cartItems.map(i => `${i.ID}:${i.quantity}`).join(',');
   const promoKey = `${promoCode || ''}-${discountPercentage}`;
   const shippingKey = `${shippingForm?.firstName}|${shippingForm?.lastName}|${shippingForm?.email}|${shippingForm?.address1}|${shippingForm?.city}|${shippingForm?.postalCode}|${shippingForm?.country}`;
-  const billingKey = `${billingForm?.firstName}|${billingForm?.lastName}|${billingForm?.email}|${billingForm?.address1}|${billingForm?.city}|${billingForm?.postalCode}|${billingForm?.country}`;
+  const billingKey = differentBilling ? `${billingForm?.firstName}|${billingForm?.lastName}|${billingForm?.email}|${billingForm?.address1}|${billingForm?.city}|${billingForm?.postalCode}|${billingForm?.country}` : 'same_as_shipping';
 
   useEffect(() => {
     // Flag to prevent race conditions or updates after unmount
@@ -64,7 +65,7 @@ export default function StripeClientSecretLoader() {
             customerEmail: shippingForm?.email,
             customerName: `${shippingForm?.firstName || ''} ${shippingForm?.lastName || ''}`.trim(),
             shippingForm,
-            billingForm,
+            billingForm: differentBilling ? billingForm : undefined,
             paymentMethodId,
             paymentIntentId: paymentIntentId || undefined, // Send existing ID if available
             locale,
@@ -87,7 +88,7 @@ export default function StripeClientSecretLoader() {
             orderDate,
             cartItems,
             shippingForm,
-            billingForm,
+            billingForm: differentBilling ? billingForm : shippingForm,
             shippingMethod,
             paymentMethodId: 'stripe',
           };
@@ -123,6 +124,7 @@ export default function StripeClientSecretLoader() {
     paymentMethodId,
     currency,
     locale,
+    differentBilling,
     // paymentIntentId is NOT in dependency array to avoid infinite loop!
     // cartItems, shippingForm, billingForm, shippingMethod are used in the body
     // but their stable keys above handle the dependency tracking
