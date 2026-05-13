@@ -21,7 +21,7 @@ Tento projekt je postavený na modernom stacku. Nepridávaj nové závislosti, p
 ## 2. Architektúra a Routing
 Projekt striktne využíva **Next.js App Router**:
 
-*   **Štruktúra zložiek:** Všetky routy sa nachádzajú v adresári `app/[locale]/`, pretože aplikácia je plne lokalizovaná cez `next-intl`. Zložka `src` neobsahuje root aplikácie.
+*   **Štruktúra zložiek:** Všetky routy sa nachádzajú v adresári `app/[locale]/` kvôli technickej integrácii `next-intl`, ale aplikácia používa výhradne slovenčinu a URL adresy sú bez prefixu (napr. `/galeria` namiesto `/sk/galeria`). Prefix `en` bol odstránený na žiadosť klienta pre lepšiu SEO indexáciu a zjednodušenie správy.
 *   **Konfigurácia a Layouts:** Koreňový layout poskytuje kontext a tému, zatiaľ čo vnorené layouty sa starajú o špecifiká domén (napr. navigácia, footer).
 *   **Route Handlers (API):** Všetky backendové API endpointy sú v zložke `app/api/` (napr. webhooky pre Stripe v `app/api/stripe/webhook/route.ts`).
 *   **Dáta a Mutácie (Server Actions):** Zložka `app/actions/` obsahuje server-side logiku spúšťanú z klientských alebo serverových komponentov (napríklad spájanie so SuperFaktúrou, kontaktné formuláre).

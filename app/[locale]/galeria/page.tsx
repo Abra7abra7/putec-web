@@ -15,7 +15,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       canonical: "https://vinoputec.sk/galeria",
       languages: {
         "sk-SK": "/galeria",
-        "en-US": "/en/galeria",
       },
     },
   };
@@ -59,7 +58,7 @@ export default async function GalleryIndexPage({ params }: { params: Promise<{ l
               href={`/galeria/${c.slug}`}
               className="group block overflow-hidden rounded-xl border-2 border-gray-200 hover:border-accent transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
             >
-              <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
+              <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100" suppressHydrationWarning>
                 <Image
                   src={c.thumbnail}
                   alt={c.title}

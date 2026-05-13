@@ -29,7 +29,6 @@ export async function generateMetadata({
       canonical: `https://vinoputec.sk/galeria/${category}`,
       languages: {
         "sk-SK": `/galeria/${category}`,
-        "en-US": `/en/galeria/${category}`,
       },
     },
   };
@@ -37,7 +36,7 @@ export async function generateMetadata({
 
 function listImagesFrom(category: string): string[] {
   const images = GALLERY_IMAGES[category] || [];
-  return images.map((file) => getMediaUrl(`/galeria/${category}/${file}`));
+  return images.map((path) => getMediaUrl(path));
 }
 
 export default async function GalleryCategoryPage({

@@ -3,7 +3,6 @@ import DesktopNavigation from "./DesktopNavigation";
 import { ReduxProvider } from "../providers";
 import HeaderBackButton from "./HeaderBackButton";
 import { getLocalization } from "../utils/getLocalization";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 // Dynamic imports
 const MobileMenu = dynamic(() => import("./MobileMenu"));
@@ -39,7 +38,6 @@ export default async function Header({ locale }: { locale?: string }) {
           </div>
 
           <div className="flex items-center gap-3 ml-4">
-            <LanguageSwitcher currentLocale={currentLocale} />
             {!isUbytovanieDomain && (
               <MiniCart />
             )}

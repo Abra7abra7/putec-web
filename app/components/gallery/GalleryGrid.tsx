@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import "yet-another-react-lightbox/styles.css";
@@ -13,17 +13,23 @@ interface GalleryGridProps {
 
 export default function GalleryGrid({ images }: GalleryGridProps) {
     const [index, setIndex] = useState(-1);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     if (!images || images.length === 0) return null;
 
     return (
         <>
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4" suppressHydrationWarning>
                 {images.map((src, i) => (
                     <div
                         key={src}
                         className="break-inside-avoid relative group cursor-pointer rounded-lg overflow-hidden"
-                        onClick={() => setIndex(i)}
+                        onClick={() => mounted && setIndex(i)}
+                        suppressHydrationWarning
                     >
                         <Image
                             src={src}
@@ -33,7 +39,8 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
                             className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        {/* High z-index overlay to capture clicks even if extensions inject badges */}
+                        <div className="absolute inset-0 z-[10001] bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                             <span className="text-white bg-black/50 px-3 py-1 rounded-full text-sm">Zväčšiť</span>
                         </div>
                     </div>
