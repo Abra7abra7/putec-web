@@ -17,7 +17,7 @@ export const GALLERY_IMAGES: Record<string, string[]> = {
         "degustacie/Víno trochu inak.jpg",
         "degustacie/bozk-2.jpg",
 
-        "degustacie/degustacia-x.jpg",
+
         "degustacie/degustacna-x.jpg",
         "degustacie/degustácia skupina.jpg",
         "degustacie/jama-x.jpg",
